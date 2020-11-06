@@ -32,6 +32,7 @@ public class PecaUI extends javax.swing.JFrame {
     private Peca pecaAux = null;
     private CriarPeca criarPeca= null;
     private EditarPeca editarPeca = null;
+    private VisualizarPeca visualizarPeca = null;
     
     private PecasController pecaController = null;
     /**
@@ -464,11 +465,13 @@ public class PecaUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton_NomeVariavelActionPerformed
 
     private void btnVisualizarPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarPecaActionPerformed
-        // TODO add your handling code here:
+        produtoVisualizar();
     }//GEN-LAST:event_btnVisualizarPecaActionPerformed
 
     private void btnVisualizarPecaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnVisualizarPecaKeyPressed
-        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            produtoVisualizar();
+        }
     }//GEN-LAST:event_btnVisualizarPecaKeyPressed
 
     private void produtoAlterar(){
@@ -544,6 +547,81 @@ public class PecaUI extends javax.swing.JFrame {
         pecaAuxLocal = new Peca(Codigo,Descricao,PrecoCompra,PrecoVenda,MargemLucro,Marca,Modelo,Ano, listaEspecificacoes, listaNomesVariantes);
         setPecaAux(pecaAuxLocal);
         pecaController.abreEdicaoPeca();
+    }
+    
+    private void produtoVisualizar(){
+        String codigo;
+        codigo = (String) tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 0);
+        Peca pecaAuxLocal;
+        String Codigo = null,Descricao = null,PrecoCompra = null,PrecoVenda = null,MargemLucro = null,Marca = null,Modelo = null,Ano = null;
+        ArrayList<Especificacao> listaEspecificacoes = new ArrayList();
+        ArrayList<String> listaNomesVariantes = new ArrayList();
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "SELECT * FROM Produto WHERE Codigo = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, codigo);
+                ResultSet rs = pst.executeQuery();
+
+                if(rs.next()){
+                    Codigo = rs.getString("Codigo");
+                    Descricao = rs.getString("Descricao");
+                    PrecoCompra = rs.getString("PrecoCompra");
+                    PrecoVenda = rs.getString("PrecoVenda");
+                    MargemLucro = rs.getString("MargemLucro");
+                    Marca = rs.getString("Marca");
+                    Modelo = rs.getString("Modelo");
+                    Ano = rs.getString("Ano");
+                }
+            }
+        } catch (SQLException | HeadlessException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "SELECT * FROM Produto_Variante WHERE CodigoProduto = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, codigo);
+                ResultSet rs = pst.executeQuery();
+                String nomeVariavel;
+                while(rs.next()){
+                    nomeVariavel = rs.getString("NomeVariavel");
+                    listaNomesVariantes.add(nomeVariavel);
+                }
+            }
+        } catch (SQLException | HeadlessException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "SELECT * FROM Produto_Especificacao WHERE CodigoProduto = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, codigo);
+                ResultSet rs = pst.executeQuery();
+                String descricao, valor, unidadeMedida;
+                while(rs.next()){
+                    descricao = rs.getString("Descricao");
+                    valor = rs.getString("Valor");
+                    unidadeMedida = rs.getString("UnidadeMedida");
+                    Especificacao esp = new Especificacao(descricao, valor, unidadeMedida);
+                    listaEspecificacoes.add(esp);
+                }
+            }
+        } catch (SQLException | HeadlessException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+        pecaAuxLocal = new Peca(Codigo,Descricao,PrecoCompra,PrecoVenda,MargemLucro,Marca,Modelo,Ano, listaEspecificacoes, listaNomesVariantes);
+        setPecaAux(pecaAuxLocal);
+        pecaController.abreVisualizacaoPeca();
     }
     
     private void produtoExcluir(){
@@ -780,5 +858,19 @@ public class PecaUI extends javax.swing.JFrame {
      */
     public void setCriarPeca(CriarPeca criarPeca) {
         this.criarPeca = criarPeca;
+    }
+
+    /**
+     * @return the visualizarPeca
+     */
+    public VisualizarPeca getVisualizarPeca() {
+        return visualizarPeca;
+    }
+
+    /**
+     * @param visualizarPeca the visualizarPeca to set
+     */
+    public void setVisualizarPeca(VisualizarPeca visualizarPeca) {
+        this.visualizarPeca = visualizarPeca;
     }
 }

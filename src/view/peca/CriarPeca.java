@@ -909,7 +909,6 @@ public class CriarPeca extends javax.swing.JFrame {
         } else {
             DefaultTableModel modeloAux = (DefaultTableModel) tabelaNomeVariantes.getModel();
             modeloAux.addRow(new Object[]{tabelaNomeVariantes.getRowCount()+1, campoNomeVar.getText()});
-                        
         }
     }
     
@@ -943,7 +942,18 @@ public class CriarPeca extends javax.swing.JFrame {
     }
     
     private void removeEspecificacao(){
-        
+        if (tabelaEspGerais.getSelectedRow() > -1){
+            String message = "Deseja realmente remover o nome inserido?";
+            String title = "Cancelar Inserção";
+            int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+                DefaultTableModel modeloAux = (DefaultTableModel) tabelaEspGerais.getModel();
+                modeloAux.removeRow(tabelaEspGerais.getSelectedRow());
+            }
+            if (reply == JOptionPane.NO_OPTION) {
+
+            }
+        }
     }
     
     private void fechaCadastroPeca(){

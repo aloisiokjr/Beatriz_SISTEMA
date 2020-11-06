@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import model.Especificacao;
 import model.Peca;
 import model.Requisito;
 import util.SQL_URL;
@@ -783,8 +784,23 @@ public class EditarPeca extends javax.swing.JFrame {
         campoModeloPeca.setText(getPecaAux().getModelo());
         campoAnoPeca.setText(getPecaAux().getAno());
         
+        Iterator<Especificacao> iteradorEspec = getPecaAux().getListaEspecificacoes().iterator();
+        Especificacao especAux;
+        while(iteradorEspec.hasNext()){
+            especAux = iteradorEspec.next();
+            DefaultTableModel modeloAux = (DefaultTableModel) tabelaEspGerais.getModel();
+            modeloAux.addRow(new Object[]{especAux.getDescricao(), especAux.getUnidadeMedida(), especAux.getValor()});
+        }
         
-        
+        Iterator<String> iteradorVariantes = getPecaAux().getListaNomesVariantes().iterator();
+        String nomeAux;
+        int index = 1;
+        while(iteradorVariantes.hasNext()){
+            nomeAux = iteradorVariantes.next();
+            DefaultTableModel modeloAux = (DefaultTableModel) tabelaNomeVariantes.getModel();
+            modeloAux.addRow(new Object[]{index, nomeAux});
+            index++;
+        }
     }
     
     private void avisaCodigoPeca(javax.swing.JTextField campoCodigoAux, javax.swing.JLabel labelCodigoAux) throws ClassNotFoundException, SQLException {
@@ -859,7 +875,7 @@ public class EditarPeca extends javax.swing.JFrame {
                 pst.setString(1, textAux);
                 ResultSet rs = pst.executeQuery();
                 if (rs.next()) {                    
-                    if (getPecaAux().getListaNomesVariantes().contains(new String(textAux))) {
+                    if (getPecaAux().getListaNomesVariantes().contains(textAux)) {
                         labelAux.setForeground(new java.awt.Color(51, 199, 9));
                         labelAux.setText("Nome Variante original.");
                     } else {
@@ -880,7 +896,6 @@ public class EditarPeca extends javax.swing.JFrame {
         } else {
             DefaultTableModel modeloAux = (DefaultTableModel) tabelaNomeVariantes.getModel();
             modeloAux.addRow(new Object[]{tabelaNomeVariantes.getRowCount()+1, campoNomeVar.getText()});
-                        
         }
     }
     
@@ -914,7 +929,18 @@ public class EditarPeca extends javax.swing.JFrame {
     }
     
     private void removeEspecificacao(){
-        
+        if (tabelaEspGerais.getSelectedRow() > -1){
+            String message = "Deseja realmente remover o nome inserido?";
+            String title = "Cancelar Inserção";
+            int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+                DefaultTableModel modeloAux = (DefaultTableModel) tabelaEspGerais.getModel();
+                modeloAux.removeRow(tabelaEspGerais.getSelectedRow());
+            }
+            if (reply == JOptionPane.NO_OPTION) {
+
+            }
+        }
     }
     
     private void editaPeca(){

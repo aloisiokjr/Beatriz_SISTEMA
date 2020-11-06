@@ -11,6 +11,7 @@ import view.Sistema_UI;
 import view.peca.CriarPeca;
 import view.peca.EditarPeca;
 import view.peca.PecaUI;
+import view.peca.VisualizarPeca;
 
 /**
  *
@@ -22,6 +23,7 @@ public class PecasController {
     private PecaUI pecaUI = null;
     private CriarPeca criarPeca = null;
     private EditarPeca editarPeca = null;
+    private VisualizarPeca visualizarPeca = null;
     
     private Peca pecaAux = null;
     
@@ -76,6 +78,22 @@ public class PecasController {
     
     public void fechaEdicaoPeca(){
         getEditarPeca().dispose();
+        pecaUI.setEnabled(true);
+        pecaUI.setPecaAux(null);
+        sistemaUI.toFront();
+        pecaUI.toFront();
+        sistemaUI.atualizaDados();
+    }
+    
+    public void abreVisualizacaoPeca(){
+        pecaUI.setVisualizarPeca(new VisualizarPeca(this, pecaUI.getPecaAux()));
+        setVisualizarPeca(pecaUI.getVisualizarPeca());
+        getVisualizarPeca().setaVisualizacao();
+        pecaUI.setEnabled(false);
+    }
+    
+    public void fechaVisualizacaoPeca(){
+        getVisualizarPeca().dispose();
         pecaUI.setEnabled(true);
         pecaUI.setPecaAux(null);
         sistemaUI.toFront();
@@ -150,6 +168,20 @@ public class PecasController {
      */
     public void setEditarPeca(EditarPeca editarPeca) {
         this.editarPeca = editarPeca;
+    }
+
+    /**
+     * @return the visualizarPeca
+     */
+    public VisualizarPeca getVisualizarPeca() {
+        return visualizarPeca;
+    }
+
+    /**
+     * @param visualizarPeca the visualizarPeca to set
+     */
+    public void setVisualizarPeca(VisualizarPeca visualizarPeca) {
+        this.visualizarPeca = visualizarPeca;
     }
     
 }
