@@ -23,6 +23,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 import model.Requisito;
 import util.SQL_URL;
 
@@ -70,7 +71,7 @@ public class CriarPeca extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         campoValorEsp = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxUM = new javax.swing.JComboBox<>();
         btnRemoveEspecificacoes = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -181,6 +182,16 @@ public class CriarPeca extends javax.swing.JFrame {
 
         btnAdcionaEsp.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         btnAdcionaEsp.setText("ADICIONAR");
+        btnAdcionaEsp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdcionaEspActionPerformed(evt);
+            }
+        });
+        btnAdcionaEsp.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnAdcionaEspKeyPressed(evt);
+            }
+        });
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel15.setText("VALOR:");
@@ -190,11 +201,21 @@ public class CriarPeca extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel16.setText("UNIDADE DE MEDIDA:");
 
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Comprimento(M)", "Massa(KG)", "Volume(L)", "Corrente Elétrica (A)" }));
+        jComboBoxUM.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jComboBoxUM.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Comprimento(M)", "Massa(KG)", "Volume(L)", "Corrente Elétrica (A)" }));
 
         btnRemoveEspecificacoes.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         btnRemoveEspecificacoes.setText("REMOVER");
+        btnRemoveEspecificacoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveEspecificacoesActionPerformed(evt);
+            }
+        });
+        btnRemoveEspecificacoes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnRemoveEspecificacoesKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -220,7 +241,7 @@ public class CriarPeca extends javax.swing.JFrame {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jComboBoxUM, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnRemoveEspecificacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(31, 31, 31))
@@ -239,7 +260,7 @@ public class CriarPeca extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxUM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
@@ -294,11 +315,31 @@ public class CriarPeca extends javax.swing.JFrame {
 
         btnAdicionaNomeVar.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         btnAdicionaNomeVar.setText("ADICIONAR");
+        btnAdicionaNomeVar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionaNomeVarActionPerformed(evt);
+            }
+        });
+        btnAdicionaNomeVar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnAdicionaNomeVarKeyPressed(evt);
+            }
+        });
 
         labelNomeVariante.setText("jLabel17");
 
         btnRemoveNomeVar.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         btnRemoveNomeVar.setText("REMOVER");
+        btnRemoveNomeVar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveNomeVarActionPerformed(evt);
+            }
+        });
+        btnRemoveNomeVar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnRemoveNomeVarKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -725,6 +766,46 @@ public class CriarPeca extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSalvarKeyPressed
 
+    private void btnRemoveNomeVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveNomeVarActionPerformed
+        removeNomeVariante();
+    }//GEN-LAST:event_btnRemoveNomeVarActionPerformed
+
+    private void btnRemoveNomeVarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnRemoveNomeVarKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            removeNomeVariante();
+        }
+    }//GEN-LAST:event_btnRemoveNomeVarKeyPressed
+
+    private void btnAdicionaNomeVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionaNomeVarActionPerformed
+        adicionaNomeVariante();
+    }//GEN-LAST:event_btnAdicionaNomeVarActionPerformed
+
+    private void btnAdicionaNomeVarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnAdicionaNomeVarKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            adicionaNomeVariante();
+        }
+    }//GEN-LAST:event_btnAdicionaNomeVarKeyPressed
+
+    private void btnAdcionaEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdcionaEspActionPerformed
+        adicionaEspecificacao();
+    }//GEN-LAST:event_btnAdcionaEspActionPerformed
+
+    private void btnAdcionaEspKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnAdcionaEspKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            adicionaEspecificacao();
+        }
+    }//GEN-LAST:event_btnAdcionaEspKeyPressed
+
+    private void btnRemoveEspecificacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveEspecificacoesActionPerformed
+        removeEspecificacao();
+    }//GEN-LAST:event_btnRemoveEspecificacoesActionPerformed
+
+    private void btnRemoveEspecificacoesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnRemoveEspecificacoesKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            removeEspecificacao();
+        }
+    }//GEN-LAST:event_btnRemoveEspecificacoesKeyPressed
+
     public void setagemInicial(){
         listaRequisitos = null;
         listaRequisitos = new ArrayList();
@@ -822,6 +903,49 @@ public class CriarPeca extends javax.swing.JFrame {
         }
     }
     
+    private void adicionaNomeVariante(){
+        if (campoNomeVar.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Digite um valor válido.");
+        } else {
+            DefaultTableModel modeloAux = (DefaultTableModel) tabelaNomeVariantes.getModel();
+            modeloAux.addRow(new Object[]{tabelaNomeVariantes.getRowCount()+1, campoNomeVar.getText()});
+                        
+        }
+    }
+    
+    private void removeNomeVariante(){
+        if (tabelaNomeVariantes.getSelectedRow() > -1){
+            String message = "Deseja realmente remover o nome inserido?";
+            String title = "Cancelar Inserção";
+            int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+                DefaultTableModel modeloAux = (DefaultTableModel) tabelaNomeVariantes.getModel();
+                modeloAux.removeRow(tabelaNomeVariantes.getSelectedRow());
+            }
+            if (reply == JOptionPane.NO_OPTION) {
+
+            }
+        }
+    }
+    
+    private void adicionaEspecificacao(){
+        String unidadeMedida = (String)jComboBoxUM.getSelectedItem();
+        if (campoDescricaoEsp.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Insira um valor válido para a descrição.");
+        } else if(unidadeMedida.equals("Selecione")){
+            JOptionPane.showMessageDialog(null, "Selecione uma Unidade de Medida.");
+        } else if (campoValorEsp.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Insira um valor válido para o valor.");
+        } else {
+            DefaultTableModel modeloAux = (DefaultTableModel) tabelaEspGerais.getModel();
+            modeloAux.addRow(new Object[]{campoDescricaoEsp.getText(),(String)jComboBoxUM.getSelectedItem(),campoValorEsp.getText()});
+        }
+    }
+    
+    private void removeEspecificacao(){
+        
+    }
+    
     private void fechaCadastroPeca(){
         String message = "Deseja realmente cancelar o cadastro?";
         String title = "Cancelar Cadastro";
@@ -894,11 +1018,53 @@ public class CriarPeca extends javax.swing.JFrame {
             }
             
             if(tabelaNomeVariantes.getRowCount() > 0){
-                
+                int indexNome = 0;
+                while (indexNome < tabelaNomeVariantes.getRowCount()){
+                    try {
+                        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                        String url = SQL_URL.getUrl();
+                        try (Connection con = DriverManager.getConnection(url)) {
+                            String sql;
+                            sql = "INSERT INTO Produto_Variavel (CodigoProduto, NomeVariavel) VALUES (?,?)";
+                            PreparedStatement pst = con.prepareStatement(sql);
+                            pst.setString(1, codigo);
+                            pst.setString(2, (String)tabelaNomeVariantes.getValueAt(indexNome, 1));
+                            ResultSet rs = pst.executeQuery();
+                            if (rs.next()) {
+
+                            }
+                        }
+                    } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+                        //JOptionPane.showMessageDialog(null, e);
+                    }
+                    indexNome++;
+                }
             }
             
             if(tabelaEspGerais.getRowCount() > 0){
-                
+                int index = 0;
+                while (index < tabelaEspGerais.getRowCount()){
+                    try {
+                        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                        String url = SQL_URL.getUrl();
+                        try (Connection con = DriverManager.getConnection(url)) {
+                            String sql;
+                            sql = "INSERT INTO Produto_Especificacao(CodigoProduto, Descricao, Valor, UnidadeMedida) VALUES (?,?,?,?)";
+                            PreparedStatement pst = con.prepareStatement(sql);
+                            pst.setString(1, codigo);
+                            pst.setString(2, (String)tabelaNomeVariantes.getValueAt(index, 0));
+                            pst.setString(3, (String)tabelaNomeVariantes.getValueAt(index, 2));
+                            pst.setString(4, (String)tabelaNomeVariantes.getValueAt(index, 1));
+                            ResultSet rs = pst.executeQuery();
+                            if (rs.next()) {
+
+                            }
+                        }
+                    } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+                        //JOptionPane.showMessageDialog(null, e);
+                    }
+                    index++;
+                }
             }
         }
     }
@@ -947,7 +1113,7 @@ public class CriarPeca extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField campoPrecoCompra;
     private javax.swing.JFormattedTextField campoPrecoVenda;
     private javax.swing.JTextField campoValorEsp;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBoxUM;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
