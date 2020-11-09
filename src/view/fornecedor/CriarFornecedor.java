@@ -5,12 +5,27 @@
  */
 package view.fornecedor;
 
+import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
+import model.Requisito;
+import util.BuscaCEP;
+import util.CEP;
+
 /**
  *
  * @author KLEYN
  */
 public class CriarFornecedor extends javax.swing.JFrame {
 
+    private ArrayList<Requisito> listaRequisitos = null;
     /**
      * Creates new form CriarFornecedor
      */
@@ -27,22 +42,968 @@ public class CriarFornecedor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel15 = new javax.swing.JPanel();
+        campoCriacaoMotoristaCriacao2 = new javax.swing.JPanel();
+        campoCodigoFornecedor = new javax.swing.JTextField();
+        jLabel67 = new javax.swing.JLabel();
+        campoRazaoSocialFornecedor = new javax.swing.JTextField();
+        jLabel68 = new javax.swing.JLabel();
+        jLabel74 = new javax.swing.JLabel();
+        campoNumeroCelularCriacaoFornecedor = new javax.swing.JFormattedTextField();
+        jLabel75 = new javax.swing.JLabel();
+        campoEnderecoFornecedorCriacao = new javax.swing.JTextField();
+        jLabel76 = new javax.swing.JLabel();
+        campoNumeroEndFornecedorCriacao = new javax.swing.JTextField();
+        jLabel77 = new javax.swing.JLabel();
+        campoComplementoFornecedorCriacao = new javax.swing.JTextField();
+        jLabel78 = new javax.swing.JLabel();
+        campoBairroFornecedorCriacao = new javax.swing.JTextField();
+        jLabel79 = new javax.swing.JLabel();
+        campoCEPFornecedorCriacao = new javax.swing.JFormattedTextField();
+        campoCidadeFornecedorCriacao = new javax.swing.JTextField();
+        jLabel80 = new javax.swing.JLabel();
+        jLabel81 = new javax.swing.JLabel();
+        campoEstadoFornecedorCriacao = new javax.swing.JTextField();
+        jLabel82 = new javax.swing.JLabel();
+        campoEmailFornecedorCriacao = new javax.swing.JTextField();
+        jLabel83 = new javax.swing.JLabel();
+        jLabelCodigoCadastroFornecedor = new javax.swing.JLabel();
+        jLabel84 = new javax.swing.JLabel();
+        campoIECadastroFornecedor = new javax.swing.JFormattedTextField();
+        jLabeIECadastroFornecedor = new javax.swing.JLabel();
+        jLabel86 = new javax.swing.JLabel();
+        jRadioButton_PF_Transportadora = new javax.swing.JRadioButton();
+        jRadioButton_PJ_Transportadora = new javax.swing.JRadioButton();
+        jLabel87 = new javax.swing.JLabel();
+        campoNomeFantasiaFornecedor = new javax.swing.JTextField();
+        jLabel88 = new javax.swing.JLabel();
+        campoCPF_CNPJCadastroFornecedor = new javax.swing.JFormattedTextField();
+        jLabelCPF_CNPJCadastroFornecedor = new javax.swing.JLabel();
+        jLabel69 = new javax.swing.JLabel();
+        campoResponsavelFornecedor = new javax.swing.JTextField();
+        jComboBox_BancoFornecedorCriacao = new javax.swing.JComboBox<>();
+        jLabel70 = new javax.swing.JLabel();
+        campoAgenciaFornecedorCriacao = new javax.swing.JTextField();
+        jLabel71 = new javax.swing.JLabel();
+        campoContaFornecedorCriacao = new javax.swing.JTextField();
+        jLabel72 = new javax.swing.JLabel();
+        jLabel89 = new javax.swing.JLabel();
+        campoNumeroTelefoneFornecedorCriacao = new javax.swing.JFormattedTextField();
+        jLabel90 = new javax.swing.JLabel();
+        campoObservacaoFornecedorCriacao = new javax.swing.JTextField();
+        jLabel91 = new javax.swing.JLabel();
+        jCheckBox_SituacaoTransportadoraCriacao = new javax.swing.JCheckBox();
+        btnSalvaCriacaoFornecedor = new javax.swing.JButton();
+        btnFecharCriacaoFornecedor = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel15.setLayout(null);
+
+        campoCriacaoMotoristaCriacao2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        campoCriacaoMotoristaCriacao2.setLayout(null);
+
+        campoCodigoFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        campoCodigoFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoCodigoFornecedorFocusLost(evt);
+            }
+        });
+        campoCriacaoMotoristaCriacao2.add(campoCodigoFornecedor);
+        campoCodigoFornecedor.setBounds(19, 38, 76, 22);
+        campoCodigoFornecedor.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                try {
+                    avisaCodigoFornecedor(campoCodigoFornecedor, jLabelCodigoCadastroFornecedor);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            public void removeUpdate(DocumentEvent e) {
+                try {
+                    avisaCodigoFornecedor(campoCodigoFornecedor, jLabelCodigoCadastroFornecedor);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            public void insertUpdate(DocumentEvent e) {
+                try {
+                    avisaCodigoFornecedor(campoCodigoFornecedor, jLabelCodigoCadastroFornecedor);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+
+        jLabel67.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel67.setText("Código *");
+        campoCriacaoMotoristaCriacao2.add(jLabel67);
+        jLabel67.setBounds(19, 12, 61, 20);
+
+        campoRazaoSocialFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        campoRazaoSocialFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoRazaoSocialFornecedorFocusLost(evt);
+            }
+        });
+        campoRazaoSocialFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoRazaoSocialFornecedorActionPerformed(evt);
+            }
+        });
+        campoCriacaoMotoristaCriacao2.add(campoRazaoSocialFornecedor);
+        campoRazaoSocialFornecedor.setBounds(19, 112, 321, 22);
+
+        jLabel68.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel68.setText("Razão Social *");
+        campoCriacaoMotoristaCriacao2.add(jLabel68);
+        jLabel68.setBounds(19, 86, 110, 20);
+
+        jLabel74.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel74.setText("Celular *");
+        campoCriacaoMotoristaCriacao2.add(jLabel74);
+        jLabel74.setBounds(1002, 162, 158, 20);
+
+        try {
+            campoNumeroCelularCriacaoFornecedor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        campoNumeroCelularCriacaoFornecedor.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
+        campoNumeroCelularCriacaoFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        campoNumeroCelularCriacaoFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoNumeroCelularCriacaoFornecedorFocusLost(evt);
+            }
+        });
+        campoCriacaoMotoristaCriacao2.add(campoNumeroCelularCriacaoFornecedor);
+        campoNumeroCelularCriacaoFornecedor.setBounds(1002, 187, 207, 23);
+
+        jLabel75.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel75.setText("Endereço *");
+        campoCriacaoMotoristaCriacao2.add(jLabel75);
+        jLabel75.setBounds(175, 231, 80, 20);
+
+        campoEnderecoFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        campoEnderecoFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoEnderecoFornecedorCriacaoFocusLost(evt);
+            }
+        });
+        campoEnderecoFornecedorCriacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoEnderecoFornecedorCriacaoActionPerformed(evt);
+            }
+        });
+        campoCriacaoMotoristaCriacao2.add(campoEnderecoFornecedorCriacao);
+        campoEnderecoFornecedorCriacao.setBounds(175, 256, 400, 22);
+
+        jLabel76.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel76.setText("Número *");
+        campoCriacaoMotoristaCriacao2.add(jLabel76);
+        jLabel76.setBounds(631, 231, 76, 20);
+
+        campoNumeroEndFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        campoNumeroEndFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoNumeroEndFornecedorCriacaoFocusLost(evt);
+            }
+        });
+        campoCriacaoMotoristaCriacao2.add(campoNumeroEndFornecedorCriacao);
+        campoNumeroEndFornecedorCriacao.setBounds(631, 256, 100, 22);
+
+        jLabel77.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel77.setText("Complemento *");
+        campoCriacaoMotoristaCriacao2.add(jLabel77);
+        jLabel77.setBounds(782, 231, 133, 20);
+
+        campoComplementoFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        campoComplementoFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoComplementoFornecedorCriacaoFocusLost(evt);
+            }
+        });
+        campoComplementoFornecedorCriacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoComplementoFornecedorCriacaoActionPerformed(evt);
+            }
+        });
+        campoCriacaoMotoristaCriacao2.add(campoComplementoFornecedorCriacao);
+        campoComplementoFornecedorCriacao.setBounds(782, 256, 193, 22);
+
+        jLabel78.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel78.setText("Bairro *");
+        campoCriacaoMotoristaCriacao2.add(jLabel78);
+        jLabel78.setBounds(1002, 229, 72, 23);
+
+        campoBairroFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        campoBairroFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoBairroFornecedorCriacaoFocusLost(evt);
+            }
+        });
+        campoBairroFornecedorCriacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoBairroFornecedorCriacaoActionPerformed(evt);
+            }
+        });
+        campoCriacaoMotoristaCriacao2.add(campoBairroFornecedorCriacao);
+        campoBairroFornecedorCriacao.setBounds(1002, 256, 207, 22);
+
+        jLabel79.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel79.setText("CEP *");
+        campoCriacaoMotoristaCriacao2.add(jLabel79);
+        jLabel79.setBounds(19, 231, 46, 20);
+
+        try {
+            campoCEPFornecedorCriacao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        campoCEPFornecedorCriacao.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
+        campoCEPFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoCEPFornecedorCriacaoFocusLost(evt);
+            }
+        });
+        campoCEPFornecedorCriacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoCEPFornecedorCriacaoActionPerformed(evt);
+            }
+        });
+        campoCriacaoMotoristaCriacao2.add(campoCEPFornecedorCriacao);
+        campoCEPFornecedorCriacao.setBounds(19, 256, 117, 19);
+
+        campoCidadeFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        campoCidadeFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoCidadeFornecedorCriacaoFocusLost(evt);
+            }
+        });
+        campoCidadeFornecedorCriacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoCidadeFornecedorCriacaoActionPerformed(evt);
+            }
+        });
+        campoCriacaoMotoristaCriacao2.add(campoCidadeFornecedorCriacao);
+        campoCidadeFornecedorCriacao.setBounds(19, 324, 180, 22);
+
+        jLabel80.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel80.setText("Cidade *");
+        campoCriacaoMotoristaCriacao2.add(jLabel80);
+        jLabel80.setBounds(19, 297, 68, 20);
+
+        jLabel81.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel81.setText("Estado *");
+        campoCriacaoMotoristaCriacao2.add(jLabel81);
+        jLabel81.setBounds(241, 297, 68, 20);
+
+        campoEstadoFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        campoEstadoFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoEstadoFornecedorCriacaoFocusLost(evt);
+            }
+        });
+        campoEstadoFornecedorCriacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoEstadoFornecedorCriacaoActionPerformed(evt);
+            }
+        });
+        campoCriacaoMotoristaCriacao2.add(campoEstadoFornecedorCriacao);
+        campoEstadoFornecedorCriacao.setBounds(241, 324, 180, 22);
+
+        jLabel82.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel82.setText("Email *");
+        campoCriacaoMotoristaCriacao2.add(jLabel82);
+        jLabel82.setBounds(462, 297, 65, 20);
+
+        campoEmailFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        campoEmailFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoEmailFornecedorCriacaoFocusLost(evt);
+            }
+        });
+        campoEmailFornecedorCriacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoEmailFornecedorCriacaoActionPerformed(evt);
+            }
+        });
+        campoCriacaoMotoristaCriacao2.add(campoEmailFornecedorCriacao);
+        campoEmailFornecedorCriacao.setBounds(462, 324, 269, 22);
+
+        jLabel83.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel83.setText("* Campos Obrigatórios");
+        campoCriacaoMotoristaCriacao2.add(jLabel83);
+        jLabel83.setBounds(11, 378, 249, 20);
+
+        jLabelCodigoCadastroFornecedor.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        jLabelCodigoCadastroFornecedor.setForeground(new java.awt.Color(204, 0, 0));
+        jLabelCodigoCadastroFornecedor.setText("Já cadastrado.");
+        campoCriacaoMotoristaCriacao2.add(jLabelCodigoCadastroFornecedor);
+        jLabelCodigoCadastroFornecedor.setBounds(19, 66, 134, 13);
+
+        jLabel84.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel84.setText("Inscrição Estadual *");
+        campoCriacaoMotoristaCriacao2.add(jLabel84);
+        jLabel84.setBounds(928, 86, 150, 20);
+
+        try {
+            campoIECadastroFornecedor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#########")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        campoIECadastroFornecedor.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
+        campoIECadastroFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoIECadastroFornecedorFocusLost(evt);
+            }
+        });
+        campoIECadastroFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoIECadastroFornecedorActionPerformed(evt);
+            }
+        });
+        campoCriacaoMotoristaCriacao2.add(campoIECadastroFornecedor);
+        campoIECadastroFornecedor.setBounds(928, 112, 154, 19);
+        campoIECadastroFornecedor.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                try {
+                    avisaIEFornecedor(campoIECadastroFornecedor, jLabeIECadastroFornecedor);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            public void removeUpdate(DocumentEvent e) {
+                try {
+                    avisaIEFornecedor(campoIECadastroFornecedor, jLabeIECadastroFornecedor);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            public void insertUpdate(DocumentEvent e) {
+                try {
+                    avisaIEFornecedor(campoIECadastroFornecedor, jLabeIECadastroFornecedor);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+
+        jLabeIECadastroFornecedor.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        jLabeIECadastroFornecedor.setForeground(new java.awt.Color(204, 0, 0));
+        jLabeIECadastroFornecedor.setText("Já cadastrado.");
+        campoCriacaoMotoristaCriacao2.add(jLabeIECadastroFornecedor);
+        jLabeIECadastroFornecedor.setBounds(928, 142, 104, 13);
+
+        jLabel86.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel86.setText("Tipo de Transportadora *");
+        campoCriacaoMotoristaCriacao2.add(jLabel86);
+        jLabel86.setBounds(161, 12, 179, 20);
+
+        jRadioButton_PF_Transportadora.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jRadioButton_PF_Transportadora.setText("Física");
+        jRadioButton_PF_Transportadora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton_PF_TransportadoraActionPerformed(evt);
+            }
+        });
+        campoCriacaoMotoristaCriacao2.add(jRadioButton_PF_Transportadora);
+        jRadioButton_PF_Transportadora.setBounds(161, 37, 55, 25);
+
+        jRadioButton_PJ_Transportadora.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jRadioButton_PJ_Transportadora.setText("Jurídica");
+        jRadioButton_PJ_Transportadora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton_PJ_TransportadoraActionPerformed(evt);
+            }
+        });
+        campoCriacaoMotoristaCriacao2.add(jRadioButton_PJ_Transportadora);
+        jRadioButton_PJ_Transportadora.setBounds(234, 37, 65, 25);
+
+        jLabel87.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel87.setText("Nome Fantasia *");
+        campoCriacaoMotoristaCriacao2.add(jLabel87);
+        jLabel87.setBounds(364, 86, 130, 20);
+
+        campoNomeFantasiaFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        campoNomeFantasiaFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoNomeFantasiaFornecedorFocusLost(evt);
+            }
+        });
+        campoNomeFantasiaFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoNomeFantasiaFornecedorActionPerformed(evt);
+            }
+        });
+        campoCriacaoMotoristaCriacao2.add(campoNomeFantasiaFornecedor);
+        campoNomeFantasiaFornecedor.setBounds(364, 112, 298, 22);
+
+        jLabel88.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel88.setText("CPF/CNPJ *");
+        campoCriacaoMotoristaCriacao2.add(jLabel88);
+        jLabel88.setBounds(696, 86, 77, 20);
+
+        try {
+            campoCPF_CNPJCadastroFornecedor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###########")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        campoCPF_CNPJCadastroFornecedor.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
+        campoCPF_CNPJCadastroFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoCPF_CNPJCadastroFornecedorFocusLost(evt);
+            }
+        });
+        campoCPF_CNPJCadastroFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoCPF_CNPJCadastroFornecedorActionPerformed(evt);
+            }
+        });
+        campoCriacaoMotoristaCriacao2.add(campoCPF_CNPJCadastroFornecedor);
+        campoCPF_CNPJCadastroFornecedor.setBounds(696, 112, 208, 20);
+        campoCPF_CNPJCadastroFornecedor.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                try {
+                    avisaCPF_CNPJFornecedor(campoCPF_CNPJCadastroFornecedor, jLabelCPF_CNPJCadastroFornecedor,jRadioButton_PF_Transportadora, jRadioButton_PJ_Transportadora);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            public void removeUpdate(DocumentEvent e) {
+                try {
+                    avisaCPF_CNPJFornecedor(campoCPF_CNPJCadastroFornecedor, jLabelCPF_CNPJCadastroFornecedor,jRadioButton_PF_Transportadora,jRadioButton_PJ_Transportadora);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            public void insertUpdate(DocumentEvent e) {
+                try {
+                    avisaCPF_CNPJFornecedor(campoCPF_CNPJCadastroFornecedor, jLabelCPF_CNPJCadastroFornecedor,jRadioButton_PF_Transportadora,jRadioButton_PJ_Transportadora);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+
+        jLabelCPF_CNPJCadastroFornecedor.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        jLabelCPF_CNPJCadastroFornecedor.setForeground(new java.awt.Color(204, 0, 0));
+        jLabelCPF_CNPJCadastroFornecedor.setText("Já cadastrado.");
+        campoCriacaoMotoristaCriacao2.add(jLabelCPF_CNPJCadastroFornecedor);
+        jLabelCPF_CNPJCadastroFornecedor.setBounds(696, 142, 104, 13);
+
+        jLabel69.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel69.setText("Responsável *");
+        campoCriacaoMotoristaCriacao2.add(jLabel69);
+        jLabel69.setBounds(19, 161, 110, 20);
+
+        campoResponsavelFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        campoResponsavelFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoResponsavelFornecedorFocusLost(evt);
+            }
+        });
+        campoResponsavelFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoResponsavelFornecedorActionPerformed(evt);
+            }
+        });
+        campoCriacaoMotoristaCriacao2.add(campoResponsavelFornecedor);
+        campoResponsavelFornecedor.setBounds(19, 187, 318, 22);
+
+        jComboBox_BancoFornecedorCriacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Item 2", "Item 3", "Item 4" }));
+        jComboBox_BancoFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jComboBox_BancoFornecedorCriacaoFocusLost(evt);
+            }
+        });
+        campoCriacaoMotoristaCriacao2.add(jComboBox_BancoFornecedorCriacao);
+        jComboBox_BancoFornecedorCriacao.setBounds(364, 188, 98, 22);
+
+        jLabel70.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel70.setText("Banco *");
+        campoCriacaoMotoristaCriacao2.add(jLabel70);
+        jLabel70.setBounds(364, 161, 110, 20);
+
+        campoAgenciaFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        campoAgenciaFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoAgenciaFornecedorCriacaoFocusLost(evt);
+            }
+        });
+        campoAgenciaFornecedorCriacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoAgenciaFornecedorCriacaoActionPerformed(evt);
+            }
+        });
+        campoCriacaoMotoristaCriacao2.add(campoAgenciaFornecedorCriacao);
+        campoAgenciaFornecedorCriacao.setBounds(491, 187, 113, 22);
+
+        jLabel71.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel71.setText("Agência *");
+        campoCriacaoMotoristaCriacao2.add(jLabel71);
+        jLabel71.setBounds(492, 161, 110, 20);
+
+        campoContaFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        campoContaFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoContaFornecedorCriacaoFocusLost(evt);
+            }
+        });
+        campoContaFornecedorCriacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoContaFornecedorCriacaoActionPerformed(evt);
+            }
+        });
+        campoCriacaoMotoristaCriacao2.add(campoContaFornecedorCriacao);
+        campoContaFornecedorCriacao.setBounds(634, 187, 113, 22);
+
+        jLabel72.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel72.setText("Conta*");
+        campoCriacaoMotoristaCriacao2.add(jLabel72);
+        jLabel72.setBounds(634, 161, 98, 20);
+
+        jLabel89.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel89.setText("Telefone*");
+        campoCriacaoMotoristaCriacao2.add(jLabel89);
+        jLabel89.setBounds(782, 161, 427, 20);
+
+        try {
+            campoNumeroTelefoneFornecedorCriacao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        campoNumeroTelefoneFornecedorCriacao.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
+        campoNumeroTelefoneFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        campoNumeroTelefoneFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoNumeroTelefoneFornecedorCriacaoFocusLost(evt);
+            }
+        });
+        campoCriacaoMotoristaCriacao2.add(campoNumeroTelefoneFornecedorCriacao);
+        campoNumeroTelefoneFornecedorCriacao.setBounds(782, 187, 193, 23);
+
+        jLabel90.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel90.setText("Observações");
+        campoCriacaoMotoristaCriacao2.add(jLabel90);
+        jLabel90.setBounds(782, 297, 105, 20);
+
+        campoObservacaoFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        campoObservacaoFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoObservacaoFornecedorCriacaoFocusLost(evt);
+            }
+        });
+        campoObservacaoFornecedorCriacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoObservacaoFornecedorCriacaoActionPerformed(evt);
+            }
+        });
+        campoCriacaoMotoristaCriacao2.add(campoObservacaoFornecedorCriacao);
+        campoObservacaoFornecedorCriacao.setBounds(782, 324, 427, 22);
+
+        jLabel91.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel91.setText("Situação *");
+        campoCriacaoMotoristaCriacao2.add(jLabel91);
+        jLabel91.setBounds(364, 12, 179, 20);
+
+        jCheckBox_SituacaoTransportadoraCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jCheckBox_SituacaoTransportadoraCriacao.setText("Ativo");
+        jCheckBox_SituacaoTransportadoraCriacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox_SituacaoTransportadoraCriacaoActionPerformed(evt);
+            }
+        });
+        campoCriacaoMotoristaCriacao2.add(jCheckBox_SituacaoTransportadoraCriacao);
+        jCheckBox_SituacaoTransportadoraCriacao.setBounds(364, 37, 53, 25);
+
+        jPanel15.add(campoCriacaoMotoristaCriacao2);
+        campoCriacaoMotoristaCriacao2.setBounds(50, 120, 1240, 410);
+
+        btnSalvaCriacaoFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSalvaCriacaoFornecedor.setText("SALVAR");
+        btnSalvaCriacaoFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvaCriacaoFornecedorActionPerformed(evt);
+            }
+        });
+        btnSalvaCriacaoFornecedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSalvaCriacaoFornecedorKeyPressed(evt);
+            }
+        });
+        jPanel15.add(btnSalvaCriacaoFornecedor);
+        btnSalvaCriacaoFornecedor.setBounds(1010, 550, 130, 40);
+
+        btnFecharCriacaoFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnFecharCriacaoFornecedor.setText("FECHAR");
+        btnFecharCriacaoFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharCriacaoFornecedorActionPerformed(evt);
+            }
+        });
+        btnFecharCriacaoFornecedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnFecharCriacaoFornecedorKeyPressed(evt);
+            }
+        });
+        jPanel15.add(btnFecharCriacaoFornecedor);
+        btnFecharCriacaoFornecedor.setBounds(1160, 550, 130, 40);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jLabel1.setText("CADASTRO DE FORNECEDOR");
+        jPanel15.add(jLabel1);
+        jLabel1.setBounds(50, 70, 290, 27);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 1460, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, 1460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 750, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void campoCodigoFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCodigoFornecedorFocusLost
+        if (campoCodigoFornecedor.getText().equals("")) {
+            getListaRequisitos().get(0).setIsOk(false);
+        } else {
+            if (campoCodigoFornecedor.getText().equals("Código já existente.")) {
+                getListaRequisitos().get(0).setIsOk(false);
+            } else {
+                getListaRequisitos().get(0).setIsOk(true);
+            }
+        }
+    }//GEN-LAST:event_campoCodigoFornecedorFocusLost
+
+    private void campoRazaoSocialFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoRazaoSocialFornecedorFocusLost
+        if (campoRazaoSocialFornecedor.getText().equals("")) {
+            getListaRequisitos().get(1).setIsOk(false);
+        } else {
+            getListaRequisitos().get(1).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoRazaoSocialFornecedorFocusLost
+
+    private void campoRazaoSocialFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoRazaoSocialFornecedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoRazaoSocialFornecedorActionPerformed
+
+    private void campoNumeroCelularCriacaoFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNumeroCelularCriacaoFornecedorFocusLost
+        if (campoNumeroCelularCriacaoFornecedor.getText().contains(" ")) {
+            getListaRequisitos().get(7).setIsOk(false);
+        } else {
+            getListaRequisitos().get(7).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoNumeroCelularCriacaoFornecedorFocusLost
+
+    private void campoEnderecoFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoEnderecoFornecedorCriacaoFocusLost
+        if (campoEnderecoFornecedorCriacao.getText().equals("")) {
+            getListaRequisitos().get(15).setIsOk(false);
+        } else {
+            getListaRequisitos().get(15).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoEnderecoFornecedorCriacaoFocusLost
+
+    private void campoEnderecoFornecedorCriacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoEnderecoFornecedorCriacaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoEnderecoFornecedorCriacaoActionPerformed
+
+    private void campoNumeroEndFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNumeroEndFornecedorCriacaoFocusLost
+        if (campoNumeroEndFornecedorCriacao.getText().equals("")) {
+            getListaRequisitos().get(16).setIsOk(false);
+        } else {
+            getListaRequisitos().get(16).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoNumeroEndFornecedorCriacaoFocusLost
+
+    private void campoComplementoFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoComplementoFornecedorCriacaoFocusLost
+        if (campoComplementoFornecedorCriacao.getText().equals("")) {
+            getListaRequisitos().get(17).setIsOk(false);
+        } else {
+            getListaRequisitos().get(17).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoComplementoFornecedorCriacaoFocusLost
+
+    private void campoComplementoFornecedorCriacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoComplementoFornecedorCriacaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoComplementoFornecedorCriacaoActionPerformed
+
+    private void campoBairroFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoBairroFornecedorCriacaoFocusLost
+        if (campoBairroFornecedorCriacao.getText().equals("")) {
+            getListaRequisitos().get(18).setIsOk(false);
+        } else {
+            getListaRequisitos().get(18).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoBairroFornecedorCriacaoFocusLost
+
+    private void campoBairroFornecedorCriacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoBairroFornecedorCriacaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoBairroFornecedorCriacaoActionPerformed
+
+    private void campoCEPFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCEPFornecedorCriacaoFocusLost
+        if (campoCEPFornecedorCriacao.getText().contains(" ")) {
+            getListaRequisitos().get(14).setIsOk(false);
+        } else {
+            getListaRequisitos().get(14).setIsOk(true);
+            BuscaCEP buscaAux = new BuscaCEP();
+            CEP cepAux;
+            cepAux = buscaAux.buscarCep(campoCEPFornecedorCriacao.getText());
+            campoEnderecoFornecedorCriacao.setText(cepAux.getLogradouro());
+            campoBairroFornecedorCriacao.setText(cepAux.getBairro());
+            campoCidadeFornecedorCriacao.setText(cepAux.getCidade());
+            campoEstadoFornecedorCriacao.setText(cepAux.getUf());
+            getListaRequisitos().get(15).setIsOk(true);
+            getListaRequisitos().get(18).setIsOk(true);
+            getListaRequisitos().get(19).setIsOk(true);
+            getListaRequisitos().get(20).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoCEPFornecedorCriacaoFocusLost
+
+    private void campoCEPFornecedorCriacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCEPFornecedorCriacaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoCEPFornecedorCriacaoActionPerformed
+
+    private void campoCidadeFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCidadeFornecedorCriacaoFocusLost
+        if (campoCidadeFornecedorCriacao.getText().equals("")) {
+            getListaRequisitos().get(19).setIsOk(false);
+        } else {
+            getListaRequisitos().get(19).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoCidadeFornecedorCriacaoFocusLost
+
+    private void campoCidadeFornecedorCriacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCidadeFornecedorCriacaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoCidadeFornecedorCriacaoActionPerformed
+
+    private void campoEstadoFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoEstadoFornecedorCriacaoFocusLost
+        if (campoEstadoFornecedorCriacao.getText().equals("")) {
+            getListaRequisitos().get(20).setIsOk(false);
+        } else {
+            getListaRequisitos().get(20).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoEstadoFornecedorCriacaoFocusLost
+
+    private void campoEstadoFornecedorCriacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoEstadoFornecedorCriacaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoEstadoFornecedorCriacaoActionPerformed
+
+    private void campoEmailFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoEmailFornecedorCriacaoFocusLost
+        if (campoEmailFornecedorCriacao.getText().equals("")) {
+            getListaRequisitos().get(8).setIsOk(false);
+        } else {
+            getListaRequisitos().get(8).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoEmailFornecedorCriacaoFocusLost
+
+    private void campoEmailFornecedorCriacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoEmailFornecedorCriacaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoEmailFornecedorCriacaoActionPerformed
+
+    private void campoIECadastroFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoIECadastroFornecedorFocusLost
+        if (campoIECadastroFornecedor.getText().contains(" ")) {
+            getListaRequisitos().get(4).setIsOk(false);
+        } else {
+            getListaRequisitos().get(4).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoIECadastroFornecedorFocusLost
+
+    private void campoIECadastroFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoIECadastroFornecedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoIECadastroFornecedorActionPerformed
+
+    private void jRadioButton_PF_TransportadoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_PF_TransportadoraActionPerformed
+        if (jRadioButton_PF_Transportadora.isSelected()) {
+            getListaRequisitos().get(3).setIsOk(true);
+            campoCPF_CNPJCadastroFornecedor.setValue(null);
+            MaskFormatter cpf = null;
+            try {
+                cpf = new MaskFormatter("###.###.###-##");
+            } catch (ParseException ex) {
+                Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            campoCPF_CNPJCadastroFornecedor.setFormatterFactory(new DefaultFormatterFactory(cpf));
+        }
+    }//GEN-LAST:event_jRadioButton_PF_TransportadoraActionPerformed
+
+    private void jRadioButton_PJ_TransportadoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_PJ_TransportadoraActionPerformed
+        if (jRadioButton_PJ_Transportadora.isSelected()) {
+            getListaRequisitos().get(3).setIsOk(true);
+            campoCPF_CNPJCadastroFornecedor.setValue(null);
+            MaskFormatter cnpj = null;
+            try {
+                cnpj = new MaskFormatter("##.###.###/####-##");
+            } catch (ParseException ex) {
+                Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            campoCPF_CNPJCadastroFornecedor.setFormatterFactory(new DefaultFormatterFactory(cnpj));
+        }
+    }//GEN-LAST:event_jRadioButton_PJ_TransportadoraActionPerformed
+
+    private void campoNomeFantasiaFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNomeFantasiaFornecedorFocusLost
+        if (campoNomeFantasiaFornecedor.getText().equals("")) {
+            getListaRequisitos().get(2).setIsOk(false);
+        } else {
+            getListaRequisitos().get(2).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoNomeFantasiaFornecedorFocusLost
+
+    private void campoNomeFantasiaFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNomeFantasiaFornecedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoNomeFantasiaFornecedorActionPerformed
+
+    private void campoCPF_CNPJCadastroFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCPF_CNPJCadastroFornecedorFocusLost
+        if (campoCPF_CNPJCadastroFornecedor.getText().contains(" ")) {
+            getListaRequisitos().get(5).setIsOk(false);
+        } else {
+            getListaRequisitos().get(5).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoCPF_CNPJCadastroFornecedorFocusLost
+
+    private void campoCPF_CNPJCadastroFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCPF_CNPJCadastroFornecedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoCPF_CNPJCadastroFornecedorActionPerformed
+
+    private void campoResponsavelFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoResponsavelFornecedorFocusLost
+        if (campoResponsavelFornecedor.getText().equals("")) {
+            getListaRequisitos().get(9).setIsOk(false);
+        } else {
+            getListaRequisitos().get(9).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoResponsavelFornecedorFocusLost
+
+    private void campoResponsavelFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoResponsavelFornecedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoResponsavelFornecedorActionPerformed
+
+    private void jComboBox_BancoFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboBox_BancoFornecedorCriacaoFocusLost
+        String selecionado = (String) jComboBox_BancoFornecedorCriacao.getSelectedItem();
+        if (selecionado.equals("Selecione")) {
+            getListaRequisitos().get(11).setIsOk(false);
+        } else {
+            getListaRequisitos().get(11).setIsOk(true);
+        }
+    }//GEN-LAST:event_jComboBox_BancoFornecedorCriacaoFocusLost
+
+    private void campoAgenciaFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoAgenciaFornecedorCriacaoFocusLost
+        if (campoAgenciaFornecedorCriacao.getText().equals("")) {
+            getListaRequisitos().get(12).setIsOk(false);
+        } else {
+            getListaRequisitos().get(12).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoAgenciaFornecedorCriacaoFocusLost
+
+    private void campoAgenciaFornecedorCriacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoAgenciaFornecedorCriacaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoAgenciaFornecedorCriacaoActionPerformed
+
+    private void campoContaFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoContaFornecedorCriacaoFocusLost
+        if (campoContaFornecedorCriacao.getText().equals("")) {
+            getListaRequisitos().get(13).setIsOk(false);
+        } else {
+            getListaRequisitos().get(13).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoContaFornecedorCriacaoFocusLost
+
+    private void campoContaFornecedorCriacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoContaFornecedorCriacaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoContaFornecedorCriacaoActionPerformed
+
+    private void campoNumeroTelefoneFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNumeroTelefoneFornecedorCriacaoFocusLost
+        if (campoNumeroTelefoneFornecedorCriacao.getText().contains(" ")) {
+            getListaRequisitos().get(6).setIsOk(false);
+        } else {
+            getListaRequisitos().get(6).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoNumeroTelefoneFornecedorCriacaoFocusLost
+
+    private void campoObservacaoFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoObservacaoFornecedorCriacaoFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoObservacaoFornecedorCriacaoFocusLost
+
+    private void campoObservacaoFornecedorCriacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoObservacaoFornecedorCriacaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoObservacaoFornecedorCriacaoActionPerformed
+
+    private void jCheckBox_SituacaoTransportadoraCriacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox_SituacaoTransportadoraCriacaoActionPerformed
+        if (jCheckBox_SituacaoTransportadoraCriacao.isSelected()) {
+            getListaRequisitos().get(21).setIsOk(true);
+        } else {
+            getListaRequisitos().get(21).setIsOk(false);
+        }
+    }//GEN-LAST:event_jCheckBox_SituacaoTransportadoraCriacaoActionPerformed
+
+    private void btnSalvaCriacaoFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvaCriacaoFornecedorActionPerformed
+        CriarFornecedor();
+    }//GEN-LAST:event_btnSalvaCriacaoFornecedorActionPerformed
+
+    private void btnSalvaCriacaoFornecedorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvaCriacaoFornecedorKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            CriarFornecedor();
+        }
+    }//GEN-LAST:event_btnSalvaCriacaoFornecedorKeyPressed
+
+    private void btnFecharCriacaoFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharCriacaoFornecedorActionPerformed
+        fechaCriarFornecedor();
+    }//GEN-LAST:event_btnFecharCriacaoFornecedorActionPerformed
+
+    private void btnFecharCriacaoFornecedorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnFecharCriacaoFornecedorKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            fechaCriarFornecedor();
+        }
+    }//GEN-LAST:event_btnFecharCriacaoFornecedorKeyPressed
+
+    private void CriarFornecedor(){
+        
+    }
+    
+    private void fechaCriarFornecedor(){
+        
+    }
+    
+    private void avisaCodigoFornecedor(javax.swing.JTextField campoAux, javax.swing.JLabel labelAux) throws SQLException, ClassNotFoundException {
+    
+    }
+    
+    private void avisaCPF_CNPJFornecedor(javax.swing.JFormattedTextField campoAux, javax.swing.JLabel labelAux, javax.swing.JRadioButton pessoaF, javax.swing.JRadioButton pessoaJ) throws SQLException, ClassNotFoundException {
+        
+    }
+    
+    private void avisaIEFornecedor(javax.swing.JFormattedTextField campoAux, javax.swing.JLabel labelAux) throws SQLException, ClassNotFoundException {
+    }
     /**
      * @param args the command line arguments
      */
@@ -59,15 +1020,11 @@ public class CriarFornecedor extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CriarFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CriarFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CriarFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(CriarFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */
@@ -79,5 +1036,73 @@ public class CriarFornecedor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFecharCriacaoFornecedor;
+    private javax.swing.JButton btnSalvaCriacaoFornecedor;
+    private javax.swing.JTextField campoAgenciaFornecedorCriacao;
+    private javax.swing.JTextField campoBairroFornecedorCriacao;
+    private javax.swing.JFormattedTextField campoCEPFornecedorCriacao;
+    private javax.swing.JFormattedTextField campoCPF_CNPJCadastroFornecedor;
+    private javax.swing.JTextField campoCidadeFornecedorCriacao;
+    private javax.swing.JTextField campoCodigoFornecedor;
+    private javax.swing.JTextField campoComplementoFornecedorCriacao;
+    private javax.swing.JTextField campoContaFornecedorCriacao;
+    private javax.swing.JPanel campoCriacaoMotoristaCriacao2;
+    private javax.swing.JTextField campoEmailFornecedorCriacao;
+    private javax.swing.JTextField campoEnderecoFornecedorCriacao;
+    private javax.swing.JTextField campoEstadoFornecedorCriacao;
+    private javax.swing.JFormattedTextField campoIECadastroFornecedor;
+    private javax.swing.JTextField campoNomeFantasiaFornecedor;
+    private javax.swing.JFormattedTextField campoNumeroCelularCriacaoFornecedor;
+    private javax.swing.JTextField campoNumeroEndFornecedorCriacao;
+    private javax.swing.JFormattedTextField campoNumeroTelefoneFornecedorCriacao;
+    private javax.swing.JTextField campoObservacaoFornecedorCriacao;
+    private javax.swing.JTextField campoRazaoSocialFornecedor;
+    private javax.swing.JTextField campoResponsavelFornecedor;
+    private javax.swing.JCheckBox jCheckBox_SituacaoTransportadoraCriacao;
+    private javax.swing.JComboBox<String> jComboBox_BancoFornecedorCriacao;
+    private javax.swing.JLabel jLabeIECadastroFornecedor;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel67;
+    private javax.swing.JLabel jLabel68;
+    private javax.swing.JLabel jLabel69;
+    private javax.swing.JLabel jLabel70;
+    private javax.swing.JLabel jLabel71;
+    private javax.swing.JLabel jLabel72;
+    private javax.swing.JLabel jLabel74;
+    private javax.swing.JLabel jLabel75;
+    private javax.swing.JLabel jLabel76;
+    private javax.swing.JLabel jLabel77;
+    private javax.swing.JLabel jLabel78;
+    private javax.swing.JLabel jLabel79;
+    private javax.swing.JLabel jLabel80;
+    private javax.swing.JLabel jLabel81;
+    private javax.swing.JLabel jLabel82;
+    private javax.swing.JLabel jLabel83;
+    private javax.swing.JLabel jLabel84;
+    private javax.swing.JLabel jLabel86;
+    private javax.swing.JLabel jLabel87;
+    private javax.swing.JLabel jLabel88;
+    private javax.swing.JLabel jLabel89;
+    private javax.swing.JLabel jLabel90;
+    private javax.swing.JLabel jLabel91;
+    private javax.swing.JLabel jLabelCPF_CNPJCadastroFornecedor;
+    private javax.swing.JLabel jLabelCodigoCadastroFornecedor;
+    private javax.swing.JPanel jPanel15;
+    private javax.swing.JRadioButton jRadioButton_PF_Transportadora;
+    private javax.swing.JRadioButton jRadioButton_PJ_Transportadora;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the listaRequisitos
+     */
+    public ArrayList<Requisito> getListaRequisitos() {
+        return listaRequisitos;
+    }
+
+    /**
+     * @param listaRequisitos the listaRequisitos to set
+     */
+    public void setListaRequisitos(ArrayList<Requisito> listaRequisitos) {
+        this.listaRequisitos = listaRequisitos;
+    }
 }

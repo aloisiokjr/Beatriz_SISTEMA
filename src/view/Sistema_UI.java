@@ -53,6 +53,8 @@ public class Sistema_UI extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         boxUsuario = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         barraMenuADM = new javax.swing.JMenuBar();
         menuADM = new javax.swing.JMenu();
         menuADM_Usuario = new javax.swing.JMenuItem();
@@ -73,6 +75,12 @@ public class Sistema_UI extends javax.swing.JFrame {
         boxUsuario.setDisabledTextColor(new java.awt.Color(0, 102, 51));
         boxUsuario.setEnabled(false);
         jScrollPane1.setViewportView(boxUsuario);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logoHD.png"))); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 40)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 102, 0));
+        jLabel3.setText("SISTEMA DE GERENCIAMENTO DA OFICINA");
 
         barraMenuADM.setForeground(new java.awt.Color(0, 102, 0));
         barraMenuADM.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -127,13 +135,26 @@ public class Sistema_UI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1920, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(131, 131, 131)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1294, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(364, 364, 364)
+                        .addComponent(jLabel3)))
+                .addContainerGap(495, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 767, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(75, 75, 75)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -198,6 +219,8 @@ public class Sistema_UI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenuADM;
     private javax.swing.JTextArea boxUsuario;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu menuADM;
     private javax.swing.JMenuItem menuADM_Pecas;

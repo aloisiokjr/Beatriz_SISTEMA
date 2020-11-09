@@ -5,9 +5,19 @@
  */
 package view.peca;
 
+import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
+import model.Requisito;
+import util.SQL_URL;
 
 /**
  *
@@ -15,6 +25,7 @@ import javax.swing.JFormattedTextField;
  */
 public class AtualizarEstoquePeca extends javax.swing.JFrame {
 
+    private ArrayList<Requisito> listaRequisitos = null;
     /**
      * Creates new form AtualizarEstoquePeca
      */
@@ -564,6 +575,52 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
     private void fechaAtualizacao(){
         
     }
+    
+    private void setagemInicial(){
+        listaRequisitos = null;
+        listaRequisitos = new ArrayList();
+        
+        listaRequisitos.add(new Requisito("Produto", false));
+        listaRequisitos.add(new Requisito("Fornecedor", false));
+        
+        comboBoxProdutos.removeAllItems();
+        comboBoxProdutos.addItem("Selecione");
+        
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "SELECT Codigo, Descricao FROM Produto";
+                PreparedStatement pst = con.prepareStatement(sql);
+                ResultSet rs = pst.executeQuery();
+                while (rs.next()) {
+                    String produtoAux = "Codigo: "+ rs.getString("Codigo") + " || CPF: " + rs.getString("CPF");
+                    comboBoxProdutos.addItem(produtoAux);
+                }
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+        comboBoxFornecedor.removeAllItems();
+        comboBoxFornecedor.addItem("Selecione");
+        
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "SELECT Codigo, Nome_Fantasia FROM Fornecedor";
+                PreparedStatement pst = con.prepareStatement(sql);
+                ResultSet rs = pst.executeQuery();
+                while (rs.next()) {
+                    String fornecedorAux = "Codigo: "+ rs.getString("Codigo") + " || Nome: " + rs.getString("Nome_Fantasia");
+                    comboBoxFornecedor.addItem(fornecedorAux);
+                }
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -645,4 +702,18 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the listaRequisitos
+     */
+    public ArrayList<Requisito> getListaRequisitos() {
+        return listaRequisitos;
+    }
+
+    /**
+     * @param listaRequisitos the listaRequisitos to set
+     */
+    public void setListaRequisitos(ArrayList<Requisito> listaRequisitos) {
+        this.listaRequisitos = listaRequisitos;
+    }
 }

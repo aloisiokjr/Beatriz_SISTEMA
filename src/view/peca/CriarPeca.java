@@ -430,7 +430,7 @@ public class CriarPeca extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Descrição *");
 
-        campoPrecoCompra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("¤#,##0.00"))));
+        campoPrecoCompra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         campoPrecoCompra.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         campoPrecoCompra.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -441,11 +441,7 @@ public class CriarPeca extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Preço de Compra *");
 
-        try {
-            campoPorcentagemLucro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        campoPorcentagemLucro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00%"))));
         campoPorcentagemLucro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         campoPorcentagemLucro.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -476,7 +472,7 @@ public class CriarPeca extends javax.swing.JFrame {
         }
         campoAnoPeca.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        campoPrecoVenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("¤#,##0.00"))));
+        campoPrecoVenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         campoPrecoVenda.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         campoPrecoVenda.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -507,8 +503,8 @@ public class CriarPeca extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(campoCodigoPeca, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
-                            .addComponent(labelCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(35, 35, 35)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -547,7 +543,7 @@ public class CriarPeca extends javax.swing.JFrame {
                                     .addComponent(campoAnoPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(33, 33, 33))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(labelDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(labelDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -623,7 +619,7 @@ public class CriarPeca extends javax.swing.JFrame {
                 }
             }
         });
-        campoCodigoPeca.getDocument().addDocumentListener(new DocumentListener() {
+        campoDescricaoPeca.getDocument().addDocumentListener(new DocumentListener() {
             public void changedUpdate(DocumentEvent e) {
                 try {
                     avisaDescricaoPeca(campoDescricaoPeca, labelDescricao);

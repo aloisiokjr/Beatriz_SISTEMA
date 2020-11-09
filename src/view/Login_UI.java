@@ -49,15 +49,13 @@ public class Login_UI extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel17 = new javax.swing.JLabel();
-        nomeSistema = new javax.swing.JLabel();
         btnEntrar = new javax.swing.JButton();
-        textENTRAR = new javax.swing.JLabel();
+        btnSair = new javax.swing.JButton();
+        nomeSistema = new javax.swing.JLabel();
         caixaLogin = new javax.swing.JTextField();
         caixaSenha = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
-        btnSair = new javax.swing.JButton();
         textUsuario = new javax.swing.JLabel();
-        textSAIR = new javax.swing.JLabel();
         fundoLogin = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -70,36 +68,46 @@ public class Login_UI extends javax.swing.JFrame {
         getContentPane().add(jLabel17);
         jLabel17.setBounds(50, 70, 438, 149);
 
-        nomeSistema.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-        nomeSistema.setForeground(new java.awt.Color(0, 102, 0));
-        nomeSistema.setText("SISTEMA PARA GERECIAMENTO DA OFICINA");
-        getContentPane().add(nomeSistema);
-        nomeSistema.setBounds(80, 230, 370, 50);
-
-        btnEntrar.setForeground(new java.awt.Color(240, 240, 240));
-        btnEntrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/login.png"))); // NOI18N
-        btnEntrar.setToolTipText("ENTRAR");
-        btnEntrar.setBorder(null);
-        btnEntrar.setBorderPainted(false);
-        btnEntrar.setContentAreaFilled(false);
+        btnEntrar.setBackground(new java.awt.Color(0, 102, 153));
+        btnEntrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEntrar.setText("ENTRAR");
+        btnEntrar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnEntrar.setMaximumSize(new java.awt.Dimension(71, 21));
+        btnEntrar.setMinimumSize(new java.awt.Dimension(71, 21));
+        btnEntrar.setPreferredSize(new java.awt.Dimension(71, 21));
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEntrarActionPerformed(evt);
             }
         });
-        btnEntrar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnEntrarKeyPressed(evt);
+        getContentPane().add(btnEntrar);
+        btnEntrar.setBounds(150, 431, 90, 30);
+
+        btnSair.setBackground(new java.awt.Color(153, 0, 51));
+        btnSair.setForeground(new java.awt.Color(255, 255, 255));
+        btnSair.setText("SAIR");
+        btnSair.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnSair.setMaximumSize(new java.awt.Dimension(71, 21));
+        btnSair.setMinimumSize(new java.awt.Dimension(71, 21));
+        btnSair.setPreferredSize(new java.awt.Dimension(71, 21));
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
             }
         });
-        getContentPane().add(btnEntrar);
-        btnEntrar.setBounds(180, 390, 60, 70);
+        btnSair.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSairKeyPressed(evt);
+            }
+        });
+        getContentPane().add(btnSair);
+        btnSair.setBounds(280, 430, 90, 30);
 
-        textENTRAR.setFont(new java.awt.Font("Times New Roman", 1, 10)); // NOI18N
-        textENTRAR.setForeground(new java.awt.Color(0, 102, 51));
-        textENTRAR.setText("SAIR");
-        getContentPane().add(textENTRAR);
-        textENTRAR.setBounds(290, 450, 50, 12);
+        nomeSistema.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        nomeSistema.setForeground(new java.awt.Color(0, 102, 0));
+        nomeSistema.setText("SISTEMA PARA GERECIAMENTO DA OFICINA");
+        getContentPane().add(nomeSistema);
+        nomeSistema.setBounds(80, 240, 370, 50);
 
         caixaLogin.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         caixaLogin.setToolTipText("Login do Usuário");
@@ -111,7 +119,7 @@ public class Login_UI extends javax.swing.JFrame {
             }
         });
         getContentPane().add(caixaLogin);
-        caixaLogin.setBounds(150, 310, 220, 20);
+        caixaLogin.setBounds(150, 330, 220, 20);
 
         caixaSenha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         caixaSenha.setToolTipText("Senha do Usuário");
@@ -127,44 +135,19 @@ public class Login_UI extends javax.swing.JFrame {
             }
         });
         getContentPane().add(caixaSenha);
-        caixaSenha.setBounds(150, 360, 220, 20);
+        caixaSenha.setBounds(150, 380, 220, 20);
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 102, 0));
         jLabel1.setText("SENHA");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(150, 340, 50, 20);
-
-        btnSair.setForeground(new java.awt.Color(240, 240, 240));
-        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logout2.png"))); // NOI18N
-        btnSair.setToolTipText("SAIR");
-        btnSair.setBorder(null);
-        btnSair.setBorderPainted(false);
-        btnSair.setContentAreaFilled(false);
-        btnSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSairActionPerformed(evt);
-            }
-        });
-        btnSair.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnSairKeyPressed(evt);
-            }
-        });
-        getContentPane().add(btnSair);
-        btnSair.setBounds(260, 390, 80, 70);
+        jLabel1.setBounds(150, 360, 50, 20);
 
         textUsuario.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         textUsuario.setForeground(new java.awt.Color(0, 102, 51));
         textUsuario.setText("LOGIN");
         getContentPane().add(textUsuario);
-        textUsuario.setBounds(150, 290, 50, 20);
-
-        textSAIR.setFont(new java.awt.Font("Times New Roman", 1, 10)); // NOI18N
-        textSAIR.setForeground(new java.awt.Color(0, 102, 51));
-        textSAIR.setText("ENTRAR");
-        getContentPane().add(textSAIR);
-        textSAIR.setBounds(190, 450, 70, 12);
+        textUsuario.setBounds(150, 310, 50, 20);
 
         fundoLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/backgroundLogin2.jpg"))); // NOI18N
         getContentPane().add(fundoLogin);
@@ -173,24 +156,6 @@ public class Login_UI extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        try {
-            this.processaLogin();
-        } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
-            Logger.getLogger(Login_UI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnEntrarActionPerformed
-
-    private void btnEntrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnEntrarKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
-            try {
-                this.processaLogin();
-            } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
-                Logger.getLogger(Login_UI.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_btnEntrarKeyPressed
 
     private void caixaLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_caixaLoginKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
@@ -215,6 +180,14 @@ public class Login_UI extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_caixaSenhaKeyPressed
+
+    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
+        try {
+            this.processaLogin();
+        } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
+            Logger.getLogger(Login_UI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         System.exit(0);
@@ -315,8 +288,6 @@ public class Login_UI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel nomeSistema;
-    private javax.swing.JLabel textENTRAR;
-    private javax.swing.JLabel textSAIR;
     private javax.swing.JLabel textUsuario;
     // End of variables declaration//GEN-END:variables
 
