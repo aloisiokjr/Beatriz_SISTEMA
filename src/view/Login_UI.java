@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import util.SQL_URL;
 import util.ToHashHex;
@@ -35,6 +36,7 @@ public class Login_UI extends javax.swing.JFrame {
      */
     public Login_UI() {
         initComponents();
+        this.toFront();
     }
 
     /**
@@ -46,6 +48,7 @@ public class Login_UI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel17 = new javax.swing.JLabel();
         nomeSistema = new javax.swing.JLabel();
         btnEntrar = new javax.swing.JButton();
         textENTRAR = new javax.swing.JLabel();
@@ -58,13 +61,20 @@ public class Login_UI extends javax.swing.JFrame {
         fundoLogin = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(530, 530));
+        setResizable(false);
+        setSize(new java.awt.Dimension(530, 500));
         getContentPane().setLayout(null);
 
-        nomeSistema.setFont(new java.awt.Font("Times New Roman", 3, 22)); // NOI18N
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logoR.png"))); // NOI18N
+        getContentPane().add(jLabel17);
+        jLabel17.setBounds(50, 70, 438, 149);
+
+        nomeSistema.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
         nomeSistema.setForeground(new java.awt.Color(0, 102, 0));
-        nomeSistema.setText("BEATRIZ IMPLEMENTOS (LOGO)");
+        nomeSistema.setText("SISTEMA PARA GERECIAMENTO DA OFICINA");
         getContentPane().add(nomeSistema);
-        nomeSistema.setBounds(80, 180, 350, 50);
+        nomeSistema.setBounds(80, 230, 370, 50);
 
         btnEntrar.setForeground(new java.awt.Color(240, 240, 240));
         btnEntrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/login.png"))); // NOI18N
@@ -161,14 +171,13 @@ public class Login_UI extends javax.swing.JFrame {
         fundoLogin.setBounds(0, 0, 530, 520);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         try {
             this.processaLogin();
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(Login_UI.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NoSuchAlgorithmException ex) {
+        } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
             Logger.getLogger(Login_UI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
@@ -177,9 +186,7 @@ public class Login_UI extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
             try {
                 this.processaLogin();
-            } catch (UnsupportedEncodingException ex) {
-                Logger.getLogger(Login_UI.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (NoSuchAlgorithmException ex) {
+            } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
                 Logger.getLogger(Login_UI.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -189,9 +196,7 @@ public class Login_UI extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
             try {
                 this.processaLogin();
-            } catch (UnsupportedEncodingException ex) {
-                Logger.getLogger(Login_UI.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (NoSuchAlgorithmException ex) {
+            } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
                 Logger.getLogger(Login_UI.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -205,9 +210,7 @@ public class Login_UI extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
             try {
                 this.processaLogin();
-            } catch (UnsupportedEncodingException ex) {
-                Logger.getLogger(Login_UI.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (NoSuchAlgorithmException ex) {
+            } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
                 Logger.getLogger(Login_UI.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -288,15 +291,11 @@ public class Login_UI extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login_UI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login_UI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login_UI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Login_UI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */
@@ -314,9 +313,52 @@ public class Login_UI extends javax.swing.JFrame {
     private javax.swing.JPasswordField caixaSenha;
     private javax.swing.JLabel fundoLogin;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel nomeSistema;
     private javax.swing.JLabel textENTRAR;
     private javax.swing.JLabel textSAIR;
     private javax.swing.JLabel textUsuario;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the loginCheck
+     */
+    public String getLoginCheck() {
+        return loginCheck;
+    }
+
+    /**
+     * @param loginCheck the loginCheck to set
+     */
+    public void setLoginCheck(String loginCheck) {
+        this.loginCheck = loginCheck;
+    }
+
+    /**
+     * @return the nomeCheck
+     */
+    public String getNomeCheck() {
+        return nomeCheck;
+    }
+
+    /**
+     * @param nomeCheck the nomeCheck to set
+     */
+    public void setNomeCheck(String nomeCheck) {
+        this.nomeCheck = nomeCheck;
+    }
+
+    /**
+     * @return the isLoginOk
+     */
+    public boolean isIsLoginOk() {
+        return isLoginOk;
+    }
+
+    /**
+     * @param isLoginOk the isLoginOk to set
+     */
+    public void setIsLoginOk(boolean isLoginOk) {
+        this.isLoginOk = isLoginOk;
+    }
 }

@@ -49,9 +49,7 @@ public class PecasController {
     public void abreCriacaoPeca(){
         pecaUI.setCriarPeca(new CriarPeca(this));
         setCriarPeca(pecaUI.getCriarPeca());
-        getCriarPeca().setListaRequisitos(null);
-        getCriarPeca().setListaRequisitos(new ArrayList<>());
-        //REQUISITO
+        getCriarPeca().setagemInicial();
         pecaUI.setEnabled(false);
 
     }

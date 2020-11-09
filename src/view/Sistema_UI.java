@@ -132,8 +132,8 @@ public class Sistema_UI extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 776, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 767, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -303,5 +303,19 @@ public class Sistema_UI extends javax.swing.JFrame {
      */
     public void setNomeCheck(String nomeCheck) {
         this.nomeCheck = nomeCheck;
+    }
+
+    /**
+     * @return the usuarioController
+     */
+    public UsuarioController getUsuarioController() {
+        return usuarioController;
+    }
+
+    /**
+     * @param usuarioController the usuarioController to set
+     */
+    public void setUsuarioController(UsuarioController usuarioController) {
+        this.usuarioController = usuarioController;
     }
 }
