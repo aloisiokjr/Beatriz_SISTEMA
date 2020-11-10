@@ -15,8 +15,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JFrame;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Especificacao;
@@ -45,6 +43,7 @@ public class PecaUI extends javax.swing.JFrame {
         this.setVisible(true);
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         this.toFront();
+        setagemInicial();
     }
 
     /**
@@ -112,6 +111,11 @@ public class PecaUI extends javax.swing.JFrame {
         });
         tabelaProdutos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tabelaProdutos.getTableHeader().setReorderingAllowed(false);
+        tabelaProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaProdutosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelaProdutos);
         if (tabelaProdutos.getColumnModel().getColumnCount() > 0) {
             tabelaProdutos.getColumnModel().getColumn(0).setResizable(false);
@@ -473,6 +477,15 @@ public class PecaUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnVisualizarPecaKeyPressed
 
+    private void tabelaProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProdutosMouseClicked
+        if(tabelaProdutos.getSelectedRow() > -1){
+            btnEditar.setEnabled(true);
+            btnVisualizarPeca.setEnabled(true);
+            btnAtualizarEstoque.setEnabled(true);
+            btnExcluir.setEnabled(true);
+        }
+    }//GEN-LAST:event_tabelaProdutosMouseClicked
+
     private void produtoAlterar(){
         String codigo;
         codigo = (String) tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 0);
@@ -740,9 +753,10 @@ public class PecaUI extends javax.swing.JFrame {
     }
     
     public void setagemInicial(){
-        btnEditar.setEnabled(true);
-        btnAtualizarEstoque.setEnabled(true);
-        btnExcluir.setEnabled(true);
+        btnEditar.setEnabled(false);
+        btnVisualizarPeca.setEnabled(false);
+        btnAtualizarEstoque.setEnabled(false);
+        btnExcluir.setEnabled(false);
     }
     
     private void limpaTabelaProdutos(){

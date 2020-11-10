@@ -79,7 +79,7 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
         jLabel87 = new javax.swing.JLabel();
         campoCPF_CNPJCadastroTransportadora = new javax.swing.JFormattedTextField();
         jLabel88 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        checkBoxAtualizaCV = new javax.swing.JCheckBox();
         jPanel6 = new javax.swing.JPanel();
         campoPrecoCompra1 = new javax.swing.JFormattedTextField();
         jLabel12 = new javax.swing.JLabel();
@@ -347,8 +347,13 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        jCheckBox1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jCheckBox1.setText("Atualizar valor de Compra e Venda");
+        checkBoxAtualizaCV.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        checkBoxAtualizaCV.setText("Atualizar valor de Compra e Venda");
+        checkBoxAtualizaCV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxAtualizaCVActionPerformed(evt);
+            }
+        });
 
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel6.setEnabled(false);
@@ -432,7 +437,7 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox1)
+                            .addComponent(checkBoxAtualizaCV)
                             .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -450,7 +455,7 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jCheckBox1)
+                        .addComponent(checkBoxAtualizaCV)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -568,6 +573,18 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSalvarKeyPressed
 
+    private void checkBoxAtualizaCVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAtualizaCVActionPerformed
+        if(checkBoxAtualizaCV.isSelected()){
+            campoPrecoCompra1.setEnabled(true);
+            campoPorcentagemLucro1.setEnabled(true);
+            campoPrecoVenda1.setEnabled(true);
+        } else {
+            campoPrecoCompra1.setEnabled(false);
+            campoPorcentagemLucro1.setEnabled(false);
+            campoPrecoVenda1.setEnabled(false);
+        }
+    }//GEN-LAST:event_checkBoxAtualizaCVActionPerformed
+
     private void atualizaEstoque(){
         
     }
@@ -673,9 +690,9 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField campoPrecoVenda;
     private javax.swing.JFormattedTextField campoPrecoVenda1;
     private javax.swing.JTextField campoRazaoSocialTransportadora;
+    private javax.swing.JCheckBox checkBoxAtualizaCV;
     private javax.swing.JComboBox<String> comboBoxFornecedor;
     private javax.swing.JComboBox<String> comboBoxProdutos;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

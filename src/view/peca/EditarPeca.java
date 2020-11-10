@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -50,7 +51,7 @@ public class EditarPeca extends javax.swing.JFrame {
         initComponents();
         this.setVisible(true);
         this.toFront();
-        this.setExtendedState(MAXIMIZED_BOTH);
+        this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -429,7 +430,7 @@ public class EditarPeca extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Descrição *");
 
-        campoPrecoCompra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("¤#,##0.00"))));
+        campoPrecoCompra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         campoPrecoCompra.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         campoPrecoCompra.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -438,7 +439,7 @@ public class EditarPeca extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setText("Preço de Compra *");
+        jLabel4.setText("Preço de Compra (em R$) *");
 
         campoPorcentagemLucro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         campoPorcentagemLucro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -449,7 +450,7 @@ public class EditarPeca extends javax.swing.JFrame {
         });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setText("Porcentagem de Lucro (Em %) *");
+        jLabel5.setText("Porcentagem de Lucro (em %) *");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setText("Marca");
@@ -471,7 +472,7 @@ public class EditarPeca extends javax.swing.JFrame {
         }
         campoAnoPeca.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        campoPrecoVenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("¤#,##0.00"))));
+        campoPrecoVenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         campoPrecoVenda.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         campoPrecoVenda.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -480,7 +481,7 @@ public class EditarPeca extends javax.swing.JFrame {
         });
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel9.setText("Preço de Venda *");
+        jLabel9.setText("Preço de Venda (em %) *");
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabel10.setText("INFORMAÇÕES GERAIS");
@@ -512,9 +513,9 @@ public class EditarPeca extends javax.swing.JFrame {
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(campoDescricaoPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(campoPrecoCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(campoPrecoCompra))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -522,26 +523,24 @@ public class EditarPeca extends javax.swing.JFrame {
                         .addGap(38, 38, 38)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(campoPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(36, 36, 36)
+                            .addComponent(campoPrecoVenda))
+                        .addGap(46, 46, 46)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(58, 58, 58))
                             .addComponent(campoMarcaPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(37, 37, 37)
+                        .addGap(30, 30, 30)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoModeloPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(45, 45, 45)))
-                        .addGap(39, 39, 39)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(33, 33, 33)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(39, 39, 39))
                             .addComponent(campoAnoPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(33, 33, 33))))
+                        .addGap(24, 24, 24))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -552,8 +551,8 @@ public class EditarPeca extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addGap(25, 25, 25))
-                    .addComponent(campoModeloPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(campoModeloPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -574,11 +573,11 @@ public class EditarPeca extends javax.swing.JFrame {
                                 .addComponent(campoCodigoPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(campoDescricaoPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(campoPorcentagemLucro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(campoMarcaPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(campoMarcaPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(campoPrecoCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campoPrecoCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(27, 27, 27)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelDescricao)
@@ -655,7 +654,7 @@ public class EditarPeca extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
@@ -790,7 +789,6 @@ public class EditarPeca extends javax.swing.JFrame {
         if(!campoPrecoCompra.getText().equals("") && !campoPorcentagemLucro.getText().equals("")){
             String auxTemp = campoPrecoCompra.getText().replaceAll("\\.","");
             auxTemp = auxTemp.replaceAll(",",".");
-            auxTemp = auxTemp.replaceAll("R\\$","");
             String auxTemp2 = campoPorcentagemLucro.getText().replaceAll("\\.","");
             auxTemp2 = auxTemp2.replaceAll(",",".");
             double resultado, precoCompra, porcentagem;
@@ -803,10 +801,8 @@ public class EditarPeca extends javax.swing.JFrame {
         } else if (!campoPrecoCompra.getText().equals("") && !campoPrecoVenda.getText().equals("")){
             String auxTemp = campoPrecoCompra.getText().replaceAll("\\.","");
             auxTemp = auxTemp.replaceAll(",",".");
-            auxTemp = auxTemp.replaceAll("R\\$","");
             String auxTemp2 = campoPrecoVenda.getText().replaceAll("\\.","");
             auxTemp2 = auxTemp2.replaceAll(",",".");
-            auxTemp2 = auxTemp2.replaceAll("R\\$","");
             double resultado, precoCompra, precoVenda;
             precoCompra = Double.parseDouble(auxTemp);
             precoVenda = Double.parseDouble(auxTemp2);
@@ -824,7 +820,6 @@ public class EditarPeca extends javax.swing.JFrame {
             auxTemp = auxTemp.replaceAll(",",".");
             String auxTemp2 = campoPrecoCompra.getText().replaceAll("\\.","");
             auxTemp2 = auxTemp2.replaceAll(",",".");
-            auxTemp2 = auxTemp2.replaceAll("R\\$","");
             double resultado, precoCompra, porcentagem;
             precoCompra = Double.parseDouble(auxTemp2);
             porcentagem = Double.parseDouble(auxTemp);
@@ -837,7 +832,6 @@ public class EditarPeca extends javax.swing.JFrame {
             auxTemp = auxTemp.replaceAll(",",".");
             String auxTemp2 = campoPrecoVenda.getText().replaceAll("\\.","");
             auxTemp2 = auxTemp2.replaceAll(",",".");
-            auxTemp2 = auxTemp2.replaceAll("R\\$","");
             double resultado, porcentagem, precoVenda;
             porcentagem = Double.parseDouble(auxTemp);
             precoVenda = Double.parseDouble(auxTemp2);
@@ -852,10 +846,8 @@ public class EditarPeca extends javax.swing.JFrame {
         if (!campoPrecoCompra.getText().equals("") && !campoPrecoVenda.getText().equals("")){
             String auxTemp = campoPrecoCompra.getText().replaceAll("\\.","");
             auxTemp = auxTemp.replaceAll(",",".");
-            auxTemp = auxTemp.replaceAll("R\\$","");
             String auxTemp2 = campoPrecoVenda.getText().replaceAll("\\.","");
             auxTemp2 = auxTemp2.replaceAll(",",".");
-            auxTemp2 = auxTemp2.replaceAll("R\\$","");
             double resultado, precoCompra, precoVenda;
             precoCompra = Double.parseDouble(auxTemp);
             precoVenda = Double.parseDouble(auxTemp2);
@@ -869,7 +861,6 @@ public class EditarPeca extends javax.swing.JFrame {
             auxTemp = auxTemp.replaceAll(",",".");
             String auxTemp2 = campoPrecoVenda.getText().replaceAll("\\.","");
             auxTemp2 = auxTemp2.replaceAll(",",".");
-            auxTemp2 = auxTemp2.replaceAll("R\\$","");
             double resultado, porcentagem, precoVenda;
             porcentagem = Double.parseDouble(auxTemp);
             precoVenda = Double.parseDouble(auxTemp2);
@@ -935,13 +926,16 @@ public class EditarPeca extends javax.swing.JFrame {
                     if (getPecaAux().getCodigo().equals(textAux)) {
                         labelCodigoAux.setForeground(new java.awt.Color(51, 199, 9));
                         labelCodigoAux.setText("Código original.");
+                        listaRequisitos.get(0).setIsOk(true);
                     } else {
                         labelCodigoAux.setForeground(new java.awt.Color(212, 0, 51));
                         labelCodigoAux.setText("Código já existente.");
+                        listaRequisitos.get(0).setIsOk(false);
                     }                    
                 } else {
                     labelCodigoAux.setForeground(new java.awt.Color(51, 199, 9));
                     labelCodigoAux.setText("Código válido.");
+                    listaRequisitos.get(0).setIsOk(true);
                 }
             }
         }
@@ -964,13 +958,16 @@ public class EditarPeca extends javax.swing.JFrame {
                     if (getPecaAux().getDescricao().equals(textAux)) {
                         labelAux.setForeground(new java.awt.Color(51, 199, 9));
                         labelAux.setText("Descrição original.");
+                        listaRequisitos.get(1).setIsOk(true);
                     } else {
                         labelAux.setForeground(new java.awt.Color(212, 0, 51));
                         labelAux.setText("Descrição já existente.");
+                        listaRequisitos.get(1).setIsOk(false);
                     }                    
                 } else {
                     labelAux.setForeground(new java.awt.Color(51, 199, 9));
                     labelAux.setText("Descrição válida.");
+                    listaRequisitos.get(1).setIsOk(true);
                 }
             }
         }
@@ -1009,8 +1006,10 @@ public class EditarPeca extends javax.swing.JFrame {
         if (campoNomeVar.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Digite um valor válido.");
         } else {
-            DefaultTableModel modeloAux = (DefaultTableModel) tabelaNomeVariantes.getModel();
-            modeloAux.addRow(new Object[]{tabelaNomeVariantes.getRowCount()+1, campoNomeVar.getText()});
+            if (labelNomeVariante.getText().equals("Nome Variante válida.")){
+                DefaultTableModel modeloAux = (DefaultTableModel) tabelaNomeVariantes.getModel();
+                modeloAux.addRow(new Object[]{tabelaNomeVariantes.getRowCount()+1, campoNomeVar.getText()});
+            }
         }
     }
     
