@@ -8,6 +8,8 @@ package view.peca;
 import controller.PecasController;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -430,27 +432,37 @@ public class CriarPeca extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Descrição *");
 
-        campoPrecoCompra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        campoPrecoCompra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("¤#,##0.00"))));
         campoPrecoCompra.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         campoPrecoCompra.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 campoPrecoCompraFocusLost(evt);
             }
         });
+        campoPrecoCompra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoPrecoCompraKeyReleased(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Preço de Compra *");
 
-        campoPorcentagemLucro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00%"))));
+        campoPorcentagemLucro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         campoPorcentagemLucro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         campoPorcentagemLucro.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 campoPorcentagemLucroFocusLost(evt);
             }
         });
+        campoPorcentagemLucro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoPorcentagemLucroKeyReleased(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setText("Porcentagem de Lucro *");
+        jLabel5.setText("Porcentagem de Lucro(Em %) *");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setText("Marca");
@@ -472,11 +484,16 @@ public class CriarPeca extends javax.swing.JFrame {
         }
         campoAnoPeca.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        campoPrecoVenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        campoPrecoVenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("¤#,##0.00"))));
         campoPrecoVenda.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         campoPrecoVenda.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 campoPrecoVendaFocusLost(evt);
+            }
+        });
+        campoPrecoVenda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoPrecoVendaKeyReleased(evt);
             }
         });
 
@@ -511,14 +528,14 @@ public class CriarPeca extends javax.swing.JFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(campoDescricaoPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(campoPrecoCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(30, 30, 30)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(campoPorcentagemLucro, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(campoPrecoCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(campoPorcentagemLucro))
                                 .addGap(28, 28, 28)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -552,37 +569,34 @@ public class CriarPeca extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel7)
-                            .addGap(25, 25, 25))
-                        .addComponent(campoModeloPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel8)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(campoAnoPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(campoPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(campoCodigoPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(campoDescricaoPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(campoPorcentagemLucro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(campoMarcaPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addComponent(jLabel7)
+                        .addGap(25, 25, 25))
+                    .addComponent(campoModeloPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campoPrecoCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(campoAnoPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel9)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(campoPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel4))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(campoCodigoPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(campoDescricaoPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(campoPorcentagemLucro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(campoMarcaPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(campoPrecoCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelDescricao)
@@ -811,6 +825,100 @@ public class CriarPeca extends javax.swing.JFrame {
             removeEspecificacao();
         }
     }//GEN-LAST:event_btnRemoveEspecificacoesKeyPressed
+
+    private void campoPrecoCompraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoPrecoCompraKeyReleased
+        if(!campoPrecoCompra.getText().equals("") && !campoPorcentagemLucro.getText().equals("")){
+            String auxTemp = campoPrecoCompra.getText().replaceAll("\\.","");
+            auxTemp = auxTemp.replaceAll(",",".");
+            auxTemp = auxTemp.replaceAll("R\\$","");
+            String auxTemp2 = campoPorcentagemLucro.getText().replaceAll("\\.","");
+            auxTemp2 = auxTemp2.replaceAll(",",".");
+            double resultado, precoCompra, porcentagem;
+            precoCompra = Double.parseDouble(auxTemp);
+            porcentagem = Double.parseDouble(auxTemp2);
+            resultado = precoCompra * (1+(porcentagem/100));
+            BigDecimal bd = new BigDecimal(resultado).setScale(3, RoundingMode.HALF_UP);
+            String resultadoS = bd.doubleValue()+"";
+            campoPrecoVenda.setText(resultadoS);
+        } else if (!campoPrecoCompra.getText().equals("") && !campoPrecoVenda.getText().equals("")){
+            String auxTemp = campoPrecoCompra.getText().replaceAll("\\.","");
+            auxTemp = auxTemp.replaceAll(",",".");
+            auxTemp = auxTemp.replaceAll("R\\$","");
+            String auxTemp2 = campoPrecoVenda.getText().replaceAll("\\.","");
+            auxTemp2 = auxTemp2.replaceAll(",",".");
+            auxTemp2 = auxTemp2.replaceAll("R\\$","");
+            double resultado, precoCompra, precoVenda;
+            precoCompra = Double.parseDouble(auxTemp);
+            precoVenda = Double.parseDouble(auxTemp2);
+            resultado = precoVenda - precoCompra;
+            resultado = resultado / precoCompra;
+            BigDecimal bd = new BigDecimal(resultado).setScale(3, RoundingMode.HALF_UP);
+            String resultadoS = bd.doubleValue()+"";
+            campoPorcentagemLucro.setText(resultadoS);
+        }
+    }//GEN-LAST:event_campoPrecoCompraKeyReleased
+
+    private void campoPorcentagemLucroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoPorcentagemLucroKeyReleased
+        if(!campoPorcentagemLucro.getText().equals("") && !campoPrecoCompra.getText().equals("")){
+            String auxTemp = campoPorcentagemLucro.getText().replaceAll("\\.","");
+            auxTemp = auxTemp.replaceAll(",",".");
+            String auxTemp2 = campoPrecoCompra.getText().replaceAll("\\.","");
+            auxTemp2 = auxTemp2.replaceAll(",",".");
+            auxTemp2 = auxTemp2.replaceAll("R\\$","");
+            double resultado, precoCompra, porcentagem;
+            precoCompra = Double.parseDouble(auxTemp2);
+            porcentagem = Double.parseDouble(auxTemp);
+            resultado = precoCompra * (1+(porcentagem/100));
+            BigDecimal bd = new BigDecimal(resultado).setScale(3, RoundingMode.HALF_UP);
+            String resultadoS = bd.doubleValue()+"";
+            campoPrecoVenda.setText(resultadoS);
+        } else if (!campoPorcentagemLucro.getText().equals("") && !campoPrecoVenda.getText().equals("")){
+            String auxTemp = campoPorcentagemLucro.getText().replaceAll("\\.","");
+            auxTemp = auxTemp.replaceAll(",",".");
+            String auxTemp2 = campoPrecoVenda.getText().replaceAll("\\.","");
+            auxTemp2 = auxTemp2.replaceAll(",",".");
+            auxTemp2 = auxTemp2.replaceAll("R\\$","");
+            double resultado, porcentagem, precoVenda;
+            porcentagem = Double.parseDouble(auxTemp);
+            precoVenda = Double.parseDouble(auxTemp2);
+            resultado = precoVenda / (1+(porcentagem/100));
+            BigDecimal bd = new BigDecimal(resultado).setScale(3, RoundingMode.HALF_UP);
+            String resultadoS = bd.doubleValue()+"";
+            campoPrecoCompra.setText(resultadoS);
+        }
+    }//GEN-LAST:event_campoPorcentagemLucroKeyReleased
+
+    private void campoPrecoVendaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoPrecoVendaKeyReleased
+        if (!campoPrecoCompra.getText().equals("") && !campoPrecoVenda.getText().equals("")){
+            String auxTemp = campoPrecoCompra.getText().replaceAll("\\.","");
+            auxTemp = auxTemp.replaceAll(",",".");
+            auxTemp = auxTemp.replaceAll("R\\$","");
+            String auxTemp2 = campoPrecoVenda.getText().replaceAll("\\.","");
+            auxTemp2 = auxTemp2.replaceAll(",",".");
+            auxTemp2 = auxTemp2.replaceAll("R\\$","");
+            double resultado, precoCompra, precoVenda;
+            precoCompra = Double.parseDouble(auxTemp);
+            precoVenda = Double.parseDouble(auxTemp2);
+            resultado = precoVenda - precoCompra;
+            resultado = resultado / precoCompra;
+            BigDecimal bd = new BigDecimal(resultado).setScale(3, RoundingMode.HALF_UP);
+            String resultadoS = bd.doubleValue()+"";
+            campoPorcentagemLucro.setText(resultadoS);
+        } else if (!campoPorcentagemLucro.getText().equals("") && !campoPrecoVenda.getText().equals("")){
+            String auxTemp = campoPorcentagemLucro.getText().replaceAll("\\.","");
+            auxTemp = auxTemp.replaceAll(",",".");
+            String auxTemp2 = campoPrecoVenda.getText().replaceAll("\\.","");
+            auxTemp2 = auxTemp2.replaceAll(",",".");
+            auxTemp2 = auxTemp2.replaceAll("R\\$","");
+            double resultado, porcentagem, precoVenda;
+            porcentagem = Double.parseDouble(auxTemp);
+            precoVenda = Double.parseDouble(auxTemp2);
+            resultado = precoVenda / (1+(porcentagem/100));
+            BigDecimal bd = new BigDecimal(resultado).setScale(3, RoundingMode.HALF_UP);
+            String resultadoS = bd.doubleValue()+"";
+            campoPrecoCompra.setText(resultadoS);
+        }
+    }//GEN-LAST:event_campoPrecoVendaKeyReleased
 
     public void setagemInicial(){
         listaRequisitos = null;
