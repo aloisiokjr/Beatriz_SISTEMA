@@ -10,7 +10,6 @@ import view.Sistema_UI;
 import view.emprestimo.CriarEmprestimo;
 import view.emprestimo.EditarEmprestimo;
 import view.emprestimo.EmprestimoUI;
-import view.emprestimo.VisualizarEmprestimo;
 
 /**
  *
@@ -21,7 +20,6 @@ public class EmprestimoController {
     private EmprestimoUI emprestimoUI = null;
     private CriarEmprestimo criarEmprestimo = null;
     private EditarEmprestimo editarEmprestimo = null;
-    private VisualizarEmprestimo visualizarEmprestimo = null;
     
     private Emprestimo emprestimoAux = null;
     
@@ -79,21 +77,6 @@ public class EmprestimoController {
         sistemaUI.atualizaDados();
     }
     
-    public void abreVisualizacaoEmprestimo(){
-//        emprestimoUI.setVisualizarEmprestimo(new VisualizarEmprestimo(this, emprestimoUI.getEmprestimoAux()));
-//        setVisualizarEmprestimo(emprestimoUI.getVisualizarEmprestimo());
-//        getVisualizarEmprestimo().setaVisualizacao();
-//        emprestimoUI.setEnabled(false);
-    }
-    
-    public void fechaVisualizacaoEmprestimo(){
-        getVisualizarEmprestimo().dispose();
-        emprestimoUI.setEnabled(true);
-        emprestimoUI.setEmprestimoAux(null);
-        sistemaUI.toFront();
-        emprestimoUI.toFront();
-        sistemaUI.atualizaDados();
-    }
     /**
      * @return the sistemaUI
      */
@@ -164,17 +147,4 @@ public class EmprestimoController {
         this.editarEmprestimo = editarEmprestimo;
     }
 
-    /**
-     * @return the visualizarEmprestimo
-     */
-    public VisualizarEmprestimo getVisualizarEmprestimo() {
-        return visualizarEmprestimo;
-    }
-
-    /**
-     * @param visualizarEmprestimo the visualizarEmprestimo to set
-     */
-    public void setVisualizarEmprestimo(VisualizarEmprestimo visualizarEmprestimo) {
-        this.visualizarEmprestimo = visualizarEmprestimo;
-    }
 }

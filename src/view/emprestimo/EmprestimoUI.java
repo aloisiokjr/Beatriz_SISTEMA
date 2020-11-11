@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.Emprestimo;
 import util.SQL_URL;
 
@@ -27,7 +28,6 @@ public class EmprestimoUI extends javax.swing.JFrame {
     private Emprestimo emprestimoAux = null;
     private CriarEmprestimo criarEmprestimo= null;
     private EditarEmprestimo editarEmprestimo = null;
-    private VisualizarEmprestimo visualizarEmprestimo = null;
     
     private EmprestimoController emprestimoController = null;
     /**
@@ -54,7 +54,7 @@ public class EmprestimoUI extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaProdutos = new javax.swing.JTable();
+        tabelaEmprestimos = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
@@ -64,8 +64,6 @@ public class EmprestimoUI extends javax.swing.JFrame {
         btnExcluir.setEnabled(false);
         btnCriar = new javax.swing.JButton();
         btnDevolucao = new javax.swing.JButton();
-        btnExcluir.setEnabled(false);
-        btnVisualizar = new javax.swing.JButton();
         btnExcluir.setEnabled(false);
         btnFechar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -83,7 +81,7 @@ public class EmprestimoUI extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel1.setText("Lista de Empréstimos");
 
-        tabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaEmprestimos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -106,25 +104,25 @@ public class EmprestimoUI extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tabelaProdutos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tabelaProdutos.getTableHeader().setReorderingAllowed(false);
-        tabelaProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabelaEmprestimos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tabelaEmprestimos.getTableHeader().setReorderingAllowed(false);
+        tabelaEmprestimos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelaProdutosMouseClicked(evt);
+                tabelaEmprestimosMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tabelaProdutos);
-        if (tabelaProdutos.getColumnModel().getColumnCount() > 0) {
-            tabelaProdutos.getColumnModel().getColumn(0).setResizable(false);
-            tabelaProdutos.getColumnModel().getColumn(0).setPreferredWidth(100);
-            tabelaProdutos.getColumnModel().getColumn(1).setResizable(false);
-            tabelaProdutos.getColumnModel().getColumn(1).setPreferredWidth(200);
-            tabelaProdutos.getColumnModel().getColumn(2).setResizable(false);
-            tabelaProdutos.getColumnModel().getColumn(2).setPreferredWidth(200);
-            tabelaProdutos.getColumnModel().getColumn(3).setResizable(false);
-            tabelaProdutos.getColumnModel().getColumn(3).setPreferredWidth(100);
-            tabelaProdutos.getColumnModel().getColumn(4).setResizable(false);
-            tabelaProdutos.getColumnModel().getColumn(4).setPreferredWidth(150);
+        jScrollPane1.setViewportView(tabelaEmprestimos);
+        if (tabelaEmprestimos.getColumnModel().getColumnCount() > 0) {
+            tabelaEmprestimos.getColumnModel().getColumn(0).setResizable(false);
+            tabelaEmprestimos.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tabelaEmprestimos.getColumnModel().getColumn(1).setResizable(false);
+            tabelaEmprestimos.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tabelaEmprestimos.getColumnModel().getColumn(2).setResizable(false);
+            tabelaEmprestimos.getColumnModel().getColumn(2).setPreferredWidth(200);
+            tabelaEmprestimos.getColumnModel().getColumn(3).setResizable(false);
+            tabelaEmprestimos.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tabelaEmprestimos.getColumnModel().getColumn(4).setResizable(false);
+            tabelaEmprestimos.getColumnModel().getColumn(4).setPreferredWidth(150);
         }
 
         jPanel2.setBackground(new java.awt.Color(242, 242, 242));
@@ -185,37 +183,24 @@ public class EmprestimoUI extends javax.swing.JFrame {
             }
         });
 
-        btnVisualizar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btnVisualizar.setText("VISUALIZAR");
-        btnVisualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVisualizarActionPerformed(evt);
-            }
-        });
-        btnVisualizar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnVisualizarKeyPressed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator2)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(91, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCriar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDevolucao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(121, 121, 121))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(104, 104, 104)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCriar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,12 +214,10 @@ public class EmprestimoUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEditar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnVisualizar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDevolucao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnExcluir)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         btnFechar.setBackground(new java.awt.Color(145, 0, 0));
@@ -309,25 +292,22 @@ public class EmprestimoUI extends javax.swing.JFrame {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(22, 22, 22)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(campoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                        .addComponent(jRadioButton_Funcionario)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jRadioButton_Funcionario)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(campoBusca, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jRadioButton_Item)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jRadioButton_Setor)))
-                        .addGap(52, 52, 52))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(115, 115, 115))
+                                .addGap(161, 161, 161)
+                                .addComponent(jRadioButton_Setor))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(89, 89, 89)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -337,16 +317,16 @@ public class EmprestimoUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(campoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(campoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton_Item)
                     .addComponent(jRadioButton_Setor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jRadioButton_Funcionario)
-                .addGap(32, 32, 32)
+                .addGap(31, 31, 31)
                 .addComponent(btnBuscar)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         btnRelatorio.setBackground(new java.awt.Color(0, 153, 153));
@@ -371,18 +351,17 @@ public class EmprestimoUI extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 725, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(71, 71, 71)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(103, 103, 103)
-                                .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(94, 94, 94))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(153, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(251, 251, 251))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -397,7 +376,7 @@ public class EmprestimoUI extends javax.swing.JFrame {
                         .addComponent(btnRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
+                        .addGap(53, 53, 53)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -407,14 +386,13 @@ public class EmprestimoUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tabelaProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProdutosMouseClicked
-        if(tabelaProdutos.getSelectedRow() > -1){
+    private void tabelaEmprestimosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaEmprestimosMouseClicked
+        if(tabelaEmprestimos.getSelectedRow() > -1){
             btnEditar.setEnabled(true);
-            btnVisualizar.setEnabled(true);
             btnDevolucao.setEnabled(true);
             btnExcluir.setEnabled(true);
         }
-    }//GEN-LAST:event_tabelaProdutosMouseClicked
+    }//GEN-LAST:event_tabelaEmprestimosMouseClicked
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         emprestimoAlterar();
@@ -457,16 +435,6 @@ public class EmprestimoUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDevolucaoKeyPressed
 
-    private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
-        emprestimoVisualizar();
-    }//GEN-LAST:event_btnVisualizarActionPerformed
-
-    private void btnVisualizarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnVisualizarKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            emprestimoVisualizar();
-        }
-    }//GEN-LAST:event_btnVisualizarKeyPressed
-
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         getEmprestimoController().fechaEmprestimoUI();
     }//GEN-LAST:event_btnFecharActionPerformed
@@ -506,20 +474,19 @@ public class EmprestimoUI extends javax.swing.JFrame {
     
     public void setagemInicial(){
         btnEditar.setEnabled(false);
-        btnVisualizar.setEnabled(false);
         btnDevolucao.setEnabled(false);
         btnExcluir.setEnabled(false);
     }
     
     private void emprestimoAlterar(){
-        if(tabelaProdutos.getSelectedRow() > -1){
+        if(tabelaEmprestimos.getSelectedRow() > -1){
             try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT * FROM Emprestimo WHERE Codigo = ?";
                 PreparedStatement pst = con.prepareStatement(sql);
-                pst.setString(1, (String)tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 0));
+                pst.setString(1, (String)tabelaEmprestimos.getValueAt(tabelaEmprestimos.getSelectedRow(), 0));
                 ResultSet rs = pst.executeQuery();
 
                 if(rs.next()){
@@ -528,26 +495,113 @@ public class EmprestimoUI extends javax.swing.JFrame {
                     emprestimoController.abreEdicaoEmprestimo();
                 }
             }
-        } catch (SQLException | HeadlessException | ClassNotFoundException e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
+            } catch (SQLException | HeadlessException | ClassNotFoundException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
         }
     }
     
-    private void emprestimoVisualizar(){
-        emprestimoController.abreVisualizacaoEmprestimo();
-    }
     
     private void emprestimoDevolver(){
-        
+        if(tabelaEmprestimos.getSelectedRow() > -1){
+            String message = "Deseja realmente confirmar a devolução?";
+            String title = "Confirmar Devolução";
+            int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+                
+            }
+            if (reply == JOptionPane.NO_OPTION) {
+
+            }
+        }
+    }
+    
+    private void confirmaDevolucao(){
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "UPTADE Emprestimo SET Devolvido = 'S' WHERE Codigo = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, (String)tabelaEmprestimos.getValueAt(tabelaEmprestimos.getSelectedRow(), 0));
+                ResultSet rs = pst.executeQuery();
+
+                if(rs.next()){
+                    // FAZ NADA
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Item '" + (String)tabelaEmprestimos.getValueAt(tabelaEmprestimos.getSelectedRow(), 1) + "' devolvido com sucesso.");
+            JOptionPane.showMessageDialog(null,e);
+            emprestimoBuscaTodos();
+        } catch (HeadlessException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
     
     private void emprestimoExcluir(){
-        
+        int linhaSelecionada = tabelaEmprestimos.getSelectedRow();
+        int colunaSelecionada = 1;
+        String message = "Deseja realmente excluir o empréstimo '" + ((String)tabelaEmprestimos.getValueAt(linhaSelecionada, colunaSelecionada)) + "'?";
+        String title = "Confirmação de Exclusao";
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String url = SQL_URL.getUrl();
+                try (Connection con = DriverManager.getConnection(url)) {
+                    String sql = "DELETE FROM Emprestimo WHERE Codigo = ?";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    colunaSelecionada = 0;
+                    pst.setString(1, (String) tabelaEmprestimos.getValueAt(linhaSelecionada, colunaSelecionada));
+                    ResultSet rs = pst.executeQuery();
+
+                }
+            } catch (HeadlessException | ClassNotFoundException e) {
+                JOptionPane.showMessageDialog(null, e);
+            } catch (SQLException e) {
+                colunaSelecionada = 1;
+                JOptionPane.showMessageDialog(null, "O motorista '" + (String) tabelaEmprestimos.getValueAt(linhaSelecionada, colunaSelecionada) + "' foi excluído.");
+                setagemInicial();
+                emprestimoBuscaTodos();
+            }
+            if (reply == JOptionPane.NO_OPTION) {
+
+            }
+        }
     }
     
     public void emprestimoBuscaTodos(){
-        
+        limpaTabelaEmprestimos();
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = null;
+                sql = "SELECT * FROM Emprestimo";
+                PreparedStatement pst = con.prepareStatement(sql);
+                ResultSet rs = pst.executeQuery();
+                while (rs.next()) {
+                    DefaultTableModel modeloAux = (DefaultTableModel) tabelaEmprestimos.getModel();
+                    modeloAux.addRow(new Object[]{rs.getString("Codigo"), rs.getString("Item"), rs.getString("Funcionario"), rs.getString("Quantidade"), rs.getString("Setor")});
+                }
+                if (tabelaEmprestimos.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(null, "A pesquisa não encontrou nenhuma devolução.");
+                }
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            //JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    private void limpaTabelaEmprestimos(){
+        int rowCount = tabelaEmprestimos.getRowCount();
+        if (rowCount > 0) {
+            while (rowCount > 0) {
+                ((DefaultTableModel) tabelaEmprestimos.getModel()).removeRow(rowCount - 1);
+                rowCount--;
+            }
+        }
     }
     
     private void emprestimoBuscar(){
@@ -587,7 +641,6 @@ public class EmprestimoUI extends javax.swing.JFrame {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnRelatorio;
-    private javax.swing.JButton btnVisualizar;
     private javax.swing.JTextField campoBusca;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -600,7 +653,7 @@ public class EmprestimoUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JTable tabelaProdutos;
+    private javax.swing.JTable tabelaEmprestimos;
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -643,20 +696,6 @@ public class EmprestimoUI extends javax.swing.JFrame {
      */
     public void setEditarEmprestimo(EditarEmprestimo editarEmprestimo) {
         this.editarEmprestimo = editarEmprestimo;
-    }
-
-    /**
-     * @return the visualizarEmprestimo
-     */
-    public VisualizarEmprestimo getVisualizarEmprestimo() {
-        return visualizarEmprestimo;
-    }
-
-    /**
-     * @param visualizarEmprestimo the visualizarEmprestimo to set
-     */
-    public void setVisualizarEmprestimo(VisualizarEmprestimo visualizarEmprestimo) {
-        this.visualizarEmprestimo = visualizarEmprestimo;
     }
 
     /**
