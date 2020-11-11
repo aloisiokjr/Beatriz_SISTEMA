@@ -5,11 +5,14 @@
  */
 package view;
 
+import controller.EmprestimoController;
 import controller.PecasController;
 import controller.UsuarioController;
 import javax.swing.JFrame;
+import model.Emprestimo;
 import model.Peca;
 import model.Usuario;
+import view.emprestimo.EmprestimoUI;
 import view.peca.PecaUI;
 import view.usuario.UsuarioUI;
 
@@ -24,12 +27,15 @@ public class Sistema_UI extends javax.swing.JFrame {
     
     private PecasController pecasController = null;
     private UsuarioController usuarioController = null;
+    private EmprestimoController emprestimoController = null;
     
     private Usuario usuarioAux = null;
     private Peca pecaAux = null;
+    private Emprestimo emprestimoAux = null;
     
     private UsuarioUI usuarioUI = null;
     private PecaUI pecaUI = null;
+    private EmprestimoUI emprestimoUI =  null;
     
     /**
      * Creates new form Sistema_UI
@@ -37,6 +43,7 @@ public class Sistema_UI extends javax.swing.JFrame {
     public Sistema_UI() {
         this.usuarioController = new UsuarioController(this);
         this.pecasController = new PecasController(this);
+        this.emprestimoController = new EmprestimoController(this);
         initComponents();
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         this.toFront();
@@ -53,8 +60,9 @@ public class Sistema_UI extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         boxUsuario = new javax.swing.JTextArea();
-        jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         barraMenuADM = new javax.swing.JMenuBar();
         menuADM = new javax.swing.JMenu();
         menuADM_Usuario = new javax.swing.JMenuItem();
@@ -76,14 +84,16 @@ public class Sistema_UI extends javax.swing.JFrame {
         boxUsuario.setEnabled(false);
         jScrollPane1.setViewportView(boxUsuario);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logoHD.png"))); // NOI18N
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 40)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 56)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 102, 0));
-        jLabel3.setText("SISTEMA DE GERENCIAMENTO DA OFICINA");
+        jLabel3.setText("SISTEMA DE GERENCIAMENTO OPERACIONAL");
+
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logoR.png"))); // NOI18N
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/simboloGrafico2.png"))); // NOI18N
 
         barraMenuADM.setForeground(new java.awt.Color(0, 102, 0));
-        barraMenuADM.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        barraMenuADM.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         barraMenuADM.setName("barraMenuADM"); // NOI18N
 
         menuADM.setText("Administração");
@@ -136,24 +146,28 @@ public class Sistema_UI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(380, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(131, 131, 131)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1294, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(364, 364, 364)
-                        .addComponent(jLabel3)))
-                .addContainerGap(495, Short.MAX_VALUE))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3))
+                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(59, 59, 59))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                .addContainerGap(266, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(87, 87, 87))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
+                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -197,16 +211,13 @@ public class Sistema_UI extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Sistema_UI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Sistema_UI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Sistema_UI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Sistema_UI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        //</editor-fold>
+        
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -219,7 +230,8 @@ public class Sistema_UI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenuADM;
     private javax.swing.JTextArea boxUsuario;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu menuADM;
@@ -340,5 +352,47 @@ public class Sistema_UI extends javax.swing.JFrame {
      */
     public void setUsuarioController(UsuarioController usuarioController) {
         this.usuarioController = usuarioController;
+    }
+
+    /**
+     * @return the emprestimoController
+     */
+    public EmprestimoController getEmprestimoController() {
+        return emprestimoController;
+    }
+
+    /**
+     * @param emprestimoController the emprestimoController to set
+     */
+    public void setEmprestimoController(EmprestimoController emprestimoController) {
+        this.emprestimoController = emprestimoController;
+    }
+
+    /**
+     * @return the emprestimoAux
+     */
+    public Emprestimo getEmprestimoAux() {
+        return emprestimoAux;
+    }
+
+    /**
+     * @param emprestimoAux the emprestimoAux to set
+     */
+    public void setEmprestimoAux(Emprestimo emprestimoAux) {
+        this.emprestimoAux = emprestimoAux;
+    }
+
+    /**
+     * @return the emprestimoUI
+     */
+    public EmprestimoUI getEmprestimoUI() {
+        return emprestimoUI;
+    }
+
+    /**
+     * @param emprestimoUI the emprestimoUI to set
+     */
+    public void setEmprestimoUI(EmprestimoUI emprestimoUI) {
+        this.emprestimoUI = emprestimoUI;
     }
 }

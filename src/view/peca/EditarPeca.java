@@ -797,6 +797,7 @@ public class EditarPeca extends javax.swing.JFrame {
             resultado = precoCompra * (1+(porcentagem/100));
             BigDecimal bd = new BigDecimal(resultado).setScale(3, RoundingMode.HALF_UP);
             String resultadoS = bd.doubleValue()+"";
+            resultadoS = resultadoS.replaceAll("\\.",",");
             campoPrecoVenda.setText(resultadoS);
         } else if (!campoPrecoCompra.getText().equals("") && !campoPrecoVenda.getText().equals("")){
             String auxTemp = campoPrecoCompra.getText().replaceAll("\\.","");
@@ -810,6 +811,7 @@ public class EditarPeca extends javax.swing.JFrame {
             resultado = resultado / precoCompra;
             BigDecimal bd = new BigDecimal(resultado).setScale(3, RoundingMode.HALF_UP);
             String resultadoS = bd.doubleValue()+"";
+            resultadoS = resultadoS.replaceAll("\\.",",");
             campoPorcentagemLucro.setText(resultadoS);
         }
     }//GEN-LAST:event_campoPrecoCompraKeyReleased
@@ -826,6 +828,7 @@ public class EditarPeca extends javax.swing.JFrame {
             resultado = precoCompra * (1+(porcentagem/100));
             BigDecimal bd = new BigDecimal(resultado).setScale(3, RoundingMode.HALF_UP);
             String resultadoS = bd.doubleValue()+"";
+            resultadoS = resultadoS.replaceAll("\\.",",");
             campoPrecoVenda.setText(resultadoS);
         } else if (!campoPorcentagemLucro.getText().equals("") && !campoPrecoVenda.getText().equals("")){
             String auxTemp = campoPorcentagemLucro.getText().replaceAll("\\.","");
@@ -838,6 +841,7 @@ public class EditarPeca extends javax.swing.JFrame {
             resultado = precoVenda / (1+(porcentagem/100));
             BigDecimal bd = new BigDecimal(resultado).setScale(3, RoundingMode.HALF_UP);
             String resultadoS = bd.doubleValue()+"";
+            resultadoS = resultadoS.replaceAll("\\.",",");
             campoPrecoCompra.setText(resultadoS);
         }
     }//GEN-LAST:event_campoPorcentagemLucroKeyReleased
@@ -855,6 +859,7 @@ public class EditarPeca extends javax.swing.JFrame {
             resultado = resultado / precoCompra;
             BigDecimal bd = new BigDecimal(resultado).setScale(3, RoundingMode.HALF_UP);
             String resultadoS = bd.doubleValue()+"";
+            resultadoS = resultadoS.replaceAll("\\.",",");
             campoPorcentagemLucro.setText(resultadoS);
         } else if (!campoPorcentagemLucro.getText().equals("") && !campoPrecoVenda.getText().equals("")){
             String auxTemp = campoPorcentagemLucro.getText().replaceAll("\\.","");
@@ -867,6 +872,7 @@ public class EditarPeca extends javax.swing.JFrame {
             resultado = precoVenda / (1+(porcentagem/100));
             BigDecimal bd = new BigDecimal(resultado).setScale(3, RoundingMode.HALF_UP);
             String resultadoS = bd.doubleValue()+"";
+            resultadoS = resultadoS.replaceAll("\\.",",");
             campoPrecoCompra.setText(resultadoS);
         }
     }//GEN-LAST:event_campoPrecoVendaKeyReleased

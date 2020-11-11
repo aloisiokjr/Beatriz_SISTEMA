@@ -752,7 +752,7 @@ public class PecaUI extends javax.swing.JFrame {
         }
     }
     
-    public void setagemInicial(){
+    public final void setagemInicial(){
         btnEditar.setEnabled(false);
         btnVisualizarPeca.setEnabled(false);
         btnAtualizarEstoque.setEnabled(false);
