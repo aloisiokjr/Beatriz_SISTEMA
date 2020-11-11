@@ -5,7 +5,6 @@
  */
 package controller;
 
-import java.util.ArrayList;
 import model.Peca;
 import view.Sistema_UI;
 import view.peca.CriarPeca;
@@ -68,8 +67,6 @@ public class PecasController {
     public void abreEdicaoPeca(){
         pecaUI.setEditarPeca(new EditarPeca(this, pecaUI.getPecaAux()));
         setEditarPeca(pecaUI.getEditarPeca());
-        getEditarPeca().setListaRequisitos(null);
-        getEditarPeca().setListaRequisitos(new ArrayList<>());
         getEditarPeca().setaEdicaoPeca();
         pecaUI.setEnabled(false);
     }

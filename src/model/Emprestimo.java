@@ -14,12 +14,16 @@ public class Emprestimo {
     private String funcionario = null;
     private String quantidade = null;
     private String setor = null;
+    private String codigo = null;
+    private String dataEmprestimo = null;
     
-    public Emprestimo(String item, String funcionario, String quantidade, String setor){
+    public Emprestimo(String item, String funcionario, String quantidade, String setor, String codigo, String dataEmprestimo){
         this.item = item;
         this.funcionario = funcionario;
         this.quantidade = quantidade;
         this.setor = setor;
+        this.codigo = codigo;
+        this.dataEmprestimo = dataEmprestimo;
     }
 
     /**
@@ -76,5 +80,33 @@ public class Emprestimo {
      */
     public void setSetor(String setor) {
         this.setor = setor;
+    }
+
+    /**
+     * @return the codigo
+     */
+    public String getCodigo() {
+        return codigo;
+    }
+
+    /**
+     * @param codigo the codigo to set
+     */
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    /**
+     * @return the dataEmprestimo
+     */
+    public String getDataEmprestimo() {
+        return dataEmprestimo;
+    }
+
+    /**
+     * @param dataEmprestimo the dataEmprestimo to set
+     */
+    public void setDataEmprestimo(String dataEmprestimo) {
+        this.dataEmprestimo = dataEmprestimo;
     }
 }

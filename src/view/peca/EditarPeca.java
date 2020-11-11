@@ -878,8 +878,8 @@ public class EditarPeca extends javax.swing.JFrame {
     }//GEN-LAST:event_campoPrecoVendaKeyReleased
 
     public void setaEdicaoPeca(){
-        setListaRequisitos(null);
-        setListaRequisitos((ArrayList<Requisito>) new ArrayList());
+        listaRequisitos = null;
+        listaRequisitos = new ArrayList();
         
         getListaRequisitos().add(new Requisito("Codigo", false));
         getListaRequisitos().add(new Requisito("Descrição", false));

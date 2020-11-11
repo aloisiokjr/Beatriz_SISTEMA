@@ -5,7 +5,19 @@
  */
 package view.emprestimo;
 
+import controller.EmprestimoController;
+import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import javax.swing.JOptionPane;
+import model.Requisito;
+import util.SQL_URL;
 
 /**
  *
@@ -13,11 +25,19 @@ import java.awt.event.KeyEvent;
  */
 public class CriarEmprestimo extends javax.swing.JFrame {
 
+    private EmprestimoController emprestimoController = null;
+    private ArrayList<Requisito> listaRequisitos = null;
     /**
      * Creates new form CriarEmprestimo
+     * @param emprestimoController
      */
-    public CriarEmprestimo() {
+    
+    public CriarEmprestimo(EmprestimoController emprestimoController) {
+        this.emprestimoController = emprestimoController;
         initComponents();
+        this.setVisible(true);
+        this.setExtendedState(MAXIMIZED_BOTH);
+        this.toFront();
     }
 
     /**
@@ -37,12 +57,16 @@ public class CriarEmprestimo extends javax.swing.JFrame {
         campoItem = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        campoItem1 = new javax.swing.JTextField();
+        campoFuncionario = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         campoQuantidade = new javax.swing.JFormattedTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        campoData = new javax.swing.JFormattedTextField();
+        jLabel8 = new javax.swing.JLabel();
+        campoCodigo = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
 
@@ -77,6 +101,11 @@ public class CriarEmprestimo extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         campoItem.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        campoItem.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoItemFocusLost(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Item *");
@@ -84,7 +113,12 @@ public class CriarEmprestimo extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabel10.setText("INFORMAÇÕES GERAIS");
 
-        campoItem1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        campoFuncionario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        campoFuncionario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoFuncionarioFocusLost(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Funcionário *");
@@ -93,11 +127,38 @@ public class CriarEmprestimo extends javax.swing.JFrame {
         jLabel5.setText("Quantidade *");
 
         campoQuantidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        campoQuantidade.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoQuantidadeFocusLost(evt);
+            }
+        });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "ADMINISTRATIVO", "RH", "FATURAMENTO", "ENGENHARIA", "FÁBRICA", "OFICINA", " " }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "ADMINISTRATIVO", "RH", "FATURAMENTO", "ENGENHARIA", "FÁBRICA", "OFICINA" }));
+        jComboBox1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jComboBox1FocusLost(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setText("Setor *");
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel7.setText("Data de Empréstimo *");
+
+        try {
+            campoData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        campoData.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoDataFocusLost(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel8.setText("Codigo *");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -108,47 +169,60 @@ public class CriarEmprestimo extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoItem, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
-                            .addComponent(campoQuantidade))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(campoQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoItem1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(campoData, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel10))
-                .addContainerGap(472, Short.MAX_VALUE))
+                .addContainerGap(162, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
+                .addComponent(jLabel10)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel6))
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox1)
-                            .addComponent(campoItem1)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(campoData, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(campoFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(20, 20, 20)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel5))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(campoItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(32, Short.MAX_VALUE))
+                            .addComponent(campoQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE))))
+                .addGap(34, 34, 34))
         );
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
@@ -182,14 +256,14 @@ public class CriarEmprestimo extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(82, 82, 82)
+                        .addGap(100, 100, 100)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnFecharTela, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
+                        .addGap(36, 36, 36)
                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(303, Short.MAX_VALUE))
+                .addContainerGap(330, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -224,25 +298,157 @@ public class CriarEmprestimo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFecharTelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharTelaActionPerformed
-//        fechaCadastroPeca();
+        fechaCadastroEmprestimo();
     }//GEN-LAST:event_btnFecharTelaActionPerformed
 
     private void btnFecharTelaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnFecharTelaKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-//            fechaCadastroPeca();
+            fechaCadastroEmprestimo();
         }
     }//GEN-LAST:event_btnFecharTelaKeyPressed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-//        cadastraPeca();
+        cadastraEmprestimo();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnSalvarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-//            cadastraPeca();
+            cadastraEmprestimo();
         }
     }//GEN-LAST:event_btnSalvarKeyPressed
 
+    private void campoItemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoItemFocusLost
+        if (campoItem.getText().equals("")) {
+            getListaRequisitos().get(0).setIsOk(false);
+        } else {
+            getListaRequisitos().get(0).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoItemFocusLost
+
+    private void campoQuantidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoQuantidadeFocusLost
+        if (campoQuantidade.getText().equals("")) {
+            getListaRequisitos().get(1).setIsOk(false);
+        } else {
+            getListaRequisitos().get(1).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoQuantidadeFocusLost
+
+    private void campoFuncionarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoFuncionarioFocusLost
+        if (campoFuncionario.getText().equals("")) {
+            getListaRequisitos().get(2).setIsOk(false);
+        } else {
+            getListaRequisitos().get(2).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoFuncionarioFocusLost
+
+    private void jComboBox1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboBox1FocusLost
+        String aux = (String)jComboBox1.getSelectedItem();
+        if (aux.equals("Selecione")) {
+            getListaRequisitos().get(3).setIsOk(false);
+        } else {
+            getListaRequisitos().get(3).setIsOk(true);
+        }
+    }//GEN-LAST:event_jComboBox1FocusLost
+
+    private void campoDataFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoDataFocusLost
+        if (campoData.getText().equals("")) {
+            getListaRequisitos().get(4).setIsOk(false);
+        } else {
+            getListaRequisitos().get(4).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoDataFocusLost
+
+    public void setagemInicial(){
+        listaRequisitos = null;
+        listaRequisitos = new ArrayList<>();
+        listaRequisitos.add(new Requisito("Item", false)); //0
+        listaRequisitos.add(new Requisito("Quantidade", false)); //1
+        listaRequisitos.add(new Requisito("Funcionário", false)); //2
+        listaRequisitos.add(new Requisito("Setor", false)); //3
+        listaRequisitos.add(new Requisito("Data de Empréstimo", false)); //4
+        
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "SELECT MAX(Codigo) FROM Emprestimo WHERE Devolvido = 'N'";
+                PreparedStatement pst = con.prepareStatement(sql);
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+                    int auxNum = Integer.parseInt(rs.getString("Codigo"));
+                    auxNum++;
+                    campoCodigo.setText(auxNum+"");
+                }
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    private void cadastraEmprestimo(){
+        Iterator<Requisito> iterador = listaRequisitos.iterator();
+        String requisitosN = "";
+        Requisito aux;
+        boolean auxControl = true;
+        while (iterador.hasNext()) {
+            aux = iterador.next();
+            if (!aux.isIsOk()) {
+                requisitosN = requisitosN.concat(" " + aux.getRequisito() + ",");
+                auxControl = false;
+            }
+        }
+        if (!auxControl) {
+            requisitosN = requisitosN.substring(0, requisitosN.length() - 1);
+            JOptionPane.showMessageDialog(null, "Os seguintes requisitos não foram preeenchidos:" + requisitosN + ".");
+        } else {
+            String item, quantidade, funcionario, setor, codigo, dataDevolucao;
+            item = campoItem.getText();
+            quantidade = campoQuantidade.getText();
+            funcionario = campoFuncionario.getText();
+            setor = (String)jComboBox1.getSelectedItem();
+            codigo = campoCodigo.getText();
+            dataDevolucao = campoData.getText();
+            
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String url = SQL_URL.getUrl();
+                try (Connection con = DriverManager.getConnection(url)) {
+                    String sql = "INSERT INTO Emprestimo (Item, Funcionario, Quantidade, Setor, Codigo, DataDeEmprestimo) VALUES (?,?,?,?,?,?)";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    pst.setString(1, item);
+                    pst.setString(2, funcionario);
+                    pst.setString(3, quantidade);
+                    pst.setString(4, setor);
+                    pst.setString(5, codigo);
+                    pst.setString(6, dataDevolucao);
+
+                    ResultSet rs = pst.executeQuery();
+                    
+                    if(rs.next()){
+                        // FAZ NADA
+                    }
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Empréstimo do Item '" + item + "' registrado com sucesso.");
+                JOptionPane.showMessageDialog(null,e);
+                emprestimoController.fechaCriacaoEmprestimo();
+            } catch (HeadlessException | ClassNotFoundException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }
+    
+    private void fechaCadastroEmprestimo(){
+        String message = "Deseja realmente cancelar o cadastro?";
+        String title = "Cancelar Cadastro";
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            getEmprestimoController().fechaCriacaoEmprestimo();
+        }
+        if (reply == JOptionPane.NO_OPTION) {
+
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -259,30 +465,22 @@ public class CriarEmprestimo extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CriarEmprestimo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CriarEmprestimo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CriarEmprestimo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(CriarEmprestimo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CriarEmprestimo().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFecharTela;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JTextField campoCodigo;
+    private javax.swing.JFormattedTextField campoData;
+    private javax.swing.JTextField campoFuncionario;
     private javax.swing.JTextField campoItem;
-    private javax.swing.JTextField campoItem1;
     private javax.swing.JFormattedTextField campoQuantidade;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
@@ -292,8 +490,38 @@ public class CriarEmprestimo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the emprestimoController
+     */
+    public EmprestimoController getEmprestimoController() {
+        return emprestimoController;
+    }
+
+    /**
+     * @param emprestimoController the emprestimoController to set
+     */
+    public void setEmprestimoController(EmprestimoController emprestimoController) {
+        this.emprestimoController = emprestimoController;
+    }
+
+    /**
+     * @return the listaRequisitos
+     */
+    public ArrayList<Requisito> getListaRequisitos() {
+        return listaRequisitos;
+    }
+
+    /**
+     * @param listaRequisitos the listaRequisitos to set
+     */
+    public void setListaRequisitos(ArrayList<Requisito> listaRequisitos) {
+        this.listaRequisitos = listaRequisitos;
+    }
 }

@@ -6,9 +6,17 @@
 package view.emprestimo;
 
 import controller.EmprestimoController;
+import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import model.Emprestimo;
+import util.SQL_URL;
 
 /**
  *
@@ -57,7 +65,7 @@ public class EmprestimoUI extends javax.swing.JFrame {
         btnCriar = new javax.swing.JButton();
         btnDevolucao = new javax.swing.JButton();
         btnExcluir.setEnabled(false);
-        btnVisualizarPeca = new javax.swing.JButton();
+        btnVisualizar = new javax.swing.JButton();
         btnExcluir.setEnabled(false);
         btnFechar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -80,7 +88,7 @@ public class EmprestimoUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "", "ITEM", "FUNCIONÁRIO", "QUANTIDADE", "SETOR"
+                "CÓDIGO", "ITEM", "FUNCIONÁRIO", "QUANTIDADE", "SETOR"
             }
         ) {
             Class[] types = new Class [] {
@@ -177,16 +185,16 @@ public class EmprestimoUI extends javax.swing.JFrame {
             }
         });
 
-        btnVisualizarPeca.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btnVisualizarPeca.setText("VISUALIZAR");
-        btnVisualizarPeca.addActionListener(new java.awt.event.ActionListener() {
+        btnVisualizar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnVisualizar.setText("VISUALIZAR");
+        btnVisualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVisualizarPecaActionPerformed(evt);
+                btnVisualizarActionPerformed(evt);
             }
         });
-        btnVisualizarPeca.addKeyListener(new java.awt.event.KeyAdapter() {
+        btnVisualizar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnVisualizarPecaKeyPressed(evt);
+                btnVisualizarKeyPressed(evt);
             }
         });
 
@@ -206,7 +214,7 @@ public class EmprestimoUI extends javax.swing.JFrame {
                     .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCriar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnDevolucao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnVisualizarPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(121, 121, 121))
         );
         jPanel2Layout.setVerticalGroup(
@@ -221,7 +229,7 @@ public class EmprestimoUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEditar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnVisualizarPeca)
+                .addComponent(btnVisualizar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDevolucao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -402,7 +410,7 @@ public class EmprestimoUI extends javax.swing.JFrame {
     private void tabelaProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProdutosMouseClicked
         if(tabelaProdutos.getSelectedRow() > -1){
             btnEditar.setEnabled(true);
-            btnVisualizarPeca.setEnabled(true);
+            btnVisualizar.setEnabled(true);
             btnDevolucao.setEnabled(true);
             btnExcluir.setEnabled(true);
         }
@@ -440,22 +448,24 @@ public class EmprestimoUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCriarKeyPressed
 
     private void btnDevolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolucaoActionPerformed
-        // TODO add your handling code here:
+        emprestimoDevolver();
     }//GEN-LAST:event_btnDevolucaoActionPerformed
 
     private void btnDevolucaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnDevolucaoKeyPressed
-        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            emprestimoDevolver();
+        }
     }//GEN-LAST:event_btnDevolucaoKeyPressed
 
-    private void btnVisualizarPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarPecaActionPerformed
+    private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
         emprestimoVisualizar();
-    }//GEN-LAST:event_btnVisualizarPecaActionPerformed
+    }//GEN-LAST:event_btnVisualizarActionPerformed
 
-    private void btnVisualizarPecaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnVisualizarPecaKeyPressed
+    private void btnVisualizarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnVisualizarKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             emprestimoVisualizar();
         }
-    }//GEN-LAST:event_btnVisualizarPecaKeyPressed
+    }//GEN-LAST:event_btnVisualizarKeyPressed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         getEmprestimoController().fechaEmprestimoUI();
@@ -494,15 +504,41 @@ public class EmprestimoUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRelatorioActionPerformed
 
     
-    private void setagemInicial(){
-        
+    public void setagemInicial(){
+        btnEditar.setEnabled(false);
+        btnVisualizar.setEnabled(false);
+        btnDevolucao.setEnabled(false);
+        btnExcluir.setEnabled(false);
     }
     
     private void emprestimoAlterar(){
-    
+        if(tabelaProdutos.getSelectedRow() > -1){
+            try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "SELECT * FROM Emprestimo WHERE Codigo = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, (String)tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 0));
+                ResultSet rs = pst.executeQuery();
+
+                if(rs.next()){
+                    emprestimoAux = new Emprestimo(rs.getString("Item"),rs.getString("Funcionario"),rs.getString("Quantidade"),rs.getString("Setor"),rs.getString("Codigo"),rs.getString("DatadeDevolucao"));
+                    setEmprestimoAux(emprestimoAux);
+                    emprestimoController.abreEdicaoEmprestimo();
+                }
+            }
+        } catch (SQLException | HeadlessException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        }
     }
     
     private void emprestimoVisualizar(){
+        emprestimoController.abreVisualizacaoEmprestimo();
+    }
+    
+    private void emprestimoDevolver(){
         
     }
     
@@ -510,7 +546,7 @@ public class EmprestimoUI extends javax.swing.JFrame {
         
     }
     
-    public void emprestimouscaTodos(){
+    public void emprestimoBuscaTodos(){
         
     }
     
@@ -551,7 +587,7 @@ public class EmprestimoUI extends javax.swing.JFrame {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnRelatorio;
-    private javax.swing.JButton btnVisualizarPeca;
+    private javax.swing.JButton btnVisualizar;
     private javax.swing.JTextField campoBusca;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

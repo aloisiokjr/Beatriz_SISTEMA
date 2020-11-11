@@ -33,7 +33,7 @@ public class EmprestimoController {
     sistemaUI.setEmprestimoUI(new EmprestimoUI(this));
     sistemaUI.setEnabled(false);
     setEmprestimoUI(sistemaUI.getEmprestimoUI());
-    emprestimoUI.emprestimouscaTodos();
+    emprestimoUI.emprestimoBuscaTodos();
     
 }
 
@@ -45,31 +45,29 @@ public class EmprestimoController {
     }
 
     public void abreCriacaoEmprestimo(){
-//        emprestimoUI.setCriarEmprestimo(new CriarEmprestimo(this));
-//        setCriarEmprestimo(emprestimoUI.getCriarEmprestimo());
-//        getCriarEmprestimo().setagemInicial();
-//        emprestimoUI.setEnabled(false);
+        emprestimoUI.setCriarEmprestimo(new CriarEmprestimo(this));
+        setCriarEmprestimo(emprestimoUI.getCriarEmprestimo());
+        getCriarEmprestimo().setagemInicial();
+        emprestimoUI.setEnabled(false);
 
     }
 
     public void fechaCriacaoEmprestimo(){
-//        getCriarEmprestimo().dispose();
-//        setCriarEmprestimo(null);
-//        sistemaUI.toFront();
-//        emprestimoUI.setEnabled(true);
-//        emprestimoUI.toFront();
-//        emprestimoUI.setagemInicial();
-//        emprestimoUI.produtoBuscaTodos();
+        getCriarEmprestimo().dispose();
+        setCriarEmprestimo(null);
+        sistemaUI.toFront();
+        emprestimoUI.setEnabled(true);
+        emprestimoUI.toFront();
+        emprestimoUI.setagemInicial();
+        emprestimoUI.emprestimoBuscaTodos();
     }
 
     
     public void abreEdicaoEmprestimo(){
-//        emprestimoUI.setEditarEmprestimo(new EditarEmprestimo(this, emprestimoUI.getEmprestimoAux()));
-//        setEditarEmprestimo(emprestimoUI.getEditarEmprestimo());
-//        getEditarEmprestimo().setListaRequisitos(null);
-//        getEditarEmprestimo().setListaRequisitos(new ArrayList<>());
-//        getEditarEmprestimo().setaEdicaoEmprestimo();
-//        emprestimoUI.setEnabled(false);
+        emprestimoUI.setEditarEmprestimo(new EditarEmprestimo(this, emprestimoUI.getEmprestimoAux()));
+        setEditarEmprestimo(emprestimoUI.getEditarEmprestimo());
+        getEditarEmprestimo().setagemInicial();
+        emprestimoUI.setEnabled(false);
     }
     
     public void fechaEdicaoEmprestimo(){
