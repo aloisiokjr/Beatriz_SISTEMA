@@ -67,6 +67,7 @@ public class Sistema_UI extends javax.swing.JFrame {
         menuADM = new javax.swing.JMenu();
         menuADM_Usuario = new javax.swing.JMenuItem();
         menuADM_Pecas = new javax.swing.JMenuItem();
+        menuADM_Emprestimos = new javax.swing.JMenuItem();
         menuSair = new javax.swing.JMenu();
         menuSair_Logoff = new javax.swing.JMenuItem();
         menuSair_Sair = new javax.swing.JMenuItem();
@@ -116,6 +117,15 @@ public class Sistema_UI extends javax.swing.JFrame {
             }
         });
         menuADM.add(menuADM_Pecas);
+
+        menuADM_Emprestimos.setText("Emprestimos");
+        menuADM_Emprestimos.setActionCommand("Emprestimos");
+        menuADM_Emprestimos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuADM_EmprestimosActionPerformed(evt);
+            }
+        });
+        menuADM.add(menuADM_Emprestimos);
 
         barraMenuADM.add(menuADM);
 
@@ -179,7 +189,7 @@ public class Sistema_UI extends javax.swing.JFrame {
     }//GEN-LAST:event_menuADM_UsuarioActionPerformed
 
     private void menuADM_PecasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuADM_PecasActionPerformed
-        getPecasController().abrePecaUI();
+        //getPecasController().abrePecaUI();
     }//GEN-LAST:event_menuADM_PecasActionPerformed
 
     private void menuSair_LogoffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSair_LogoffActionPerformed
@@ -191,6 +201,10 @@ public class Sistema_UI extends javax.swing.JFrame {
     private void menuSair_SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSair_SairActionPerformed
         System.exit(0);
     }//GEN-LAST:event_menuSair_SairActionPerformed
+
+    private void menuADM_EmprestimosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuADM_EmprestimosActionPerformed
+        getEmprestimoController().abreEmprestimoUI();
+    }//GEN-LAST:event_menuADM_EmprestimosActionPerformed
 
     public void atualizaDados(){
         
@@ -235,6 +249,7 @@ public class Sistema_UI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu menuADM;
+    private javax.swing.JMenuItem menuADM_Emprestimos;
     private javax.swing.JMenuItem menuADM_Pecas;
     private javax.swing.JMenuItem menuADM_Usuario;
     private javax.swing.JMenu menuSair;

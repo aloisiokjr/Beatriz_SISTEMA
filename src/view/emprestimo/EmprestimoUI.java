@@ -13,6 +13,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -75,8 +78,9 @@ public class EmprestimoUI extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         jRadioButton_Setor = new javax.swing.JRadioButton();
         btnRelatorio = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel1.setText("Lista de Empréstimos");
@@ -86,14 +90,14 @@ public class EmprestimoUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "CÓDIGO", "ITEM", "FUNCIONÁRIO", "QUANTIDADE", "SETOR"
+                "CÓDIGO", "ITEM", "FUNCIONÁRIO", "QUANTIDADE", "SETOR", "DIA DE EMPRESTIMO"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -123,6 +127,8 @@ public class EmprestimoUI extends javax.swing.JFrame {
             tabelaEmprestimos.getColumnModel().getColumn(3).setPreferredWidth(100);
             tabelaEmprestimos.getColumnModel().getColumn(4).setResizable(false);
             tabelaEmprestimos.getColumnModel().getColumn(4).setPreferredWidth(150);
+            tabelaEmprestimos.getColumnModel().getColumn(5).setResizable(false);
+            tabelaEmprestimos.getColumnModel().getColumn(5).setPreferredWidth(150);
         }
 
         jPanel2.setBackground(new java.awt.Color(242, 242, 242));
@@ -339,6 +345,8 @@ public class EmprestimoUI extends javax.swing.JFrame {
             }
         });
 
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logoR.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -347,21 +355,23 @@ public class EmprestimoUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(147, 147, 147)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 725, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(71, 71, 71)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(101, 101, 101)
+                                .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(153, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(251, 251, 251))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -369,18 +379,20 @@ public class EmprestimoUI extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(53, 53, 53)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(468, Short.MAX_VALUE))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(356, Short.MAX_VALUE))
         );
 
         pack();
@@ -490,7 +502,7 @@ public class EmprestimoUI extends javax.swing.JFrame {
                 ResultSet rs = pst.executeQuery();
 
                 if(rs.next()){
-                    emprestimoAux = new Emprestimo(rs.getString("Item"),rs.getString("Funcionario"),rs.getString("Quantidade"),rs.getString("Setor"),rs.getString("Codigo"),rs.getString("DatadeDevolucao"));
+                    emprestimoAux = new Emprestimo(rs.getString("Item"),rs.getString("Funcionario"),rs.getString("Quantidade"),rs.getString("Setor"),rs.getString("Codigo"),rs.getString("DiadeEmprestimo"));
                     setEmprestimoAux(emprestimoAux);
                     emprestimoController.abreEdicaoEmprestimo();
                 }
@@ -508,7 +520,7 @@ public class EmprestimoUI extends javax.swing.JFrame {
             String title = "Confirmar Devolução";
             int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION) {
-                
+                confirmaDevolucao();
             }
             if (reply == JOptionPane.NO_OPTION) {
 
@@ -517,13 +529,18 @@ public class EmprestimoUI extends javax.swing.JFrame {
     }
     
     private void confirmaDevolucao(){
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	Date date = new Date();
+	String dataAux = dateFormat.format(date);
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
-                String sql = "UPTADE Emprestimo SET Devolvido = 'S' WHERE Codigo = ?";
+                String sql = "UPDATE Emprestimo SET Devolvido = ?, DiaDeDevolucao = ? WHERE Codigo = ?";
                 PreparedStatement pst = con.prepareStatement(sql);
-                pst.setString(1, (String)tabelaEmprestimos.getValueAt(tabelaEmprestimos.getSelectedRow(), 0));
+                pst.setString(1, "S");
+                pst.setString(2, dataAux);
+                pst.setString(3, (String)tabelaEmprestimos.getValueAt(tabelaEmprestimos.getSelectedRow(), 0));
                 ResultSet rs = pst.executeQuery();
 
                 if(rs.next()){
@@ -532,7 +549,7 @@ public class EmprestimoUI extends javax.swing.JFrame {
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Item '" + (String)tabelaEmprestimos.getValueAt(tabelaEmprestimos.getSelectedRow(), 1) + "' devolvido com sucesso.");
-            JOptionPane.showMessageDialog(null,e);
+            //JOptionPane.showMessageDialog(null,e);
             emprestimoBuscaTodos();
         } catch (HeadlessException | ClassNotFoundException e) {
             JOptionPane.showMessageDialog(null, e);
@@ -578,12 +595,12 @@ public class EmprestimoUI extends javax.swing.JFrame {
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = null;
-                sql = "SELECT * FROM Emprestimo";
+                sql = "SELECT * FROM Emprestimo WHERE Devolvido = 'N'";
                 PreparedStatement pst = con.prepareStatement(sql);
                 ResultSet rs = pst.executeQuery();
                 while (rs.next()) {
                     DefaultTableModel modeloAux = (DefaultTableModel) tabelaEmprestimos.getModel();
-                    modeloAux.addRow(new Object[]{rs.getString("Codigo"), rs.getString("Item"), rs.getString("Funcionario"), rs.getString("Quantidade"), rs.getString("Setor")});
+                    modeloAux.addRow(new Object[]{rs.getString("Codigo"), rs.getString("Item"), rs.getString("Funcionario"), rs.getString("Quantidade"), rs.getString("Setor"), rs.getString("DiaDeEmprestimo")});
                 }
                 if (tabelaEmprestimos.getRowCount() == 0) {
                     JOptionPane.showMessageDialog(null, "A pesquisa não encontrou nenhuma devolução.");
@@ -643,6 +660,7 @@ public class EmprestimoUI extends javax.swing.JFrame {
     private javax.swing.JButton btnRelatorio;
     private javax.swing.JTextField campoBusca;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;

@@ -75,7 +75,7 @@ public class EditarEmprestimo extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         btnFecharTela.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnFecharTela.setText("FECHAR");
@@ -402,25 +402,25 @@ public class EditarEmprestimo extends javax.swing.JFrame {
             requisitosN = requisitosN.substring(0, requisitosN.length() - 1);
             JOptionPane.showMessageDialog(null, "Os seguintes requisitos não foram preeenchidos:" + requisitosN + ".");
         } else {
-            String item, quantidade, funcionario, setor, codigo, dataDevolucao;
+            String item, quantidade, funcionario, setor, codigo, dataEmprestimo;
             item = campoItem.getText();
             quantidade = campoQuantidade.getText();
             funcionario = campoFuncionario.getText();
             setor = (String)jComboBox1.getSelectedItem();
             codigo = campoCodigo.getText();
-            dataDevolucao = campoData.getText();
+            dataEmprestimo = campoData.getText();
             
             try {
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
-                    String sql = "UPTADE Emprestimo SET Item = ?, Funcionario = ?, Quantidade = ?, Setor = ?, DiaDeEmprestimo = ? WHERE Codigo = ?";
+                    String sql = "UPDATE Emprestimo SET Item = ?, Funcionario = ?, Quantidade = ?, Setor = ?, DiaDeEmprestimo = ? WHERE Codigo = ?";
                     PreparedStatement pst = con.prepareStatement(sql);
                     pst.setString(1, item);
                     pst.setString(2, funcionario);
                     pst.setString(3, quantidade);
                     pst.setString(4, setor);
-                    pst.setString(5, dataDevolucao);
+                    pst.setString(5, dataEmprestimo);
                     pst.setString(6, codigo);
 
                     ResultSet rs = pst.executeQuery();
@@ -431,8 +431,8 @@ public class EditarEmprestimo extends javax.swing.JFrame {
                 }
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Empréstimo do Item '" + item + "' editado com sucesso.");
-                JOptionPane.showMessageDialog(null,e);
-                emprestimoController.fechaCriacaoEmprestimo();
+                //JOptionPane.showMessageDialog(null,e);
+                emprestimoController.fechaEdicaoEmprestimo();
             } catch (HeadlessException | ClassNotFoundException e) {
                 JOptionPane.showMessageDialog(null, e);
             }

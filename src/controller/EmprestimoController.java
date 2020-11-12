@@ -72,6 +72,7 @@ public class EmprestimoController {
         getEditarEmprestimo().dispose();
         emprestimoUI.setEnabled(true);
         emprestimoUI.setEmprestimoAux(null);
+        emprestimoUI.emprestimoBuscaTodos();
         sistemaUI.toFront();
         emprestimoUI.toFront();
         sistemaUI.atualizaDados();
