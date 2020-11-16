@@ -77,6 +77,7 @@ public class PecasController {
         pecaUI.setPecaAux(null);
         sistemaUI.toFront();
         pecaUI.toFront();
+        pecaUI.produtoBuscaTodos();
         sistemaUI.atualizaDados();
     }
     

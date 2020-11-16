@@ -1,0 +1,11 @@
++-------------- RESULTADO DA BUSCA: PRODUTOS --------------+
+
+LISTAGEM:
+
+#  1 ##########################
+Código: 3
+Descrição: Nothing
+Valor: 8,44
+Quantidade em Estoque: 0
+
++-------------------------------------------------------------+

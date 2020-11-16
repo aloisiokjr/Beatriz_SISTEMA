@@ -1,0 +1,14 @@
++-------------- RESULTADO DA BUSCA: EMPRÉSTIMOS --------------+
+
+LISTAGEM:
+#  1 
+
+Código: 1
+Item: Regua
+Funcionário: Carlos
+Quantidade: 1
+Setor: RH
+Dia de Empréstimo: 13/11/2020
+
+
++-------------------------------------------------------------+

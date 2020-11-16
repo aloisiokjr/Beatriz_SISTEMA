@@ -402,6 +402,9 @@ public class EditarPeca extends javax.swing.JFrame {
         tabelaNomeVariantes.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tabelaNomeVariantes.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tabelaNomeVariantes);
+        if (tabelaNomeVariantes.getColumnModel().getColumnCount() > 0) {
+            tabelaNomeVariantes.getColumnModel().getColumn(1).setPreferredWidth(200);
+        }
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel11.setText("NOMES VARIANTES");
@@ -565,6 +568,12 @@ public class EditarPeca extends javax.swing.JFrame {
         tabelaEspGerais.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tabelaEspGerais.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tabelaEspGerais);
+        if (tabelaEspGerais.getColumnModel().getColumnCount() > 0) {
+            tabelaEspGerais.getColumnModel().getColumn(0).setResizable(false);
+            tabelaEspGerais.getColumnModel().getColumn(0).setPreferredWidth(200);
+            tabelaEspGerais.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tabelaEspGerais.getColumnModel().getColumn(2).setPreferredWidth(100);
+        }
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel13.setText("ESPECIFICAÇÕES GERAIS");
@@ -970,6 +979,7 @@ public class EditarPeca extends javax.swing.JFrame {
     public void setaEdicaoPeca(){
         listaRequisitos = null;
         listaRequisitos = new ArrayList();
+        labelNomeVariante.setVisible(false);
         
         getListaRequisitos().add(new Requisito("Codigo", false));
         getListaRequisitos().add(new Requisito("Descrição", false));

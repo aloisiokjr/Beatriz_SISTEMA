@@ -8,12 +8,22 @@ package view.peca;
 import controller.PecasController;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -82,6 +92,7 @@ public class PecaUI extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnRelatorio6 = new javax.swing.JButton();
         btnFechar = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
@@ -216,7 +227,7 @@ public class PecaUI extends javax.swing.JFrame {
                     .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCriar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAtualizarEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                    .addComponent(btnAtualizarEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnVisualizarPeca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(102, 102, 102))
         );
@@ -355,6 +366,11 @@ public class PecaUI extends javax.swing.JFrame {
                 btnRelatorio6ActionPerformed(evt);
             }
         });
+        btnRelatorio6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnRelatorio6KeyPressed(evt);
+            }
+        });
 
         btnFechar.setBackground(new java.awt.Color(145, 0, 0));
         btnFechar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -385,6 +401,8 @@ public class PecaUI extends javax.swing.JFrame {
                 .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logoR.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -394,28 +412,37 @@ public class PecaUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(58, 58, 58)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(50, 50, 50)
+                                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(44, 44, 44)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(583, Short.MAX_VALUE))
+                .addContainerGap(597, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 526, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(536, 536, 536)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(532, Short.MAX_VALUE))
         );
 
@@ -513,8 +540,22 @@ public class PecaUI extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaProdutosMouseClicked
 
     private void btnRelatorio6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorio6ActionPerformed
-        // TODO add your handling code here:
+        try {
+            geraTxt();
+        } catch (IOException ex) {
+            Logger.getLogger(PecaUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnRelatorio6ActionPerformed
+
+    private void btnRelatorio6KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnRelatorio6KeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+                geraTxt();
+            } catch (IOException ex) {
+                Logger.getLogger(PecaUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnRelatorio6KeyPressed
 
     private void produtoAlterar(){
         String codigo;
@@ -679,7 +720,7 @@ public class PecaUI extends javax.swing.JFrame {
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = "DELETE FROM Produto WHERE Codigo = ?";
                     PreparedStatement pst = con.prepareStatement(sql);
-                    colunaSelecionada = 2;
+                    colunaSelecionada = 0;
                     pst.setString(1, (String) tabelaProdutos.getValueAt(linhaSelecionada, colunaSelecionada));
                     ResultSet rs = pst.executeQuery();
 
@@ -718,7 +759,7 @@ public class PecaUI extends javax.swing.JFrame {
                         ResultSet rs = pst.executeQuery();
                         while (rs.next()) {
                             DefaultTableModel modeloAux = (DefaultTableModel) tabelaProdutos.getModel();
-                            modeloAux.addRow(new Object[]{rs.getString("Codigo"), rs.getString("Descricao"), rs.getString("ValorVenda"), rs.getString("QtdEstoque")});
+                            modeloAux.addRow(new Object[]{rs.getString("Codigo"), rs.getString("Descricao"), rs.getString("PrecoVenda"), rs.getString("QtdEstoque")});
                         }
                     }
                     
@@ -742,13 +783,12 @@ public class PecaUI extends javax.swing.JFrame {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
-                String sql = null;
-                sql = "SELECT Codigo, Descricao, PrecoVenda, QtdEstoque FROM Produto WHERE Descricao LIKE '%"+palavraBusca+"%'";
+                String sql;
+                sql = "SELECT CodigoProduto FROM Produto_Variante WHERE Nome_Variavel LIKE '%"+palavraBusca+"%'";
                 PreparedStatement pst = con.prepareStatement(sql);
                 ResultSet rs = pst.executeQuery();
                 while (rs.next()) {
-                    DefaultTableModel modeloAux = (DefaultTableModel) tabelaProdutos.getModel();
-                    modeloAux.addRow(new Object[]{rs.getString("Codigo"), rs.getString("Descricao"), rs.getString("ValorVenda"), rs.getString("QtdEstoque")});
+                    buscaNomeVariavelContinue(rs.getString("CodigoProduto"));
                 }
                 if (tabelaProdutos.getRowCount() == 0) {
                     JOptionPane.showMessageDialog(null, "A pesquisa não encontrou nenhum produto.");
@@ -759,6 +799,25 @@ public class PecaUI extends javax.swing.JFrame {
         }
     }
     
+    private void buscaNomeVariavelContinue(String codigo){
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = null;
+                sql = "SELECT Codigo, Descricao, PrecoVenda, QtdEstoque FROM Produto WHERE Codigo = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, codigo);
+                ResultSet rs = pst.executeQuery();
+                while (rs.next()) {
+                    DefaultTableModel modeloAux = (DefaultTableModel) tabelaProdutos.getModel();
+                    modeloAux.addRow(new Object[]{rs.getString("Codigo"), rs.getString("Descricao"), rs.getString("PrecoVenda"), rs.getString("QtdEstoque")});
+                }
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            //JOptionPane.showMessageDialog(null, e);
+        }
+    }
     public void produtoBuscaTodos(){
         limpaTabelaProdutos();
         try {
@@ -771,14 +830,14 @@ public class PecaUI extends javax.swing.JFrame {
                 ResultSet rs = pst.executeQuery();
                 while (rs.next()) {
                     DefaultTableModel modeloAux = (DefaultTableModel) tabelaProdutos.getModel();
-                    modeloAux.addRow(new Object[]{rs.getString("Codigo"), rs.getString("Descricao"), rs.getString("ValorVenda"), rs.getString("QtdEstoque")});
+                    modeloAux.addRow(new Object[]{rs.getString("Codigo"), rs.getString("Descricao"), rs.getString("PrecoVenda"), rs.getString("QtdEstoque")});
                 }
                 if (tabelaProdutos.getRowCount() == 0) {
                     JOptionPane.showMessageDialog(null, "A pesquisa não encontrou nenhum produto.");
                 }
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
-            //JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, e);
         }
     }
     
@@ -797,6 +856,111 @@ public class PecaUI extends javax.swing.JFrame {
                 rowCount--;
             }
         }
+    }
+    
+    private void geraTxt() throws IOException{
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+	Date date = new Date();
+	String dataAux = dateFormat.format(date);
+        dataAux = dataAux.replaceAll(" ", "--");
+        dataAux = dataAux.replaceAll("/", "-");
+        dataAux = dataAux.replaceAll(":", "");
+        
+        File f = new File(".\\saida");
+        if(f.mkdir()){
+        }
+        f = new File(".\\saida\\produtos");
+        if(f.mkdir()){
+        }
+        
+        try (FileWriter arq = new FileWriter(".\\saida\\produtos/BuscaProdutos--"+dataAux+".txt")) {
+            PrintWriter gravarArq = new PrintWriter(arq);
+
+            gravarArq.printf("+-------------- RESULTADO DA BUSCA: PRODUTOS --------------+%n%n");
+            gravarArq.printf("LISTAGEM:%n%n");
+            int i;
+            for (i=0; i< tabelaProdutos.getRowCount(); i++) {
+                gravarArq.printf("# %2d ##########################%n", i+1);
+                gravarArq.printf("Código: " + (String)tabelaProdutos.getValueAt(i, 0)+"%n");
+                gravarArq.printf("Descrição: " + (String)tabelaProdutos.getValueAt(i, 1)+"%n");
+                gravarArq.printf("Valor: " + (String)tabelaProdutos.getValueAt(i, 2)+"%n");
+                gravarArq.printf("Quantidade em Estoque: " + (String)tabelaProdutos.getValueAt(i, 3)+"%n");
+                ArrayList objetos[] = searchPeca((String)tabelaProdutos.getValueAt(i, 0));
+                ArrayList auxList = objetos[0];
+                Iterator auxIterador = auxList.iterator();
+                int num = 1;
+                Especificacao espAux;
+                while (auxIterador.hasNext()){
+                    espAux = (Especificacao)auxIterador.next();
+                    gravarArq.printf("-Especificacao "+ num +"-" +"%n");
+                    gravarArq.printf("Descrição: "+ espAux.getDescricao() +"%n");
+                    gravarArq.printf("Unidade de Medida: "+ espAux.getUnidadeMedida() +"%n");
+                    gravarArq.printf("Valor: "+ espAux.getValor() +"%n");
+                    gravarArq.printf("-------------------%n");
+                    num++;
+                }
+                auxList = objetos[1];
+                auxIterador = auxList.iterator();
+                num = 1;
+                String stringAux;
+                while (auxIterador.hasNext()){
+                    stringAux = (String)auxIterador.next();
+                    gravarArq.printf("Nome Variante "+ num +": " + stringAux + "%n");
+                    num++;
+                }
+                gravarArq.printf("%n");
+            }
+            gravarArq.printf("+-------------------------------------------------------------+%n");
+            arq.close();
+
+            JOptionPane.showMessageDialog(null,"Dados salvos em 'saida/produtos/BuscaProdutos--"+dataAux+".txt'");
+        }
+    }
+    
+    private ArrayList[] searchPeca(String codigo){
+        ArrayList[] objetos = new ArrayList[2];
+        ArrayList<Especificacao> listaEspecificacoes = new ArrayList();
+        ArrayList<String> listaNomesVariantes = new ArrayList();
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = null;
+                sql = "SELECT * FROM Produto_Especificacao WHERE CodigoProduto = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, codigo);
+                ResultSet rs = pst.executeQuery();
+                while (rs.next()) {
+                    Especificacao auxEsp = new Especificacao(rs.getString("Descricao"),rs.getString("Valor"),rs.getString("UnidadeMedida"));
+                    listaEspecificacoes.add(auxEsp);
+                }
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            //JOptionPane.showMessageDialog(null, e);
+        }
+        
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = null;
+                sql = "SELECT * FROM Produto_Variante WHERE CodigoProduto = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, codigo);
+                ResultSet rs = pst.executeQuery();
+                while (rs.next()) {
+                    String auxString = rs.getString("NomeVariavel");
+                    listaNomesVariantes.add(auxString);
+                }
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            //JOptionPane.showMessageDialog(null, e);
+        }
+        
+        objetos[0] = listaEspecificacoes;
+        objetos[1] = listaNomesVariantes;
+        
+        return objetos;
     }
     /**
      * @param args the command line arguments
@@ -830,17 +994,12 @@ public class PecaUI extends javax.swing.JFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnFechar;
-    private javax.swing.JButton btnRelatorio;
-    private javax.swing.JButton btnRelatorio1;
-    private javax.swing.JButton btnRelatorio2;
-    private javax.swing.JButton btnRelatorio3;
-    private javax.swing.JButton btnRelatorio4;
-    private javax.swing.JButton btnRelatorio5;
     private javax.swing.JButton btnRelatorio6;
     private javax.swing.JButton btnVisualizarPeca;
     private javax.swing.JTextField campoBusca;
     private javax.swing.ButtonGroup grupoBusca;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;

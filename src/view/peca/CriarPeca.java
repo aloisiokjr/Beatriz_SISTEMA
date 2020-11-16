@@ -62,8 +62,6 @@ public class CriarPeca extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        btnFecharTela = new javax.swing.JButton();
-        btnSalvar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         campoCodigoPeca = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -116,32 +114,6 @@ public class CriarPeca extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1536, 826));
-
-        btnFecharTela.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnFecharTela.setText("FECHAR");
-        btnFecharTela.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFecharTelaActionPerformed(evt);
-            }
-        });
-        btnFecharTela.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnFecharTelaKeyPressed(evt);
-            }
-        });
-
-        btnSalvar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnSalvar.setText("SALVAR");
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarActionPerformed(evt);
-            }
-        });
-        btnSalvar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnSalvarKeyPressed(evt);
-            }
-        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -480,18 +452,18 @@ public class CriarPeca extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelNomeVariante, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoNomeVar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnRemoveNomeVar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAdicionaNomeVar))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelNomeVariante, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(campoNomeVar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnRemoveNomeVar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnAdicionaNomeVar)))
+                            .addComponent(jLabel11))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -755,14 +727,6 @@ public class CriarPeca extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(38, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                            .addGap(1169, 1169, 1169)
-                            .addComponent(btnFecharTela, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(31, 31, 31)
-                            .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel1)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 939, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -773,8 +737,13 @@ public class CriarPeca extends javax.swing.JFrame {
                                 .addGap(103, 103, 103)
                                 .addComponent(btnFecharTela1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(31, 31, 31)
-                                .addComponent(btnSalvar1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap())
+                                .addComponent(btnSalvar1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(527, 527, 527))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 939, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(517, 517, 517))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -794,11 +763,7 @@ public class CriarPeca extends javax.swing.JFrame {
                             .addComponent(btnFecharTela1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(29, 29, 29)
                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFecharTela, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("Nomes Variantes");
@@ -834,20 +799,6 @@ public class CriarPeca extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnFecharTelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharTelaActionPerformed
-        fechaCadastroPeca();
-    }//GEN-LAST:event_btnFecharTelaActionPerformed
-
-    private void btnFecharTelaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnFecharTelaKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            fechaCadastroPeca();
-        }
-    }//GEN-LAST:event_btnFecharTelaKeyPressed
-
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        cadastraPeca();
-    }//GEN-LAST:event_btnSalvarActionPerformed
-
     private void campoPrecoCompraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoPrecoCompraFocusLost
         if (campoPrecoCompra.getText().equals("")) {
             getListaRequisitos().get(2).setIsOk(false);
@@ -871,12 +822,6 @@ public class CriarPeca extends javax.swing.JFrame {
             getListaRequisitos().get(4).setIsOk(true);
         }
     }//GEN-LAST:event_campoPrecoVendaFocusLost
-
-    private void btnSalvarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            cadastraPeca();
-        }
-    }//GEN-LAST:event_btnSalvarKeyPressed
 
     private void campoPrecoCompraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoPrecoCompraKeyReleased
         if(!campoPrecoCompra.getText().equals("") && !campoPorcentagemLucro.getText().equals("")){
@@ -1217,7 +1162,7 @@ public class CriarPeca extends javax.swing.JFrame {
             requisitosN = requisitosN.substring(0, requisitosN.length() - 1);
             JOptionPane.showMessageDialog(null, "Os seguintes requisitos não foram preeenchidos:" + requisitosN + ".");
         } else {
-            String codigo, descricao, valorCompra, margemLucro, precoVenda, marca, modelo, ano, usuario, qtdEstoque;
+            String codigo, descricao, valorCompra, margemLucro, precoVenda, marca, modelo, ano, qtdEstoque;
             codigo = campoCodigoPeca.getText();
             descricao = campoDescricaoPeca.getText();
             valorCompra = campoPrecoCompra.getText();
@@ -1226,14 +1171,13 @@ public class CriarPeca extends javax.swing.JFrame {
             marca = campoMarcaPeca.getText();
             modelo = campoModeloPeca.getText();
             ano = campoAnoPeca.getText();
-            usuario = pecaController.getSistemaUI().getLoginCheck();
             qtdEstoque = "0";
             
             try {
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
-                    String sql = "INSERT INTO Produto (Codigo, Descricao, PrecoCompra, MargemLucro, PrecoVenda, Marca, Modelo, Ano, CodUserAlt, QtdEstoque) VALUES (?,?,?,?,?,?,?,?,?,?)";
+                    String sql = "INSERT INTO Produto (Codigo, Descricao, PrecoCompra, MargemLucro, PrecoVenda, Marca, Modelo, Ano, QtdEstoque) VALUES (?,?,?,?,?,?,?,?,?)";
                     PreparedStatement pst = con.prepareStatement(sql);
                     pst.setString(1, codigo);
                     pst.setString(2, descricao);
@@ -1243,8 +1187,7 @@ public class CriarPeca extends javax.swing.JFrame {
                     pst.setString(6, marca);
                     pst.setString(7, modelo);
                     pst.setString(8, ano);
-                    pst.setString(9, usuario);
-                    pst.setString(10, qtdEstoque);
+                    pst.setString(9, qtdEstoque);
 
                     ResultSet rs = pst.executeQuery();
                     
@@ -1254,7 +1197,7 @@ public class CriarPeca extends javax.swing.JFrame {
                 }
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Produto '" + descricao + "' criado com sucesso.");
-                JOptionPane.showMessageDialog(null,e);
+                //JOptionPane.showMessageDialog(null,e);
                 pecaController.fechaCriacaoPeca();
             } catch (HeadlessException | ClassNotFoundException e) {
                 JOptionPane.showMessageDialog(null, e);
@@ -1268,7 +1211,7 @@ public class CriarPeca extends javax.swing.JFrame {
                         String url = SQL_URL.getUrl();
                         try (Connection con = DriverManager.getConnection(url)) {
                             String sql;
-                            sql = "INSERT INTO Produto_Variavel (CodigoProduto, NomeVariavel) VALUES (?,?)";
+                            sql = "INSERT INTO Produto_Variante (CodigoProduto, NomeVariavel) VALUES (?,?)";
                             PreparedStatement pst = con.prepareStatement(sql);
                             pst.setString(1, codigo);
                             pst.setString(2, (String)tabelaNomeVariantes.getValueAt(indexNome, 1));
@@ -1278,7 +1221,7 @@ public class CriarPeca extends javax.swing.JFrame {
                             }
                         }
                     } catch (HeadlessException | ClassNotFoundException | SQLException e) {
-                        JOptionPane.showMessageDialog(null, e);
+                        //JOptionPane.showMessageDialog(null, e);
                     }
                     indexNome++;
                 }
@@ -1304,7 +1247,8 @@ public class CriarPeca extends javax.swing.JFrame {
                             }
                         }
                     } catch (HeadlessException | ClassNotFoundException | SQLException e) {
-                        JOptionPane.showMessageDialog(null, e);
+                        //JOptionPane.showMessageDialog(null, e);
+                        pecaController.fechaCriacaoPeca();
                     }
                     index++;
                 }
@@ -1341,11 +1285,9 @@ public class CriarPeca extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdcionaEsp;
     private javax.swing.JButton btnAdicionaNomeVar;
-    private javax.swing.JButton btnFecharTela;
     private javax.swing.JButton btnFecharTela1;
     private javax.swing.JButton btnRemoveEspecificacoes;
     private javax.swing.JButton btnRemoveNomeVar;
-    private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnSalvar1;
     private javax.swing.JFormattedTextField campoAnoPeca;
     private javax.swing.JTextField campoCodigoPeca;
