@@ -540,7 +540,7 @@ public class VisualizarPeca extends javax.swing.JFrame {
     }
     
     private void editarPeca(){
-        pecaController.fechaVisualizacaoPeca();
+        pecaController.fechaVisualizacaoPecaParaEdicao();
         pecaController.abreEdicaoPeca();
     }
     

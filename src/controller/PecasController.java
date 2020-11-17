@@ -96,6 +96,22 @@ public class PecasController {
         pecaUI.toFront();
         sistemaUI.atualizaDados();
     }
+    
+    public void fechaVisualizacaoPecaParaEdicao(){
+        getVisualizarPeca().dispose();
+        sistemaUI.toFront();
+        pecaUI.toFront();
+        sistemaUI.atualizaDados();
+    }
+    
+    public void abreAtualizaoEstoque(){
+    
+    }
+    
+    public void fechaAtualizacaoEstoque(){
+    
+    }
+    
     /**
      * @return the sistemaUI
      */

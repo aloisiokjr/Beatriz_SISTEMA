@@ -67,8 +67,13 @@ public class Sistema_UI extends javax.swing.JFrame {
         barraMenuADM = new javax.swing.JMenuBar();
         menuADM = new javax.swing.JMenu();
         menuADM_Usuario = new javax.swing.JMenuItem();
+        menuADM_Fornecedor = new javax.swing.JMenuItem();
         menuADM_Pecas = new javax.swing.JMenuItem();
         menuADM_Emprestimos = new javax.swing.JMenuItem();
+        menuImportar = new javax.swing.JMenu();
+        menuImportacao_Usuario = new javax.swing.JMenuItem();
+        menuImportacao_Fornecedor = new javax.swing.JMenuItem();
+        menuImportacao_Pecas = new javax.swing.JMenuItem();
         menuSair = new javax.swing.JMenu();
         menuSair_Logoff = new javax.swing.JMenuItem();
         menuSair_Sair = new javax.swing.JMenuItem();
@@ -137,6 +142,14 @@ public class Sistema_UI extends javax.swing.JFrame {
         });
         menuADM.add(menuADM_Usuario);
 
+        menuADM_Fornecedor.setText("Fornecedor");
+        menuADM_Fornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuADM_FornecedorActionPerformed(evt);
+            }
+        });
+        menuADM.add(menuADM_Fornecedor);
+
         menuADM_Pecas.setText("Peças");
         menuADM_Pecas.setToolTipText("");
         menuADM_Pecas.setBorderPainted(true);
@@ -156,6 +169,19 @@ public class Sistema_UI extends javax.swing.JFrame {
         menuADM.add(menuADM_Emprestimos);
 
         barraMenuADM.add(menuADM);
+
+        menuImportar.setText("Importar Dados");
+
+        menuImportacao_Usuario.setText("Usuário");
+        menuImportar.add(menuImportacao_Usuario);
+
+        menuImportacao_Fornecedor.setText("Fornecedor");
+        menuImportar.add(menuImportacao_Fornecedor);
+
+        menuImportacao_Pecas.setText("Peças");
+        menuImportar.add(menuImportacao_Pecas);
+
+        barraMenuADM.add(menuImportar);
 
         menuSair.setText("Sair");
 
@@ -223,6 +249,10 @@ public class Sistema_UI extends javax.swing.JFrame {
         getEmprestimoController().abreEmprestimoUI();
     }//GEN-LAST:event_menuADM_EmprestimosActionPerformed
 
+    private void menuADM_FornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuADM_FornecedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuADM_FornecedorActionPerformed
+
     public void atualizaDados(){
         
     }
@@ -268,8 +298,13 @@ public class Sistema_UI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu menuADM;
     private javax.swing.JMenuItem menuADM_Emprestimos;
+    private javax.swing.JMenuItem menuADM_Fornecedor;
     private javax.swing.JMenuItem menuADM_Pecas;
     private javax.swing.JMenuItem menuADM_Usuario;
+    private javax.swing.JMenuItem menuImportacao_Fornecedor;
+    private javax.swing.JMenuItem menuImportacao_Pecas;
+    private javax.swing.JMenuItem menuImportacao_Usuario;
+    private javax.swing.JMenu menuImportar;
     private javax.swing.JMenu menuSair;
     private javax.swing.JMenuItem menuSair_Logoff;
     private javax.swing.JMenuItem menuSair_Sair;
