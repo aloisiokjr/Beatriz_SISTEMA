@@ -17,10 +17,14 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.Format;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.Requisito;
 import util.SQL_URL;
@@ -42,8 +46,9 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
         this.pecaController = pecaController;
         initComponents();
         this.setVisible(true);
+        setagemInicial();
         this.toFront();
-        this.setExtendedState(MAXIMIZED_BOTH);
+        this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -71,8 +76,6 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         campoPrecoCompra = new javax.swing.JFormattedTextField();
-        NumberFormat rateFormat = NumberFormat.getPercentInstance();
-        campoPorcentagemLucro = new JFormattedTextField(rateFormat);
         jLabel5 = new javax.swing.JLabel();
         campoPrecoVenda = new javax.swing.JFormattedTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -82,6 +85,7 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         campoAnoPeca = new javax.swing.JFormattedTextField();
         jLabel8 = new javax.swing.JLabel();
+        campoPorcentagemLucro = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         comboBoxFornecedor = new javax.swing.JComboBox<>();
@@ -89,12 +93,13 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
         campoRazaoSocialFornecedor = new javax.swing.JTextField();
         campoNomeFantasiaFornecedor = new javax.swing.JTextField();
         jLabel87 = new javax.swing.JLabel();
-        campoCPF_CNPJCadastroFornecedor = new javax.swing.JFormattedTextField();
         jLabel88 = new javax.swing.JLabel();
+        campoCPF_CNPJCadastroFornecedor = new javax.swing.JTextField();
         checkBoxAtualizaCV = new javax.swing.JCheckBox();
         jPanel8 = new javax.swing.JPanel();
         campoPrecoCompra1 = new javax.swing.JFormattedTextField();
         jLabel12 = new javax.swing.JLabel();
+        Format rateFormat = NumberFormat.getPercentInstance();
         campoPorcentagemLucro1 = new JFormattedTextField(rateFormat);
         jLabel13 = new javax.swing.JLabel();
         campoPrecoVenda1 = new javax.swing.JFormattedTextField();
@@ -181,14 +186,6 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
         campoPrecoCompra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("¤#,##0.00"))));
         campoPrecoCompra.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        campoPorcentagemLucro.setEditable(false);
-        try {
-            campoPorcentagemLucro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        campoPorcentagemLucro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("Porcentagem de Lucro ");
 
@@ -222,6 +219,8 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setText("Ano");
 
+        campoPorcentagemLucro.setEditable(false);
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -254,10 +253,10 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(campoPrecoCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(campoPorcentagemLucro, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(campoPorcentagemLucro))
+                        .addGap(25, 25, 25)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(campoPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -283,14 +282,13 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
                             .addComponent(jLabel9)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(campoPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel6Layout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(campoPorcentagemLucro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel5)
                         .addGroup(jPanel6Layout.createSequentialGroup()
                             .addComponent(jLabel4)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(campoPrecoCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(campoPrecoCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(campoPorcentagemLucro, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel24)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -338,16 +336,10 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
         jLabel87.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel87.setText("Nome Fantasia ");
 
-        campoCPF_CNPJCadastroFornecedor.setEditable(false);
-        try {
-            campoCPF_CNPJCadastroFornecedor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###########")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        campoCPF_CNPJCadastroFornecedor.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
-
         jLabel88.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel88.setText("CNPJ ");
+
+        campoCPF_CNPJCadastroFornecedor.setEditable(false);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -368,9 +360,9 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel88, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoCPF_CNPJCadastroFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(campoCPF_CNPJCadastroFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(comboBoxFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(330, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -385,10 +377,11 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
                     .addComponent(jLabel87)
                     .addComponent(jLabel88))
                 .addGap(6, 6, 6)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(campoCPF_CNPJCadastroFornecedor)
-                    .addComponent(campoNomeFantasiaFornecedor, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(campoRazaoSocialFornecedor, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(campoNomeFantasiaFornecedor, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(campoRazaoSocialFornecedor, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -411,7 +404,7 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
         jPanel8.setEnabled(false);
 
         campoPrecoCompra1.setEditable(false);
-        campoPrecoCompra1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("¤#,##0.00"))));
+        campoPrecoCompra1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         campoPrecoCompra1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         campoPrecoCompra1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -423,11 +416,7 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
         jLabel12.setText("Preço de Compra ");
 
         campoPorcentagemLucro1.setEditable(false);
-        try {
-            campoPorcentagemLucro1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        campoPorcentagemLucro1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         campoPorcentagemLucro1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         campoPorcentagemLucro1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -439,7 +428,7 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
         jLabel13.setText("Porcentagem de Lucro");
 
         campoPrecoVenda1.setEditable(false);
-        campoPrecoVenda1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("¤#,##0.00"))));
+        campoPrecoVenda1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         campoPrecoVenda1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         campoPrecoVenda1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -642,6 +631,11 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
 
         campoQuantidadeRetirar.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         campoQuantidadeRetirar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        campoQuantidadeRetirar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoQuantidadeRetirarFocusLost(evt);
+            }
+        });
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel17.setText(" Quantidade a Retirar: *");
@@ -1120,6 +1114,14 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_campoQuantidadeRepostaFocusLost
 
+    private void campoQuantidadeRetirarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoQuantidadeRetirarFocusLost
+        if (campoQuantidadeRetirar.getText().equals("")) {
+            getListaRequisitos().get(2).setIsOk(false);
+        } else {
+            getListaRequisitos().get(2).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoQuantidadeRetirarFocusLost
+
     
     private void atualizaEstoque(){
         Iterator<Requisito> iterador = listaRequisitos.iterator();
@@ -1214,7 +1216,7 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Produto '" + campoNomeMotorista.getText() + "' atualizado com sucesso.");
                 //JOptionPane.showMessageDialog(null,e);
-                pecaController.fechaCriacaoPeca();
+                pecaController.fechaAtualizacaoEstoque();
             } catch (HeadlessException | ClassNotFoundException e) {
                 JOptionPane.showMessageDialog(null, e);
             }
@@ -1265,7 +1267,7 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
         }
     }
     
-    private void setagemInicial(){
+    public final void setagemInicial(){
         listaRequisitos = null;
         listaRequisitos = new ArrayList();
         
@@ -1273,6 +1275,14 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
         listaRequisitos.add(new Requisito("Fornecedor", false));
         listaRequisitos.add(new Requisito("Quantidade para Atualização", false));
         
+        setaDadosProduto();
+        setaDadosFornecedor();
+        
+        setaDadosProduto1();
+        
+    }
+    
+    private void setaDadosProduto(){
         comboBoxProdutos.removeAllItems();
         comboBoxProdutos.addItem("Selecione");
         
@@ -1291,26 +1301,9 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        
-        comboBoxFornecedor.removeAllItems();
-        comboBoxFornecedor.addItem("Selecione");
-        
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = SQL_URL.getUrl();
-            try (Connection con = DriverManager.getConnection(url)) {
-                String sql = "SELECT Nome_Fantasia FROM Fornecedor";
-                PreparedStatement pst = con.prepareStatement(sql);
-                ResultSet rs = pst.executeQuery();
-                while (rs.next()) {
-                    String fornecedorAux = rs.getString("CPF_CNPJ") + " | " + rs.getString("Nome_Fantasia");
-                    comboBoxFornecedor.addItem(fornecedorAux);
-                }
-            }
-        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-        
+    }
+    
+    private void setaDadosProduto1(){
         comboBoxProdutos1.removeAllItems();
         comboBoxProdutos1.addItem("Selecione");
         
@@ -1331,79 +1324,155 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
         }
     }
     
-    private void carregaDadosProduto(){
-        String palavraBusca = (String)comboBoxProdutos.getSelectedItem();    
+    private void setaDadosFornecedor(){
+        comboBoxFornecedor.removeAllItems();
+        comboBoxFornecedor.addItem("Selecione");
+        
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
-                String sql = "SELECT Codigo, Descricao, PrecoCompra, MargemLucro, PrecoVenda, Marca, Modelo, Ano, QtdEstoque FROM Produto WHERE Descricao = ?";
+                String sql = "SELECT Nome_Fantasia, CPF_CNPJ FROM Fornecedor";
                 PreparedStatement pst = con.prepareStatement(sql);
-                pst.setString(1, palavraBusca);
                 ResultSet rs = pst.executeQuery();
                 while (rs.next()) {
-                    campoCodigoPeca.setText(rs.getString("Codigo"));
-                    campoNomeMotorista.setText(rs.getString("Descricao"));
-                    campoPrecoCompra.setText(rs.getString("PrecoCompra"));
-                    campoPorcentagemLucro.setText(rs.getString("MargemLucro"));
-                    campoPrecoVenda.setText(rs.getString("PrecoVenda"));
-                    campoMarcaPeca.setText(rs.getString("Marca"));
-                    campoModeloPeca.setText(rs.getString("Modelo"));
-                    campoAnoPeca.setText(rs.getString("Ano"));
-                    campoQuantidadeEstoque.setText(rs.getString("QtdEstoque"));
+                    String fornecedorAux = rs.getString("CPF_CNPJ") + " | " + rs.getString("Nome_Fantasia");
+                    comboBoxFornecedor.addItem(fornecedorAux);
                 }
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    private void carregaDadosProduto(){
+        if (comboBoxProdutos.getItemCount() > 0){
+            String palavraBusca = (String)comboBoxProdutos.getSelectedItem(); 
+            if (!palavraBusca.equals("Selecione")){
+                try {
+                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    String url = SQL_URL.getUrl();
+                    try (Connection con = DriverManager.getConnection(url)) {
+                        String sql = "SELECT Codigo, Descricao, PrecoCompra, MargemLucro, PrecoVenda, Marca, Modelo, Ano, QtdEstoque FROM Produto WHERE Descricao = ?";
+                        PreparedStatement pst = con.prepareStatement(sql);
+                        pst.setString(1, palavraBusca);
+                        ResultSet rs = pst.executeQuery();
+                        while (rs.next()) {
+                            campoCodigoPeca.setText(rs.getString("Codigo"));
+                            campoNomeMotorista.setText(rs.getString("Descricao"));
+                            campoPrecoCompra.setText(rs.getString("PrecoCompra"));
+                            campoPorcentagemLucro.setText(rs.getString("MargemLucro"));
+                            campoPrecoVenda.setText(rs.getString("PrecoVenda"));
+                            campoMarcaPeca.setText(rs.getString("Marca"));
+                            campoModeloPeca.setText(rs.getString("Modelo"));
+                            campoAnoPeca.setText(rs.getString("Ano"));
+                            campoQuantidadeEstoque.setText(rs.getString("QtdEstoque"));
+                            listaRequisitos.get(0).setIsOk(true);
+                        }
+                    }
+                } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+                    JOptionPane.showMessageDialog(null, e);
+                }
+            } else if (palavraBusca.equals("Selecione")){
+                campoCodigoPeca.setText("");
+                campoNomeMotorista.setText("");
+                campoPrecoCompra.setText("");
+                campoPorcentagemLucro.setText("");
+                campoPrecoVenda.setText("");
+                campoMarcaPeca.setText("");
+                campoModeloPeca.setText("");
+                campoAnoPeca.setText("");
+                campoQuantidadeEstoque.setText("");
+                listaRequisitos.get(0).setIsOk(false);
+            }
         }
     }
     
     private void carregaDadosProduto1(){
-        String palavraBusca = (String)comboBoxProdutos1.getSelectedItem();        
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = SQL_URL.getUrl();
-            try (Connection con = DriverManager.getConnection(url)) {
-                String sql = "SELECT Codigo, Descricao, PrecoCompra, MargemLucro, PrecoVenda, Marca, Modelo, Ano, QtdEstoque FROM Produto WHERE Descricao = ?";
-                PreparedStatement pst = con.prepareStatement(sql);
-                pst.setString(1, palavraBusca);
-                ResultSet rs = pst.executeQuery();
-                while (rs.next()) {
-                    campoCodigoPeca1.setText(rs.getString("Codigo"));
-                    campoNomeMotorista1.setText(rs.getString("Descricao"));
-                    campoPrecoCompra2.setText(rs.getString("PrecoCompra"));
-                    campoPorcentagemLucro2.setText(rs.getString("MargemLucro"));
-                    campoPrecoVenda2.setText(rs.getString("PrecoVenda"));
-                    campoMarcaPeca1.setText(rs.getString("Marca"));
-                    campoModeloPeca1.setText(rs.getString("Modelo"));
-                    campoAnoPeca1.setText(rs.getString("Ano"));
-                    campoQuantidadeEstoque1.setText(rs.getString("QtdEstoque"));
+        if (comboBoxProdutos1.getItemCount() > 0){
+            String palavraBusca = (String)comboBoxProdutos1.getSelectedItem();
+            if (!palavraBusca.equals("Selecione")){
+                try {
+                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    String url = SQL_URL.getUrl();
+                    try (Connection con = DriverManager.getConnection(url)) {
+                        String sql = "SELECT Codigo, Descricao, PrecoCompra, MargemLucro, PrecoVenda, Marca, Modelo, Ano, QtdEstoque FROM Produto WHERE Descricao = ?";
+                        PreparedStatement pst = con.prepareStatement(sql);
+                        pst.setString(1, palavraBusca);
+                        ResultSet rs = pst.executeQuery();
+                        while (rs.next()) {
+                            campoCodigoPeca1.setText(rs.getString("Codigo"));
+                            campoNomeMotorista1.setText(rs.getString("Descricao"));
+                            campoPrecoCompra2.setText(rs.getString("PrecoCompra"));
+                            campoPorcentagemLucro2.setText(rs.getString("MargemLucro"));
+                            campoPrecoVenda2.setText(rs.getString("PrecoVenda"));
+                            campoMarcaPeca1.setText(rs.getString("Marca"));
+                            campoModeloPeca1.setText(rs.getString("Modelo"));
+                            campoAnoPeca1.setText(rs.getString("Ano"));
+                            campoQuantidadeEstoque1.setText(rs.getString("QtdEstoque"));
+                            listaRequisitos.get(0).setIsOk(true);
+                            listaRequisitos.get(1).setIsOk(true);
+                        }
+                    }
+                } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+                    JOptionPane.showMessageDialog(null, e);
                 }
+            } else if (palavraBusca.equals("Selecione")){
+                campoCodigoPeca1.setText("");
+                campoNomeMotorista1.setText("");
+                campoPrecoCompra2.setText("");
+                campoPorcentagemLucro2.setText("");
+                campoPrecoVenda2.setText("");
+                campoMarcaPeca1.setText("");
+                campoModeloPeca1.setText("");
+                campoAnoPeca1.setText("");
+                campoQuantidadeEstoque1.setText("");
+                listaRequisitos.get(0).setIsOk(false);
+                listaRequisitos.get(1).setIsOk(false);
             }
-        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
+        }   
     }
     
     private void carregaDadosFornecedor(){
-        String palavraBusca = (String)comboBoxFornecedor.getSelectedItem();
-        palavraBusca = palavraBusca.substring(0, 17);     
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = SQL_URL.getUrl();
-            try (Connection con = DriverManager.getConnection(url)) {
-                String sql = "SELECT Razao_Social, Nome_Fantasia, CPF_CNPJ FROM Fornecedor WHERE CPF_CNPJ = ?";
-                PreparedStatement pst = con.prepareStatement(sql);
-                pst.setString(1, palavraBusca);
-                ResultSet rs = pst.executeQuery();
-                while (rs.next()) {
-                    campoRazaoSocialFornecedor.setText(rs.getString("Razao_Social"));
-                    campoNomeFantasiaFornecedor.setText(rs.getString("Nome_Fantasia"));
-                    campoCPF_CNPJCadastroFornecedor.setText(rs.getString("CPF_CNPJ"));
+        if (comboBoxFornecedor.getItemCount() > 0){
+            String palavraBusca = (String)comboBoxFornecedor.getSelectedItem();
+            if (!palavraBusca.equals("Selecione")){            
+                String palavraBuscaAux = palavraBusca.substring(0, 18);
+                String palavraBuscaAux2 = palavraBusca.substring(0, 14);
+                Pattern j = Pattern.compile("[0-9]{2}.[0-9]{3}.[0-9]{3}/[0-9]{4}-[0-9]{2}");
+                Pattern f = Pattern.compile("[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}");
+                Matcher m1 = j.matcher(palavraBuscaAux);
+                Matcher m2 = f.matcher(palavraBuscaAux2);
+
+                if (m1.matches()){
+                    palavraBusca = palavraBuscaAux;
+                } else if (m2.matches()){
+                    palavraBusca = palavraBuscaAux2;
                 }
+                try {
+                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    String url = SQL_URL.getUrl();
+                    try (Connection con = DriverManager.getConnection(url)) {
+                        String sql = "SELECT Razao_Social, Nome_Fantasia, CPF_CNPJ FROM Fornecedor WHERE CPF_CNPJ = ?";
+                        PreparedStatement pst = con.prepareStatement(sql);
+                        pst.setString(1, palavraBusca);
+                        ResultSet rs = pst.executeQuery();
+                        while (rs.next()) {
+                            campoRazaoSocialFornecedor.setText(rs.getString("Razao_Social"));
+                            campoNomeFantasiaFornecedor.setText(rs.getString("Nome_Fantasia"));
+                            campoCPF_CNPJCadastroFornecedor.setText(rs.getString("CPF_CNPJ"));
+                            listaRequisitos.get(1).setIsOk(true);
+                        }
+                    }
+                } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+                    JOptionPane.showMessageDialog(null, e);
+                }
+            } else if (palavraBusca.equals("Selecione")){
+                campoRazaoSocialFornecedor.setText("");
+                campoNomeFantasiaFornecedor.setText("");
+                campoCPF_CNPJCadastroFornecedor.setText("");
+                listaRequisitos.get(1).setIsOk(false);
             }
-        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
         }
     }
     /**
@@ -1438,7 +1507,7 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
     private javax.swing.JButton btnSalvarDiminuicao;
     private javax.swing.JFormattedTextField campoAnoPeca;
     private javax.swing.JFormattedTextField campoAnoPeca1;
-    private javax.swing.JFormattedTextField campoCPF_CNPJCadastroFornecedor;
+    private javax.swing.JTextField campoCPF_CNPJCadastroFornecedor;
     private javax.swing.JTextField campoCodigoPeca;
     private javax.swing.JTextField campoCodigoPeca1;
     private javax.swing.JTextField campoMarcaPeca;
@@ -1448,7 +1517,7 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
     private javax.swing.JTextField campoNomeFantasiaFornecedor;
     private javax.swing.JTextField campoNomeMotorista;
     private javax.swing.JTextField campoNomeMotorista1;
-    private javax.swing.JFormattedTextField campoPorcentagemLucro;
+    private javax.swing.JTextField campoPorcentagemLucro;
     private javax.swing.JFormattedTextField campoPorcentagemLucro1;
     private javax.swing.JFormattedTextField campoPorcentagemLucro2;
     private javax.swing.JFormattedTextField campoPrecoCompra;

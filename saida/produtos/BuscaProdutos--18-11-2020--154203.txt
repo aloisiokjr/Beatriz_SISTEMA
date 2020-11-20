@@ -1,0 +1,31 @@
++-------------- RESULTADO DA BUSCA: PRODUTOS --------------+
+
+LISTAGEM:
+
+#  1 ##########################
+Código: 1
+Descrição: Parafuso
+Valor: 6,40
+Quantidade em Estoque: 0
+-Especificacao 1-
+Descrição: Tamanho
+Unidade de Medida: Comprimento(M)
+Valor: 0,60
+-------------------
+Nome Variante 1: parafusinho
+Nome Variante 2: parafusinhoo
+
+#  2 ##########################
+Código: 2
+Descrição: Prego
+Valor: 1,44
+Quantidade em Estoque: 0
+-Especificacao 1-
+Descrição: Tamanho
+Unidade de Medida: Comprimento(M)
+Valor: 0,10
+-------------------
+Nome Variante 1: prego
+Nome Variante 2: preguinho
+
++-------------------------------------------------------------+

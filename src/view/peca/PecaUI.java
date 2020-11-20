@@ -41,6 +41,7 @@ public class PecaUI extends javax.swing.JFrame {
     private CriarPeca criarPeca= null;
     private EditarPeca editarPeca = null;
     private VisualizarPeca visualizarPeca = null;
+    private AtualizarEstoquePeca atualizarEstoque = null;
     
     private PecasController pecaController = null;
     /**
@@ -73,12 +74,10 @@ public class PecaUI extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         btnEditar = new javax.swing.JButton();
-        btnEditar.setEnabled(false);
+
         btnExcluir = new javax.swing.JButton();
-        btnExcluir.setEnabled(false);
         btnCriar = new javax.swing.JButton();
         btnVisualizarPeca = new javax.swing.JButton();
-        btnExcluir.setEnabled(false);
         jPanel3 = new javax.swing.JPanel();
         jSeparator6 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
@@ -87,11 +86,12 @@ public class PecaUI extends javax.swing.JFrame {
         jRadioButton_Descricao = new javax.swing.JRadioButton();
         btnBuscar = new javax.swing.JButton();
         jRadioButton_NomeVariavel = new javax.swing.JRadioButton();
-        jPanel1 = new javax.swing.JPanel();
-        btnFechar = new javax.swing.JButton();
-        btnRelatorio6 = new javax.swing.JButton();
-        btnAtualizarEstoque = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        btnRelatorio6 = new javax.swing.JButton();
+        btnFechar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        btnAtualizarE = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
@@ -204,17 +204,18 @@ public class PecaUI extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator2)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel2)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(102, 102, 102)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCriar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnVisualizarPeca, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(104, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCriar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnVisualizarPeca, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))
-                .addGap(102, 102, 102))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -340,15 +341,7 @@ public class PecaUI extends javax.swing.JFrame {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        btnFechar.setBackground(new java.awt.Color(145, 0, 0));
-        btnFechar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnFechar.setForeground(new java.awt.Color(255, 255, 255));
-        btnFechar.setText("FECHAR");
-        btnFechar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFecharActionPerformed(evt);
-            }
-        });
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logoR.png"))); // NOI18N
 
         btnRelatorio6.setBackground(new java.awt.Color(0, 153, 153));
         btnRelatorio6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -365,18 +358,49 @@ public class PecaUI extends javax.swing.JFrame {
             }
         });
 
-        btnAtualizarEstoque.setBackground(new java.awt.Color(0, 204, 0));
-        btnAtualizarEstoque.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnAtualizarEstoque.setForeground(new java.awt.Color(255, 255, 255));
-        btnAtualizarEstoque.setText("ATUALIZAR ESTOQUE");
-        btnAtualizarEstoque.addActionListener(new java.awt.event.ActionListener() {
+        btnFechar.setBackground(new java.awt.Color(145, 0, 0));
+        btnFechar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnFechar.setForeground(new java.awt.Color(255, 255, 255));
+        btnFechar.setText("FECHAR");
+        btnFechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtualizarEstoqueActionPerformed(evt);
+                btnFecharActionPerformed(evt);
             }
         });
-        btnAtualizarEstoque.addKeyListener(new java.awt.event.KeyAdapter() {
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(92, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnRelatorio6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(84, 84, 84))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnRelatorio6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnFechar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        btnAtualizarE.setBackground(new java.awt.Color(0, 102, 51));
+        btnAtualizarE.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnAtualizarE.setForeground(new java.awt.Color(255, 255, 255));
+        btnAtualizarE.setText("ATUALIZAR ESTOQUE");
+        btnAtualizarE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarEActionPerformed(evt);
+            }
+        });
+        btnAtualizarE.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnAtualizarEstoqueKeyPressed(evt);
+                btnAtualizarEKeyPressed(evt);
             }
         });
 
@@ -385,26 +409,16 @@ public class PecaUI extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(90, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnRelatorio6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnFechar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAtualizarEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(86, 86, 86))
+                .addContainerGap(88, Short.MAX_VALUE)
+                .addComponent(btnAtualizarE, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(84, 84, 84))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnAtualizarEstoque)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRelatorio6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnFechar)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addComponent(btnAtualizarE)
+                .addGap(0, 12, Short.MAX_VALUE))
         );
-
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logoR.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -417,40 +431,40 @@ public class PecaUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(50, 50, 50)
-                                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(44, 44, 44)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addContainerGap(597, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(536, 536, 536)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(536, Short.MAX_VALUE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(545, Short.MAX_VALUE))
         );
 
         pack();
@@ -533,7 +547,7 @@ public class PecaUI extends javax.swing.JFrame {
         if(tabelaProdutos.getSelectedRow() > -1){
             btnEditar.setEnabled(true);
             btnVisualizarPeca.setEnabled(true);
-            btnAtualizarEstoque.setEnabled(true);
+            btnAtualizarE.setEnabled(true);
             btnExcluir.setEnabled(true);
         }
     }//GEN-LAST:event_tabelaProdutosMouseClicked
@@ -556,13 +570,15 @@ public class PecaUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnRelatorio6KeyPressed
 
-    private void btnAtualizarEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarEstoqueActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAtualizarEstoqueActionPerformed
+    private void btnAtualizarEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarEActionPerformed
+        pecaController.abreAtualizaoEstoque();
+    }//GEN-LAST:event_btnAtualizarEActionPerformed
 
-    private void btnAtualizarEstoqueKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnAtualizarEstoqueKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAtualizarEstoqueKeyPressed
+    private void btnAtualizarEKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnAtualizarEKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            pecaController.abreAtualizaoEstoque();
+        }
+    }//GEN-LAST:event_btnAtualizarEKeyPressed
 
     private void produtoAlterar(){
         String codigo;
@@ -786,27 +802,61 @@ public class PecaUI extends javax.swing.JFrame {
     }
     
     private void buscaNomeVariavel(String palavraBusca){
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = SQL_URL.getUrl();
-            try (Connection con = DriverManager.getConnection(url)) {
-                String sql;
-                sql = "SELECT CodigoProduto FROM Produto_Variante WHERE Nome_Variavel LIKE '%"+palavraBusca+"%'";
-                PreparedStatement pst = con.prepareStatement(sql);
-                ResultSet rs = pst.executeQuery();
-                while (rs.next()) {
-                    buscaNomeVariavelContinue(rs.getString("CodigoProduto"));
+        limpaTabelaProdutos();
+        if (palavraBusca.equals("")){
+            produtoBuscaTodos();
+        } else {
+            ArrayList<String> listaNomes = new ArrayList();
+            //listaNomes.add("0");
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String url = SQL_URL.getUrl();
+                try (Connection con = DriverManager.getConnection(url)) {
+                    String sql;
+                    sql = "SELECT CodigoProduto FROM Produto_Variante WHERE NomeVariavel LIKE '%"+palavraBusca+"%'";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    ResultSet rs = pst.executeQuery();
+                    while (rs.next()){
+                        listaNomes.add(rs.getString("CodigoProduto"));
+                    }
+                    if (listaNomes.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "A pesquisa não encontrou nenhum produto.");
+                    } else {
+                        Iterator <String>auxIterador = listaNomes.iterator();
+                        String auxCodigo = null;
+                        ArrayList<String> listaCodigos = new ArrayList();
+                        int auxNum = 0;
+                        boolean controle = true;
+                        while (auxIterador.hasNext()){
+                            int auxNum2 = auxNum;
+                            auxCodigo = auxIterador.next();
+                            while (auxNum2 < listaNomes.size()){
+                                String auxiliar = listaNomes.get(auxNum2);
+                                if (controle || !auxCodigo.equals(auxiliar)){
+                                    listaCodigos.add(auxCodigo);
+                                }
+                                auxNum2++;
+                                controle = false;
+                            }
+                            auxNum++;
+                        }
+
+                        Iterator<String> iteradorCodigos = listaCodigos.iterator();
+                        String auxCodigoS;
+                        while (iteradorCodigos.hasNext()){
+                            auxCodigoS = iteradorCodigos.next();
+                            buscaNomeVariavelContinue(auxCodigoS);
+                        }
+                    }
                 }
-                if (tabelaProdutos.getRowCount() == 0) {
-                    JOptionPane.showMessageDialog(null, "A pesquisa não encontrou nenhum produto.");
-                }
-            }
-        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
-            //JOptionPane.showMessageDialog(null, e);
+            } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+            } 
         }
+        
     }
     
-    private void buscaNomeVariavelContinue(String codigo){
+    private void buscaNomeVariavelContinue(String codigo){   
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String url = SQL_URL.getUrl();
@@ -851,7 +901,6 @@ public class PecaUI extends javax.swing.JFrame {
     public final void setagemInicial(){
         btnEditar.setEnabled(false);
         btnVisualizarPeca.setEnabled(false);
-        btnAtualizarEstoque.setEnabled(false);
         btnExcluir.setEnabled(false);
     }
     
@@ -995,7 +1044,7 @@ public class PecaUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAtualizarEstoque;
+    private javax.swing.JButton btnAtualizarE;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCriar;
     private javax.swing.JButton btnEditar;
@@ -1012,6 +1061,7 @@ public class PecaUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JRadioButton jRadioButton_Codigo;
     private javax.swing.JRadioButton jRadioButton_Descricao;
     private javax.swing.JRadioButton jRadioButton_NomeVariavel;
@@ -1089,5 +1139,19 @@ public class PecaUI extends javax.swing.JFrame {
      */
     public void setVisualizarPeca(VisualizarPeca visualizarPeca) {
         this.visualizarPeca = visualizarPeca;
+    }
+
+    /**
+     * @return the atualizarEstoque
+     */
+    public AtualizarEstoquePeca getAtualizarEstoque() {
+        return atualizarEstoque;
+    }
+
+    /**
+     * @param atualizarEstoque the atualizarEstoque to set
+     */
+    public void setAtualizarEstoque(AtualizarEstoquePeca atualizarEstoque) {
+        this.atualizarEstoque = atualizarEstoque;
     }
 }

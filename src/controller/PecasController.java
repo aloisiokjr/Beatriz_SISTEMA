@@ -7,6 +7,7 @@ package controller;
 
 import model.Peca;
 import view.Sistema_UI;
+import view.peca.AtualizarEstoquePeca;
 import view.peca.CriarPeca;
 import view.peca.EditarPeca;
 import view.peca.PecaUI;
@@ -23,6 +24,8 @@ public class PecasController {
     private CriarPeca criarPeca = null;
     private EditarPeca editarPeca = null;
     private VisualizarPeca visualizarPeca = null;
+    private AtualizarEstoquePeca atualizarEstoque = null;
+    
     
     private Peca pecaAux = null;
     
@@ -93,23 +96,32 @@ public class PecasController {
         pecaUI.setEnabled(true);
         pecaUI.setPecaAux(null);
         sistemaUI.toFront();
+        pecaUI.produtoBuscaTodos();
         pecaUI.toFront();
         sistemaUI.atualizaDados();
     }
     
     public void fechaVisualizacaoPecaParaEdicao(){
         getVisualizarPeca().dispose();
+        pecaUI.setEnabled(true);
         sistemaUI.toFront();
         pecaUI.toFront();
         sistemaUI.atualizaDados();
     }
     
     public void abreAtualizaoEstoque(){
-    
+        pecaUI.setAtualizarEstoque(new AtualizarEstoquePeca(this));
+        setAtualizarEstoque(pecaUI.getAtualizarEstoque());
+        pecaUI.setEnabled(false);
     }
     
     public void fechaAtualizacaoEstoque(){
-    
+        getAtualizarEstoque().dispose();
+        pecaUI.setEnabled(true);
+        sistemaUI.toFront();
+        pecaUI.produtoBuscaTodos();
+        pecaUI.toFront();
+        sistemaUI.atualizaDados();
     }
     
     /**
@@ -194,6 +206,20 @@ public class PecasController {
      */
     public void setVisualizarPeca(VisualizarPeca visualizarPeca) {
         this.visualizarPeca = visualizarPeca;
+    }
+
+    /**
+     * @return the atualizarEstoque
+     */
+    public AtualizarEstoquePeca getAtualizarEstoque() {
+        return atualizarEstoque;
+    }
+
+    /**
+     * @param atualizarEstoque the atualizarEstoque to set
+     */
+    public void setAtualizarEstoque(AtualizarEstoquePeca atualizarEstoque) {
+        this.atualizarEstoque = atualizarEstoque;
     }
     
 }
