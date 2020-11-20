@@ -852,8 +852,7 @@ public class PecaUI extends javax.swing.JFrame {
             } catch (HeadlessException | ClassNotFoundException | SQLException e) {
                 JOptionPane.showMessageDialog(null, e);
             } 
-        }
-        
+        }        
     }
     
     private void buscaNomeVariavelContinue(String codigo){   
