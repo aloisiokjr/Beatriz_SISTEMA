@@ -103,10 +103,7 @@ public class PecasController {
     
     public void fechaVisualizacaoPecaParaEdicao(){
         getVisualizarPeca().dispose();
-        pecaUI.setEnabled(true);
-        sistemaUI.toFront();
-        pecaUI.toFront();
-        sistemaUI.atualizaDados();
+        abreEdicaoPeca();
     }
     
     public void abreAtualizaoEstoque(){

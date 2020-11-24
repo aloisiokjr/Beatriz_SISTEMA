@@ -8,13 +8,16 @@ package view;
 import controller.EmprestimoController;
 import controller.PecasController;
 import controller.UsuarioController;
+import controller.VeiculoController;
 import javax.swing.JFrame;
 import model.Emprestimo;
 import model.Peca;
 import model.Usuario;
+import model.Veiculo;
 import view.emprestimo.EmprestimoUI;
 import view.peca.PecaUI;
 import view.usuario.UsuarioUI;
+import view.veiculo.VeiculoUI;
 
 /**
  *
@@ -28,14 +31,17 @@ public class Sistema_UI extends javax.swing.JFrame {
     private PecasController pecasController = null;
     private UsuarioController usuarioController = null;
     private EmprestimoController emprestimoController = null;
+    private VeiculoController veiculoController = null;
     
     private Usuario usuarioAux = null;
     private Peca pecaAux = null;
     private Emprestimo emprestimoAux = null;
+    private Veiculo veiculoAux = null;
     
     private UsuarioUI usuarioUI = null;
     private PecaUI pecaUI = null;
     private EmprestimoUI emprestimoUI =  null;
+    private VeiculoUI veiculoUI = null;
     
     /**
      * Creates new form Sistema_UI
@@ -44,6 +50,7 @@ public class Sistema_UI extends javax.swing.JFrame {
         this.usuarioController = new UsuarioController(this);
         this.pecasController = new PecasController(this);
         this.emprestimoController = new EmprestimoController(this);
+        this.veiculoController = new VeiculoController(this);
         initComponents();
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         this.toFront();
@@ -69,7 +76,13 @@ public class Sistema_UI extends javax.swing.JFrame {
         menuADM_Usuario = new javax.swing.JMenuItem();
         menuADM_Fornecedor = new javax.swing.JMenuItem();
         menuADM_Pecas = new javax.swing.JMenuItem();
+        menuADM_Veiculo = new javax.swing.JMenuItem();
         menuADM_Emprestimos = new javax.swing.JMenuItem();
+        menuHIST = new javax.swing.JMenu();
+        menuHIST_AtualizacaoHist = new javax.swing.JMenuItem();
+        menuOS = new javax.swing.JMenu();
+        menuOS_Cadastro = new javax.swing.JMenuItem();
+        menuOS_Acompanhamento = new javax.swing.JMenuItem();
         menuImportar = new javax.swing.JMenu();
         menuImportacao_Usuario = new javax.swing.JMenuItem();
         menuImportacao_Fornecedor = new javax.swing.JMenuItem();
@@ -142,7 +155,7 @@ public class Sistema_UI extends javax.swing.JFrame {
         });
         menuADM.add(menuADM_Usuario);
 
-        menuADM_Fornecedor.setText("Fornecedor");
+        menuADM_Fornecedor.setText("Fornecedores");
         menuADM_Fornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuADM_FornecedorActionPerformed(evt);
@@ -160,6 +173,19 @@ public class Sistema_UI extends javax.swing.JFrame {
         });
         menuADM.add(menuADM_Pecas);
 
+        menuADM_Veiculo.setText("Veículos");
+        menuADM_Veiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuADM_VeiculoActionPerformed(evt);
+            }
+        });
+        menuADM_Veiculo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                menuADM_VeiculoKeyPressed(evt);
+            }
+        });
+        menuADM.add(menuADM_Veiculo);
+
         menuADM_Emprestimos.setText("Emprestimos");
         menuADM_Emprestimos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,6 +195,23 @@ public class Sistema_UI extends javax.swing.JFrame {
         menuADM.add(menuADM_Emprestimos);
 
         barraMenuADM.add(menuADM);
+
+        menuHIST.setText("Histórico");
+
+        menuHIST_AtualizacaoHist.setText("Atualizações de Estoque");
+        menuHIST.add(menuHIST_AtualizacaoHist);
+
+        barraMenuADM.add(menuHIST);
+
+        menuOS.setText("Ordem de Serviço");
+
+        menuOS_Cadastro.setText("Cadastro");
+        menuOS.add(menuOS_Cadastro);
+
+        menuOS_Acompanhamento.setText("Acompanhamento");
+        menuOS.add(menuOS_Acompanhamento);
+
+        barraMenuADM.add(menuOS);
 
         menuImportar.setText("Importar Dados");
 
@@ -253,6 +296,14 @@ public class Sistema_UI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_menuADM_FornecedorActionPerformed
 
+    private void menuADM_VeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuADM_VeiculoActionPerformed
+        getVeiculoController().abreVeiculoUI();
+    }//GEN-LAST:event_menuADM_VeiculoActionPerformed
+
+    private void menuADM_VeiculoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_menuADM_VeiculoKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuADM_VeiculoKeyPressed
+
     public void atualizaDados(){
         
     }
@@ -301,10 +352,16 @@ public class Sistema_UI extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuADM_Fornecedor;
     private javax.swing.JMenuItem menuADM_Pecas;
     private javax.swing.JMenuItem menuADM_Usuario;
+    private javax.swing.JMenuItem menuADM_Veiculo;
+    private javax.swing.JMenu menuHIST;
+    private javax.swing.JMenuItem menuHIST_AtualizacaoHist;
     private javax.swing.JMenuItem menuImportacao_Fornecedor;
     private javax.swing.JMenuItem menuImportacao_Pecas;
     private javax.swing.JMenuItem menuImportacao_Usuario;
     private javax.swing.JMenu menuImportar;
+    private javax.swing.JMenu menuOS;
+    private javax.swing.JMenuItem menuOS_Acompanhamento;
+    private javax.swing.JMenuItem menuOS_Cadastro;
     private javax.swing.JMenu menuSair;
     private javax.swing.JMenuItem menuSair_Logoff;
     private javax.swing.JMenuItem menuSair_Sair;
@@ -462,5 +519,47 @@ public class Sistema_UI extends javax.swing.JFrame {
      */
     public void setEmprestimoUI(EmprestimoUI emprestimoUI) {
         this.emprestimoUI = emprestimoUI;
+    }
+
+    /**
+     * @return the veiculoAux
+     */
+    public Veiculo getVeiculoAux() {
+        return veiculoAux;
+    }
+
+    /**
+     * @param veiculoAux the veiculoAux to set
+     */
+    public void setVeiculoAux(Veiculo veiculoAux) {
+        this.veiculoAux = veiculoAux;
+    }
+
+    /**
+     * @return the veiculoUI
+     */
+    public VeiculoUI getVeiculoUI() {
+        return veiculoUI;
+    }
+
+    /**
+     * @param veiculoUI the veiculoUI to set
+     */
+    public void setVeiculoUI(VeiculoUI veiculoUI) {
+        this.veiculoUI = veiculoUI;
+    }
+
+    /**
+     * @return the veiculoController
+     */
+    public VeiculoController getVeiculoController() {
+        return veiculoController;
+    }
+
+    /**
+     * @param veiculoController the veiculoController to set
+     */
+    public void setVeiculoController(VeiculoController veiculoController) {
+        this.veiculoController = veiculoController;
     }
 }
