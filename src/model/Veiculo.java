@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author KLEYN
@@ -20,9 +22,10 @@ public class Veiculo {
     private String Chassi = null;
     private String NroMotor = null;
     private String Cor = null;
+    private ArrayList<String> listaCaracteristicas = null;
 
 
-    public Veiculo (String Placa, String Marca, String Modelo, String Pais, String Renavam, String Ano, String NumeroEixos, String Chassi, String NroMotor, String Cor){
+    public Veiculo (String Placa, String Marca, String Modelo, String Pais, String Renavam, String Ano, String NumeroEixos, String Chassi, String NroMotor, String Cor, ArrayList<String> listaCaracteristicas){
         this.Placa = Placa;
         this.Marca = Marca;
         this.Modelo = Modelo;
@@ -33,6 +36,7 @@ public class Veiculo {
         this.Chassi = Chassi;
         this.NroMotor = NroMotor;
         this.Cor = Cor;
+        this.listaCaracteristicas = listaCaracteristicas;
     }
 
     /**
@@ -173,6 +177,20 @@ public class Veiculo {
      */
     public void setNroMotor(String NroMotor) {
         this.NroMotor = NroMotor;
+    }
+
+    /**
+     * @return the listaCaracteristicas
+     */
+    public ArrayList<String> getListaCaracteristicas() {
+        return listaCaracteristicas;
+    }
+
+    /**
+     * @param listaCaracteristicas the listaCaracteristicas to set
+     */
+    public void setListaCaracteristicas(ArrayList<String> listaCaracteristicas) {
+        this.listaCaracteristicas = listaCaracteristicas;
     }
     
 }

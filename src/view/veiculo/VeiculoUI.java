@@ -19,6 +19,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -581,11 +582,11 @@ public class VeiculoUI extends javax.swing.JFrame {
         File f = new File(".\\saida");
         if(f.mkdir()){
         }
-        f = new File(".\\saida\\produtos");
+        f = new File(".\\saida\\veiculos");
         if(f.mkdir()){
         }
         
-        try (FileWriter arq = new FileWriter(".\\saida\\produtos/BuscaVeiculos--"+dataAux+".txt")) {
+        try (FileWriter arq = new FileWriter(".\\saida\\veiculos/BuscaVeiculos--"+dataAux+".txt")) {
             PrintWriter gravarArq = new PrintWriter(arq);
 
             gravarArq.printf("+-------------- RESULTADO DA BUSCA: VEÍCULOS --------------+%n%n");
@@ -593,24 +594,24 @@ public class VeiculoUI extends javax.swing.JFrame {
             int i;
             for (i=0; i< tabelaVeiculos.getRowCount(); i++) {
                 gravarArq.printf("# %2d ##########################%n", i+1);
-                gravarArq.printf("Placa: " + (String)tabelaVeiculos.getValueAt(i, 0)+"%n");
-                gravarArq.printf("Marca: " + (String)tabelaVeiculos.getValueAt(i, 1)+"%n");
-                gravarArq.printf("Modelo: " + (String)tabelaVeiculos.getValueAt(i, 2)+"%n");
-                gravarArq.printf("Renavam: " + (String)tabelaVeiculos.getValueAt(i, 3)+"%n");
-                gravarArq.printf("Chassi: " + (String)tabelaVeiculos.getValueAt(i, 4)+"%n");
+                gravarArq.printf("Placa: " + (String)tabelaVeiculos.getValueAt(i, 1)+"%n");
+                gravarArq.printf("Marca: " + (String)tabelaVeiculos.getValueAt(i, 2)+"%n");
+                gravarArq.printf("Modelo: " + (String)tabelaVeiculos.getValueAt(i, 3)+"%n");
+                gravarArq.printf("Renavam: " + (String)tabelaVeiculos.getValueAt(i, 4)+"%n");
+                gravarArq.printf("Chassi: " + (String)tabelaVeiculos.getValueAt(i, 5)+"%n");
                 gravarArq.printf("%n");
             }
             gravarArq.printf("+-------------------------------------------------------------+%n");
             arq.close();
 
-            JOptionPane.showMessageDialog(null,"Dados salvos em 'saida/produtos/BuscaVeiculos--"+dataAux+".txt'");
+            JOptionPane.showMessageDialog(null,"Dados salvos em 'saida/veiculos/BuscaVeiculos--"+dataAux+".txt'");
         }
     }
     
     private void veiculoAlterar(){
         String placa;
         placa = (String) tabelaVeiculos.getValueAt(tabelaVeiculos.getSelectedRow(), 1);
-        Veiculo veiculoAux;
+        Veiculo veiculoAux2;
         String Placa, Modelo, Marca, Pais, Ano, Renavam, Eixos, NChassi, NMotor, Cor;
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -633,14 +634,40 @@ public class VeiculoUI extends javax.swing.JFrame {
                     NMotor = rs.getString("NroMotor");
                     Cor = rs.getString("Cor");
                     
-                    veiculoAux = new Veiculo(Placa, Marca, Modelo, Pais, Renavam, Ano, Eixos, NChassi, NMotor, Cor);
-                    setVeiculoAux(veiculoAux);
+                    ArrayList<String> listaCaracteristicas = buscaCaracteristicas(Placa);
+                    
+                    veiculoAux2 = new Veiculo(Placa, Marca, Modelo, Pais, Renavam, Ano, Eixos, NChassi, NMotor, Cor, listaCaracteristicas);
+                    setVeiculoAux(veiculoAux2);
                     veiculoController.abreEdicaoVeiculo();
                 }
             }
         } catch (SQLException | HeadlessException | ClassNotFoundException e) {
             JOptionPane.showMessageDialog(null, e);
         }
+    }
+    
+    private ArrayList<String> buscaCaracteristicas(String Placa){
+        ArrayList<String> listaCaracteristicas = new ArrayList();
+        
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(VeiculoUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String url = SQL_URL.getUrl();
+        try (Connection con = DriverManager.getConnection(url)) {
+            String sql = "SELECT Caracteristica FROM Veiculo_Caracteristica WHERE PlacaVeiculo = ?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, Placa);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                listaCaracteristicas.add(rs.getString("Caracteristica"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(VeiculoUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return listaCaracteristicas;
     }
     
     private void veiculoExcluir(){
@@ -656,9 +683,9 @@ public class VeiculoUI extends javax.swing.JFrame {
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = "DELETE FROM Veiculo WHERE Placa = ?";
                     PreparedStatement pst = con.prepareStatement(sql);
-                    colunaSelecionada = 0;
                     pst.setString(1, (String) tabelaVeiculos.getValueAt(linhaSelecionada, colunaSelecionada));
                     ResultSet rs = pst.executeQuery();
+                    deletaCaracteristica((String) tabelaVeiculos.getValueAt(linhaSelecionada, colunaSelecionada));
                     
                     if(rs.next()){
                         
@@ -677,10 +704,28 @@ public class VeiculoUI extends javax.swing.JFrame {
         }
     }
     
+    private void deletaCaracteristica(String placa){
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "DELETE FROM Veiculo_Caracteristica WHERE PlacaVeiculo = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, placa);
+                ResultSet rs = pst.executeQuery();
+
+            }
+        } catch (HeadlessException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e);
+        } catch (SQLException e) {
+            //JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
     private void veiculoVisualizacao(){
         String placa;
         placa = (String) tabelaVeiculos.getValueAt(tabelaVeiculos.getSelectedRow(), 1);
-        Veiculo veiculoAux;
+        Veiculo veiculoAux2;
         String Placa, Modelo, Marca, Pais, Ano, Renavam, Eixos, NChassi, NMotor, Cor;
         
         try {
@@ -704,7 +749,9 @@ public class VeiculoUI extends javax.swing.JFrame {
                     NMotor = rs.getString("NroMotor");
                     Cor = rs.getString("Cor");
                     
-                    veiculoAux = new Veiculo(Placa, Marca, Modelo, Pais, Renavam, Ano, Eixos, NChassi, NMotor, Cor);
+                    ArrayList<String> listaCaracteristicas = buscaCaracteristicas(Placa);
+                    
+                    veiculoAux2 = new Veiculo(Placa, Marca, Modelo, Pais, Renavam, Ano, Eixos, NChassi, NMotor, Cor, listaCaracteristicas);
                     setVeiculoAux(veiculoAux);
                     veiculoController.abreVisualizacaoVeiculo();
                 }
@@ -749,7 +796,7 @@ public class VeiculoUI extends javax.swing.JFrame {
                     }
                     
                     if (tabelaVeiculos.getRowCount() == 0) {
-                        JOptionPane.showMessageDialog(null, "A pesquisa não encontrou nenhum produto.");
+                        JOptionPane.showMessageDialog(null, "A pesquisa não encontrou nenhum veículo.");
                     }
                 }
             } catch (HeadlessException | ClassNotFoundException | SQLException e) {

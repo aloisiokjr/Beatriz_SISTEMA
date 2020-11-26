@@ -1218,12 +1218,13 @@ public class EditarPeca extends javax.swing.JFrame {
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Produto '" + descricao + "' editado com sucesso.");
                 //JOptionPane.showMessageDialog(null,e);
-                pecaController.fechaCriacaoPeca();
+                pecaController.fechaEdicaoPeca();
             } catch (HeadlessException | ClassNotFoundException e) {
                 JOptionPane.showMessageDialog(null, e);
             }
             
             if(tabelaNomeVariantes.getRowCount() > 0){
+                deletaNomeVariantes(pecaAux.getCodigo());
                 int indexNome = 0;
                 while (indexNome < tabelaNomeVariantes.getRowCount()){
                     try {
@@ -1231,11 +1232,10 @@ public class EditarPeca extends javax.swing.JFrame {
                         String url = SQL_URL.getUrl();
                         try (Connection con = DriverManager.getConnection(url)) {
                             String sql;
-                            sql = "UPDATE Produto_Variavel SET CodigoProduto = ?, NomeVariavel = ? WHERE CodigoProduto = ?";
+                            sql = "INSERT INTO Produto_Variante (CodigoProduto, NomeVariavel) VALUES (?,?)";
                             PreparedStatement pst = con.prepareStatement(sql);
                             pst.setString(1, codigo);
                             pst.setString(2, (String)tabelaNomeVariantes.getValueAt(indexNome, 1));
-                            pst.setString(3, getPecaAux().getCodigo());
                             ResultSet rs = pst.executeQuery();
                             if (rs.next()) {
 
@@ -1249,6 +1249,7 @@ public class EditarPeca extends javax.swing.JFrame {
             }
             
             if(tabelaEspGerais.getRowCount() > 0){
+                deletaEspecificacao(pecaAux.getCodigo());
                 int index = 0;
                 while (index < tabelaEspGerais.getRowCount()){
                     try {
@@ -1256,13 +1257,12 @@ public class EditarPeca extends javax.swing.JFrame {
                         String url = SQL_URL.getUrl();
                         try (Connection con = DriverManager.getConnection(url)) {
                             String sql;
-                            sql = "UPDATE Produto_Especificacao SET CodigoProduto = ?, Descricao = ?, Valor = ?, UnidadeMedida = ? WHERE CodigoProduto = ?";
+                            sql = "INSERT INTO Produto_Especificacao (CodigoProdutO, Descricao, Valor, UnidadeMedida) VALUES (?,?,?,?)";
                             PreparedStatement pst = con.prepareStatement(sql);
                             pst.setString(1, codigo);
                             pst.setString(2, (String)tabelaNomeVariantes.getValueAt(index, 0));
                             pst.setString(3, (String)tabelaNomeVariantes.getValueAt(index, 2));
                             pst.setString(4, (String)tabelaNomeVariantes.getValueAt(index, 1));
-                            pst.setString(5, getPecaAux().getCodigo());
                             ResultSet rs = pst.executeQuery();
                             if (rs.next()) {
 
@@ -1274,6 +1274,42 @@ public class EditarPeca extends javax.swing.JFrame {
                     index++;
                 }
             }
+        }
+    }
+    
+    private void deletaNomeVariantes(String codigo){
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "DELETE FROM Produto_Variante WHERE CodigoProduto = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, codigo);
+                ResultSet rs = pst.executeQuery();
+
+            }
+        } catch (HeadlessException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e);
+        } catch (SQLException e) {
+            //JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    private void deletaEspecificacao(String codigo){
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "DELETE FROM Produto_Especificacao WHERE CodigoProduto = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, codigo);
+                ResultSet rs = pst.executeQuery();
+
+            }
+        } catch (HeadlessException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e);
+        } catch (SQLException e) {
+            //JOptionPane.showMessageDialog(null, e);
         }
     }
     

@@ -5,12 +5,21 @@
  */
 package view.fornecedor;
 
+import controller.FornecedorController;
+import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.DefaultFormatterFactory;
@@ -18,19 +27,28 @@ import javax.swing.text.MaskFormatter;
 import model.Requisito;
 import util.BuscaCEP;
 import util.CEP;
+import util.SQL_URL;
 
 /**
  *
  * @author KLEYN
  */
 public class CriarFornecedor extends javax.swing.JFrame {
-
+    
+    private FornecedorController fornecedorController = null;
     private ArrayList<Requisito> listaRequisitos = null;
+    
     /**
      * Creates new form CriarFornecedor
+     * @param fornecedorController
      */
-    public CriarFornecedor() {
+    public CriarFornecedor(FornecedorController fornecedorController) {
+        this.fornecedorController = fornecedorController;
         initComponents();
+        this.setVisible(true);
+        this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        this.toFront();
+        setagemInicial();
     }
 
     /**
@@ -44,8 +62,6 @@ public class CriarFornecedor extends javax.swing.JFrame {
 
         jPanel15 = new javax.swing.JPanel();
         campoCriacaoMotoristaCriacao2 = new javax.swing.JPanel();
-        campoCodigoFornecedor = new javax.swing.JTextField();
-        jLabel67 = new javax.swing.JLabel();
         campoRazaoSocialFornecedor = new javax.swing.JTextField();
         jLabel68 = new javax.swing.JLabel();
         jLabel74 = new javax.swing.JLabel();
@@ -67,13 +83,9 @@ public class CriarFornecedor extends javax.swing.JFrame {
         jLabel82 = new javax.swing.JLabel();
         campoEmailFornecedorCriacao = new javax.swing.JTextField();
         jLabel83 = new javax.swing.JLabel();
-        jLabelCodigoCadastroFornecedor = new javax.swing.JLabel();
-        jLabel84 = new javax.swing.JLabel();
-        campoIECadastroFornecedor = new javax.swing.JFormattedTextField();
-        jLabeIECadastroFornecedor = new javax.swing.JLabel();
         jLabel86 = new javax.swing.JLabel();
-        jRadioButton_PF_Transportadora = new javax.swing.JRadioButton();
-        jRadioButton_PJ_Transportadora = new javax.swing.JRadioButton();
+        jRadioButton_PF = new javax.swing.JRadioButton();
+        jRadioButton_PJ = new javax.swing.JRadioButton();
         jLabel87 = new javax.swing.JLabel();
         campoNomeFantasiaFornecedor = new javax.swing.JTextField();
         jLabel88 = new javax.swing.JLabel();
@@ -81,18 +93,10 @@ public class CriarFornecedor extends javax.swing.JFrame {
         jLabelCPF_CNPJCadastroFornecedor = new javax.swing.JLabel();
         jLabel69 = new javax.swing.JLabel();
         campoResponsavelFornecedor = new javax.swing.JTextField();
-        jComboBox_BancoFornecedorCriacao = new javax.swing.JComboBox<>();
-        jLabel70 = new javax.swing.JLabel();
-        campoAgenciaFornecedorCriacao = new javax.swing.JTextField();
-        jLabel71 = new javax.swing.JLabel();
-        campoContaFornecedorCriacao = new javax.swing.JTextField();
-        jLabel72 = new javax.swing.JLabel();
         jLabel89 = new javax.swing.JLabel();
         campoNumeroTelefoneFornecedorCriacao = new javax.swing.JFormattedTextField();
         jLabel90 = new javax.swing.JLabel();
         campoObservacaoFornecedorCriacao = new javax.swing.JTextField();
-        jLabel91 = new javax.swing.JLabel();
-        jCheckBox_SituacaoTransportadoraCriacao = new javax.swing.JCheckBox();
         btnSalvaCriacaoFornecedor = new javax.swing.JButton();
         btnFecharCriacaoFornecedor = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -102,50 +106,6 @@ public class CriarFornecedor extends javax.swing.JFrame {
         jPanel15.setLayout(null);
 
         campoCriacaoMotoristaCriacao2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        campoCriacaoMotoristaCriacao2.setLayout(null);
-
-        campoCodigoFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        campoCodigoFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                campoCodigoFornecedorFocusLost(evt);
-            }
-        });
-        campoCriacaoMotoristaCriacao2.add(campoCodigoFornecedor);
-        campoCodigoFornecedor.setBounds(19, 38, 76, 22);
-        campoCodigoFornecedor.getDocument().addDocumentListener(new DocumentListener() {
-            public void changedUpdate(DocumentEvent e) {
-                try {
-                    avisaCodigoFornecedor(campoCodigoFornecedor, jLabelCodigoCadastroFornecedor);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            public void removeUpdate(DocumentEvent e) {
-                try {
-                    avisaCodigoFornecedor(campoCodigoFornecedor, jLabelCodigoCadastroFornecedor);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            public void insertUpdate(DocumentEvent e) {
-                try {
-                    avisaCodigoFornecedor(campoCodigoFornecedor, jLabelCodigoCadastroFornecedor);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-
-        jLabel67.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel67.setText("Código *");
-        campoCriacaoMotoristaCriacao2.add(jLabel67);
-        jLabel67.setBounds(19, 12, 61, 20);
 
         campoRazaoSocialFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         campoRazaoSocialFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -158,18 +118,12 @@ public class CriarFornecedor extends javax.swing.JFrame {
                 campoRazaoSocialFornecedorActionPerformed(evt);
             }
         });
-        campoCriacaoMotoristaCriacao2.add(campoRazaoSocialFornecedor);
-        campoRazaoSocialFornecedor.setBounds(19, 112, 321, 22);
 
         jLabel68.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel68.setText("Razão Social *");
-        campoCriacaoMotoristaCriacao2.add(jLabel68);
-        jLabel68.setBounds(19, 86, 110, 20);
 
         jLabel74.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel74.setText("Celular *");
-        campoCriacaoMotoristaCriacao2.add(jLabel74);
-        jLabel74.setBounds(1002, 162, 158, 20);
 
         try {
             campoNumeroCelularCriacaoFornecedor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
@@ -183,13 +137,9 @@ public class CriarFornecedor extends javax.swing.JFrame {
                 campoNumeroCelularCriacaoFornecedorFocusLost(evt);
             }
         });
-        campoCriacaoMotoristaCriacao2.add(campoNumeroCelularCriacaoFornecedor);
-        campoNumeroCelularCriacaoFornecedor.setBounds(1002, 187, 207, 23);
 
         jLabel75.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel75.setText("Endereço *");
-        campoCriacaoMotoristaCriacao2.add(jLabel75);
-        jLabel75.setBounds(175, 231, 80, 20);
 
         campoEnderecoFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         campoEnderecoFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -202,13 +152,9 @@ public class CriarFornecedor extends javax.swing.JFrame {
                 campoEnderecoFornecedorCriacaoActionPerformed(evt);
             }
         });
-        campoCriacaoMotoristaCriacao2.add(campoEnderecoFornecedorCriacao);
-        campoEnderecoFornecedorCriacao.setBounds(175, 256, 400, 22);
 
         jLabel76.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel76.setText("Número *");
-        campoCriacaoMotoristaCriacao2.add(jLabel76);
-        jLabel76.setBounds(631, 231, 76, 20);
 
         campoNumeroEndFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         campoNumeroEndFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -216,13 +162,9 @@ public class CriarFornecedor extends javax.swing.JFrame {
                 campoNumeroEndFornecedorCriacaoFocusLost(evt);
             }
         });
-        campoCriacaoMotoristaCriacao2.add(campoNumeroEndFornecedorCriacao);
-        campoNumeroEndFornecedorCriacao.setBounds(631, 256, 100, 22);
 
         jLabel77.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel77.setText("Complemento *");
-        campoCriacaoMotoristaCriacao2.add(jLabel77);
-        jLabel77.setBounds(782, 231, 133, 20);
+        jLabel77.setText("Complemento");
 
         campoComplementoFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         campoComplementoFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -235,13 +177,9 @@ public class CriarFornecedor extends javax.swing.JFrame {
                 campoComplementoFornecedorCriacaoActionPerformed(evt);
             }
         });
-        campoCriacaoMotoristaCriacao2.add(campoComplementoFornecedorCriacao);
-        campoComplementoFornecedorCriacao.setBounds(782, 256, 193, 22);
 
         jLabel78.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel78.setText("Bairro *");
-        campoCriacaoMotoristaCriacao2.add(jLabel78);
-        jLabel78.setBounds(1002, 229, 72, 23);
 
         campoBairroFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         campoBairroFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -254,13 +192,9 @@ public class CriarFornecedor extends javax.swing.JFrame {
                 campoBairroFornecedorCriacaoActionPerformed(evt);
             }
         });
-        campoCriacaoMotoristaCriacao2.add(campoBairroFornecedorCriacao);
-        campoBairroFornecedorCriacao.setBounds(1002, 256, 207, 22);
 
         jLabel79.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel79.setText("CEP *");
-        campoCriacaoMotoristaCriacao2.add(jLabel79);
-        jLabel79.setBounds(19, 231, 46, 20);
 
         try {
             campoCEPFornecedorCriacao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
@@ -268,6 +202,7 @@ public class CriarFornecedor extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         campoCEPFornecedorCriacao.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
+        campoCEPFornecedorCriacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         campoCEPFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 campoCEPFornecedorCriacaoFocusLost(evt);
@@ -278,8 +213,6 @@ public class CriarFornecedor extends javax.swing.JFrame {
                 campoCEPFornecedorCriacaoActionPerformed(evt);
             }
         });
-        campoCriacaoMotoristaCriacao2.add(campoCEPFornecedorCriacao);
-        campoCEPFornecedorCriacao.setBounds(19, 256, 117, 19);
 
         campoCidadeFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         campoCidadeFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -292,18 +225,12 @@ public class CriarFornecedor extends javax.swing.JFrame {
                 campoCidadeFornecedorCriacaoActionPerformed(evt);
             }
         });
-        campoCriacaoMotoristaCriacao2.add(campoCidadeFornecedorCriacao);
-        campoCidadeFornecedorCriacao.setBounds(19, 324, 180, 22);
 
         jLabel80.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel80.setText("Cidade *");
-        campoCriacaoMotoristaCriacao2.add(jLabel80);
-        jLabel80.setBounds(19, 297, 68, 20);
 
         jLabel81.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel81.setText("Estado *");
-        campoCriacaoMotoristaCriacao2.add(jLabel81);
-        jLabel81.setBounds(241, 297, 68, 20);
 
         campoEstadoFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         campoEstadoFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -316,13 +243,9 @@ public class CriarFornecedor extends javax.swing.JFrame {
                 campoEstadoFornecedorCriacaoActionPerformed(evt);
             }
         });
-        campoCriacaoMotoristaCriacao2.add(campoEstadoFornecedorCriacao);
-        campoEstadoFornecedorCriacao.setBounds(241, 324, 180, 22);
 
         jLabel82.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel82.setText("Email *");
-        campoCriacaoMotoristaCriacao2.add(jLabel82);
-        jLabel82.setBounds(462, 297, 65, 20);
 
         campoEmailFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         campoEmailFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -335,108 +258,31 @@ public class CriarFornecedor extends javax.swing.JFrame {
                 campoEmailFornecedorCriacaoActionPerformed(evt);
             }
         });
-        campoCriacaoMotoristaCriacao2.add(campoEmailFornecedorCriacao);
-        campoEmailFornecedorCriacao.setBounds(462, 324, 269, 22);
 
         jLabel83.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel83.setText("* Campos Obrigatórios");
-        campoCriacaoMotoristaCriacao2.add(jLabel83);
-        jLabel83.setBounds(11, 378, 249, 20);
-
-        jLabelCodigoCadastroFornecedor.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        jLabelCodigoCadastroFornecedor.setForeground(new java.awt.Color(204, 0, 0));
-        jLabelCodigoCadastroFornecedor.setText("Já cadastrado.");
-        campoCriacaoMotoristaCriacao2.add(jLabelCodigoCadastroFornecedor);
-        jLabelCodigoCadastroFornecedor.setBounds(19, 66, 134, 13);
-
-        jLabel84.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel84.setText("Inscrição Estadual *");
-        campoCriacaoMotoristaCriacao2.add(jLabel84);
-        jLabel84.setBounds(928, 86, 150, 20);
-
-        try {
-            campoIECadastroFornecedor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#########")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        campoIECadastroFornecedor.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
-        campoIECadastroFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                campoIECadastroFornecedorFocusLost(evt);
-            }
-        });
-        campoIECadastroFornecedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoIECadastroFornecedorActionPerformed(evt);
-            }
-        });
-        campoCriacaoMotoristaCriacao2.add(campoIECadastroFornecedor);
-        campoIECadastroFornecedor.setBounds(928, 112, 154, 19);
-        campoIECadastroFornecedor.getDocument().addDocumentListener(new DocumentListener() {
-            public void changedUpdate(DocumentEvent e) {
-                try {
-                    avisaIEFornecedor(campoIECadastroFornecedor, jLabeIECadastroFornecedor);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            public void removeUpdate(DocumentEvent e) {
-                try {
-                    avisaIEFornecedor(campoIECadastroFornecedor, jLabeIECadastroFornecedor);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            public void insertUpdate(DocumentEvent e) {
-                try {
-                    avisaIEFornecedor(campoIECadastroFornecedor, jLabeIECadastroFornecedor);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-
-        jLabeIECadastroFornecedor.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        jLabeIECadastroFornecedor.setForeground(new java.awt.Color(204, 0, 0));
-        jLabeIECadastroFornecedor.setText("Já cadastrado.");
-        campoCriacaoMotoristaCriacao2.add(jLabeIECadastroFornecedor);
-        jLabeIECadastroFornecedor.setBounds(928, 142, 104, 13);
 
         jLabel86.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel86.setText("Tipo de Transportadora *");
-        campoCriacaoMotoristaCriacao2.add(jLabel86);
-        jLabel86.setBounds(161, 12, 179, 20);
+        jLabel86.setText("Tipo de Fornecedor *");
 
-        jRadioButton_PF_Transportadora.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jRadioButton_PF_Transportadora.setText("Física");
-        jRadioButton_PF_Transportadora.addActionListener(new java.awt.event.ActionListener() {
+        jRadioButton_PF.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jRadioButton_PF.setText("Física");
+        jRadioButton_PF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton_PF_TransportadoraActionPerformed(evt);
+                jRadioButton_PFActionPerformed(evt);
             }
         });
-        campoCriacaoMotoristaCriacao2.add(jRadioButton_PF_Transportadora);
-        jRadioButton_PF_Transportadora.setBounds(161, 37, 55, 25);
 
-        jRadioButton_PJ_Transportadora.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jRadioButton_PJ_Transportadora.setText("Jurídica");
-        jRadioButton_PJ_Transportadora.addActionListener(new java.awt.event.ActionListener() {
+        jRadioButton_PJ.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jRadioButton_PJ.setText("Jurídica");
+        jRadioButton_PJ.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton_PJ_TransportadoraActionPerformed(evt);
+                jRadioButton_PJActionPerformed(evt);
             }
         });
-        campoCriacaoMotoristaCriacao2.add(jRadioButton_PJ_Transportadora);
-        jRadioButton_PJ_Transportadora.setBounds(234, 37, 65, 25);
 
         jLabel87.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel87.setText("Nome Fantasia *");
-        campoCriacaoMotoristaCriacao2.add(jLabel87);
-        jLabel87.setBounds(364, 86, 130, 20);
 
         campoNomeFantasiaFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         campoNomeFantasiaFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -449,13 +295,9 @@ public class CriarFornecedor extends javax.swing.JFrame {
                 campoNomeFantasiaFornecedorActionPerformed(evt);
             }
         });
-        campoCriacaoMotoristaCriacao2.add(campoNomeFantasiaFornecedor);
-        campoNomeFantasiaFornecedor.setBounds(364, 112, 298, 22);
 
         jLabel88.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel88.setText("CPF/CNPJ *");
-        campoCriacaoMotoristaCriacao2.add(jLabel88);
-        jLabel88.setBounds(696, 86, 77, 20);
 
         try {
             campoCPF_CNPJCadastroFornecedor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###########")));
@@ -473,48 +315,13 @@ public class CriarFornecedor extends javax.swing.JFrame {
                 campoCPF_CNPJCadastroFornecedorActionPerformed(evt);
             }
         });
-        campoCriacaoMotoristaCriacao2.add(campoCPF_CNPJCadastroFornecedor);
-        campoCPF_CNPJCadastroFornecedor.setBounds(696, 112, 208, 20);
-        campoCPF_CNPJCadastroFornecedor.getDocument().addDocumentListener(new DocumentListener() {
-            public void changedUpdate(DocumentEvent e) {
-                try {
-                    avisaCPF_CNPJFornecedor(campoCPF_CNPJCadastroFornecedor, jLabelCPF_CNPJCadastroFornecedor,jRadioButton_PF_Transportadora, jRadioButton_PJ_Transportadora);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            public void removeUpdate(DocumentEvent e) {
-                try {
-                    avisaCPF_CNPJFornecedor(campoCPF_CNPJCadastroFornecedor, jLabelCPF_CNPJCadastroFornecedor,jRadioButton_PF_Transportadora,jRadioButton_PJ_Transportadora);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            public void insertUpdate(DocumentEvent e) {
-                try {
-                    avisaCPF_CNPJFornecedor(campoCPF_CNPJCadastroFornecedor, jLabelCPF_CNPJCadastroFornecedor,jRadioButton_PF_Transportadora,jRadioButton_PJ_Transportadora);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
 
         jLabelCPF_CNPJCadastroFornecedor.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         jLabelCPF_CNPJCadastroFornecedor.setForeground(new java.awt.Color(204, 0, 0));
         jLabelCPF_CNPJCadastroFornecedor.setText("Já cadastrado.");
-        campoCriacaoMotoristaCriacao2.add(jLabelCPF_CNPJCadastroFornecedor);
-        jLabelCPF_CNPJCadastroFornecedor.setBounds(696, 142, 104, 13);
 
         jLabel69.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel69.setText("Responsável *");
-        campoCriacaoMotoristaCriacao2.add(jLabel69);
-        jLabel69.setBounds(19, 161, 110, 20);
 
         campoResponsavelFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         campoResponsavelFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -527,65 +334,9 @@ public class CriarFornecedor extends javax.swing.JFrame {
                 campoResponsavelFornecedorActionPerformed(evt);
             }
         });
-        campoCriacaoMotoristaCriacao2.add(campoResponsavelFornecedor);
-        campoResponsavelFornecedor.setBounds(19, 187, 318, 22);
-
-        jComboBox_BancoFornecedorCriacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Item 2", "Item 3", "Item 4" }));
-        jComboBox_BancoFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jComboBox_BancoFornecedorCriacaoFocusLost(evt);
-            }
-        });
-        campoCriacaoMotoristaCriacao2.add(jComboBox_BancoFornecedorCriacao);
-        jComboBox_BancoFornecedorCriacao.setBounds(364, 188, 98, 22);
-
-        jLabel70.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel70.setText("Banco *");
-        campoCriacaoMotoristaCriacao2.add(jLabel70);
-        jLabel70.setBounds(364, 161, 110, 20);
-
-        campoAgenciaFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        campoAgenciaFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                campoAgenciaFornecedorCriacaoFocusLost(evt);
-            }
-        });
-        campoAgenciaFornecedorCriacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoAgenciaFornecedorCriacaoActionPerformed(evt);
-            }
-        });
-        campoCriacaoMotoristaCriacao2.add(campoAgenciaFornecedorCriacao);
-        campoAgenciaFornecedorCriacao.setBounds(491, 187, 113, 22);
-
-        jLabel71.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel71.setText("Agência *");
-        campoCriacaoMotoristaCriacao2.add(jLabel71);
-        jLabel71.setBounds(492, 161, 110, 20);
-
-        campoContaFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        campoContaFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                campoContaFornecedorCriacaoFocusLost(evt);
-            }
-        });
-        campoContaFornecedorCriacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoContaFornecedorCriacaoActionPerformed(evt);
-            }
-        });
-        campoCriacaoMotoristaCriacao2.add(campoContaFornecedorCriacao);
-        campoContaFornecedorCriacao.setBounds(634, 187, 113, 22);
-
-        jLabel72.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel72.setText("Conta*");
-        campoCriacaoMotoristaCriacao2.add(jLabel72);
-        jLabel72.setBounds(634, 161, 98, 20);
 
         jLabel89.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel89.setText("Telefone*");
-        campoCriacaoMotoristaCriacao2.add(jLabel89);
-        jLabel89.setBounds(782, 161, 427, 20);
 
         try {
             campoNumeroTelefoneFornecedorCriacao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
@@ -599,13 +350,9 @@ public class CriarFornecedor extends javax.swing.JFrame {
                 campoNumeroTelefoneFornecedorCriacaoFocusLost(evt);
             }
         });
-        campoCriacaoMotoristaCriacao2.add(campoNumeroTelefoneFornecedorCriacao);
-        campoNumeroTelefoneFornecedorCriacao.setBounds(782, 187, 193, 23);
 
         jLabel90.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel90.setText("Observações");
-        campoCriacaoMotoristaCriacao2.add(jLabel90);
-        jLabel90.setBounds(782, 297, 105, 20);
 
         campoObservacaoFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         campoObservacaoFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -618,26 +365,202 @@ public class CriarFornecedor extends javax.swing.JFrame {
                 campoObservacaoFornecedorCriacaoActionPerformed(evt);
             }
         });
-        campoCriacaoMotoristaCriacao2.add(campoObservacaoFornecedorCriacao);
-        campoObservacaoFornecedorCriacao.setBounds(782, 324, 427, 22);
 
-        jLabel91.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel91.setText("Situação *");
-        campoCriacaoMotoristaCriacao2.add(jLabel91);
-        jLabel91.setBounds(364, 12, 179, 20);
+        javax.swing.GroupLayout campoCriacaoMotoristaCriacao2Layout = new javax.swing.GroupLayout(campoCriacaoMotoristaCriacao2);
+        campoCriacaoMotoristaCriacao2.setLayout(campoCriacaoMotoristaCriacao2Layout);
+        campoCriacaoMotoristaCriacao2Layout.setHorizontalGroup(
+            campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
+                .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel86, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jRadioButton_PF)
+                        .addGap(15, 15, 15)
+                        .addComponent(jRadioButton_PJ))
+                    .addGroup(campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel69, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(230, 230, 230)
+                        .addComponent(jLabel89, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel74, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(150, 150, 150)
+                        .addComponent(jLabel79, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
+                                .addComponent(campoResponsavelFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(22, 22, 22)
+                                .addComponent(campoNumeroTelefoneFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(campoNumeroCelularCriacaoFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(23, 23, 23)
+                                .addComponent(campoCEPFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
+                                .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel75, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(campoEnderecoFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel76, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(campoNumeroEndFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel77, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(campoComplementoFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel78, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(campoBairroFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel83, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel90, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
+                                .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(campoObservacaoFornecedorCriacao, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
+                                        .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(campoCidadeFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel80, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel81, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(campoEstadoFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(18, 18, 18)
+                                .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel82, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(campoEmailFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel68, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoRazaoSocialFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel87, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoNomeFantasiaFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40)
+                        .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel88, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelCPF_CNPJCadastroFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoCPF_CNPJCadastroFornecedor))
+                        .addGap(1, 1, 1)))
+                .addGap(31, 31, 31))
+        );
+        campoCriacaoMotoristaCriacao2Layout.setVerticalGroup(
+            campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel86)
+                .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jRadioButton_PF)
+                    .addComponent(jRadioButton_PJ))
+                .addGap(21, 21, 21)
+                .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
+                        .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel68)
+                            .addComponent(jLabel88))
+                        .addGap(6, 6, 6)
+                        .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoRazaoSocialFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoCPF_CNPJCadastroFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
+                        .addComponent(jLabel87)
+                        .addGap(6, 6, 6)
+                        .addComponent(campoNomeFantasiaFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelCPF_CNPJCadastroFornecedor)
+                .addGap(7, 7, 7)
+                .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
+                        .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel69)
+                            .addComponent(jLabel89)
+                            .addComponent(jLabel74)
+                            .addComponent(jLabel79))
+                        .addGap(10, 10, 10)
+                        .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(campoResponsavelFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoNumeroTelefoneFornecedorCriacao, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                            .addComponent(campoNumeroCelularCriacaoFornecedor)
+                            .addComponent(campoCEPFornecedorCriacao))
+                        .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel75)
+                                .addGap(5, 5, 5)
+                                .addComponent(campoEnderecoFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
+                                        .addComponent(jLabel77)
+                                        .addGap(4, 4, 4)
+                                        .addComponent(campoComplementoFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
+                                        .addComponent(jLabel78, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(4, 4, 4)
+                                        .addComponent(campoBairroFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
+                        .addComponent(jLabel76)
+                        .addGap(4, 4, 4)
+                        .addComponent(campoNumeroEndFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel81)
+                        .addComponent(jLabel80))
+                    .addComponent(jLabel82))
+                .addGap(7, 7, 7)
+                .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(campoCidadeFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoEstadoFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoEmailFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel90)
+                .addGap(7, 7, 7)
+                .addComponent(campoObservacaoFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addComponent(jLabel83)
+                .addGap(21, 21, 21))
+        );
 
-        jCheckBox_SituacaoTransportadoraCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jCheckBox_SituacaoTransportadoraCriacao.setText("Ativo");
-        jCheckBox_SituacaoTransportadoraCriacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox_SituacaoTransportadoraCriacaoActionPerformed(evt);
+        campoCPF_CNPJCadastroFornecedor.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                try {
+                    avisaCPF_CNPJFornecedor(campoCPF_CNPJCadastroFornecedor, jLabelCPF_CNPJCadastroFornecedor);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            public void removeUpdate(DocumentEvent e) {
+                try {
+                    avisaCPF_CNPJFornecedor(campoCPF_CNPJCadastroFornecedor, jLabelCPF_CNPJCadastroFornecedor);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            public void insertUpdate(DocumentEvent e) {
+                try {
+                    avisaCPF_CNPJFornecedor(campoCPF_CNPJCadastroFornecedor, jLabelCPF_CNPJCadastroFornecedor);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(CriarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
-        campoCriacaoMotoristaCriacao2.add(jCheckBox_SituacaoTransportadoraCriacao);
-        jCheckBox_SituacaoTransportadoraCriacao.setBounds(364, 37, 53, 25);
 
         jPanel15.add(campoCriacaoMotoristaCriacao2);
-        campoCriacaoMotoristaCriacao2.setBounds(50, 120, 1240, 410);
+        campoCriacaoMotoristaCriacao2.setBounds(30, 80, 960, 470);
 
         btnSalvaCriacaoFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnSalvaCriacaoFornecedor.setText("SALVAR");
@@ -652,7 +575,7 @@ public class CriarFornecedor extends javax.swing.JFrame {
             }
         });
         jPanel15.add(btnSalvaCriacaoFornecedor);
-        btnSalvaCriacaoFornecedor.setBounds(1010, 550, 130, 40);
+        btnSalvaCriacaoFornecedor.setBounds(860, 580, 130, 40);
 
         btnFecharCriacaoFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnFecharCriacaoFornecedor.setText("FECHAR");
@@ -667,12 +590,12 @@ public class CriarFornecedor extends javax.swing.JFrame {
             }
         });
         jPanel15.add(btnFecharCriacaoFornecedor);
-        btnFecharCriacaoFornecedor.setBounds(1160, 550, 130, 40);
+        btnFecharCriacaoFornecedor.setBounds(710, 580, 130, 40);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel1.setText("CADASTRO DE FORNECEDOR");
         jPanel15.add(jLabel1);
-        jLabel1.setBounds(50, 70, 290, 27);
+        jLabel1.setBounds(30, 30, 290, 27);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -698,18 +621,6 @@ public class CriarFornecedor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void campoCodigoFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCodigoFornecedorFocusLost
-        if (campoCodigoFornecedor.getText().equals("")) {
-            getListaRequisitos().get(0).setIsOk(false);
-        } else {
-            if (campoCodigoFornecedor.getText().equals("Código já existente.")) {
-                getListaRequisitos().get(0).setIsOk(false);
-            } else {
-                getListaRequisitos().get(0).setIsOk(true);
-            }
-        }
-    }//GEN-LAST:event_campoCodigoFornecedorFocusLost
-
     private void campoRazaoSocialFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoRazaoSocialFornecedorFocusLost
         if (campoRazaoSocialFornecedor.getText().equals("")) {
             getListaRequisitos().get(1).setIsOk(false);
@@ -724,17 +635,17 @@ public class CriarFornecedor extends javax.swing.JFrame {
 
     private void campoNumeroCelularCriacaoFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNumeroCelularCriacaoFornecedorFocusLost
         if (campoNumeroCelularCriacaoFornecedor.getText().contains(" ")) {
-            getListaRequisitos().get(7).setIsOk(false);
+            getListaRequisitos().get(6).setIsOk(false);
         } else {
-            getListaRequisitos().get(7).setIsOk(true);
+            getListaRequisitos().get(6).setIsOk(true);
         }
     }//GEN-LAST:event_campoNumeroCelularCriacaoFornecedorFocusLost
 
     private void campoEnderecoFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoEnderecoFornecedorCriacaoFocusLost
         if (campoEnderecoFornecedorCriacao.getText().equals("")) {
-            getListaRequisitos().get(15).setIsOk(false);
+            getListaRequisitos().get(8).setIsOk(false);
         } else {
-            getListaRequisitos().get(15).setIsOk(true);
+            getListaRequisitos().get(8).setIsOk(true);
         }
     }//GEN-LAST:event_campoEnderecoFornecedorCriacaoFocusLost
 
@@ -744,9 +655,9 @@ public class CriarFornecedor extends javax.swing.JFrame {
 
     private void campoNumeroEndFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNumeroEndFornecedorCriacaoFocusLost
         if (campoNumeroEndFornecedorCriacao.getText().equals("")) {
-            getListaRequisitos().get(16).setIsOk(false);
+            getListaRequisitos().get(9).setIsOk(false);
         } else {
-            getListaRequisitos().get(16).setIsOk(true);
+            getListaRequisitos().get(9).setIsOk(true);
         }
     }//GEN-LAST:event_campoNumeroEndFornecedorCriacaoFocusLost
 
@@ -764,9 +675,9 @@ public class CriarFornecedor extends javax.swing.JFrame {
 
     private void campoBairroFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoBairroFornecedorCriacaoFocusLost
         if (campoBairroFornecedorCriacao.getText().equals("")) {
-            getListaRequisitos().get(18).setIsOk(false);
+            getListaRequisitos().get(10).setIsOk(false);
         } else {
-            getListaRequisitos().get(18).setIsOk(true);
+            getListaRequisitos().get(10).setIsOk(true);
         }
     }//GEN-LAST:event_campoBairroFornecedorCriacaoFocusLost
 
@@ -776,9 +687,9 @@ public class CriarFornecedor extends javax.swing.JFrame {
 
     private void campoCEPFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCEPFornecedorCriacaoFocusLost
         if (campoCEPFornecedorCriacao.getText().contains(" ")) {
-            getListaRequisitos().get(14).setIsOk(false);
+            getListaRequisitos().get(7).setIsOk(false);
         } else {
-            getListaRequisitos().get(14).setIsOk(true);
+            getListaRequisitos().get(7).setIsOk(true);
             BuscaCEP buscaAux = new BuscaCEP();
             CEP cepAux;
             cepAux = buscaAux.buscarCep(campoCEPFornecedorCriacao.getText());
@@ -786,10 +697,10 @@ public class CriarFornecedor extends javax.swing.JFrame {
             campoBairroFornecedorCriacao.setText(cepAux.getBairro());
             campoCidadeFornecedorCriacao.setText(cepAux.getCidade());
             campoEstadoFornecedorCriacao.setText(cepAux.getUf());
-            getListaRequisitos().get(15).setIsOk(true);
-            getListaRequisitos().get(18).setIsOk(true);
-            getListaRequisitos().get(19).setIsOk(true);
-            getListaRequisitos().get(20).setIsOk(true);
+            getListaRequisitos().get(8).setIsOk(true);
+            getListaRequisitos().get(10).setIsOk(true);
+            getListaRequisitos().get(11).setIsOk(true);
+            getListaRequisitos().get(12).setIsOk(true);
         }
     }//GEN-LAST:event_campoCEPFornecedorCriacaoFocusLost
 
@@ -799,9 +710,9 @@ public class CriarFornecedor extends javax.swing.JFrame {
 
     private void campoCidadeFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCidadeFornecedorCriacaoFocusLost
         if (campoCidadeFornecedorCriacao.getText().equals("")) {
-            getListaRequisitos().get(19).setIsOk(false);
+            getListaRequisitos().get(11).setIsOk(false);
         } else {
-            getListaRequisitos().get(19).setIsOk(true);
+            getListaRequisitos().get(11).setIsOk(true);
         }
     }//GEN-LAST:event_campoCidadeFornecedorCriacaoFocusLost
 
@@ -811,9 +722,9 @@ public class CriarFornecedor extends javax.swing.JFrame {
 
     private void campoEstadoFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoEstadoFornecedorCriacaoFocusLost
         if (campoEstadoFornecedorCriacao.getText().equals("")) {
-            getListaRequisitos().get(20).setIsOk(false);
+            getListaRequisitos().get(12).setIsOk(false);
         } else {
-            getListaRequisitos().get(20).setIsOk(true);
+            getListaRequisitos().get(12).setIsOk(true);
         }
     }//GEN-LAST:event_campoEstadoFornecedorCriacaoFocusLost
 
@@ -823,9 +734,9 @@ public class CriarFornecedor extends javax.swing.JFrame {
 
     private void campoEmailFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoEmailFornecedorCriacaoFocusLost
         if (campoEmailFornecedorCriacao.getText().equals("")) {
-            getListaRequisitos().get(8).setIsOk(false);
+            getListaRequisitos().get(13).setIsOk(false);
         } else {
-            getListaRequisitos().get(8).setIsOk(true);
+            getListaRequisitos().get(13).setIsOk(true);
         }
     }//GEN-LAST:event_campoEmailFornecedorCriacaoFocusLost
 
@@ -833,20 +744,8 @@ public class CriarFornecedor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoEmailFornecedorCriacaoActionPerformed
 
-    private void campoIECadastroFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoIECadastroFornecedorFocusLost
-        if (campoIECadastroFornecedor.getText().contains(" ")) {
-            getListaRequisitos().get(4).setIsOk(false);
-        } else {
-            getListaRequisitos().get(4).setIsOk(true);
-        }
-    }//GEN-LAST:event_campoIECadastroFornecedorFocusLost
-
-    private void campoIECadastroFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoIECadastroFornecedorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoIECadastroFornecedorActionPerformed
-
-    private void jRadioButton_PF_TransportadoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_PF_TransportadoraActionPerformed
-        if (jRadioButton_PF_Transportadora.isSelected()) {
+    private void jRadioButton_PFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_PFActionPerformed
+        if (jRadioButton_PF.isSelected()) {
             getListaRequisitos().get(3).setIsOk(true);
             campoCPF_CNPJCadastroFornecedor.setValue(null);
             MaskFormatter cpf = null;
@@ -857,10 +756,10 @@ public class CriarFornecedor extends javax.swing.JFrame {
             }
             campoCPF_CNPJCadastroFornecedor.setFormatterFactory(new DefaultFormatterFactory(cpf));
         }
-    }//GEN-LAST:event_jRadioButton_PF_TransportadoraActionPerformed
+    }//GEN-LAST:event_jRadioButton_PFActionPerformed
 
-    private void jRadioButton_PJ_TransportadoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_PJ_TransportadoraActionPerformed
-        if (jRadioButton_PJ_Transportadora.isSelected()) {
+    private void jRadioButton_PJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_PJActionPerformed
+        if (jRadioButton_PJ.isSelected()) {
             getListaRequisitos().get(3).setIsOk(true);
             campoCPF_CNPJCadastroFornecedor.setValue(null);
             MaskFormatter cnpj = null;
@@ -871,7 +770,7 @@ public class CriarFornecedor extends javax.swing.JFrame {
             }
             campoCPF_CNPJCadastroFornecedor.setFormatterFactory(new DefaultFormatterFactory(cnpj));
         }
-    }//GEN-LAST:event_jRadioButton_PJ_TransportadoraActionPerformed
+    }//GEN-LAST:event_jRadioButton_PJActionPerformed
 
     private void campoNomeFantasiaFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNomeFantasiaFornecedorFocusLost
         if (campoNomeFantasiaFornecedor.getText().equals("")) {
@@ -886,11 +785,7 @@ public class CriarFornecedor extends javax.swing.JFrame {
     }//GEN-LAST:event_campoNomeFantasiaFornecedorActionPerformed
 
     private void campoCPF_CNPJCadastroFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCPF_CNPJCadastroFornecedorFocusLost
-        if (campoCPF_CNPJCadastroFornecedor.getText().contains(" ")) {
-            getListaRequisitos().get(5).setIsOk(false);
-        } else {
-            getListaRequisitos().get(5).setIsOk(true);
-        }
+        
     }//GEN-LAST:event_campoCPF_CNPJCadastroFornecedorFocusLost
 
     private void campoCPF_CNPJCadastroFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCPF_CNPJCadastroFornecedorActionPerformed
@@ -899,9 +794,9 @@ public class CriarFornecedor extends javax.swing.JFrame {
 
     private void campoResponsavelFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoResponsavelFornecedorFocusLost
         if (campoResponsavelFornecedor.getText().equals("")) {
-            getListaRequisitos().get(9).setIsOk(false);
+            getListaRequisitos().get(4).setIsOk(false);
         } else {
-            getListaRequisitos().get(9).setIsOk(true);
+            getListaRequisitos().get(4).setIsOk(true);
         }
     }//GEN-LAST:event_campoResponsavelFornecedorFocusLost
 
@@ -909,44 +804,11 @@ public class CriarFornecedor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoResponsavelFornecedorActionPerformed
 
-    private void jComboBox_BancoFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboBox_BancoFornecedorCriacaoFocusLost
-        String selecionado = (String) jComboBox_BancoFornecedorCriacao.getSelectedItem();
-        if (selecionado.equals("Selecione")) {
-            getListaRequisitos().get(11).setIsOk(false);
-        } else {
-            getListaRequisitos().get(11).setIsOk(true);
-        }
-    }//GEN-LAST:event_jComboBox_BancoFornecedorCriacaoFocusLost
-
-    private void campoAgenciaFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoAgenciaFornecedorCriacaoFocusLost
-        if (campoAgenciaFornecedorCriacao.getText().equals("")) {
-            getListaRequisitos().get(12).setIsOk(false);
-        } else {
-            getListaRequisitos().get(12).setIsOk(true);
-        }
-    }//GEN-LAST:event_campoAgenciaFornecedorCriacaoFocusLost
-
-    private void campoAgenciaFornecedorCriacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoAgenciaFornecedorCriacaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoAgenciaFornecedorCriacaoActionPerformed
-
-    private void campoContaFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoContaFornecedorCriacaoFocusLost
-        if (campoContaFornecedorCriacao.getText().equals("")) {
-            getListaRequisitos().get(13).setIsOk(false);
-        } else {
-            getListaRequisitos().get(13).setIsOk(true);
-        }
-    }//GEN-LAST:event_campoContaFornecedorCriacaoFocusLost
-
-    private void campoContaFornecedorCriacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoContaFornecedorCriacaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoContaFornecedorCriacaoActionPerformed
-
     private void campoNumeroTelefoneFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNumeroTelefoneFornecedorCriacaoFocusLost
         if (campoNumeroTelefoneFornecedorCriacao.getText().contains(" ")) {
-            getListaRequisitos().get(6).setIsOk(false);
+            getListaRequisitos().get(5).setIsOk(false);
         } else {
-            getListaRequisitos().get(6).setIsOk(true);
+            getListaRequisitos().get(5).setIsOk(true);
         }
     }//GEN-LAST:event_campoNumeroTelefoneFornecedorCriacaoFocusLost
 
@@ -958,21 +820,13 @@ public class CriarFornecedor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoObservacaoFornecedorCriacaoActionPerformed
 
-    private void jCheckBox_SituacaoTransportadoraCriacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox_SituacaoTransportadoraCriacaoActionPerformed
-        if (jCheckBox_SituacaoTransportadoraCriacao.isSelected()) {
-            getListaRequisitos().get(21).setIsOk(true);
-        } else {
-            getListaRequisitos().get(21).setIsOk(false);
-        }
-    }//GEN-LAST:event_jCheckBox_SituacaoTransportadoraCriacaoActionPerformed
-
     private void btnSalvaCriacaoFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvaCriacaoFornecedorActionPerformed
-        CriarFornecedor();
+        criarFornecedor();
     }//GEN-LAST:event_btnSalvaCriacaoFornecedorActionPerformed
 
     private void btnSalvaCriacaoFornecedorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvaCriacaoFornecedorKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            CriarFornecedor();
+            criarFornecedor();
         }
     }//GEN-LAST:event_btnSalvaCriacaoFornecedorKeyPressed
 
@@ -986,24 +840,183 @@ public class CriarFornecedor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnFecharCriacaoFornecedorKeyPressed
 
-    private void CriarFornecedor(){
-        
+    private void criarFornecedor(){
+        Iterator<Requisito> iterador = listaRequisitos.iterator();
+        String requisitosN = "";
+        Requisito aux;
+        boolean auxControl = true;
+        while (iterador.hasNext()) {
+            aux = iterador.next();
+            if (!aux.isIsOk()) {
+                requisitosN = requisitosN.concat(" " + aux.getRequisito() + ",");
+                auxControl = false;
+            }
+        }
+        if (!auxControl) {
+            requisitosN = requisitosN.substring(0, requisitosN.length() - 1);
+            JOptionPane.showMessageDialog(null, "Os seguintes requisitos não foram preeenchidos:" + requisitosN + ".");
+        } else {
+            String Razao_Social, Nome_Fantasia, Tipo, CPF_CNPJ, Telefone, Celular, Email, Responsavel, CEP, Logradouro, Numero,
+                    Complemento, Bairro, Cidade, UF, Observacao;
+            Razao_Social = campoRazaoSocialFornecedor.getText();
+            Nome_Fantasia = campoNomeFantasiaFornecedor.getText();
+            Tipo = "";
+            if (jRadioButton_PF.isSelected()) {
+                Tipo = "F";
+            } else if (jRadioButton_PJ.isSelected()) {
+                Tipo = "J";
+            }
+            CPF_CNPJ = campoCPF_CNPJCadastroFornecedor.getText();
+            Telefone = campoNumeroTelefoneFornecedorCriacao.getText();
+            Celular = campoNumeroCelularCriacaoFornecedor.getText();
+            Email = campoEmailFornecedorCriacao.getText();
+            Responsavel = campoResponsavelFornecedor.getText();
+            CEP = campoCEPFornecedorCriacao.getText();
+            Logradouro = campoEnderecoFornecedorCriacao.getText();
+            Numero = campoNumeroEndFornecedorCriacao.getText();
+            Complemento = campoComplementoFornecedorCriacao.getText();
+            Bairro = campoBairroFornecedorCriacao.getText();
+            Cidade = campoCidadeFornecedorCriacao.getText();
+            UF = campoEstadoFornecedorCriacao.getText();
+            Observacao = campoObservacaoFornecedorCriacao.getText();
+
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String url = SQL_URL.getUrl();
+                try ( Connection con = DriverManager.getConnection(url)) {
+                    String sql = "INSERT INTO Fornecedor (Razao_Social,Nome_Fantasia,Tipo,CPF_CNPJ,Telefone,Celular,Email,Responsavel,CEP,Logradouro,Numero,Complemento,Bairro,Cidade,UF,Observacao) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    pst.setString(1, Razao_Social);
+                    pst.setString(2, Nome_Fantasia);
+                    pst.setString(3, Tipo);
+                    pst.setString(4, CPF_CNPJ);
+                    pst.setString(5, Telefone);
+                    pst.setString(6, Celular);
+                    pst.setString(7, Email);
+                    pst.setString(8, Responsavel);
+                    pst.setString(9, CEP);
+                    pst.setString(10, Logradouro);
+                    pst.setString(11, Numero);
+                    pst.setString(12, Complemento);
+                    pst.setString(13, Bairro);
+                    pst.setString(14, Cidade);
+                    pst.setString(15, UF);
+                    pst.setString(16, Observacao);
+
+                    ResultSet rs = pst.executeQuery();
+
+                    if (rs.next()) {
+
+                    }
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Fornecedor '" + Nome_Fantasia + "' criado com sucesso.");
+                fornecedorController.fechaCriacaoFornecedor();
+            } catch (HeadlessException | ClassNotFoundException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
     }
     
     private void fechaCriarFornecedor(){
-        
+        String message = "Deseja realmente cancelar a criação?";
+        String title = "Cancelar Criação";
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            fornecedorController.fechaCriacaoFornecedor();
+        }
+        if (reply == JOptionPane.NO_OPTION) {
+
+        }
     }
     
-    private void avisaCodigoFornecedor(javax.swing.JTextField campoAux, javax.swing.JLabel labelAux) throws SQLException, ClassNotFoundException {
     
+    private void avisaCPF_CNPJFornecedor(javax.swing.JFormattedTextField campoAux, javax.swing.JLabel labelAux) throws SQLException, ClassNotFoundException {
+        if (jRadioButton_PF.isSelected()) {
+            if (campoAux.getText().equals("   .   .   -  ")) {
+                labelAux.setForeground(new java.awt.Color(212, 0, 51));
+                labelAux.setText("Campo Vazio.");
+                listaRequisitos.get(3).setIsOk(false);
+            } else {
+                if (!campoAux.getText().contains(" ")) {
+                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    String url = SQL_URL.getUrl();
+                    try ( Connection con = DriverManager.getConnection(url)) {
+                        String sql = "SELECT CPF_CNPJ FROM Fornecedor WHERE CPF_CNPJ = ?";
+                        String textAux = campoAux.getText();
+                        PreparedStatement pst = con.prepareStatement(sql);
+                        pst.setString(1, textAux);
+                        ResultSet rs = pst.executeQuery();
+                        if (rs.next()) {
+                            labelAux.setForeground(new java.awt.Color(212, 0, 51));
+                            labelAux.setText("CPF já cadastrado.");
+                            listaRequisitos.get(3).setIsOk(false);
+                        } else {
+                            labelAux.setForeground(new java.awt.Color(51, 199, 9));
+                            labelAux.setText("CPF válido.");
+                            listaRequisitos.get(3).setIsOk(true);
+                        }
+                    }
+                } else {
+                    labelAux.setForeground(new java.awt.Color(212, 0, 51));
+                    labelAux.setText("Valor inválido.");
+                    listaRequisitos.get(3).setIsOk(false);
+                }
+            }
+        } else if (jRadioButton_PJ.isSelected()) {
+            if (campoAux.getText().equals("  .   .   /    -  ")) {
+                labelAux.setForeground(new java.awt.Color(212, 0, 51));
+                labelAux.setText("Campo Vazio.");
+                listaRequisitos.get(3).setIsOk(false);
+            } else {
+                if (!campoAux.getText().contains(" ")) {
+                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    String url = SQL_URL.getUrl();
+                    try ( Connection con = DriverManager.getConnection(url)) {
+                        String sql = "SELECT CPF_CNPJ Fornecedor WHERE CPF_CNPJ = ?";
+                        String textAux = campoAux.getText();
+                        PreparedStatement pst = con.prepareStatement(sql);
+                        pst.setString(1, textAux);
+                        ResultSet rs = pst.executeQuery();
+                        if (rs.next()) {
+                            labelAux.setForeground(new java.awt.Color(212, 0, 51));
+                            labelAux.setText("CNPJ já cadastrado.");
+                            listaRequisitos.get(3).setIsOk(false);
+                        } else {
+                            labelAux.setForeground(new java.awt.Color(51, 199, 9));
+                            labelAux.setText("CNPJ válido.");
+                            listaRequisitos.get(3).setIsOk(true);
+                        }
+                    }
+                } else {
+                    labelAux.setForeground(new java.awt.Color(212, 0, 51));
+                    labelAux.setText("Valor inválido.");
+                    listaRequisitos.get(3).setIsOk(false);
+                }
+            }
+        }
     }
     
-    private void avisaCPF_CNPJFornecedor(javax.swing.JFormattedTextField campoAux, javax.swing.JLabel labelAux, javax.swing.JRadioButton pessoaF, javax.swing.JRadioButton pessoaJ) throws SQLException, ClassNotFoundException {
-        
+    
+    public final void setagemInicial(){
+        listaRequisitos = null;
+        listaRequisitos = new ArrayList();
+        listaRequisitos.add(new Requisito("Tipo de Fornecedor", false));
+        listaRequisitos.add(new Requisito("Razão Social", false));
+        listaRequisitos.add(new Requisito("Nome Fantasia", false));
+        listaRequisitos.add(new Requisito("CPF/CNPJ", false));
+        listaRequisitos.add(new Requisito("Responsável", false));
+        listaRequisitos.add(new Requisito("Telefone", false));
+        listaRequisitos.add(new Requisito("Celular", false));
+        listaRequisitos.add(new Requisito("CEP", false));
+        listaRequisitos.add(new Requisito("Endereço", false));
+        listaRequisitos.add(new Requisito("Número", false));
+        listaRequisitos.add(new Requisito("Bairro", false));
+        listaRequisitos.add(new Requisito("Cidade", false));
+        listaRequisitos.add(new Requisito("Estado", false));
+        listaRequisitos.add(new Requisito("Email", false));
     }
     
-    private void avisaIEFornecedor(javax.swing.JFormattedTextField campoAux, javax.swing.JLabel labelAux) throws SQLException, ClassNotFoundException {
-    }
     /**
      * @param args the command line arguments
      */
@@ -1027,30 +1040,20 @@ public class CriarFornecedor extends javax.swing.JFrame {
         
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CriarFornecedor().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFecharCriacaoFornecedor;
     private javax.swing.JButton btnSalvaCriacaoFornecedor;
-    private javax.swing.JTextField campoAgenciaFornecedorCriacao;
     private javax.swing.JTextField campoBairroFornecedorCriacao;
     private javax.swing.JFormattedTextField campoCEPFornecedorCriacao;
     private javax.swing.JFormattedTextField campoCPF_CNPJCadastroFornecedor;
     private javax.swing.JTextField campoCidadeFornecedorCriacao;
-    private javax.swing.JTextField campoCodigoFornecedor;
     private javax.swing.JTextField campoComplementoFornecedorCriacao;
-    private javax.swing.JTextField campoContaFornecedorCriacao;
     private javax.swing.JPanel campoCriacaoMotoristaCriacao2;
     private javax.swing.JTextField campoEmailFornecedorCriacao;
     private javax.swing.JTextField campoEnderecoFornecedorCriacao;
     private javax.swing.JTextField campoEstadoFornecedorCriacao;
-    private javax.swing.JFormattedTextField campoIECadastroFornecedor;
     private javax.swing.JTextField campoNomeFantasiaFornecedor;
     private javax.swing.JFormattedTextField campoNumeroCelularCriacaoFornecedor;
     private javax.swing.JTextField campoNumeroEndFornecedorCriacao;
@@ -1058,16 +1061,9 @@ public class CriarFornecedor extends javax.swing.JFrame {
     private javax.swing.JTextField campoObservacaoFornecedorCriacao;
     private javax.swing.JTextField campoRazaoSocialFornecedor;
     private javax.swing.JTextField campoResponsavelFornecedor;
-    private javax.swing.JCheckBox jCheckBox_SituacaoTransportadoraCriacao;
-    private javax.swing.JComboBox<String> jComboBox_BancoFornecedorCriacao;
-    private javax.swing.JLabel jLabeIECadastroFornecedor;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel67;
     private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel69;
-    private javax.swing.JLabel jLabel70;
-    private javax.swing.JLabel jLabel71;
-    private javax.swing.JLabel jLabel72;
     private javax.swing.JLabel jLabel74;
     private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel76;
@@ -1078,18 +1074,15 @@ public class CriarFornecedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel83;
-    private javax.swing.JLabel jLabel84;
     private javax.swing.JLabel jLabel86;
     private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel89;
     private javax.swing.JLabel jLabel90;
-    private javax.swing.JLabel jLabel91;
     private javax.swing.JLabel jLabelCPF_CNPJCadastroFornecedor;
-    private javax.swing.JLabel jLabelCodigoCadastroFornecedor;
     private javax.swing.JPanel jPanel15;
-    private javax.swing.JRadioButton jRadioButton_PF_Transportadora;
-    private javax.swing.JRadioButton jRadioButton_PJ_Transportadora;
+    private javax.swing.JRadioButton jRadioButton_PF;
+    private javax.swing.JRadioButton jRadioButton_PJ;
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -1104,5 +1097,19 @@ public class CriarFornecedor extends javax.swing.JFrame {
      */
     public void setListaRequisitos(ArrayList<Requisito> listaRequisitos) {
         this.listaRequisitos = listaRequisitos;
+    }
+
+    /**
+     * @return the fornecedorController
+     */
+    public FornecedorController getFornecedorController() {
+        return fornecedorController;
+    }
+
+    /**
+     * @param fornecedorController the fornecedorController to set
+     */
+    public void setFornecedorController(FornecedorController fornecedorController) {
+        this.fornecedorController = fornecedorController;
     }
 }

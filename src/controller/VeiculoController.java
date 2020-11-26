@@ -74,6 +74,7 @@ public class VeiculoController {
         getEditarVeiculo().dispose();
         veiculoUI.setEnabled(true);
         veiculoUI.setVeiculoAux(null);
+        veiculoUI.setagemInicial();
         sistemaUI.toFront();
         veiculoUI.toFront();
         veiculoUI.veiculoBuscaTodos();
@@ -96,6 +97,7 @@ public class VeiculoController {
         getVisualizarVeiculo().dispose();
         veiculoUI.setEnabled(true);
         veiculoUI.setVeiculoAux(null);
+        veiculoUI.setagemInicial();
         sistemaUI.toFront();
         veiculoUI.veiculoBuscaTodos();
         veiculoUI.toFront();

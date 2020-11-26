@@ -15,6 +15,7 @@ import model.Peca;
 import model.Usuario;
 import model.Veiculo;
 import view.emprestimo.EmprestimoUI;
+import view.fornecedor.FornecedorUI;
 import view.peca.PecaUI;
 import view.usuario.UsuarioUI;
 import view.veiculo.VeiculoUI;
@@ -42,6 +43,7 @@ public class Sistema_UI extends javax.swing.JFrame {
     private PecaUI pecaUI = null;
     private EmprestimoUI emprestimoUI =  null;
     private VeiculoUI veiculoUI = null;
+    private FornecedorUI fornecedorUI = null;
     
     /**
      * Creates new form Sistema_UI
@@ -561,5 +563,19 @@ public class Sistema_UI extends javax.swing.JFrame {
      */
     public void setVeiculoController(VeiculoController veiculoController) {
         this.veiculoController = veiculoController;
+    }
+
+    /**
+     * @return the fornecedorUI
+     */
+    public FornecedorUI getFornecedorUI() {
+        return fornecedorUI;
+    }
+
+    /**
+     * @param fornecedorUI the fornecedorUI to set
+     */
+    public void setFornecedorUI(FornecedorUI fornecedorUI) {
+        this.fornecedorUI = fornecedorUI;
     }
 }
