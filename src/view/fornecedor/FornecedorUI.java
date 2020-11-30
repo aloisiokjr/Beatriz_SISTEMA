@@ -19,11 +19,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.Fornecedor;
 import util.SQL_URL;
 
@@ -61,6 +63,7 @@ public class FornecedorUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel6 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -80,6 +83,7 @@ public class FornecedorUI extends javax.swing.JFrame {
         radio_CPFCNPJ = new javax.swing.JRadioButton();
         radio_NomeFantasia = new javax.swing.JRadioButton();
         radio_Razao = new javax.swing.JRadioButton();
+        radio_Responsavel = new javax.swing.JRadioButton();
         jPanel1 = new javax.swing.JPanel();
         btnFechar = new javax.swing.JButton();
         btnRelatorio = new javax.swing.JButton();
@@ -90,7 +94,7 @@ public class FornecedorUI extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(242, 242, 242));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
@@ -212,6 +216,7 @@ public class FornecedorUI extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(radio_CPFCNPJ);
         radio_CPFCNPJ.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_CPFCNPJ.setText("CPF/CNPJ");
         radio_CPFCNPJ.addActionListener(new java.awt.event.ActionListener() {
@@ -220,11 +225,17 @@ public class FornecedorUI extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(radio_NomeFantasia);
         radio_NomeFantasia.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_NomeFantasia.setText("Nome Fantasia");
 
+        buttonGroup1.add(radio_Razao);
         radio_Razao.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_Razao.setText("Razão Social");
+
+        buttonGroup1.add(radio_Responsavel);
+        radio_Responsavel.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        radio_Responsavel.setText("Responsável");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -232,27 +243,27 @@ public class FornecedorUI extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator6)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(campoBusca)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(radio_CPFCNPJ)
+                            .addComponent(radio_Razao))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(radio_NomeFantasia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(radio_Responsavel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(41, 41, 41))
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(127, 127, 127)
-                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(radio_Razao)
-                        .addGap(221, 221, 221))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(campoBusca)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(radio_CPFCNPJ)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(radio_NomeFantasia)))
-                        .addGap(41, 41, 41))))
+                        .addGap(124, 124, 124)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,14 +275,18 @@ public class FornecedorUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(campoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(radio_CPFCNPJ)
-                    .addComponent(radio_NomeFantasia))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(radio_Razao)
-                .addGap(7, 7, 7)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(radio_NomeFantasia, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(radio_Responsavel))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(radio_CPFCNPJ)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(radio_Razao)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(btnBuscar)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         btnFechar.setBackground(new java.awt.Color(145, 0, 0));
@@ -301,7 +316,7 @@ public class FornecedorUI extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(74, 74, 74)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 177, Short.MAX_VALUE)
+                    .addComponent(btnRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnFechar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(76, Short.MAX_VALUE))
         );
@@ -430,12 +445,12 @@ public class FornecedorUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(53, 53, 53)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(29, 29, 29))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -445,7 +460,7 @@ public class FornecedorUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -538,7 +553,45 @@ public class FornecedorUI extends javax.swing.JFrame {
     }
     
     private void fornecedorAlterar(){
-    
+        String id;
+        id = (String) tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 3);
+        Fornecedor fornecedorAux2;
+        String  Razao_Social, Nome_Fantasia, Tipo,  CPF_CNPJ, Telefone, Celular, Email, Responsavel, CEP, Logradouro, Numero, Complemento, Bairro, Cidade, UF, Observacao;
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "SELECT * FROM Fornecedor WHERE CPF_CNPJ = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, id);
+                ResultSet rs = pst.executeQuery();
+
+                if(rs.next()){               
+                    Razao_Social = rs.getString("Razao_Social");
+                    Nome_Fantasia = rs.getString("Nome_Fantasia");
+                    Tipo = rs.getString("Tipo");
+                    CPF_CNPJ = rs.getString("CPF_CNPJ");
+                    Telefone = rs.getString("Telefone");
+                    Celular = rs.getString("Celular");
+                    Email = rs.getString("Email");
+                    Responsavel = rs.getString("Responsavel");
+                    CEP = rs.getString("CEP");
+                    Logradouro = rs.getString("Logradouro");
+                    Numero = rs.getString("Numero");
+                    Complemento = rs.getString("Complemento");
+                    Bairro = rs.getString("Bairro");
+                    Cidade = rs.getString("Cidade");
+                    UF = rs.getString("UF");
+                    Observacao = rs.getString("Observacao");
+                            
+                    fornecedorAux2 = new Fornecedor(Razao_Social, Nome_Fantasia, Tipo,  CPF_CNPJ, Telefone, Celular, Email, Responsavel, CEP, Logradouro, Numero, Complemento, Bairro, Cidade, UF, Observacao);
+                    setFornecedorAux(fornecedorAux2);
+                    fornecedorController.abreEdicaoFornecedor();
+                }
+            }
+        } catch (SQLException | HeadlessException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
     
     private void fornecedorExcluir(){
@@ -576,15 +629,124 @@ public class FornecedorUI extends javax.swing.JFrame {
     }
     
     private void fornecedorVisualizacao(){
-    
+        String id;
+        id = (String) tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 3);
+        Fornecedor fornecedorAux2;
+        String  Razao_Social, Nome_Fantasia, Tipo,  CPF_CNPJ, Telefone, Celular, Email, Responsavel, CEP, Logradouro, Numero, Complemento, Bairro, Cidade, UF, Observacao;
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "SELECT * FROM Fornecedor WHERE CPF_CNPJ = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, id);
+                ResultSet rs = pst.executeQuery();
+
+                if(rs.next()){
+                                    
+                    Razao_Social = rs.getString("Razao_Social");
+                    Nome_Fantasia = rs.getString("Nome_Fantasia");
+                    Tipo = rs.getString("Tipo");
+                    CPF_CNPJ = rs.getString("CPF_CNPJ");
+                    Telefone = rs.getString("Telefone");
+                    Celular = rs.getString("Celular");
+                    Email = rs.getString("Email");
+                    Responsavel = rs.getString("Responsavel");
+                    CEP = rs.getString("CEP");
+                    Logradouro = rs.getString("Logradouro");
+                    Numero = rs.getString("Numero");
+                    Complemento = rs.getString("Complemento");
+                    Bairro = rs.getString("Bairro");
+                    Cidade = rs.getString("Cidade");
+                    UF = rs.getString("UF");
+                    Observacao = rs.getString("Observacao");
+                            
+                    fornecedorAux2 = new Fornecedor(Razao_Social, Nome_Fantasia, Tipo,  CPF_CNPJ, Telefone, Celular, Email, Responsavel, CEP, Logradouro, Numero, Complemento, Bairro, Cidade, UF, Observacao);
+                    setFornecedorAux(fornecedorAux2);
+                    fornecedorController.abreVisualizacaoFornecedor();
+                }
+            }
+        } catch (SQLException | HeadlessException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
     
     private void fornecedorBuscar(){
-    
+        if (radio_CPFCNPJ.isSelected() || radio_Razao.isSelected() || radio_NomeFantasia.isSelected() || radio_Responsavel.isSelected()){
+            limpaTabelaFornecedores();
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String url = SQL_URL.getUrl();
+                try (Connection con = DriverManager.getConnection(url)) {
+                    String sql = null;
+                    String palavraBusca = campoBusca.getText();
+                    if (palavraBusca.equals("")) {
+                        fornecedorBuscaTodos();
+                    } else {
+                        if (radio_CPFCNPJ.isSelected()) {
+                            sql = "SELECT Razao_Social, Nome_Fantasia, CPF_CNPJ, Responsavel FROM Fornecedor WHERE CPF_CNPJ LIKE '%"+palavraBusca+"%'";
+                        } else if (radio_Razao.isSelected()) {
+                            sql = "SELECT Razao_Social, Nome_Fantasia, CPF_CNPJ, Responsavel FROM Fornecedor WHERE Razao_Social LIKE '%"+palavraBusca+"%'";
+                        } else if (radio_NomeFantasia.isSelected()){
+                            sql = "SELECT Razao_Social, Nome_Fantasia, CPF_CNPJ, Responsavel FROM Fornecedor WHERE Nome_Fantasia LIKE '%"+palavraBusca+"%'";
+                        } else if (radio_Responsavel.isSelected()){
+                            sql = "SELECT Razao_Social, Nome_Fantasia, CPF_CNPJ, Responsavel FROM Fornecedor WHERE Responsavel LIKE '%"+palavraBusca+"%'";
+                        } 
+                        
+                        PreparedStatement pst = con.prepareStatement(sql);
+                        ResultSet rs = pst.executeQuery();
+                        int i = 1;
+                        while (rs.next()) {
+                            DefaultTableModel modeloAux = (DefaultTableModel) tabelaFornecedores.getModel();
+                            modeloAux.addRow(new Object[]{i, rs.getString("Razao_Social"), rs.getString("Nome_Fantasia"), rs.getString("CPF_CNPJ"), rs.getString("Responsavel")});
+                            i++;
+                        }
+                    }
+                    
+                    if (tabelaFornecedores.getRowCount() == 0) {
+                        JOptionPane.showMessageDialog(null, "A pesquisa não encontrou nenhum veículo.");
+                    }
+                }
+            } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um filtro de busca.");
+        }
     }
     
     public void fornecedorBuscaTodos(){
+        limpaTabelaFornecedores();
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "SELECT Razao_Social, Nome_Fantasia, CPF_CNPJ, Responsavel FROM Fornecedor";
+                PreparedStatement pst = con.prepareStatement(sql);
+                ResultSet rs = pst.executeQuery();
+                int i = 1;
+                while (rs.next()) {
+                    DefaultTableModel modeloAux = (DefaultTableModel) tabelaFornecedores.getModel();
+                    modeloAux.addRow(new Object[]{i, rs.getString("Razao_Social"), rs.getString("Nome_Fantasia"), rs.getString("CPF_CNPJ"), rs.getString("Responsavel")});
+                    i++;
+                }
+                if (tabelaFornecedores.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(null, "A pesquisa não encontrou nenhum fornecedor.");
+                }
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
     
+    private void limpaTabelaFornecedores(){
+        int rowCount = tabelaFornecedores.getRowCount();
+        if (rowCount > 0) {
+            while (rowCount > 0) {
+                ((DefaultTableModel) tabelaFornecedores.getModel()).removeRow(rowCount - 1);
+                rowCount--;
+            }
+        }
     }
     
     private void geraTxt() throws IOException{
@@ -657,6 +819,7 @@ public class FornecedorUI extends javax.swing.JFrame {
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnRelatorio;
     private javax.swing.JButton btnVisualizacao;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField campoBusca;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
@@ -674,6 +837,7 @@ public class FornecedorUI extends javax.swing.JFrame {
     private javax.swing.JRadioButton radio_CPFCNPJ;
     private javax.swing.JRadioButton radio_NomeFantasia;
     private javax.swing.JRadioButton radio_Razao;
+    private javax.swing.JRadioButton radio_Responsavel;
     private javax.swing.JTable tabelaFornecedores;
     // End of variables declaration//GEN-END:variables
 

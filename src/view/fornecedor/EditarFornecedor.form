@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
+    </Component>
+  </NonVisualComponents>
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="0"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -102,50 +106,50 @@
                                       <EmptySpace min="27" pref="27" max="-2" attributes="0"/>
                                       <Component id="campoNumeroCelularCriacaoFornecedor" min="-2" pref="207" max="-2" attributes="0"/>
                                       <EmptySpace min="23" pref="23" max="-2" attributes="0"/>
-                                      <Component id="campoCEPFornecedorCriacao" min="-2" pref="117" max="-2" attributes="0"/>
+                                      <Component id="campoCEPFornecedor" min="-2" pref="117" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel75" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
-                                          <Component id="campoEnderecoFornecedorCriacao" alignment="0" min="-2" pref="400" max="-2" attributes="0"/>
+                                          <Component id="campoEnderecoFornecedor" alignment="0" min="-2" pref="400" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel76" alignment="0" min="-2" pref="76" max="-2" attributes="0"/>
-                                          <Component id="campoNumeroEndFornecedorCriacao" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                                          <Component id="campoNumeroEndFornecedor" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel77" alignment="0" min="-2" pref="133" max="-2" attributes="0"/>
-                                          <Component id="campoComplementoFornecedorCriacao" alignment="0" min="-2" pref="193" max="-2" attributes="0"/>
+                                          <Component id="campoComplementoFornecedor" alignment="0" min="-2" pref="193" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel78" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
-                                          <Component id="campoBairroFornecedorCriacao" alignment="0" min="-2" pref="161" max="-2" attributes="0"/>
+                                          <Component id="campoBairroFornecedor" alignment="0" min="-2" pref="161" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Component id="jLabel83" alignment="0" min="-2" pref="249" max="-2" attributes="0"/>
                                   <Component id="jLabel90" alignment="0" min="-2" pref="105" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="campoObservacaoFornecedorCriacao" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="campoObservacaoFornecedor" alignment="0" max="32767" attributes="0"/>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="campoCidadeFornecedorCriacao" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
+                                                  <Component id="campoCidadeFornecedor" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
                                                   <Component id="jLabel80" alignment="0" min="-2" pref="68" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="jLabel81" alignment="0" min="-2" pref="68" max="-2" attributes="0"/>
-                                                  <Component id="campoEstadoFornecedorCriacao" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
+                                                  <Component id="campoEstadoFornecedor" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel82" alignment="0" min="-2" pref="65" max="-2" attributes="0"/>
-                                          <Component id="campoEmailFornecedorCriacao" alignment="0" min="-2" pref="269" max="-2" attributes="0"/>
+                                          <Component id="campoEmailFornecedor" alignment="0" min="-2" pref="269" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -218,14 +222,14 @@
                                   <Component id="campoResponsavelFornecedor" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="campoNumeroTelefoneFornecedorCriacao" alignment="0" pref="23" max="32767" attributes="0"/>
                                   <Component id="campoNumeroCelularCriacaoFornecedor" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="campoCEPFornecedorCriacao" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="campoCEPFornecedor" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                                       <Component id="jLabel75" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                                      <Component id="campoEnderecoFornecedorCriacao" min="-2" max="-2" attributes="0"/>
+                                      <Component id="campoEnderecoFornecedor" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
@@ -233,12 +237,12 @@
                                           <Group type="102" alignment="1" attributes="0">
                                               <Component id="jLabel77" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
-                                              <Component id="campoComplementoFornecedorCriacao" min="-2" max="-2" attributes="0"/>
+                                              <Component id="campoComplementoFornecedor" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="1" attributes="0">
                                               <Component id="jLabel78" min="-2" pref="23" max="-2" attributes="0"/>
                                               <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
-                                              <Component id="campoBairroFornecedorCriacao" min="-2" max="-2" attributes="0"/>
+                                              <Component id="campoBairroFornecedor" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -247,7 +251,7 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel76" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
-                              <Component id="campoNumeroEndFornecedorCriacao" min="-2" max="-2" attributes="0"/>
+                              <Component id="campoNumeroEndFornecedor" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -260,14 +264,14 @@
                       </Group>
                       <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="campoCidadeFornecedorCriacao" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="campoEstadoFornecedorCriacao" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="campoEmailFornecedorCriacao" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="campoCidadeFornecedor" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="campoEstadoFornecedor" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="campoEmailFornecedor" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jLabel90" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
-                      <Component id="campoObservacaoFornecedorCriacao" min="-2" max="-2" attributes="0"/>
+                      <Component id="campoObservacaoFornecedor" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="14" max="32767" attributes="0"/>
                       <Component id="jLabel83" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
@@ -325,15 +329,15 @@
                 <Property name="text" type="java.lang.String" value="Endere&#xe7;o *"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="campoEnderecoFornecedorCriacao">
+            <Component class="javax.swing.JTextField" name="campoEnderecoFornecedor">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="0"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoEnderecoFornecedorCriacaoFocusLost"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoEnderecoFornecedorCriacaoActionPerformed"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoEnderecoFornecedorFocusLost"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoEnderecoFornecedorActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel76">
@@ -344,14 +348,14 @@
                 <Property name="text" type="java.lang.String" value="N&#xfa;mero *"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="campoNumeroEndFornecedorCriacao">
+            <Component class="javax.swing.JTextField" name="campoNumeroEndFornecedor">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="0"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoNumeroEndFornecedorCriacaoFocusLost"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoNumeroEndFornecedorFocusLost"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel77">
@@ -362,15 +366,14 @@
                 <Property name="text" type="java.lang.String" value="Complemento"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="campoComplementoFornecedorCriacao">
+            <Component class="javax.swing.JTextField" name="campoComplementoFornecedor">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="0"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoComplementoFornecedorCriacaoFocusLost"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoComplementoFornecedorCriacaoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoComplementoFornecedorActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel78">
@@ -381,15 +384,15 @@
                 <Property name="text" type="java.lang.String" value="Bairro *"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="campoBairroFornecedorCriacao">
+            <Component class="javax.swing.JTextField" name="campoBairroFornecedor">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="0"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoBairroFornecedorCriacaoFocusLost"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoBairroFornecedorCriacaoActionPerformed"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoBairroFornecedorFocusLost"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoBairroFornecedorActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel79">
@@ -400,7 +403,7 @@
                 <Property name="text" type="java.lang.String" value="CEP *"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JFormattedTextField" name="campoCEPFornecedorCriacao">
+            <Component class="javax.swing.JFormattedTextField" name="campoCEPFornecedor">
               <Properties>
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
                   <Format format="#####-###" subtype="-1" type="5"/>
@@ -411,19 +414,19 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoCEPFornecedorCriacaoFocusLost"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoCEPFornecedorCriacaoActionPerformed"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoCEPFornecedorFocusLost"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoCEPFornecedorActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="campoCidadeFornecedorCriacao">
+            <Component class="javax.swing.JTextField" name="campoCidadeFornecedor">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="0"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoCidadeFornecedorCriacaoFocusLost"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoCidadeFornecedorCriacaoActionPerformed"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoCidadeFornecedorFocusLost"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoCidadeFornecedorActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel80">
@@ -442,15 +445,15 @@
                 <Property name="text" type="java.lang.String" value="Estado *"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="campoEstadoFornecedorCriacao">
+            <Component class="javax.swing.JTextField" name="campoEstadoFornecedor">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="0"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoEstadoFornecedorCriacaoFocusLost"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoEstadoFornecedorCriacaoActionPerformed"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoEstadoFornecedorFocusLost"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoEstadoFornecedorActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel82">
@@ -461,15 +464,15 @@
                 <Property name="text" type="java.lang.String" value="Email *"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="campoEmailFornecedorCriacao">
+            <Component class="javax.swing.JTextField" name="campoEmailFornecedor">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="0"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoEmailFornecedorCriacaoFocusLost"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoEmailFornecedorCriacaoActionPerformed"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoEmailFornecedorFocusLost"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoEmailFornecedorActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel83">
@@ -490,6 +493,9 @@
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButton_PF">
               <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="buttonGroup1"/>
+                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="0"/>
                 </Property>
@@ -501,6 +507,9 @@
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButton_PJ">
               <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="buttonGroup1"/>
+                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="0"/>
                 </Property>
@@ -612,20 +621,20 @@
                 <Property name="text" type="java.lang.String" value="Observa&#xe7;&#xf5;es"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="campoObservacaoFornecedorCriacao">
+            <Component class="javax.swing.JTextField" name="campoObservacaoFornecedor">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="0"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoObservacaoFornecedorCriacaoFocusLost"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoObservacaoFornecedorCriacaoActionPerformed"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoObservacaoFornecedorFocusLost"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoObservacaoFornecedorActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="btnSalvaCriacaoFornecedor">
+        <Component class="javax.swing.JButton" name="btnEdicaoFornecedor">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
@@ -633,8 +642,8 @@
             <Property name="text" type="java.lang.String" value="SALVAR"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalvaCriacaoFornecedorActionPerformed"/>
-            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnSalvaCriacaoFornecedorKeyPressed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEdicaoFornecedorActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnEdicaoFornecedorKeyPressed"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -669,6 +678,18 @@
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="30" y="30" width="290" height="-1"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel2">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagens/logoR.png"/>
+            </Property>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="30" y="550" width="510" height="160"/>
             </Constraint>
           </Constraints>
         </Component>

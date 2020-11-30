@@ -1,0 +1,23 @@
++-------------- RESULTADO DA BUSCA: ATUALIZAÇÕES DE ENTRADA DE PRODUTOS --------------+
+
+LISTAGEM:
+
+#  1 ##########################
+Produto: Parafuso
+Fornecedor: SETAGEM INICIAL
+Quantidade Reposta: 15
+Preço de Compra: 4,1
+Margem de Lucro: 60
+Preço de Venda: 6,56
+Data: 30/11/2020
+
+#  2 ##########################
+Produto: Prego
+Fornecedor: SETAGEM INICIAL
+Quantidade Reposta: 20
+Preço de Compra: 1,00
+Margem de Lucro: 43,69
+Preço de Venda: 1,44
+Data: 30/11/2020
+
++-------------------------------------------------------------+

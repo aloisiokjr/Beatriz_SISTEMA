@@ -10,6 +10,7 @@ import view.Sistema_UI;
 import view.fornecedor.CriarFornecedor;
 import view.fornecedor.EditarFornecedor;
 import view.fornecedor.FornecedorUI;
+import view.fornecedor.VisualizarFornecedor;
 
 /**
  *
@@ -20,6 +21,7 @@ public class FornecedorController {
     private FornecedorUI fornecedorUI = null;
     private CriarFornecedor criarFornecedor = null;
     private EditarFornecedor editarFornecedor = null;
+    private VisualizarFornecedor visualizarFornecedor = null;
     
     private Fornecedor fornecedorAux = null;
     
@@ -72,6 +74,28 @@ public class FornecedorController {
         fornecedorUI.setFornecedorAux(null);
         fornecedorUI.fornecedorBuscaTodos();
         sistemaUI.toFront();
+        fornecedorUI.toFront();
+        sistemaUI.atualizaDados();
+    }
+    
+    public void abreVisualizacaoFornecedor(){
+        fornecedorUI.setVisualizarFornecedor(new VisualizarFornecedor(this, fornecedorUI.getFornecedorAux()));
+        setVisualizarFornecedor(fornecedorUI.getVisualizarFornecedor());
+        fornecedorUI.setEnabled(false);
+    }
+    
+    public void fechaVisualizacaoFornecedorParaEdicao(){
+        getVisualizarFornecedor().dispose();
+        abreEdicaoFornecedor();
+    }
+    
+    public void fechaVisualizacaoFornecedor(){
+        getVisualizarFornecedor().dispose();
+        fornecedorUI.setEnabled(true);
+        fornecedorUI.setFornecedorAux(null);
+        fornecedorUI.setagemInicial();
+        sistemaUI.toFront();
+        fornecedorUI.fornecedorBuscaTodos();
         fornecedorUI.toFront();
         sistemaUI.atualizaDados();
     }
@@ -144,5 +168,19 @@ public class FornecedorController {
      */
     public void setEditarFornecedor(EditarFornecedor editarFornecedor) {
         this.editarFornecedor = editarFornecedor;
+    }
+
+    /**
+     * @return the visualizarFornecedor
+     */
+    public VisualizarFornecedor getVisualizarFornecedor() {
+        return visualizarFornecedor;
+    }
+
+    /**
+     * @param visualizarFornecedor the visualizarFornecedor to set
+     */
+    public void setVisualizarFornecedor(VisualizarFornecedor visualizarFornecedor) {
+        this.visualizarFornecedor = visualizarFornecedor;
     }
 }

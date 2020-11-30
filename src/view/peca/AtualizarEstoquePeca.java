@@ -17,9 +17,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.Format;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -136,6 +139,8 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
         jLabel26 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         campoQuantidadeEstoque1 = new javax.swing.JFormattedTextField();
+        jLabel29 = new javax.swing.JLabel();
+        campoDescricaoRetirada = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
@@ -379,9 +384,8 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
                 .addGap(6, 6, 6)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(campoCPF_CNPJCadastroFornecedor)
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(campoNomeFantasiaFornecedor, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(campoRazaoSocialFornecedor, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addComponent(campoNomeFantasiaFornecedor)
+                    .addComponent(campoRazaoSocialFornecedor))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -842,18 +846,29 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
         campoQuantidadeEstoque1.setEnabled(false);
         campoQuantidadeEstoque1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
+        jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel29.setText("Descrição: *");
+
+        campoDescricaoRetirada.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        campoDescricaoRetirada.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        campoDescricaoRetirada.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoDescricaoRetiradaFocusLost(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnFechar1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -863,15 +878,21 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnSalvarDiminuicao, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(campoQuantidadeRetirar, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(315, 315, 315))))
+                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoDescricaoRetirada))
+                .addGap(297, 297, 297))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(35, Short.MAX_VALUE)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(43, 43, 43)
+                .addComponent(jLabel29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campoDescricaoRetirada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel17)
@@ -885,7 +906,7 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvarDiminuicao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFechar1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(228, 228, 228))
+                .addGap(134, 134, 134))
         );
 
         jTabbedPane1.addTab("Diminuir Estoque", jPanel3);
@@ -1122,6 +1143,10 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_campoQuantidadeRetirarFocusLost
 
+    private void campoDescricaoRetiradaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoDescricaoRetiradaFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoDescricaoRetiradaFocusLost
+
     
     private void atualizaEstoque(){
         Iterator<Requisito> iterador = listaRequisitos.iterator();
@@ -1195,10 +1220,14 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
             }
             
             try {
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = new Date();
+                String dataCadastro = dateFormat.format(date);
+                
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
-                    String sql = "INSERT INTO AtualizacaoEstoque (CodigoProduto ,CNPJFornecedor,PrecoCompra,PorcentagemLucro,PrecoVenda,QuantidadeReposta) VALUES (?,?,?,?,?,?)";
+                    String sql = "INSERT INTO AtualizacaoEstoque (CodigoProduto ,CNPJFornecedor,PrecoCompra,PorcentagemLucro,PrecoVenda,QuantidadeReposta, Descricao_Retirada, TipoOP, Data) VALUES (?,?,?,?,?,?,?,?,?)";
                     PreparedStatement pst = con.prepareStatement(sql);
                     pst.setString(1, campoCodigoPeca.getText());
                     pst.setString(2, campoCPF_CNPJCadastroFornecedor.getText());
@@ -1206,6 +1235,9 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
                     pst.setString(4, margemLucro);
                     pst.setString(5, precoVenda);
                     pst.setString(6, numAumentar+"");
+                    pst.setString(7, "");
+                    pst.setString(8, "A");
+                    pst.setString(9, dataCadastro);
 
                     ResultSet rs = pst.executeQuery();
                     
@@ -1251,6 +1283,43 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
             } catch (HeadlessException | ClassNotFoundException e) {
                 JOptionPane.showMessageDialog(null, e);
             } 
+            
+            diminuiDoEstoque();
+        }
+    }
+    
+    private void diminuiDoEstoque(){
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        String dataCadastro = dateFormat.format(date);
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "INSERT INTO AtualizacaoEstoque (CodigoProduto ,CNPJFornecedor,PrecoCompra,PorcentagemLucro,PrecoVenda,QuantidadeReposta, Descricao_Retirada, TipoOP, Data) VALUES (?,?,?,?,?,?,?,?,?)";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, campoCodigoPeca.getText());
+                pst.setString(2, campoCPF_CNPJCadastroFornecedor.getText());
+                pst.setString(3, "");
+                pst.setString(4, "");
+                pst.setString(5, "");
+                pst.setString(6, "");
+                pst.setString(7, campoDescricaoRetirada.getText());
+                pst.setString(8, "D");
+                pst.setString(9, dataCadastro);
+
+                ResultSet rs = pst.executeQuery();
+
+                if(rs.next()){
+                    // FAZ NADA
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Produto '" + campoNomeMotorista.getText() + "' atualizado com sucesso.");
+            //JOptionPane.showMessageDialog(null,e);
+            pecaController.fechaAtualizacaoEstoque();
+        } catch (HeadlessException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e);
         }
     }
     
@@ -1510,6 +1579,7 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
     private javax.swing.JTextField campoCPF_CNPJCadastroFornecedor;
     private javax.swing.JTextField campoCodigoPeca;
     private javax.swing.JTextField campoCodigoPeca1;
+    private javax.swing.JFormattedTextField campoDescricaoRetirada;
     private javax.swing.JTextField campoMarcaPeca;
     private javax.swing.JTextField campoMarcaPeca1;
     private javax.swing.JTextField campoModeloPeca;
@@ -1556,6 +1626,7 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

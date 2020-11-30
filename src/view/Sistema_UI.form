@@ -69,10 +69,13 @@
             <Property name="text" type="java.lang.String" value="Hist&#xf3;rico"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="menuHIST_AtualizacaoHist">
+            <MenuItem class="javax.swing.JMenuItem" name="menuHIST_Estoque">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Atualiza&#xe7;&#xf5;es de Estoque"/>
+                <Property name="text" type="java.lang.String" value="Atualiza&#xe7;&#xf5;es do Estoque"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuHIST_EstoqueActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

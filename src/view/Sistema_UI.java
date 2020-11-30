@@ -6,16 +6,19 @@
 package view;
 
 import controller.EmprestimoController;
+import controller.FornecedorController;
 import controller.PecasController;
 import controller.UsuarioController;
 import controller.VeiculoController;
 import javax.swing.JFrame;
 import model.Emprestimo;
+import model.Fornecedor;
 import model.Peca;
 import model.Usuario;
 import model.Veiculo;
 import view.emprestimo.EmprestimoUI;
 import view.fornecedor.FornecedorUI;
+import view.historico.AtualizacoesEstoque;
 import view.peca.PecaUI;
 import view.usuario.UsuarioUI;
 import view.veiculo.VeiculoUI;
@@ -33,17 +36,21 @@ public class Sistema_UI extends javax.swing.JFrame {
     private UsuarioController usuarioController = null;
     private EmprestimoController emprestimoController = null;
     private VeiculoController veiculoController = null;
+    private FornecedorController fornecedorController = null;
     
     private Usuario usuarioAux = null;
     private Peca pecaAux = null;
     private Emprestimo emprestimoAux = null;
     private Veiculo veiculoAux = null;
+    private Fornecedor fornecedorAux = null;
     
     private UsuarioUI usuarioUI = null;
     private PecaUI pecaUI = null;
     private EmprestimoUI emprestimoUI =  null;
     private VeiculoUI veiculoUI = null;
     private FornecedorUI fornecedorUI = null;
+    
+    private AtualizacoesEstoque attEstoque = null;
     
     /**
      * Creates new form Sistema_UI
@@ -53,6 +60,7 @@ public class Sistema_UI extends javax.swing.JFrame {
         this.pecasController = new PecasController(this);
         this.emprestimoController = new EmprestimoController(this);
         this.veiculoController = new VeiculoController(this);
+        this.fornecedorController = new FornecedorController(this);
         initComponents();
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         this.toFront();
@@ -81,7 +89,7 @@ public class Sistema_UI extends javax.swing.JFrame {
         menuADM_Veiculo = new javax.swing.JMenuItem();
         menuADM_Emprestimos = new javax.swing.JMenuItem();
         menuHIST = new javax.swing.JMenu();
-        menuHIST_AtualizacaoHist = new javax.swing.JMenuItem();
+        menuHIST_Estoque = new javax.swing.JMenuItem();
         menuOS = new javax.swing.JMenu();
         menuOS_Cadastro = new javax.swing.JMenuItem();
         menuOS_Acompanhamento = new javax.swing.JMenuItem();
@@ -200,8 +208,13 @@ public class Sistema_UI extends javax.swing.JFrame {
 
         menuHIST.setText("Histórico");
 
-        menuHIST_AtualizacaoHist.setText("Atualizações de Estoque");
-        menuHIST.add(menuHIST_AtualizacaoHist);
+        menuHIST_Estoque.setText("Atualizações do Estoque");
+        menuHIST_Estoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuHIST_EstoqueActionPerformed(evt);
+            }
+        });
+        menuHIST.add(menuHIST_Estoque);
 
         barraMenuADM.add(menuHIST);
 
@@ -295,7 +308,7 @@ public class Sistema_UI extends javax.swing.JFrame {
     }//GEN-LAST:event_menuADM_EmprestimosActionPerformed
 
     private void menuADM_FornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuADM_FornecedorActionPerformed
-        // TODO add your handling code here:
+        getFornecedorController().abreFornecedorUI();
     }//GEN-LAST:event_menuADM_FornecedorActionPerformed
 
     private void menuADM_VeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuADM_VeiculoActionPerformed
@@ -306,9 +319,14 @@ public class Sistema_UI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_menuADM_VeiculoKeyPressed
 
+    private void menuHIST_EstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHIST_EstoqueActionPerformed
+        setAttEstoque(new AtualizacoesEstoque(this));
+    }//GEN-LAST:event_menuHIST_EstoqueActionPerformed
+
     public void atualizaDados(){
         
     }
+    
     /**
      * @param args the command line arguments
      */
@@ -356,7 +374,7 @@ public class Sistema_UI extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuADM_Usuario;
     private javax.swing.JMenuItem menuADM_Veiculo;
     private javax.swing.JMenu menuHIST;
-    private javax.swing.JMenuItem menuHIST_AtualizacaoHist;
+    private javax.swing.JMenuItem menuHIST_Estoque;
     private javax.swing.JMenuItem menuImportacao_Fornecedor;
     private javax.swing.JMenuItem menuImportacao_Pecas;
     private javax.swing.JMenuItem menuImportacao_Usuario;
@@ -577,5 +595,47 @@ public class Sistema_UI extends javax.swing.JFrame {
      */
     public void setFornecedorUI(FornecedorUI fornecedorUI) {
         this.fornecedorUI = fornecedorUI;
+    }
+
+    /**
+     * @return the fornecedorController
+     */
+    public FornecedorController getFornecedorController() {
+        return fornecedorController;
+    }
+
+    /**
+     * @param fornecedorController the fornecedorController to set
+     */
+    public void setFornecedorController(FornecedorController fornecedorController) {
+        this.fornecedorController = fornecedorController;
+    }
+
+    /**
+     * @return the fornecedorAux
+     */
+    public Fornecedor getFornecedorAux() {
+        return fornecedorAux;
+    }
+
+    /**
+     * @param fornecedorAux the fornecedorAux to set
+     */
+    public void setFornecedorAux(Fornecedor fornecedorAux) {
+        this.fornecedorAux = fornecedorAux;
+    }
+
+    /**
+     * @return the attEstoque
+     */
+    public AtualizacoesEstoque getAttEstoque() {
+        return attEstoque;
+    }
+
+    /**
+     * @param attEstoque the attEstoque to set
+     */
+    public void setAttEstoque(AtualizacoesEstoque attEstoque) {
+        this.attEstoque = attEstoque;
     }
 }

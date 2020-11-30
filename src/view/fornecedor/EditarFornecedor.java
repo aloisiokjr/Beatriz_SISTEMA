@@ -63,6 +63,7 @@ public class EditarFornecedor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel15 = new javax.swing.JPanel();
         campoCriacaoMotoristaCriacao2 = new javax.swing.JPanel();
         campoRazaoSocialFornecedor = new javax.swing.JTextField();
@@ -70,21 +71,21 @@ public class EditarFornecedor extends javax.swing.JFrame {
         jLabel74 = new javax.swing.JLabel();
         campoNumeroCelularCriacaoFornecedor = new javax.swing.JFormattedTextField();
         jLabel75 = new javax.swing.JLabel();
-        campoEnderecoFornecedorCriacao = new javax.swing.JTextField();
+        campoEnderecoFornecedor = new javax.swing.JTextField();
         jLabel76 = new javax.swing.JLabel();
-        campoNumeroEndFornecedorCriacao = new javax.swing.JTextField();
+        campoNumeroEndFornecedor = new javax.swing.JTextField();
         jLabel77 = new javax.swing.JLabel();
-        campoComplementoFornecedorCriacao = new javax.swing.JTextField();
+        campoComplementoFornecedor = new javax.swing.JTextField();
         jLabel78 = new javax.swing.JLabel();
-        campoBairroFornecedorCriacao = new javax.swing.JTextField();
+        campoBairroFornecedor = new javax.swing.JTextField();
         jLabel79 = new javax.swing.JLabel();
-        campoCEPFornecedorCriacao = new javax.swing.JFormattedTextField();
-        campoCidadeFornecedorCriacao = new javax.swing.JTextField();
+        campoCEPFornecedor = new javax.swing.JFormattedTextField();
+        campoCidadeFornecedor = new javax.swing.JTextField();
         jLabel80 = new javax.swing.JLabel();
         jLabel81 = new javax.swing.JLabel();
-        campoEstadoFornecedorCriacao = new javax.swing.JTextField();
+        campoEstadoFornecedor = new javax.swing.JTextField();
         jLabel82 = new javax.swing.JLabel();
-        campoEmailFornecedorCriacao = new javax.swing.JTextField();
+        campoEmailFornecedor = new javax.swing.JTextField();
         jLabel83 = new javax.swing.JLabel();
         jLabel86 = new javax.swing.JLabel();
         jRadioButton_PF = new javax.swing.JRadioButton();
@@ -99,12 +100,13 @@ public class EditarFornecedor extends javax.swing.JFrame {
         jLabel89 = new javax.swing.JLabel();
         campoNumeroTelefoneFornecedorCriacao = new javax.swing.JFormattedTextField();
         jLabel90 = new javax.swing.JLabel();
-        campoObservacaoFornecedorCriacao = new javax.swing.JTextField();
-        btnSalvaCriacaoFornecedor = new javax.swing.JButton();
+        campoObservacaoFornecedor = new javax.swing.JTextField();
+        btnEdicaoFornecedor = new javax.swing.JButton();
         btnFecharCriacaoFornecedor = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jPanel15.setLayout(null);
 
@@ -144,55 +146,50 @@ public class EditarFornecedor extends javax.swing.JFrame {
         jLabel75.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel75.setText("Endereço *");
 
-        campoEnderecoFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        campoEnderecoFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
+        campoEnderecoFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        campoEnderecoFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                campoEnderecoFornecedorCriacaoFocusLost(evt);
+                campoEnderecoFornecedorFocusLost(evt);
             }
         });
-        campoEnderecoFornecedorCriacao.addActionListener(new java.awt.event.ActionListener() {
+        campoEnderecoFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoEnderecoFornecedorCriacaoActionPerformed(evt);
+                campoEnderecoFornecedorActionPerformed(evt);
             }
         });
 
         jLabel76.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel76.setText("Número *");
 
-        campoNumeroEndFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        campoNumeroEndFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
+        campoNumeroEndFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        campoNumeroEndFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                campoNumeroEndFornecedorCriacaoFocusLost(evt);
+                campoNumeroEndFornecedorFocusLost(evt);
             }
         });
 
         jLabel77.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel77.setText("Complemento");
 
-        campoComplementoFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        campoComplementoFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                campoComplementoFornecedorCriacaoFocusLost(evt);
-            }
-        });
-        campoComplementoFornecedorCriacao.addActionListener(new java.awt.event.ActionListener() {
+        campoComplementoFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        campoComplementoFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoComplementoFornecedorCriacaoActionPerformed(evt);
+                campoComplementoFornecedorActionPerformed(evt);
             }
         });
 
         jLabel78.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel78.setText("Bairro *");
 
-        campoBairroFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        campoBairroFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
+        campoBairroFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        campoBairroFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                campoBairroFornecedorCriacaoFocusLost(evt);
+                campoBairroFornecedorFocusLost(evt);
             }
         });
-        campoBairroFornecedorCriacao.addActionListener(new java.awt.event.ActionListener() {
+        campoBairroFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoBairroFornecedorCriacaoActionPerformed(evt);
+                campoBairroFornecedorActionPerformed(evt);
             }
         });
 
@@ -200,32 +197,32 @@ public class EditarFornecedor extends javax.swing.JFrame {
         jLabel79.setText("CEP *");
 
         try {
-            campoCEPFornecedorCriacao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+            campoCEPFornecedor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        campoCEPFornecedorCriacao.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
-        campoCEPFornecedorCriacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        campoCEPFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
+        campoCEPFornecedor.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
+        campoCEPFornecedor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        campoCEPFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                campoCEPFornecedorCriacaoFocusLost(evt);
+                campoCEPFornecedorFocusLost(evt);
             }
         });
-        campoCEPFornecedorCriacao.addActionListener(new java.awt.event.ActionListener() {
+        campoCEPFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoCEPFornecedorCriacaoActionPerformed(evt);
+                campoCEPFornecedorActionPerformed(evt);
             }
         });
 
-        campoCidadeFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        campoCidadeFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
+        campoCidadeFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        campoCidadeFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                campoCidadeFornecedorCriacaoFocusLost(evt);
+                campoCidadeFornecedorFocusLost(evt);
             }
         });
-        campoCidadeFornecedorCriacao.addActionListener(new java.awt.event.ActionListener() {
+        campoCidadeFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoCidadeFornecedorCriacaoActionPerformed(evt);
+                campoCidadeFornecedorActionPerformed(evt);
             }
         });
 
@@ -235,30 +232,30 @@ public class EditarFornecedor extends javax.swing.JFrame {
         jLabel81.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel81.setText("Estado *");
 
-        campoEstadoFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        campoEstadoFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
+        campoEstadoFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        campoEstadoFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                campoEstadoFornecedorCriacaoFocusLost(evt);
+                campoEstadoFornecedorFocusLost(evt);
             }
         });
-        campoEstadoFornecedorCriacao.addActionListener(new java.awt.event.ActionListener() {
+        campoEstadoFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoEstadoFornecedorCriacaoActionPerformed(evt);
+                campoEstadoFornecedorActionPerformed(evt);
             }
         });
 
         jLabel82.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel82.setText("Email *");
 
-        campoEmailFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        campoEmailFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
+        campoEmailFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        campoEmailFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                campoEmailFornecedorCriacaoFocusLost(evt);
+                campoEmailFornecedorFocusLost(evt);
             }
         });
-        campoEmailFornecedorCriacao.addActionListener(new java.awt.event.ActionListener() {
+        campoEmailFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoEmailFornecedorCriacaoActionPerformed(evt);
+                campoEmailFornecedorActionPerformed(evt);
             }
         });
 
@@ -268,6 +265,7 @@ public class EditarFornecedor extends javax.swing.JFrame {
         jLabel86.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel86.setText("Tipo de Fornecedor *");
 
+        buttonGroup1.add(jRadioButton_PF);
         jRadioButton_PF.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jRadioButton_PF.setText("Física");
         jRadioButton_PF.addActionListener(new java.awt.event.ActionListener() {
@@ -276,6 +274,7 @@ public class EditarFornecedor extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(jRadioButton_PJ);
         jRadioButton_PJ.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jRadioButton_PJ.setText("Jurídica");
         jRadioButton_PJ.addActionListener(new java.awt.event.ActionListener() {
@@ -357,15 +356,15 @@ public class EditarFornecedor extends javax.swing.JFrame {
         jLabel90.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel90.setText("Observações");
 
-        campoObservacaoFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        campoObservacaoFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
+        campoObservacaoFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        campoObservacaoFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                campoObservacaoFornecedorCriacaoFocusLost(evt);
+                campoObservacaoFornecedorFocusLost(evt);
             }
         });
-        campoObservacaoFornecedorCriacao.addActionListener(new java.awt.event.ActionListener() {
+        campoObservacaoFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoObservacaoFornecedorCriacaoActionPerformed(evt);
+                campoObservacaoFornecedorActionPerformed(evt);
             }
         });
 
@@ -402,40 +401,40 @@ public class EditarFornecedor extends javax.swing.JFrame {
                                 .addGap(27, 27, 27)
                                 .addComponent(campoNumeroCelularCriacaoFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(23, 23, 23)
-                                .addComponent(campoCEPFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(campoCEPFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
                                 .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel75, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(campoEnderecoFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(campoEnderecoFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel76, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(campoNumeroEndFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(campoNumeroEndFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel77, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(campoComplementoFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(campoComplementoFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel78, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(campoBairroFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(campoBairroFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabel83, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel90, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
                                 .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(campoObservacaoFornecedorCriacao, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(campoObservacaoFornecedor, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
                                         .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(campoCidadeFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(campoCidadeFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel80, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(18, 18, 18)
                                         .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel81, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(campoEstadoFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(campoEstadoFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(18, 18, 18)
                                 .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel82, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(campoEmailFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(campoEmailFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -490,28 +489,28 @@ public class EditarFornecedor extends javax.swing.JFrame {
                             .addComponent(campoResponsavelFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(campoNumeroTelefoneFornecedorCriacao, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
                             .addComponent(campoNumeroCelularCriacaoFornecedor)
-                            .addComponent(campoCEPFornecedorCriacao))
+                            .addComponent(campoCEPFornecedor))
                         .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
                                 .addGap(20, 20, 20)
                                 .addComponent(jLabel75)
                                 .addGap(5, 5, 5)
-                                .addComponent(campoEnderecoFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(campoEnderecoFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
                                         .addComponent(jLabel77)
                                         .addGap(4, 4, 4)
-                                        .addComponent(campoComplementoFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(campoComplementoFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
                                         .addComponent(jLabel78, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(4, 4, 4)
-                                        .addComponent(campoBairroFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addComponent(campoBairroFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, campoCriacaoMotoristaCriacao2Layout.createSequentialGroup()
                         .addComponent(jLabel76)
                         .addGap(4, 4, 4)
-                        .addComponent(campoNumeroEndFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(campoNumeroEndFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -520,13 +519,13 @@ public class EditarFornecedor extends javax.swing.JFrame {
                     .addComponent(jLabel82))
                 .addGap(7, 7, 7)
                 .addGroup(campoCriacaoMotoristaCriacao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(campoCidadeFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(campoEstadoFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(campoEmailFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoCidadeFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoEstadoFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoEmailFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel90)
                 .addGap(7, 7, 7)
-                .addComponent(campoObservacaoFornecedorCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(campoObservacaoFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jLabel83)
                 .addGap(21, 21, 21))
@@ -565,20 +564,20 @@ public class EditarFornecedor extends javax.swing.JFrame {
         jPanel15.add(campoCriacaoMotoristaCriacao2);
         campoCriacaoMotoristaCriacao2.setBounds(30, 80, 960, 470);
 
-        btnSalvaCriacaoFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnSalvaCriacaoFornecedor.setText("SALVAR");
-        btnSalvaCriacaoFornecedor.addActionListener(new java.awt.event.ActionListener() {
+        btnEdicaoFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnEdicaoFornecedor.setText("SALVAR");
+        btnEdicaoFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvaCriacaoFornecedorActionPerformed(evt);
+                btnEdicaoFornecedorActionPerformed(evt);
             }
         });
-        btnSalvaCriacaoFornecedor.addKeyListener(new java.awt.event.KeyAdapter() {
+        btnEdicaoFornecedor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnSalvaCriacaoFornecedorKeyPressed(evt);
+                btnEdicaoFornecedorKeyPressed(evt);
             }
         });
-        jPanel15.add(btnSalvaCriacaoFornecedor);
-        btnSalvaCriacaoFornecedor.setBounds(860, 580, 130, 40);
+        jPanel15.add(btnEdicaoFornecedor);
+        btnEdicaoFornecedor.setBounds(860, 580, 130, 40);
 
         btnFecharCriacaoFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnFecharCriacaoFornecedor.setText("FECHAR");
@@ -599,6 +598,10 @@ public class EditarFornecedor extends javax.swing.JFrame {
         jLabel1.setText("EDIÇÃO DE FORNECEDOR");
         jPanel15.add(jLabel1);
         jLabel1.setBounds(30, 30, 290, 27);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logoR.png"))); // NOI18N
+        jPanel15.add(jLabel2);
+        jLabel2.setBounds(30, 550, 510, 160);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -644,112 +647,104 @@ public class EditarFornecedor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_campoNumeroCelularCriacaoFornecedorFocusLost
 
-    private void campoEnderecoFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoEnderecoFornecedorCriacaoFocusLost
-        if (campoEnderecoFornecedorCriacao.getText().equals("")) {
+    private void campoEnderecoFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoEnderecoFornecedorFocusLost
+        if (campoEnderecoFornecedor.getText().equals("")) {
             getListaRequisitos().get(8).setIsOk(false);
         } else {
             getListaRequisitos().get(8).setIsOk(true);
         }
-    }//GEN-LAST:event_campoEnderecoFornecedorCriacaoFocusLost
+    }//GEN-LAST:event_campoEnderecoFornecedorFocusLost
 
-    private void campoEnderecoFornecedorCriacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoEnderecoFornecedorCriacaoActionPerformed
+    private void campoEnderecoFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoEnderecoFornecedorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_campoEnderecoFornecedorCriacaoActionPerformed
+    }//GEN-LAST:event_campoEnderecoFornecedorActionPerformed
 
-    private void campoNumeroEndFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNumeroEndFornecedorCriacaoFocusLost
-        if (campoNumeroEndFornecedorCriacao.getText().equals("")) {
+    private void campoNumeroEndFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNumeroEndFornecedorFocusLost
+        if (campoNumeroEndFornecedor.getText().equals("")) {
             getListaRequisitos().get(9).setIsOk(false);
         } else {
             getListaRequisitos().get(9).setIsOk(true);
         }
-    }//GEN-LAST:event_campoNumeroEndFornecedorCriacaoFocusLost
+    }//GEN-LAST:event_campoNumeroEndFornecedorFocusLost
 
-    private void campoComplementoFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoComplementoFornecedorCriacaoFocusLost
-        if (campoComplementoFornecedorCriacao.getText().equals("")) {
-            getListaRequisitos().get(17).setIsOk(false);
-        } else {
-            getListaRequisitos().get(17).setIsOk(true);
-        }
-    }//GEN-LAST:event_campoComplementoFornecedorCriacaoFocusLost
-
-    private void campoComplementoFornecedorCriacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoComplementoFornecedorCriacaoActionPerformed
+    private void campoComplementoFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoComplementoFornecedorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_campoComplementoFornecedorCriacaoActionPerformed
+    }//GEN-LAST:event_campoComplementoFornecedorActionPerformed
 
-    private void campoBairroFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoBairroFornecedorCriacaoFocusLost
-        if (campoBairroFornecedorCriacao.getText().equals("")) {
+    private void campoBairroFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoBairroFornecedorFocusLost
+        if (campoBairroFornecedor.getText().equals("")) {
             getListaRequisitos().get(10).setIsOk(false);
         } else {
             getListaRequisitos().get(10).setIsOk(true);
         }
-    }//GEN-LAST:event_campoBairroFornecedorCriacaoFocusLost
+    }//GEN-LAST:event_campoBairroFornecedorFocusLost
 
-    private void campoBairroFornecedorCriacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoBairroFornecedorCriacaoActionPerformed
+    private void campoBairroFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoBairroFornecedorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_campoBairroFornecedorCriacaoActionPerformed
+    }//GEN-LAST:event_campoBairroFornecedorActionPerformed
 
-    private void campoCEPFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCEPFornecedorCriacaoFocusLost
-        if (campoCEPFornecedorCriacao.getText().contains(" ")) {
+    private void campoCEPFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCEPFornecedorFocusLost
+        if (campoCEPFornecedor.getText().contains(" ")) {
             getListaRequisitos().get(7).setIsOk(false);
         } else {
             getListaRequisitos().get(7).setIsOk(true);
             BuscaCEP buscaAux = new BuscaCEP();
             CEP cepAux;
-            cepAux = buscaAux.buscarCep(campoCEPFornecedorCriacao.getText());
-            campoEnderecoFornecedorCriacao.setText(cepAux.getLogradouro());
-            campoBairroFornecedorCriacao.setText(cepAux.getBairro());
-            campoCidadeFornecedorCriacao.setText(cepAux.getCidade());
-            campoEstadoFornecedorCriacao.setText(cepAux.getUf());
+            cepAux = buscaAux.buscarCep(campoCEPFornecedor.getText());
+            campoEnderecoFornecedor.setText(cepAux.getLogradouro());
+            campoBairroFornecedor.setText(cepAux.getBairro());
+            campoCidadeFornecedor.setText(cepAux.getCidade());
+            campoEstadoFornecedor.setText(cepAux.getUf());
             getListaRequisitos().get(8).setIsOk(true);
             getListaRequisitos().get(10).setIsOk(true);
             getListaRequisitos().get(11).setIsOk(true);
             getListaRequisitos().get(12).setIsOk(true);
         }
-    }//GEN-LAST:event_campoCEPFornecedorCriacaoFocusLost
+    }//GEN-LAST:event_campoCEPFornecedorFocusLost
 
-    private void campoCEPFornecedorCriacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCEPFornecedorCriacaoActionPerformed
+    private void campoCEPFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCEPFornecedorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_campoCEPFornecedorCriacaoActionPerformed
+    }//GEN-LAST:event_campoCEPFornecedorActionPerformed
 
-    private void campoCidadeFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCidadeFornecedorCriacaoFocusLost
-        if (campoCidadeFornecedorCriacao.getText().equals("")) {
+    private void campoCidadeFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCidadeFornecedorFocusLost
+        if (campoCidadeFornecedor.getText().equals("")) {
             getListaRequisitos().get(11).setIsOk(false);
         } else {
             getListaRequisitos().get(11).setIsOk(true);
         }
-    }//GEN-LAST:event_campoCidadeFornecedorCriacaoFocusLost
+    }//GEN-LAST:event_campoCidadeFornecedorFocusLost
 
-    private void campoCidadeFornecedorCriacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCidadeFornecedorCriacaoActionPerformed
+    private void campoCidadeFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCidadeFornecedorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_campoCidadeFornecedorCriacaoActionPerformed
+    }//GEN-LAST:event_campoCidadeFornecedorActionPerformed
 
-    private void campoEstadoFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoEstadoFornecedorCriacaoFocusLost
-        if (campoEstadoFornecedorCriacao.getText().equals("")) {
+    private void campoEstadoFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoEstadoFornecedorFocusLost
+        if (campoEstadoFornecedor.getText().equals("")) {
             getListaRequisitos().get(12).setIsOk(false);
         } else {
             getListaRequisitos().get(12).setIsOk(true);
         }
-    }//GEN-LAST:event_campoEstadoFornecedorCriacaoFocusLost
+    }//GEN-LAST:event_campoEstadoFornecedorFocusLost
 
-    private void campoEstadoFornecedorCriacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoEstadoFornecedorCriacaoActionPerformed
+    private void campoEstadoFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoEstadoFornecedorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_campoEstadoFornecedorCriacaoActionPerformed
+    }//GEN-LAST:event_campoEstadoFornecedorActionPerformed
 
-    private void campoEmailFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoEmailFornecedorCriacaoFocusLost
-        if (campoEmailFornecedorCriacao.getText().equals("")) {
+    private void campoEmailFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoEmailFornecedorFocusLost
+        if (campoEmailFornecedor.getText().equals("")) {
             getListaRequisitos().get(13).setIsOk(false);
         } else {
             getListaRequisitos().get(13).setIsOk(true);
         }
-    }//GEN-LAST:event_campoEmailFornecedorCriacaoFocusLost
+    }//GEN-LAST:event_campoEmailFornecedorFocusLost
 
-    private void campoEmailFornecedorCriacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoEmailFornecedorCriacaoActionPerformed
+    private void campoEmailFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoEmailFornecedorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_campoEmailFornecedorCriacaoActionPerformed
+    }//GEN-LAST:event_campoEmailFornecedorActionPerformed
 
     private void jRadioButton_PFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_PFActionPerformed
         if (jRadioButton_PF.isSelected()) {
-            getListaRequisitos().get(3).setIsOk(true);
+            getListaRequisitos().get(0).setIsOk(true);
             campoCPF_CNPJFornecedor.setValue(null);
             MaskFormatter cpf = null;
             try {
@@ -763,7 +758,7 @@ public class EditarFornecedor extends javax.swing.JFrame {
 
     private void jRadioButton_PJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_PJActionPerformed
         if (jRadioButton_PJ.isSelected()) {
-            getListaRequisitos().get(3).setIsOk(true);
+            getListaRequisitos().get(0).setIsOk(true);
             campoCPF_CNPJFornecedor.setValue(null);
             MaskFormatter cnpj = null;
             try {
@@ -815,23 +810,23 @@ public class EditarFornecedor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_campoNumeroTelefoneFornecedorCriacaoFocusLost
 
-    private void campoObservacaoFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoObservacaoFornecedorCriacaoFocusLost
+    private void campoObservacaoFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoObservacaoFornecedorFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_campoObservacaoFornecedorCriacaoFocusLost
+    }//GEN-LAST:event_campoObservacaoFornecedorFocusLost
 
-    private void campoObservacaoFornecedorCriacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoObservacaoFornecedorCriacaoActionPerformed
+    private void campoObservacaoFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoObservacaoFornecedorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_campoObservacaoFornecedorCriacaoActionPerformed
+    }//GEN-LAST:event_campoObservacaoFornecedorActionPerformed
 
-    private void btnSalvaCriacaoFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvaCriacaoFornecedorActionPerformed
+    private void btnEdicaoFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdicaoFornecedorActionPerformed
         editarFornecedor();
-    }//GEN-LAST:event_btnSalvaCriacaoFornecedorActionPerformed
+    }//GEN-LAST:event_btnEdicaoFornecedorActionPerformed
 
-    private void btnSalvaCriacaoFornecedorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvaCriacaoFornecedorKeyPressed
+    private void btnEdicaoFornecedorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnEdicaoFornecedorKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             editarFornecedor();
         }
-    }//GEN-LAST:event_btnSalvaCriacaoFornecedorKeyPressed
+    }//GEN-LAST:event_btnEdicaoFornecedorKeyPressed
 
     private void btnFecharCriacaoFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharCriacaoFornecedorActionPerformed
         fechaEditarFornecedor();
@@ -861,7 +856,27 @@ public class EditarFornecedor extends javax.swing.JFrame {
         getListaRequisitos().add(new Requisito("Estado", true));
         getListaRequisitos().add(new Requisito("Email", true));
         
+        if (getFornecedorAux().getTipo().equals("F")){
+            jRadioButton_PF.doClick();
+        } else if (getFornecedorAux().getTipo().equals("J")){
+            jRadioButton_PJ.doClick();
+        }
         
+        campoRazaoSocialFornecedor.setText(fornecedorAux.getRazao_Social());
+        campoNomeFantasiaFornecedor.setText(fornecedorAux.getNome_Fantasia());
+        campoCPF_CNPJFornecedor.setText(fornecedorAux.getCPF_CNPJ());
+        campoResponsavelFornecedor.setText(fornecedorAux.getResponsavel());
+        campoNumeroTelefoneFornecedorCriacao.setText(fornecedorAux.getTelefone());
+        campoNumeroCelularCriacaoFornecedor.setText(fornecedorAux.getCelular());
+        campoCEPFornecedor.setText(fornecedorAux.getCEP());
+        campoEnderecoFornecedor.setText(fornecedorAux.getLogradouro());
+        campoNumeroEndFornecedor.setText(fornecedorAux.getNumero());
+        campoComplementoFornecedor.setText(fornecedorAux.getComplemento());
+        campoBairroFornecedor.setText(fornecedorAux.getBairro());
+        campoCidadeFornecedor.setText(fornecedorAux.getCidade());
+        campoEstadoFornecedor.setText(fornecedorAux.getUF());
+        campoEmailFornecedor.setText(fornecedorAux.getEmail());
+        campoObservacaoFornecedor.setText(fornecedorAux.getObservacao());
     }
     
     private void avisaCPF_CNPJFornecedor(javax.swing.JFormattedTextField campoAux, javax.swing.JLabel labelAux) throws SQLException, ClassNotFoundException {
@@ -875,7 +890,7 @@ public class EditarFornecedor extends javax.swing.JFrame {
                     Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                     String url = SQL_URL.getUrl();
                     try ( Connection con = DriverManager.getConnection(url)) {
-                        String sql = "SELECT CPF_CNPJ FROM Transportadora WHERE CPF_CNPJ = ?";
+                        String sql = "SELECT CPF_CNPJ FROM Fornecedor WHERE CPF_CNPJ = ?";
                         String textAux = campoAux.getText();
                         PreparedStatement pst = con.prepareStatement(sql);
                         pst.setString(1, textAux);
@@ -912,7 +927,7 @@ public class EditarFornecedor extends javax.swing.JFrame {
                     Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                     String url = SQL_URL.getUrl();
                     try ( Connection con = DriverManager.getConnection(url)) {
-                        String sql = "SELECT CPF_CNPJ FROM Transportadora WHERE CPF_CNPJ = ?";
+                        String sql = "SELECT CPF_CNPJ FROM Fornecedor WHERE CPF_CNPJ = ?";
                         String textAux = campoAux.getText();
                         PreparedStatement pst = con.prepareStatement(sql);
                         pst.setString(1, textAux);
@@ -971,22 +986,22 @@ public class EditarFornecedor extends javax.swing.JFrame {
             CPF_CNPJ = campoCPF_CNPJFornecedor.getText();
             Telefone = campoNumeroTelefoneFornecedorCriacao.getText();
             Celular = campoNumeroCelularCriacaoFornecedor.getText();
-            Email = campoEmailFornecedorCriacao.getText();
+            Email = campoEmailFornecedor.getText();
             Responsavel = campoResponsavelFornecedor.getText();
-            CEP = campoCEPFornecedorCriacao.getText();
-            Logradouro = campoEnderecoFornecedorCriacao.getText();
-            Numero = campoNumeroEndFornecedorCriacao.getText();
-            Complemento = campoComplementoFornecedorCriacao.getText();
-            Bairro = campoBairroFornecedorCriacao.getText();
-            Cidade = campoCidadeFornecedorCriacao.getText();
-            UF = campoEstadoFornecedorCriacao.getText();
-            Observacao = campoObservacaoFornecedorCriacao.getText();
+            CEP = campoCEPFornecedor.getText();
+            Logradouro = campoEnderecoFornecedor.getText();
+            Numero = campoNumeroEndFornecedor.getText();
+            Complemento = campoComplementoFornecedor.getText();
+            Bairro = campoBairroFornecedor.getText();
+            Cidade = campoCidadeFornecedor.getText();
+            UF = campoEstadoFornecedor.getText();
+            Observacao = campoObservacaoFornecedor.getText();
 
             try {
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 String url = SQL_URL.getUrl();
                 try ( Connection con = DriverManager.getConnection(url)) {
-                    String sql = "IUPDATE Fornecedor SET Razao_Social = ?,Nome_Fantasia = ?,Tipo = ?,CPF_CNPJ = ?,Telefone = ?,Celular = ?,Email = ?,Responsavel = ?,CEP,Logradouro = ?,Numero = ?,Complemento = ?,Bairro = ?,Cidade = ?,UF = ?,Observacao = ? WHERE CPF_CNPJ = ?";
+                    String sql = "UPDATE Fornecedor SET Razao_Social = ?,Nome_Fantasia = ?,Tipo = ?,CPF_CNPJ = ?,Telefone = ?,Celular = ?,Email = ?,Responsavel = ?,CEP = ?,Logradouro = ?,Numero = ?,Complemento = ?,Bairro = ?,Cidade = ?,UF = ?,Observacao = ? WHERE CPF_CNPJ = ?";
                     PreparedStatement pst = con.prepareStatement(sql);
                     pst.setString(1, Razao_Social);
                     pst.setString(2, Nome_Fantasia);
@@ -1014,7 +1029,7 @@ public class EditarFornecedor extends javax.swing.JFrame {
                 }
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Fornecedor '" + Nome_Fantasia + "' editado com sucesso.");
-                fornecedorController.fechaCriacaoFornecedor();
+                fornecedorController.fechaEdicaoFornecedor();
             } catch (HeadlessException | ClassNotFoundException e) {
                 JOptionPane.showMessageDialog(null, e);
             }
@@ -1022,7 +1037,15 @@ public class EditarFornecedor extends javax.swing.JFrame {
     }
     
     private void fechaEditarFornecedor(){
-        
+        String message = "Deseja realmente cancelar a edição?";
+        String title = "Cancelar Edição";
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            fornecedorController.fechaEdicaoFornecedor();
+        }
+        if (reply == JOptionPane.NO_OPTION) {
+
+        }
     }
     
     /**
@@ -1051,25 +1074,27 @@ public class EditarFornecedor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEdicaoFornecedor;
     private javax.swing.JButton btnFecharCriacaoFornecedor;
-    private javax.swing.JButton btnSalvaCriacaoFornecedor;
-    private javax.swing.JTextField campoBairroFornecedorCriacao;
-    private javax.swing.JFormattedTextField campoCEPFornecedorCriacao;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JTextField campoBairroFornecedor;
+    private javax.swing.JFormattedTextField campoCEPFornecedor;
     private javax.swing.JFormattedTextField campoCPF_CNPJFornecedor;
-    private javax.swing.JTextField campoCidadeFornecedorCriacao;
-    private javax.swing.JTextField campoComplementoFornecedorCriacao;
+    private javax.swing.JTextField campoCidadeFornecedor;
+    private javax.swing.JTextField campoComplementoFornecedor;
     private javax.swing.JPanel campoCriacaoMotoristaCriacao2;
-    private javax.swing.JTextField campoEmailFornecedorCriacao;
-    private javax.swing.JTextField campoEnderecoFornecedorCriacao;
-    private javax.swing.JTextField campoEstadoFornecedorCriacao;
+    private javax.swing.JTextField campoEmailFornecedor;
+    private javax.swing.JTextField campoEnderecoFornecedor;
+    private javax.swing.JTextField campoEstadoFornecedor;
     private javax.swing.JTextField campoNomeFantasiaFornecedor;
     private javax.swing.JFormattedTextField campoNumeroCelularCriacaoFornecedor;
-    private javax.swing.JTextField campoNumeroEndFornecedorCriacao;
+    private javax.swing.JTextField campoNumeroEndFornecedor;
     private javax.swing.JFormattedTextField campoNumeroTelefoneFornecedorCriacao;
-    private javax.swing.JTextField campoObservacaoFornecedorCriacao;
+    private javax.swing.JTextField campoObservacaoFornecedor;
     private javax.swing.JTextField campoRazaoSocialFornecedor;
     private javax.swing.JTextField campoResponsavelFornecedor;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel74;

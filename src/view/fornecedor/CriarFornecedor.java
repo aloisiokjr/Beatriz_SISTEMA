@@ -60,6 +60,7 @@ public class CriarFornecedor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel15 = new javax.swing.JPanel();
         campoCriacaoMotoristaCriacao2 = new javax.swing.JPanel();
         campoRazaoSocialFornecedor = new javax.swing.JTextField();
@@ -100,8 +101,9 @@ public class CriarFornecedor extends javax.swing.JFrame {
         btnSalvaCriacaoFornecedor = new javax.swing.JButton();
         btnFecharCriacaoFornecedor = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jPanel15.setLayout(null);
 
@@ -167,11 +169,6 @@ public class CriarFornecedor extends javax.swing.JFrame {
         jLabel77.setText("Complemento");
 
         campoComplementoFornecedorCriacao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        campoComplementoFornecedorCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                campoComplementoFornecedorCriacaoFocusLost(evt);
-            }
-        });
         campoComplementoFornecedorCriacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campoComplementoFornecedorCriacaoActionPerformed(evt);
@@ -265,6 +262,7 @@ public class CriarFornecedor extends javax.swing.JFrame {
         jLabel86.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel86.setText("Tipo de Fornecedor *");
 
+        buttonGroup1.add(jRadioButton_PF);
         jRadioButton_PF.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jRadioButton_PF.setText("Física");
         jRadioButton_PF.addActionListener(new java.awt.event.ActionListener() {
@@ -273,6 +271,7 @@ public class CriarFornecedor extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(jRadioButton_PJ);
         jRadioButton_PJ.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jRadioButton_PJ.setText("Jurídica");
         jRadioButton_PJ.addActionListener(new java.awt.event.ActionListener() {
@@ -597,6 +596,10 @@ public class CriarFornecedor extends javax.swing.JFrame {
         jPanel15.add(jLabel1);
         jLabel1.setBounds(30, 30, 290, 27);
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logoR.png"))); // NOI18N
+        jPanel15.add(jLabel2);
+        jLabel2.setBounds(30, 550, 510, 160);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -660,14 +663,6 @@ public class CriarFornecedor extends javax.swing.JFrame {
             getListaRequisitos().get(9).setIsOk(true);
         }
     }//GEN-LAST:event_campoNumeroEndFornecedorCriacaoFocusLost
-
-    private void campoComplementoFornecedorCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoComplementoFornecedorCriacaoFocusLost
-        if (campoComplementoFornecedorCriacao.getText().equals("")) {
-            getListaRequisitos().get(17).setIsOk(false);
-        } else {
-            getListaRequisitos().get(17).setIsOk(true);
-        }
-    }//GEN-LAST:event_campoComplementoFornecedorCriacaoFocusLost
 
     private void campoComplementoFornecedorCriacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoComplementoFornecedorCriacaoActionPerformed
         // TODO add your handling code here:
@@ -746,7 +741,7 @@ public class CriarFornecedor extends javax.swing.JFrame {
 
     private void jRadioButton_PFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_PFActionPerformed
         if (jRadioButton_PF.isSelected()) {
-            getListaRequisitos().get(3).setIsOk(true);
+            getListaRequisitos().get(0).setIsOk(true);
             campoCPF_CNPJCadastroFornecedor.setValue(null);
             MaskFormatter cpf = null;
             try {
@@ -760,7 +755,7 @@ public class CriarFornecedor extends javax.swing.JFrame {
 
     private void jRadioButton_PJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_PJActionPerformed
         if (jRadioButton_PJ.isSelected()) {
-            getListaRequisitos().get(3).setIsOk(true);
+            getListaRequisitos().get(0).setIsOk(true);
             campoCPF_CNPJCadastroFornecedor.setValue(null);
             MaskFormatter cnpj = null;
             try {
@@ -973,7 +968,7 @@ public class CriarFornecedor extends javax.swing.JFrame {
                     Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                     String url = SQL_URL.getUrl();
                     try ( Connection con = DriverManager.getConnection(url)) {
-                        String sql = "SELECT CPF_CNPJ Fornecedor WHERE CPF_CNPJ = ?";
+                        String sql = "SELECT CPF_CNPJ FROM Fornecedor WHERE CPF_CNPJ = ?";
                         String textAux = campoAux.getText();
                         PreparedStatement pst = con.prepareStatement(sql);
                         pst.setString(1, textAux);
@@ -1045,6 +1040,7 @@ public class CriarFornecedor extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFecharCriacaoFornecedor;
     private javax.swing.JButton btnSalvaCriacaoFornecedor;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField campoBairroFornecedorCriacao;
     private javax.swing.JFormattedTextField campoCEPFornecedorCriacao;
     private javax.swing.JFormattedTextField campoCPF_CNPJCadastroFornecedor;
@@ -1062,6 +1058,7 @@ public class CriarFornecedor extends javax.swing.JFrame {
     private javax.swing.JTextField campoRazaoSocialFornecedor;
     private javax.swing.JTextField campoResponsavelFornecedor;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel74;
