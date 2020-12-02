@@ -5,17 +5,20 @@
  */
 package view;
 
+import controller.ClienteController;
 import controller.EmprestimoController;
 import controller.FornecedorController;
 import controller.PecasController;
 import controller.UsuarioController;
 import controller.VeiculoController;
 import javax.swing.JFrame;
+import model.Cliente;
 import model.Emprestimo;
 import model.Fornecedor;
 import model.Peca;
 import model.Usuario;
 import model.Veiculo;
+import view.cliente.ClienteUI;
 import view.emprestimo.EmprestimoUI;
 import view.fornecedor.FornecedorUI;
 import view.historico.AtualizacoesEstoque;
@@ -37,18 +40,21 @@ public class Sistema_UI extends javax.swing.JFrame {
     private EmprestimoController emprestimoController = null;
     private VeiculoController veiculoController = null;
     private FornecedorController fornecedorController = null;
+    private ClienteController clienteController = null;
     
     private Usuario usuarioAux = null;
     private Peca pecaAux = null;
     private Emprestimo emprestimoAux = null;
     private Veiculo veiculoAux = null;
     private Fornecedor fornecedorAux = null;
+    private Cliente clienteAux = null;
     
     private UsuarioUI usuarioUI = null;
     private PecaUI pecaUI = null;
     private EmprestimoUI emprestimoUI =  null;
     private VeiculoUI veiculoUI = null;
     private FornecedorUI fornecedorUI = null;
+    private ClienteUI clienteUI = null;
     
     private AtualizacoesEstoque attEstoque = null;
     
@@ -637,5 +643,47 @@ public class Sistema_UI extends javax.swing.JFrame {
      */
     public void setAttEstoque(AtualizacoesEstoque attEstoque) {
         this.attEstoque = attEstoque;
+    }
+
+    /**
+     * @return the clienteController
+     */
+    public ClienteController getClienteController() {
+        return clienteController;
+    }
+
+    /**
+     * @param clienteController the clienteController to set
+     */
+    public void setClienteController(ClienteController clienteController) {
+        this.clienteController = clienteController;
+    }
+
+    /**
+     * @return the clienteAux
+     */
+    public Cliente getClienteAux() {
+        return clienteAux;
+    }
+
+    /**
+     * @param clienteAux the clienteAux to set
+     */
+    public void setClienteAux(Cliente clienteAux) {
+        this.clienteAux = clienteAux;
+    }
+
+    /**
+     * @return the clienteUI
+     */
+    public ClienteUI getClienteUI() {
+        return clienteUI;
+    }
+
+    /**
+     * @param clienteUI the clienteUI to set
+     */
+    public void setClienteUI(ClienteUI clienteUI) {
+        this.clienteUI = clienteUI;
     }
 }

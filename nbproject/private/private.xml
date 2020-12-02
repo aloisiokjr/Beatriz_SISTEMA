@@ -3,13 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/KLEYN/OneDrive/Documentos/GitHub/Beatriz_SISTEMA/src/view/ordemServico/acompanhamentoOrdemServico.java</file>
-            <file>file:/C:/Users/KLEYN/OneDrive/Documentos/GitHub/Beatriz_SISTEMA/src/view/fornecedor/CriarFornecedor.java</file>
-            <file>file:/C:/Users/KLEYN/OneDrive/Documentos/GitHub/Beatriz_SISTEMA/src/view/fornecedor/FornecedorUI.java</file>
-            <file>file:/C:/Users/KLEYN/OneDrive/Documentos/GitHub/Beatriz_SISTEMA/src/view/fornecedor/EditarFornecedor.java</file>
-            <file>file:/C:/Users/KLEYN/OneDrive/Documentos/GitHub/Beatriz_SISTEMA/src/view/ordemServico/OrdemServicoUI.java</file>
-            <file>file:/C:/Users/KLEYN/OneDrive/Documentos/GitHub/Beatriz_SISTEMA/src/view/fornecedor/VisualizarFornecedor.java</file>
-            <file>file:/C:/Users/KLEYN/OneDrive/Documentos/GitHub/Beatriz_SISTEMA/src/view/ordemServico/lancamentoOrdemServico.java</file>
+            <file>file:/C:/Users/KLEYN/OneDrive/Documentos/GitHub/Beatriz_SISTEMA/src/model/Cliente.java</file>
+            <file>file:/C:/Users/KLEYN/OneDrive/Documentos/GitHub/Beatriz_SISTEMA/src/view/cliente/ClienteUI.java</file>
+            <file>file:/C:/Users/KLEYN/OneDrive/Documentos/GitHub/Beatriz_SISTEMA/src/view/cliente/CriarCliente.java</file>
+            <file>file:/C:/Users/KLEYN/OneDrive/Documentos/GitHub/Beatriz_SISTEMA/src/view/cliente/EditarCliente.java</file>
+            <file>file:/C:/Users/KLEYN/OneDrive/Documentos/GitHub/Beatriz_SISTEMA/src/view/Sistema_UI.java</file>
         </group>
     </open-files>
 </project-private>
