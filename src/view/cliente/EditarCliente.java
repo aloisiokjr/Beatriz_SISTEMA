@@ -94,7 +94,7 @@ public class EditarCliente extends javax.swing.JFrame {
         btnAdicionaNome = new javax.swing.JButton();
         btnRemoveNome = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -585,14 +585,36 @@ public class EditarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRemoveNomeKeyPressed
 
     private void setagemInicial(){
-    
+        listaRequisitos = new ArrayList();
+        listaRequisitos.add(new Requisito("Nome", true));
+        listaRequisitos.add(new Requisito("Razão Social", true));
+        listaRequisitos.add(new Requisito("Nome Fantasia", true));
+        listaRequisitos.add(new Requisito("Tipo de Cliente", true));
+        listaRequisitos.add(new Requisito("CPF/CNPJ", true));
+        
+        campoNome.setText(getClienteAux().getNome());
+        campoRS.setText(getClienteAux().getRazaoSocial());
+        campoNomeFantasia.setText(getClienteAux().getNomeFantasia());
+        if (getClienteAux().getTipoCliente().equals("F")){
+            jRadioPF.doClick();
+        } else if (getClienteAux().getTipoCliente().equals("J")){
+            jRadioPJ.doClick();
+        }
+        campoDoc.setText(getClienteAux().getCpf_cnpj());
+        Iterator<String> iteradorNomes = getClienteAux().getListaNomes().iterator();
+        String nomeAux;
+        while (iteradorNomes.hasNext()){
+            nomeAux = iteradorNomes.next();
+            DefaultTableModel modeloAux = (DefaultTableModel) tabelaNomes.getModel();
+            modeloAux.addRow(new Object[]{tabelaNomes.getRowCount()+1, nomeAux});
+        }
     }
     
     private void avisaDoc(javax.swing.JFormattedTextField campoAux, javax.swing.JLabel labelAux) throws SQLException, ClassNotFoundException{
         if (campoAux.getText().equals("   .   .   -  ") || campoAux.getText().equals("  .   .   /    -  ")) {
             labelAux.setForeground(new java.awt.Color(212, 0, 51));
             labelAux.setText("Campo Vazio.");
-            listaRequisitos.get(0).setIsOk(false);
+            listaRequisitos.get(4).setIsOk(false);
         } else {
             if (!campoAux.getText().contains(" ")){
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -607,32 +629,134 @@ public class EditarCliente extends javax.swing.JFrame {
                         if (getClienteAux().getCpf_cnpj().equals(textAux)) {
                             labelAux.setForeground(new java.awt.Color(51, 199, 9));
                             labelAux.setText("CPF/CNPJ original.");
-                            listaRequisitos.get(0).setIsOk(true);
+                            listaRequisitos.get(4).setIsOk(true);
                         } else {
                             labelAux.setForeground(new java.awt.Color(212, 0, 51));
                             labelAux.setText("CPF/CNPJ já cadastrado.");
-                            listaRequisitos.get(0).setIsOk(false);
+                            listaRequisitos.get(4).setIsOk(false);
                         }                        
                     } else {
                         labelAux.setForeground(new java.awt.Color(51, 199, 9));
                         labelAux.setText("CPF/CNPJ válido.");
-                        listaRequisitos.get(0).setIsOk(true);
+                        listaRequisitos.get(4).setIsOk(true);
                     }
                 }
             } else {
                 labelAux.setForeground(new java.awt.Color(212, 0, 51));
                 labelAux.setText("Valor inválido.");
-                listaRequisitos.get(0).setIsOk(false);
+                listaRequisitos.get(4).setIsOk(false);
             }
         }
     }
     
     private void fechaEdicaoCliente(){
-    
+        String message = "Deseja realmente cancelar a edição?";
+        String title = "Cancelar Edição";
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            getClienteController().fechaEdicaoCliente();
+        }
+        if (reply == JOptionPane.NO_OPTION) {
+
+        }
     }
     
     private void editaCliente(){
+        Iterator<Requisito> iterador = listaRequisitos.iterator();
+        String requisitosN = "";
+        Requisito aux;
+        boolean auxControl = true;
+        while (iterador.hasNext()) {
+            aux = iterador.next();
+            if (!aux.isIsOk()) {
+                requisitosN = requisitosN.concat(" " + aux.getRequisito() + ",");
+                auxControl = false;
+            }
+        }
+        if (!auxControl) {
+            requisitosN = requisitosN.substring(0, requisitosN.length() - 1);
+            JOptionPane.showMessageDialog(null, "Os seguintes requisitos não foram preeenchidos:" + requisitosN + ".");
+        } else {
+            String nome, razaoSocial, nomeFantasia, tipoCliente = "", cpf_cnpj;
+            nome = campoNome.getText();
+            razaoSocial = campoRS.getText();
+            nomeFantasia = campoNomeFantasia.getText();
+            if (jRadioPF.isSelected()){
+                tipoCliente = "F";
+            } else if(jRadioPJ.isSelected()){
+                tipoCliente = "J";
+            }
+            cpf_cnpj = campoDoc.getText();
+            
+            if(tabelaNomes.getRowCount() > 0){
+                deletaNome(clienteAux.getCpf_cnpj());
+                int index = 0;
+                while (index < tabelaNomes.getRowCount()){
+                    try {
+                        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                        String url = SQL_URL.getUrl();
+                        try (Connection con = DriverManager.getConnection(url)) {
+                            String sql;
+                            sql = "INSERT INTO Cliente_NomeVariante (DocCliente, NomeVariante) VALUES (?,?)";
+                            PreparedStatement pst = con.prepareStatement(sql);
+                            pst.setString(1, cpf_cnpj);
+                            pst.setString(2, (String)tabelaNomes.getValueAt(index, 1));
+                            ResultSet rs = pst.executeQuery();
+                            if (rs.next()) {
+
+                            }
+                        }
+                    } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+                        //JOptionPane.showMessageDialog(null, e);
+                    }
+                    index++;
+                }
+            }
+            
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String url = SQL_URL.getUrl();
+                try (Connection con = DriverManager.getConnection(url)) {
+                    String sql = "UPDATE Cliente SET Nome = ?,RazaoSocial = ?,NomeFantasia = ?,TipoCliente = ?,DocCliente = ? WHERE DocCliente = ?";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    pst.setString(1, nome);
+                    pst.setString(2, razaoSocial);
+                    pst.setString(3, nomeFantasia);
+                    pst.setString(4, tipoCliente);
+                    pst.setString(5, cpf_cnpj);
+                    pst.setString(6, clienteAux.getCpf_cnpj());
+
+                    ResultSet rs = pst.executeQuery();
+                    
+                    if(rs.next()){
+                        
+                    }
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Cliente '" + nomeFantasia + "' editado com sucesso.");
+                clienteController.fechaEdicaoCliente();
+            } catch (HeadlessException | ClassNotFoundException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }
     
+    private void deletaNome(String doc){
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "DELETE FROM Cliente_NomeVariante WHERE DocCliente = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, doc);
+                ResultSet rs = pst.executeQuery();
+
+            }
+        } catch (HeadlessException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e);
+        } catch (SQLException e) {
+            //JOptionPane.showMessageDialog(null, e);
+        }
     }
     
     private void adicionaNome(){

@@ -6,12 +6,28 @@
 package view.cliente;
 
 import controller.ClienteController;
+import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.Cliente;
+import util.SQL_URL;
 
 /**
  *
@@ -79,7 +95,7 @@ public class ClienteUI extends javax.swing.JFrame {
         btnFechar = new javax.swing.JButton();
         btnRelatorio = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel1.setText("Lista de Clientes");
@@ -550,15 +566,100 @@ public class ClienteUI extends javax.swing.JFrame {
     }//GEN-LAST:event_radio_DOCActionPerformed
 
     public final void setagemInicial(){
-    
+        btnEditar.setEnabled(false);
+        btnVisualizacao.setEnabled(false);
+        btnExcluir.setEnabled(false);
     }
     
     private void clienteAlterar(){
+        String aux = (String)tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 5);
+        String nome, razaoSocial, nomeFantasia, tipoCliente = "", cpf_cnpj;
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "SELECT * FROM Cliente WHERE DocCliente = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, aux);
+                ResultSet rs = pst.executeQuery();
+
+                if(rs.next()){
+                    nome = rs.getString("Nome");
+                    razaoSocial = rs.getString("RazaoSocial");
+                    nomeFantasia = rs.getString("NomeFantasia");
+                    tipoCliente = rs.getString("TipoCliente");
+                    cpf_cnpj = rs.getString("DocCliente");
+                                        
+                    ArrayList<String> listaNomes = buscaNomes(cpf_cnpj);
+                    
+                    Cliente cliente = new Cliente(nome, razaoSocial, nomeFantasia, tipoCliente, cpf_cnpj, listaNomes);
+                    setClienteAux(cliente);
+                    clienteController.abreEdicaoCliente();
+                }
+            }
+        } catch (SQLException | HeadlessException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
     
+    private ArrayList<String> buscaNomes(String doc){
+        ArrayList<String> listaNomes = new ArrayList();
+        
+        return listaNomes;
     }
     
     private void clienteExcluir(){
+        int linhaSelecionada = tabelaClientes.getSelectedRow();
+        int colunaSelecionada = 3;
+        String message = "Deseja realmente excluir o cliente '" + ((String)tabelaClientes.getValueAt(linhaSelecionada, colunaSelecionada)) + "'?";
+        String title = "Confirmação de Exclusao";
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String url = SQL_URL.getUrl();
+                try (Connection con = DriverManager.getConnection(url)) {
+                    String sql = "DELETE FROM Cliente WHERE DocCliente = ?";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    colunaSelecionada = 5;
+                    pst.setString(1, (String) tabelaClientes.getValueAt(linhaSelecionada, colunaSelecionada));
+                    ResultSet rs = pst.executeQuery();
+                    deletaNome((String) tabelaClientes.getValueAt(linhaSelecionada, colunaSelecionada));
+                    
+                    if(rs.next()){
+                        
+                    }
+                }
+            } catch (HeadlessException | ClassNotFoundException e) {
+                JOptionPane.showMessageDialog(null, e);
+            } catch (SQLException e) {
+                colunaSelecionada = 3;
+                JOptionPane.showMessageDialog(null, "O cliente '" + (String) tabelaClientes.getValueAt(linhaSelecionada, colunaSelecionada) + "' foi excluído.");
+                setagemInicial();
+                clienteBuscaTodos();
+            }
+        }
+        if (reply == JOptionPane.NO_OPTION) {
+
+        }
+    }
     
+    private void deletaNome(String doc){
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "DELETE FROM Cliente_NomeVariante WHERE DocCliente = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, doc);
+                ResultSet rs = pst.executeQuery();
+
+            }
+        } catch (HeadlessException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e);
+        } catch (SQLException e) {
+            //JOptionPane.showMessageDialog(null, e);
+        }
     }
     
     private void clienteBuscar(){
@@ -566,15 +667,106 @@ public class ClienteUI extends javax.swing.JFrame {
     }
     
     private void clienteVisualizacao(){
-    
+        String aux = (String)tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 5);
+        String nome, razaoSocial, nomeFantasia, tipoCliente = "", cpf_cnpj;
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "SELECT * FROM Cliente WHERE DocCliente = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, aux);
+                ResultSet rs = pst.executeQuery();
+
+                if(rs.next()){
+                    nome = rs.getString("Nome");
+                    razaoSocial = rs.getString("RazaoSocial");
+                    nomeFantasia = rs.getString("NomeFantasia");
+                    tipoCliente = rs.getString("TipoCliente");
+                    cpf_cnpj = rs.getString("DocCliente");
+                                        
+                    ArrayList<String> listaNomes = buscaNomes(cpf_cnpj);
+                    
+                    Cliente cliente = new Cliente(nome, razaoSocial, nomeFantasia, tipoCliente, cpf_cnpj, listaNomes);
+                    setClienteAux(cliente);
+                    clienteController.abreVisualizacaoCliente();
+                }
+            }
+        } catch (SQLException | HeadlessException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
     
     public void clienteBuscaTodos(){
+        limpaTabelaClientes();
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = null;
+                sql = "SELECT * FROM Cliente";
+                PreparedStatement pst = con.prepareStatement(sql);
+                ResultSet rs = pst.executeQuery();
+                int i = 1;
+                while (rs.next()) {
+                    DefaultTableModel modeloAux = (DefaultTableModel) tabelaClientes.getModel();
+                    modeloAux.addRow(new Object[]{i,rs.getString("Nome"),rs.getString("RazaoSocial"),rs.getString("NomeFantasia"),rs.getString("TipoCliente"),rs.getString("DocCliente")});
+                    i++;
+                }
+                if (tabelaClientes.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(null, "A pesquisa não encontrou nenhum cliente.");
+                }
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
     
+    private void limpaTabelaClientes(){
+        int rowCount = tabelaClientes.getRowCount();
+        if (rowCount > 0) {
+            while (rowCount > 0) {
+                ((DefaultTableModel) tabelaClientes.getModel()).removeRow(rowCount - 1);
+                rowCount--;
+            }
+        }
     }
     
     private void geraTxt() throws IOException{
-    
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+	Date date = new Date();
+	String dataAux = dateFormat.format(date);
+        dataAux = dataAux.replaceAll(" ", "--");
+        dataAux = dataAux.replaceAll("/", "-");
+        dataAux = dataAux.replaceAll(":", "");
+        
+        File f = new File(".\\saida");
+        if(f.mkdir()){
+        }
+        f = new File(".\\saida\\clientes");
+        if(f.mkdir()){
+        }
+        
+        try (FileWriter arq = new FileWriter(".\\saida\\clientes/BuscaClientes--"+dataAux+".txt")) {
+            PrintWriter gravarArq = new PrintWriter(arq);
+
+            gravarArq.printf("+-------------- RESULTADO DA BUSCA: CLIENTES --------------+%n%n");
+            gravarArq.printf("LISTAGEM:%n%n");
+            int i;
+            for (i=0; i< tabelaClientes.getRowCount(); i++) {
+                gravarArq.printf("# %2d ##########################%n", i+1);
+                gravarArq.printf("Nome: " + (String)tabelaClientes.getValueAt(i, 1)+"%n");
+                gravarArq.printf("Razão Social: " + (String)tabelaClientes.getValueAt(i, 2)+"%n");
+                gravarArq.printf("Nome Fantasia: " + (String)tabelaClientes.getValueAt(i, 3)+"%n");
+                gravarArq.printf("Tipo de Cliente: " + (String)tabelaClientes.getValueAt(i, 4)+"%n");
+                gravarArq.printf("CPF/CNPJ: " + (String)tabelaClientes.getValueAt(i, 5)+"%n");
+                gravarArq.printf("%n");
+            }
+            gravarArq.printf("+-------------------------------------------------------------+%n");
+            arq.close();
+
+            JOptionPane.showMessageDialog(null,"Dados salvos em 'saida/clientes/BuscaClientes--"+dataAux+".txt'");
+        }
     }
     
     /**

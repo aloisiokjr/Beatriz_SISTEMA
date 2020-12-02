@@ -91,7 +91,7 @@ public class CriarCliente extends javax.swing.JFrame {
         btnAdicionaNome = new javax.swing.JButton();
         btnRemoveNome = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -230,6 +230,7 @@ public class CriarCliente extends javax.swing.JFrame {
                         .addComponent(jLabel127)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(campoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
                         .addComponent(jLabelDoc)))
                 .addGap(21, 21, 21)
                 .addComponent(jLabel134)

@@ -67,6 +67,7 @@ public class Sistema_UI extends javax.swing.JFrame {
         this.emprestimoController = new EmprestimoController(this);
         this.veiculoController = new VeiculoController(this);
         this.fornecedorController = new FornecedorController(this);
+        this.clienteController = new ClienteController(this);
         initComponents();
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         this.toFront();
@@ -89,11 +90,12 @@ public class Sistema_UI extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         barraMenuADM = new javax.swing.JMenuBar();
         menuADM = new javax.swing.JMenu();
-        menuADM_Usuario = new javax.swing.JMenuItem();
+        menuADM_Cliente = new javax.swing.JMenuItem();
+        menuADM_Veiculo = new javax.swing.JMenuItem();
         menuADM_Fornecedor = new javax.swing.JMenuItem();
         menuADM_Pecas = new javax.swing.JMenuItem();
-        menuADM_Veiculo = new javax.swing.JMenuItem();
         menuADM_Emprestimos = new javax.swing.JMenuItem();
+        menuADM_Usuario = new javax.swing.JMenuItem();
         menuHIST = new javax.swing.JMenu();
         menuHIST_Estoque = new javax.swing.JMenuItem();
         menuOS = new javax.swing.JMenu();
@@ -162,14 +164,26 @@ public class Sistema_UI extends javax.swing.JFrame {
 
         menuADM.setText("Administração");
 
-        menuADM_Usuario.setText("Usuários");
-        menuADM_Usuario.setBorderPainted(true);
-        menuADM_Usuario.addActionListener(new java.awt.event.ActionListener() {
+        menuADM_Cliente.setText("Clientes");
+        menuADM_Cliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuADM_UsuarioActionPerformed(evt);
+                menuADM_ClienteActionPerformed(evt);
             }
         });
-        menuADM.add(menuADM_Usuario);
+        menuADM.add(menuADM_Cliente);
+
+        menuADM_Veiculo.setText("Veículos");
+        menuADM_Veiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuADM_VeiculoActionPerformed(evt);
+            }
+        });
+        menuADM_Veiculo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                menuADM_VeiculoKeyPressed(evt);
+            }
+        });
+        menuADM.add(menuADM_Veiculo);
 
         menuADM_Fornecedor.setText("Fornecedores");
         menuADM_Fornecedor.addActionListener(new java.awt.event.ActionListener() {
@@ -189,19 +203,6 @@ public class Sistema_UI extends javax.swing.JFrame {
         });
         menuADM.add(menuADM_Pecas);
 
-        menuADM_Veiculo.setText("Veículos");
-        menuADM_Veiculo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuADM_VeiculoActionPerformed(evt);
-            }
-        });
-        menuADM_Veiculo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                menuADM_VeiculoKeyPressed(evt);
-            }
-        });
-        menuADM.add(menuADM_Veiculo);
-
         menuADM_Emprestimos.setText("Emprestimos");
         menuADM_Emprestimos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -209,6 +210,15 @@ public class Sistema_UI extends javax.swing.JFrame {
             }
         });
         menuADM.add(menuADM_Emprestimos);
+
+        menuADM_Usuario.setText("Usuários");
+        menuADM_Usuario.setBorderPainted(true);
+        menuADM_Usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuADM_UsuarioActionPerformed(evt);
+            }
+        });
+        menuADM.add(menuADM_Usuario);
 
         barraMenuADM.add(menuADM);
 
@@ -329,6 +339,10 @@ public class Sistema_UI extends javax.swing.JFrame {
         setAttEstoque(new AtualizacoesEstoque(this));
     }//GEN-LAST:event_menuHIST_EstoqueActionPerformed
 
+    private void menuADM_ClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuADM_ClienteActionPerformed
+        getClienteController().abreClienteUI();
+    }//GEN-LAST:event_menuADM_ClienteActionPerformed
+
     public void atualizaDados(){
         
     }
@@ -374,6 +388,7 @@ public class Sistema_UI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu menuADM;
+    private javax.swing.JMenuItem menuADM_Cliente;
     private javax.swing.JMenuItem menuADM_Emprestimos;
     private javax.swing.JMenuItem menuADM_Fornecedor;
     private javax.swing.JMenuItem menuADM_Pecas;
