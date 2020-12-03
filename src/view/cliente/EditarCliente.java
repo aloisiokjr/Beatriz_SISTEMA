@@ -498,22 +498,26 @@ public class EditarCliente extends javax.swing.JFrame {
 
     private void campoNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNomeFocusLost
         if(campoNome.getText().equals("")){
-            getListaRequisitos().get(1).setIsOk(false);
+            getListaRequisitos().get(0).setIsOk(false);
         } else {
-            getListaRequisitos().get(1).setIsOk(true);
+            getListaRequisitos().get(0).setIsOk(true);
         }
     }//GEN-LAST:event_campoNomeFocusLost
 
     private void campoRSFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoRSFocusLost
         if(campoRS.getText().equals("")){
-            getListaRequisitos().get(2).setIsOk(false);
+            getListaRequisitos().get(1).setIsOk(false);
         } else {
-            getListaRequisitos().get(2).setIsOk(true);
+            getListaRequisitos().get(1).setIsOk(true);
         }
     }//GEN-LAST:event_campoRSFocusLost
 
     private void campoNomeFantasiaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNomeFantasiaFocusLost
-        // TODO add your handling code here:
+        if(campoNomeFantasia.getText().equals("")){
+            getListaRequisitos().get(2).setIsOk(false);
+        } else {
+            getListaRequisitos().get(2).setIsOk(true);
+        }
     }//GEN-LAST:event_campoNomeFantasiaFocusLost
 
     private void jRadioPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioPFActionPerformed
