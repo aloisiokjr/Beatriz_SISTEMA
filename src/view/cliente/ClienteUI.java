@@ -610,8 +610,7 @@ public class ClienteUI extends javax.swing.JFrame {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
-                String sql = null;
-                sql = "SELECT NomeVariante FROM Cliente_NomeVariante WHERE DocCliente = ?";
+                String sql = "SELECT NomeVariante FROM Cliente_NomeVariante WHERE DocCliente = ?";
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1, doc);
                 ResultSet rs = pst.executeQuery();
@@ -705,7 +704,7 @@ public class ClienteUI extends javax.swing.JFrame {
                                 sql = "SELECT * FROM Cliente WHERE DocCliente LIKE '%"+palavraBusca+"%'";
                             }
 
-                            PreparedStatement pst = con.prepareStatement(sql);;
+                            PreparedStatement pst = con.prepareStatement(sql);
                             ResultSet rs = pst.executeQuery();
                             int i = 1;
                             while (rs.next()) {
@@ -739,8 +738,7 @@ public class ClienteUI extends javax.swing.JFrame {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
-                String sql = null;
-                sql = "SELECT * FROM Cliente_NomeVariante WHERE NomeVariante LIKE '%"+aux+"%'";
+                String sql = "SELECT * FROM Cliente_NomeVariante WHERE NomeVariante LIKE '%"+aux+"%'";
                 PreparedStatement pst = con.prepareStatement(sql);
                 ResultSet rs = pst.executeQuery();
                 int i = 1;
@@ -761,8 +759,7 @@ public class ClienteUI extends javax.swing.JFrame {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
-                String sql = null;
-                sql = "SELECT * FROM Cliente WHERE DocCliente = ?";
+                String sql = "SELECT * FROM Cliente WHERE DocCliente = ?";
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1, doc);
                 ResultSet rs = pst.executeQuery();
@@ -821,8 +818,7 @@ public class ClienteUI extends javax.swing.JFrame {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
-                String sql = null;
-                sql = "SELECT * FROM Cliente";
+                String sql = "SELECT * FROM Cliente";
                 PreparedStatement pst = con.prepareStatement(sql);
                 ResultSet rs = pst.executeQuery();
                 int i = 1;

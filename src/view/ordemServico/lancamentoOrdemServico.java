@@ -982,10 +982,13 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
 
                 }
             }
-        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
-            //JOptionPane.showMessageDialog(null, e);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Ordem de Serviço de nº"+numOs+" salva com sucesso.");
+            // CONTROLLER DE CLIENTE
+        }catch (HeadlessException | ClassNotFoundException e) {
+        //JOptionPane.showMessageDialog(null, e);
         }
-        JOptionPane.showMessageDialog(null, "Ordem de Serviço de nº"+numOs+" salva com sucesso.");
+        
     }
     
     private void fechaCadastroOS(){

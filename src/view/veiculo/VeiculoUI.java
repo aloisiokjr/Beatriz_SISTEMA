@@ -783,7 +783,7 @@ public class VeiculoUI extends javax.swing.JFrame {
                             sql = "SELECT Placa, Marca, Modelo, Renavam, NumeroChassi FROM Veiculo WHERE NumeroChassi LIKE '%"+palavraBusca+"%'";
                         }
                         
-                        PreparedStatement pst = con.prepareStatement(sql);;
+                        PreparedStatement pst = con.prepareStatement(sql);
                         ResultSet rs = pst.executeQuery();
                         int i = 1;
                         while (rs.next()) {
@@ -811,8 +811,7 @@ public class VeiculoUI extends javax.swing.JFrame {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
-                String sql = null;
-                sql = "SELECT * FROM Veiculo";
+                String sql = "SELECT * FROM Veiculo";
                 PreparedStatement pst = con.prepareStatement(sql);
                 ResultSet rs = pst.executeQuery();
                 int i = 1;
