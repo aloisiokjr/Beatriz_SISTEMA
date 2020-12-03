@@ -765,6 +765,7 @@ public class EditarCliente extends javax.swing.JFrame {
         } else {
             DefaultTableModel modeloAux = (DefaultTableModel) tabelaNomes.getModel();
             modeloAux.addRow(new Object[]{tabelaNomes.getRowCount()+1, campoNomeV.getText()});
+            campoNomeV.setText("");
         }
     }
     

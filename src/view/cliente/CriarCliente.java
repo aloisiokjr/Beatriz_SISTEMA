@@ -150,7 +150,6 @@ public class CriarCliente extends javax.swing.JFrame {
         jLabel126.setText("Tipo de Cliente *");
 
         buttonGroup1.add(jRadioPF);
-        jRadioPF.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioPF.setText("Física");
         jRadioPF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -497,17 +496,17 @@ public class CriarCliente extends javax.swing.JFrame {
 
     private void campoNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNomeFocusLost
         if(campoNome.getText().equals("")){
-            getListaRequisitos().get(1).setIsOk(false);
+            getListaRequisitos().get(0).setIsOk(false);
         } else {
-            getListaRequisitos().get(1).setIsOk(true);
+            getListaRequisitos().get(0).setIsOk(true);
         }
     }//GEN-LAST:event_campoNomeFocusLost
 
     private void campoRSFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoRSFocusLost
         if(campoRS.getText().equals("")){
-            getListaRequisitos().get(2).setIsOk(false);
+            getListaRequisitos().get(1).setIsOk(false);
         } else {
-            getListaRequisitos().get(2).setIsOk(true);
+            getListaRequisitos().get(1).setIsOk(true);
         }
     }//GEN-LAST:event_campoRSFocusLost
 
@@ -552,7 +551,11 @@ public class CriarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRemoveNomeKeyPressed
 
     private void campoNomeFantasiaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNomeFantasiaFocusLost
-        // TODO add your handling code here:
+        if(campoNomeFantasia.getText().equals("")){
+            getListaRequisitos().get(2).setIsOk(false);
+        } else {
+            getListaRequisitos().get(2).setIsOk(true);
+        }
     }//GEN-LAST:event_campoNomeFantasiaFocusLost
 
     private void jRadioPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioPFActionPerformed
@@ -585,6 +588,7 @@ public class CriarCliente extends javax.swing.JFrame {
 
     
     private void setagemInicial(){
+        listaRequisitos = new ArrayList();
         listaRequisitos.add(new Requisito("Nome", false));
         listaRequisitos.add(new Requisito("Razão Social", false));
         listaRequisitos.add(new Requisito("Nome Fantasia", false));
@@ -596,14 +600,14 @@ public class CriarCliente extends javax.swing.JFrame {
         if (campoAux.getText().equals("   .   .   -  ") || campoAux.getText().equals("  .   .   /    -  ")) {
             labelAux.setForeground(new java.awt.Color(212, 0, 51));
             labelAux.setText("Campo Vazio.");
-            getListaRequisitos().get(0).setIsOk(false);
+            getListaRequisitos().get(4).setIsOk(false);
             //listaRequisitos.get(6).setIsOk(false);
         } else {
             if (!campoAux.getText().contains(" ")){
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
-                    String sql = "SELECT CPF_CNPJ FROM Cliente WHERE CPF_CNPJ = ?";
+                    String sql = "SELECT DocCliente FROM Cliente WHERE DocCliente = ?";
                     String textAux = campoAux.getText();
                     PreparedStatement pst = con.prepareStatement(sql);
                     pst.setString(1, textAux);
@@ -611,17 +615,17 @@ public class CriarCliente extends javax.swing.JFrame {
                     if (rs.next()) {
                         labelAux.setForeground(new java.awt.Color(212, 0, 51));
                         labelAux.setText("Cliente já cadastrado.");
-                        getListaRequisitos().get(0).setIsOk(false);
+                        getListaRequisitos().get(4).setIsOk(false);
                     } else {
                         labelAux.setForeground(new java.awt.Color(51, 199, 9));
                         labelAux.setText("CPF/CNPJ válida.");
-                        getListaRequisitos().get(0).setIsOk(true);
+                        getListaRequisitos().get(4).setIsOk(true);
                     }
                 }
             } else {
                 labelAux.setForeground(new java.awt.Color(212, 0, 51));
                 labelAux.setText("Valor inválido.");
-                getListaRequisitos().get(0).setIsOk(false);
+                getListaRequisitos().get(4).setIsOk(false);
             }
         }
     }
@@ -721,6 +725,7 @@ public class CriarCliente extends javax.swing.JFrame {
         } else {
             DefaultTableModel modeloAux = (DefaultTableModel) tabelaNomes.getModel();
             modeloAux.addRow(new Object[]{tabelaNomes.getRowCount()+1, campoNomeV.getText()});
+            campoNomeV.setText("");
         }
     }
     

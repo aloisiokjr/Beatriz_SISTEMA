@@ -55,13 +55,13 @@ public class VisualizarCliente extends javax.swing.JFrame {
         jLabel124 = new javax.swing.JLabel();
         campoRS = new javax.swing.JTextField();
         jLabel127 = new javax.swing.JLabel();
-        campoDoc = new javax.swing.JFormattedTextField();
         jLabel134 = new javax.swing.JLabel();
         campoNomeFantasia = new javax.swing.JTextField();
         jLabel125 = new javax.swing.JLabel();
         jLabel126 = new javax.swing.JLabel();
         jRadioPF = new javax.swing.JRadioButton();
         jRadioPJ = new javax.swing.JRadioButton();
+        campoDoc = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         btnFecharTela1 = new javax.swing.JButton();
@@ -94,15 +94,6 @@ public class VisualizarCliente extends javax.swing.JFrame {
         jLabel127.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel127.setText("CPF/CNPJ *");
 
-        campoDoc.setEditable(false);
-        try {
-            campoDoc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        campoDoc.setToolTipText("");
-        campoDoc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-
         jLabel134.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel134.setText("* Campos Obrigatórios");
 
@@ -116,7 +107,6 @@ public class VisualizarCliente extends javax.swing.JFrame {
         jLabel126.setText("Tipo de Cliente *");
 
         buttonGroup1.add(jRadioPF);
-        jRadioPF.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jRadioPF.setText("Física");
         jRadioPF.setEnabled(false);
         jRadioPF.addActionListener(new java.awt.event.ActionListener() {
@@ -132,6 +122,8 @@ public class VisualizarCliente extends javax.swing.JFrame {
                 jRadioPJActionPerformed(evt);
             }
         });
+
+        campoDoc.setEditable(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -164,8 +156,8 @@ public class VisualizarCliente extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel127, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(42, Short.MAX_VALUE))
+                            .addComponent(campoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,7 +165,7 @@ public class VisualizarCliente extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                             .addComponent(jLabel124)
@@ -195,7 +187,7 @@ public class VisualizarCliente extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel127)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(campoDoc)))
                 .addGap(32, 32, 32)
                 .addComponent(jLabel134)
                 .addGap(106, 106, 106))
@@ -416,9 +408,9 @@ public class VisualizarCliente extends javax.swing.JFrame {
         campoRS.setText(getClienteAux().getRazaoSocial());
         campoNomeFantasia.setText(getClienteAux().getNomeFantasia());
         if (getClienteAux().getTipoCliente().equals("F")){
-            jRadioPF.doClick();
+            jRadioPF.setSelected(true);
         } else if (getClienteAux().getTipoCliente().equals("J")){
-            jRadioPJ.doClick();
+            jRadioPJ.setSelected(true);
         }
         campoDoc.setText(getClienteAux().getCpf_cnpj());
         Iterator<String> iteradorNomes = getClienteAux().getListaNomes().iterator();
@@ -471,7 +463,7 @@ public class VisualizarCliente extends javax.swing.JFrame {
     private javax.swing.JButton btnFecharTela1;
     private javax.swing.JButton btnSalvar1;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JFormattedTextField campoDoc;
+    private javax.swing.JTextField campoDoc;
     private javax.swing.JTextField campoNome;
     private javax.swing.JTextField campoNomeFantasia;
     private javax.swing.JTextField campoRS;

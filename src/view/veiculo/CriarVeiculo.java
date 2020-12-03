@@ -45,6 +45,7 @@ public class CriarVeiculo extends javax.swing.JFrame {
         this.setVisible(true);
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         this.toFront();
+        setagemInicial();
     }
 
     /**
@@ -1059,7 +1060,7 @@ public class CriarVeiculo extends javax.swing.JFrame {
         }
     }
     
-    public void setagemInicial(){
+    private void setagemInicial(){
         listaRequisitos = null;
         listaRequisitos = new ArrayList();
         listaRequisitos.add(new Requisito("Placa", false));

@@ -47,6 +47,7 @@ public class ClienteUI extends javax.swing.JFrame {
      * @param clienteController
      */
     public ClienteUI(ClienteController clienteController) {
+        this.clienteController = clienteController;
         initComponents();
         this.setVisible(true);
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
@@ -605,6 +606,23 @@ public class ClienteUI extends javax.swing.JFrame {
     private ArrayList<String> buscaNomes(String doc){
         ArrayList<String> listaNomes = new ArrayList();
         
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = null;
+                sql = "SELECT NomeVariante FROM Cliente_NomeVariante WHERE DocCliente = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, doc);
+                ResultSet rs = pst.executeQuery();
+                while (rs.next()) {
+                    listaNomes.add(rs.getString("NomeVariante"));
+                }
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
         return listaNomes;
     }
     
@@ -663,7 +681,107 @@ public class ClienteUI extends javax.swing.JFrame {
     }
     
     private void clienteBuscar(){
+        if (radio_Nome.isSelected() || radio_RS.isSelected() || radio_NF.isSelected() || radio_DOC.isSelected() || radio_NV.isSelected()){
+            limpaTabelaClientes();
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String url = SQL_URL.getUrl();
+                try (Connection con = DriverManager.getConnection(url)) {
+                    String sql = null;
+                    String palavraBusca = campoBusca.getText();
+                    if (palavraBusca.equals("")) {
+                        clienteBuscaTodos();
+                    } else {
+                        if (radio_NV.isSelected()){
+                            buscaNomeVariante(palavraBusca);
+                        } else {
+                            if (radio_Nome.isSelected()) {
+                                sql = "SELECT * FROM Cliente WHERE Nome LIKE '%"+palavraBusca+"%'";
+                            } else if (radio_RS.isSelected()) {
+                                sql = "SELECT * FROM Cliente WHERE RazaoSocial LIKE '%"+palavraBusca+"%'";
+                            } else if (radio_NF.isSelected()){
+                                sql = "SELECT * FROM Cliente WHERE NomeFantasia LIKE '%"+palavraBusca+"%'";
+                            } else if (radio_DOC.isSelected()){
+                                sql = "SELECT * FROM Cliente WHERE DocCliente LIKE '%"+palavraBusca+"%'";
+                            }
+
+                            PreparedStatement pst = con.prepareStatement(sql);;
+                            ResultSet rs = pst.executeQuery();
+                            int i = 1;
+                            while (rs.next()) {
+                                DefaultTableModel modeloAux = (DefaultTableModel) tabelaClientes.getModel();
+                                String tipo = rs.getString("TipoCliente");
+                                if (tipo.equals("F")){
+                                    tipo = "FÍSICO";
+                                } else if (tipo.equals("J")){
+                                    tipo = "JURÍDICO";
+                                }
+                                modeloAux.addRow(new Object[]{i,rs.getString("Nome"),rs.getString("RazaoSocial"),rs.getString("NomeFantasia"),tipo,rs.getString("DocCliente")});
+                                i++;
+                            }
+
+                            if (tabelaClientes.getRowCount() == 0) {
+                                JOptionPane.showMessageDialog(null, "A pesquisa não encontrou nenhum cliente.");
+                            }
+                        }
+                    }
+                }
+            } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um filtro de busca.");
+        }
+    }
     
+    private void buscaNomeVariante(String aux){
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = null;
+                sql = "SELECT * FROM Cliente_NomeVariante WHERE NomeVariante LIKE '%"+aux+"%'";
+                PreparedStatement pst = con.prepareStatement(sql);
+                ResultSet rs = pst.executeQuery();
+                int i = 1;
+                while (rs.next()) {
+                    i = buscaCliente(rs.getString("DocCliente"),i);
+                }
+                if (tabelaClientes.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(null, "A pesquisa não encontrou nenhum cliente.");
+                }
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    private int buscaCliente(String doc, int index){
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = null;
+                sql = "SELECT * FROM Cliente WHERE DocCliente = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, doc);
+                ResultSet rs = pst.executeQuery();
+                while (rs.next()) {
+                    DefaultTableModel modeloAux = (DefaultTableModel) tabelaClientes.getModel();
+                    String tipo = rs.getString("TipoCliente");
+                    if (tipo.equals("F")){
+                        tipo = "FÍSICO";
+                    } else if (tipo.equals("J")){
+                        tipo = "JURÍDICO";
+                    }
+                    modeloAux.addRow(new Object[]{index,rs.getString("Nome"),rs.getString("RazaoSocial"),rs.getString("NomeFantasia"),tipo,rs.getString("DocCliente")});
+                    index++;
+                }
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return index;
     }
     
     private void clienteVisualizacao(){
@@ -710,7 +828,13 @@ public class ClienteUI extends javax.swing.JFrame {
                 int i = 1;
                 while (rs.next()) {
                     DefaultTableModel modeloAux = (DefaultTableModel) tabelaClientes.getModel();
-                    modeloAux.addRow(new Object[]{i,rs.getString("Nome"),rs.getString("RazaoSocial"),rs.getString("NomeFantasia"),rs.getString("TipoCliente"),rs.getString("DocCliente")});
+                    String tipo = rs.getString("TipoCliente");
+                    if (tipo.equals("F")){
+                        tipo = "FÍSICO";
+                    } else if (tipo.equals("J")){
+                        tipo = "JURÍDICO";
+                    }
+                    modeloAux.addRow(new Object[]{i,rs.getString("Nome"),rs.getString("RazaoSocial"),rs.getString("NomeFantasia"),tipo,rs.getString("DocCliente")});
                     i++;
                 }
                 if (tabelaClientes.getRowCount() == 0) {

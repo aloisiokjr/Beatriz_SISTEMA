@@ -1,0 +1,19 @@
++-------------- RESULTADO DA BUSCA: CLIENTES --------------+
+
+LISTAGEM:
+
+#  1 ##########################
+Nome: Aloisio
+Razão Social: Aloisio Junior
+Nome Fantasia: Aloisio Jr
+Tipo de Cliente: FÍSICO
+CPF/CNPJ: 034.406.425-50
+
+#  2 ##########################
+Nome: Teste
+Razão Social: Teste Formal
+Nome Fantasia: Teste de Brincadeira
+Tipo de Cliente: JURÍDICO
+CPF/CNPJ: 11.222.555/4477-88
+
++-------------------------------------------------------------+

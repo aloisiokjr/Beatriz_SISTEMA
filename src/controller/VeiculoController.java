@@ -47,7 +47,6 @@ public class VeiculoController {
     public void abreCriacaoVeiculo(){
         veiculoUI.setCriarVeiculo(new CriarVeiculo(this));
         setCriarVeiculo(veiculoUI.getCriarVeiculo());
-        getCriarVeiculo().setagemInicial();
         veiculoUI.setEnabled(false);
 
     }
