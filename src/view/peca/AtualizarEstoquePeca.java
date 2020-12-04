@@ -159,7 +159,7 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabel10.setText("INFORMAÇÕES GERAIS");
 
-        jPanel6.setBackground(new java.awt.Color(241, 241, 241));
+        jPanel6.setBackground(new java.awt.Color(250, 250, 250));
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         comboBoxProdutos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -321,7 +321,7 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
             }
         });
 
-        jPanel7.setBackground(new java.awt.Color(241, 241, 241));
+        jPanel7.setBackground(new java.awt.Color(250, 250, 250));
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -403,7 +403,7 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
             }
         });
 
-        jPanel8.setBackground(new java.awt.Color(241, 241, 241));
+        jPanel8.setBackground(new java.awt.Color(250, 250, 250));
         jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel8.setEnabled(false);
 
@@ -670,7 +670,7 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
             }
         });
 
-        jPanel9.setBackground(new java.awt.Color(241, 241, 241));
+        jPanel9.setBackground(new java.awt.Color(250, 250, 250));
         jPanel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         comboBoxProdutos1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Item 1", "Item 2", "Item 3", "Item 4" }));
