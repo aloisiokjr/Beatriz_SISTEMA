@@ -12,6 +12,7 @@ package model;
 public class Arquivo {
     private String descricao;
     private String path;
+    private String data;
     
     public Arquivo(String descricao, String path){
         this.descricao = descricao;
@@ -44,5 +45,19 @@ public class Arquivo {
      */
     public void setPath(String path) {
         this.path = path;
+    }
+
+    /**
+     * @return the data
+     */
+    public String getData() {
+        return data;
+    }
+
+    /**
+     * @param data the data to set
+     */
+    public void setData(String data) {
+        this.data = data;
     }
 }

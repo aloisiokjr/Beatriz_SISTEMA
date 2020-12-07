@@ -8,6 +8,7 @@ package view;
 import controller.ClienteController;
 import controller.EmprestimoController;
 import controller.FornecedorController;
+import controller.OrdemServicoController;
 import controller.PecasController;
 import controller.UsuarioController;
 import controller.VeiculoController;
@@ -15,6 +16,7 @@ import javax.swing.JFrame;
 import model.Cliente;
 import model.Emprestimo;
 import model.Fornecedor;
+import model.OrdemServico;
 import model.Peca;
 import model.Usuario;
 import model.Veiculo;
@@ -22,6 +24,7 @@ import view.cliente.ClienteUI;
 import view.emprestimo.EmprestimoUI;
 import view.fornecedor.FornecedorUI;
 import view.historico.AtualizacoesEstoque;
+import view.ordemServico.OrdemServicoUI;
 import view.peca.PecaUI;
 import view.usuario.UsuarioUI;
 import view.veiculo.VeiculoUI;
@@ -41,6 +44,7 @@ public class Sistema_UI extends javax.swing.JFrame {
     private VeiculoController veiculoController = null;
     private FornecedorController fornecedorController = null;
     private ClienteController clienteController = null;
+    private OrdemServicoController osController = null;
     
     private Usuario usuarioAux = null;
     private Peca pecaAux = null;
@@ -48,6 +52,7 @@ public class Sistema_UI extends javax.swing.JFrame {
     private Veiculo veiculoAux = null;
     private Fornecedor fornecedorAux = null;
     private Cliente clienteAux = null;
+    private OrdemServico osAux = null;
     
     private UsuarioUI usuarioUI = null;
     private PecaUI pecaUI = null;
@@ -55,6 +60,7 @@ public class Sistema_UI extends javax.swing.JFrame {
     private VeiculoUI veiculoUI = null;
     private FornecedorUI fornecedorUI = null;
     private ClienteUI clienteUI = null;
+    private OrdemServicoUI osUI = null;
     
     private AtualizacoesEstoque attEstoque = null;
     
@@ -700,5 +706,47 @@ public class Sistema_UI extends javax.swing.JFrame {
      */
     public void setClienteUI(ClienteUI clienteUI) {
         this.clienteUI = clienteUI;
+    }
+
+    /**
+     * @return the osUI
+     */
+    public OrdemServicoUI getOsUI() {
+        return osUI;
+    }
+
+    /**
+     * @param osUI the osUI to set
+     */
+    public void setOsUI(OrdemServicoUI osUI) {
+        this.osUI = osUI;
+    }
+
+    /**
+     * @return the osAux
+     */
+    public OrdemServico getOsAux() {
+        return osAux;
+    }
+
+    /**
+     * @param osAux the osAux to set
+     */
+    public void setOsAux(OrdemServico osAux) {
+        this.osAux = osAux;
+    }
+
+    /**
+     * @return the osController
+     */
+    public OrdemServicoController getOsController() {
+        return osController;
+    }
+
+    /**
+     * @param osController the osController to set
+     */
+    public void setOsController(OrdemServicoController osController) {
+        this.osController = osController;
     }
 }

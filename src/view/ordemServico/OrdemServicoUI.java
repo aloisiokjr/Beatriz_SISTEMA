@@ -5,22 +5,39 @@
  */
 package view.ordemServico;
 
+import controller.OrdemServicoController;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import model.OrdemServico;
 
 /**
  *
  * @author KLEYN
  */
 public class OrdemServicoUI extends javax.swing.JFrame {
+    
+    private OrdemServicoController osController = null;
+    
+    private OrdemServico osAux = null;
+    private lancamentoOrdemServico lancamentoOS = null;
+    private OrdemServicoOP osOP = null; 
 
     /**
      * Creates new form OrdemServicoUI
+     * @param osController
      */
-    public OrdemServicoUI() {
+    public OrdemServicoUI(OrdemServicoController osController) {
+        this.osController = osController;
         initComponents();
         this.setVisible(true);
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
@@ -40,15 +57,13 @@ public class OrdemServicoUI extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaClientes = new javax.swing.JTable();
+        tabelaOS = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        btnEditar = new javax.swing.JButton();
-        btnEditar.setEnabled(false);
         btnExcluir = new javax.swing.JButton();
         btnExcluir.setEnabled(false);
         btnCriar = new javax.swing.JButton();
@@ -73,7 +88,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel1.setText("Lista de Ordens de Serviço");
 
-        tabelaClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaOS.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -96,22 +111,22 @@ public class OrdemServicoUI extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tabelaClientes.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tabelaClientes.getTableHeader().setReorderingAllowed(false);
-        tabelaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabelaOS.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tabelaOS.getTableHeader().setReorderingAllowed(false);
+        tabelaOS.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelaClientesMouseClicked(evt);
+                tabelaOSMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tabelaClientes);
-        if (tabelaClientes.getColumnModel().getColumnCount() > 0) {
-            tabelaClientes.getColumnModel().getColumn(0).setPreferredWidth(50);
-            tabelaClientes.getColumnModel().getColumn(1).setPreferredWidth(100);
-            tabelaClientes.getColumnModel().getColumn(2).setPreferredWidth(200);
-            tabelaClientes.getColumnModel().getColumn(3).setPreferredWidth(120);
-            tabelaClientes.getColumnModel().getColumn(4).setPreferredWidth(200);
-            tabelaClientes.getColumnModel().getColumn(5).setPreferredWidth(120);
-            tabelaClientes.getColumnModel().getColumn(6).setPreferredWidth(120);
+        jScrollPane1.setViewportView(tabelaOS);
+        if (tabelaOS.getColumnModel().getColumnCount() > 0) {
+            tabelaOS.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tabelaOS.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tabelaOS.getColumnModel().getColumn(2).setPreferredWidth(200);
+            tabelaOS.getColumnModel().getColumn(3).setPreferredWidth(120);
+            tabelaOS.getColumnModel().getColumn(4).setPreferredWidth(200);
+            tabelaOS.getColumnModel().getColumn(5).setPreferredWidth(120);
+            tabelaOS.getColumnModel().getColumn(6).setPreferredWidth(120);
         }
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logoR.png"))); // NOI18N
@@ -163,19 +178,6 @@ public class OrdemServicoUI extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("CONTROLES");
 
-        btnEditar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btnEditar.setText("EDITAR");
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
-            }
-        });
-        btnEditar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnEditarKeyPressed(evt);
-            }
-        });
-
         btnExcluir.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         btnExcluir.setText("EXCLUIR");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -221,18 +223,17 @@ public class OrdemServicoUI extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator2)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAcompanhamento)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnCriar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(110, 110, 110))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(130, 130, 130)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAcompanhamento)
+                            .addComponent(btnCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,10 +247,8 @@ public class OrdemServicoUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAcompanhamento)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnEditar)
-                .addGap(10, 10, 10)
                 .addComponent(btnExcluir)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(250, 250, 250));
@@ -318,26 +317,25 @@ public class OrdemServicoUI extends javax.swing.JFrame {
                                     .addComponent(radio_NomeCliente)
                                     .addComponent(radio_NumOS))
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                        .addGap(0, 2, Short.MAX_VALUE)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(16, 16, 16)
                                         .addComponent(radio_PlacaVeiculo)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(radio_CPF))
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGap(18, 18, 18)
                                         .addComponent(radio_NomeMotorista)
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addComponent(campoBusca)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(140, 140, 140)
-                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 290, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(160, 160, 160))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -357,9 +355,9 @@ public class OrdemServicoUI extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(radio_NomeCliente)
                     .addComponent(radio_NomeMotorista))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(btnBuscar)
-                .addGap(20, 20, 20))
+                .addGap(18, 18, 18))
         );
 
         btnFechar.setBackground(new java.awt.Color(145, 0, 0));
@@ -369,6 +367,11 @@ public class OrdemServicoUI extends javax.swing.JFrame {
         btnFechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFecharActionPerformed(evt);
+            }
+        });
+        btnFechar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnFecharKeyPressed(evt);
             }
         });
 
@@ -411,11 +414,12 @@ public class OrdemServicoUI extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(20, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -424,9 +428,9 @@ public class OrdemServicoUI extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -434,7 +438,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -454,67 +458,56 @@ public class OrdemServicoUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tabelaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClientesMouseClicked
-        if(tabelaClientes.getSelectedRow() > -1){
-            btnEditar.setEnabled(true);
+    private void tabelaOSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaOSMouseClicked
+        if(tabelaOS.getSelectedRow() > -1){
             btnAcompanhamento.setEnabled(true);
             btnExcluir.setEnabled(true);
         }
-    }//GEN-LAST:event_tabelaClientesMouseClicked
-
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        clienteAlterar();
-    }//GEN-LAST:event_btnEditarActionPerformed
-
-    private void btnEditarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnEditarKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            clienteAlterar();
-        }
-    }//GEN-LAST:event_btnEditarKeyPressed
+    }//GEN-LAST:event_tabelaOSMouseClicked
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        clienteExcluir();
+        oSExcluir();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnExcluirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnExcluirKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            clienteExcluir();
+            oSExcluir();
         }
     }//GEN-LAST:event_btnExcluirKeyPressed
 
     private void btnCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarActionPerformed
-        getClienteController().abreCriacaoCliente();
+        getOsController().abreLancamentoOS();
     }//GEN-LAST:event_btnCriarActionPerformed
 
     private void btnCriarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnCriarKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            getClienteController().abreCriacaoCliente();
+            getOsController().abreLancamentoOS();
         }
     }//GEN-LAST:event_btnCriarKeyPressed
 
     private void btnAcompanhamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcompanhamentoActionPerformed
-        clienteVisualizacao();
+        oSAcompanhamento();
     }//GEN-LAST:event_btnAcompanhamentoActionPerformed
 
     private void btnAcompanhamentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnAcompanhamentoKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            clienteVisualizacao();
+            oSAcompanhamento();
         }
     }//GEN-LAST:event_btnAcompanhamentoKeyPressed
 
     private void campoBuscaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoBuscaKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            clienteBuscar();
+            oSBuscar();
         }
     }//GEN-LAST:event_campoBuscaKeyPressed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        clienteBuscar();
+        oSBuscar();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnBuscarKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            clienteBuscar();
+            oSBuscar();
         }
     }//GEN-LAST:event_btnBuscarKeyPressed
 
@@ -527,7 +520,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
     }//GEN-LAST:event_radio_NomeMotoristaActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
-        getClienteController().fechaClienteUI();
+        getOsController().fechaOSUI();
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
@@ -538,9 +531,71 @@ public class OrdemServicoUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnRelatorioActionPerformed
 
-    private void setagemInicial(){
+    private void btnFecharKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnFecharKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            getOsController().fechaOSUI();
+        }
+    }//GEN-LAST:event_btnFecharKeyPressed
+
+    public void setagemInicial(){
+        btnAcompanhamento.setEnabled(false);
+        btnExcluir.setEnabled(false);
+    }
+    
+    private void oSAcompanhamento(){
     
     }
+    
+    public void oSBuscaTodos(){
+    
+    }
+    
+    private void oSBuscar(){
+    
+    }
+    
+    private void oSExcluir(){
+    
+    }
+    
+    private void geraTxt()throws IOException{
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+	Date date = new Date();
+	String dataAux = dateFormat.format(date);
+        dataAux = dataAux.replaceAll(" ", "--");
+        dataAux = dataAux.replaceAll("/", "-");
+        dataAux = dataAux.replaceAll(":", "");
+        
+        File f = new File(".\\saida");
+        if(f.mkdir()){
+        }
+        f = new File(".\\saida\\ordemServico");
+        if(f.mkdir()){
+        }
+        
+        try (FileWriter arq = new FileWriter(".\\saida\\ordemServico/BuscaOS--"+dataAux+".txt")) {
+            PrintWriter gravarArq = new PrintWriter(arq);
+
+            gravarArq.printf("+-------------- RESULTADO DA BUSCA: ORDEM DE SERVIÇO --------------+%n%n");
+            gravarArq.printf("LISTAGEM:%n%n");
+            int i;
+            for (i=0; i< tabelaOS.getRowCount(); i++) {
+                gravarArq.printf("# %2d ##########################%n", i+1);
+                gravarArq.printf("Número da OS: " + (String)tabelaOS.getValueAt(i, 1)+"%n");
+                gravarArq.printf("Nome do Cliente: " + (String)tabelaOS.getValueAt(i, 2)+"%n");
+                gravarArq.printf("Placa do Veículo: " + (String)tabelaOS.getValueAt(i, 3)+"%n");
+                gravarArq.printf("Nome do Motorista: " + (String)tabelaOS.getValueAt(i, 4)+"%n");
+                gravarArq.printf("CPF do Motorista: " + (String)tabelaOS.getValueAt(i, 5)+"%n");
+                gravarArq.printf("Data de Entrada: " + (String)tabelaOS.getValueAt(i, 6)+"%n");
+                gravarArq.printf("%n");
+            }
+            gravarArq.printf("+-------------------------------------------------------------+%n");
+            arq.close();
+
+            JOptionPane.showMessageDialog(null,"Dados salvos em 'saida/ordemServico/BuscaOS--"+dataAux+".txt'");
+        }
+    }    
+    
     /**
      * @param args the command line arguments
      */
@@ -562,16 +617,13 @@ public class OrdemServicoUI extends javax.swing.JFrame {
         }
         //</editor-fold>
         
-        //</editor-fold>
 
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcompanhamento;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCriar;
-    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnRelatorio;
@@ -594,6 +646,62 @@ public class OrdemServicoUI extends javax.swing.JFrame {
     private javax.swing.JRadioButton radio_NomeMotorista;
     private javax.swing.JRadioButton radio_NumOS;
     private javax.swing.JRadioButton radio_PlacaVeiculo;
-    private javax.swing.JTable tabelaClientes;
+    private javax.swing.JTable tabelaOS;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the osController
+     */
+    public OrdemServicoController getOsController() {
+        return osController;
+    }
+
+    /**
+     * @param osController the osController to set
+     */
+    public void setOsController(OrdemServicoController osController) {
+        this.osController = osController;
+    }
+
+    /**
+     * @return the osAux
+     */
+    public OrdemServico getOsAux() {
+        return osAux;
+    }
+
+    /**
+     * @param osAux the osAux to set
+     */
+    public void setOsAux(OrdemServico osAux) {
+        this.osAux = osAux;
+    }
+
+    /**
+     * @return the lancamentoOS
+     */
+    public lancamentoOrdemServico getLancamentoOS() {
+        return lancamentoOS;
+    }
+
+    /**
+     * @param lancamentoOS the lancamentoOS to set
+     */
+    public void setLancamentoOS(lancamentoOrdemServico lancamentoOS) {
+        this.lancamentoOS = lancamentoOS;
+    }
+
+    /**
+     * @return the osOP
+     */
+    public OrdemServicoOP getOsOP() {
+        return osOP;
+    }
+
+    /**
+     * @param osOP the osOP to set
+     */
+    public void setOsOP(OrdemServicoOP osOP) {
+        this.osOP = osOP;
+    }
 }

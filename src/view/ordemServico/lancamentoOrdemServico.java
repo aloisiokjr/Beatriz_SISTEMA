@@ -28,6 +28,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Arquivo;
+import model.OrdemServico;
 import model.Requisito;
 import util.SQL_URL;
 
@@ -36,9 +37,11 @@ import util.SQL_URL;
  * @author KLEYN
  */
 public class lancamentoOrdemServico extends javax.swing.JFrame {
-    private OrdemServicoController osController = null;
+    
     private ArrayList<Requisito> listaRequisitos = null;
     private ArrayList<Arquivo> listaArquivos = null;
+    
+    private OrdemServicoController osController = null;
 
     class MyCustomFilter extends javax.swing.filechooser.FileFilter {
         @Override
@@ -1120,4 +1123,6 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
     public void setListaRequisitos(ArrayList<Requisito> listaRequisitos) {
         this.listaRequisitos = listaRequisitos;
     }
+
+    
 }
