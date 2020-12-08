@@ -6,8 +6,14 @@
 package view.ordemServico;
 
 import controller.OrdemServicoController;
+import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JFileChooser;
@@ -18,6 +24,7 @@ import model.Arquivo;
 import model.OrdemServico;
 import model.Requisito;
 import model.SituacaoOS;
+import util.SQL_URL;
 
 /**
  *
@@ -44,6 +51,9 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private OrdemServico osAux = null;
 
     private int indexSituacao = 1;
+    
+    private SituacaoOS situacaoOSAux = null;
+    
     /**
      * Creates new form OrdemServicoOP
      * @param osController
@@ -104,11 +114,13 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         jLabel134 = new javax.swing.JLabel();
         jLabel125 = new javax.swing.JLabel();
         campoPlaca = new javax.swing.JFormattedTextField();
-        campoCliente1 = new javax.swing.JTextField();
+        campoNomeMotorista = new javax.swing.JTextField();
         jLabel126 = new javax.swing.JLabel();
         jLabel127 = new javax.swing.JLabel();
         campoCPF = new javax.swing.JFormattedTextField();
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        campoData = new javax.swing.JFormattedTextField();
+        jLabel153 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         btnFecharTela1 = new javax.swing.JButton();
         btnSalvar1 = new javax.swing.JButton();
@@ -180,6 +192,10 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaArquivos = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
+        adicionarArquivoOS = new javax.swing.JButton();
+        removerArquivoOS = new javax.swing.JButton();
+        jLabel152 = new javax.swing.JLabel();
+        campoStatus = new javax.swing.JTextField();
 
         jPanel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -527,10 +543,10 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        campoCliente1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        campoCliente1.addFocusListener(new java.awt.event.FocusAdapter() {
+        campoNomeMotorista.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        campoNomeMotorista.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                campoCliente1FocusLost(evt);
+                campoNomeMotoristaFocusLost(evt);
             }
         });
 
@@ -553,6 +569,15 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         }
         jFormattedTextField1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
+        try {
+            campoData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        jLabel153.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel153.setText("Data *");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -574,18 +599,25 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                             .addComponent(campoPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(campoCliente1)
+                            .addComponent(campoNomeMotorista)
                             .addComponent(jLabel126, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(campoCPF)
                             .addComponent(jLabel127, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 173, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(campoData, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                                .addGap(27, 27, 27))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel153, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                                .addContainerGap())))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel134, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10))
-                        .addGap(72, 72, 72))))
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel134, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -603,11 +635,13 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel126)
-                                .addComponent(jLabel127))
+                                .addComponent(jLabel127)
+                                .addComponent(jLabel153))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(campoCliente1)
-                                .addComponent(campoCPF))))
+                                .addComponent(campoNomeMotorista)
+                                .addComponent(campoCPF)
+                                .addComponent(campoData))))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(campoPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel2Layout.createSequentialGroup()
@@ -652,6 +686,8 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         });
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTabbedPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTabbedPane1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         painel1.setBackground(new java.awt.Color(250, 250, 250));
         painel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -774,7 +810,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 .addComponent(jLabel129)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("SITUAÇÃO 1", painel1);
@@ -890,7 +926,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 .addComponent(jLabel136)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("SITUAÇÃO 2", painel2);
@@ -1004,7 +1040,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 .addComponent(jLabel144)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("SITUAÇÃO 3", painel3);
@@ -1081,9 +1117,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             .addGroup(painel4Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(painel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painel4Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel140, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(painel4Layout.createSequentialGroup()
                         .addGroup(painel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -1098,7 +1132,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                             .addComponent(campoData4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel138, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnConcluir4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         painel4Layout.setVerticalGroup(
             painel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1120,7 +1154,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 .addComponent(jLabel140)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("SITUAÇÃO 4", painel4);
@@ -1232,7 +1266,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 .addComponent(jLabel151)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("SITUAÇÃO 5", painel5);
@@ -1314,7 +1348,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnConcluirS, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1385,12 +1419,49 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         }
 
         jPanel6.add(jScrollPane2);
-        jScrollPane2.setBounds(30, 50, 280, 360);
+        jScrollPane2.setBounds(30, 50, 270, 200);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("ARQUIVOS DA ORDEM DE SERVIÇO");
         jPanel6.add(jLabel3);
         jLabel3.setBounds(40, 20, 250, 20);
+
+        adicionarArquivoOS.setText("ADICIONAR");
+        adicionarArquivoOS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adicionarArquivoOSActionPerformed(evt);
+            }
+        });
+        adicionarArquivoOS.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                adicionarArquivoOSKeyPressed(evt);
+            }
+        });
+        jPanel6.add(adicionarArquivoOS);
+        adicionarArquivoOS.setBounds(110, 260, 89, 21);
+
+        removerArquivoOS.setText("REMOVER");
+        removerArquivoOS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerArquivoOSActionPerformed(evt);
+            }
+        });
+        removerArquivoOS.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                removerArquivoOSKeyPressed(evt);
+            }
+        });
+        jPanel6.add(removerArquivoOS);
+        removerArquivoOS.setBounds(210, 260, 89, 21);
+
+        jLabel152.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel152.setText("STATUS DA OS");
+
+        campoStatus.setEditable(false);
+        campoStatus.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        campoStatus.setForeground(new java.awt.Color(0, 153, 0));
+        campoStatus.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        campoStatus.setText("ABERTA");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -1405,13 +1476,20 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGap(18, 18, 18)
                             .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
                             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel5Layout.createSequentialGroup()
-                                    .addComponent(btnFecharTela1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(btnSalvar1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel5Layout.createSequentialGroup()
+                                            .addComponent(btnFecharTela1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(btnSalvar1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel5Layout.createSequentialGroup()
+                                    .addGap(79, 79, 79)
+                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(campoStatus)
+                                        .addComponent(jLabel152, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(556, Short.MAX_VALUE))
         );
@@ -1425,8 +1503,12 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel152)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(campoStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnFecharTela1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnSalvar1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1440,7 +1522,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(171, Short.MAX_VALUE)
+                .addContainerGap(172, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1494,9 +1576,9 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSalvar1KeyPressed
 
-    private void campoCliente1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCliente1FocusLost
+    private void campoNomeMotoristaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNomeMotoristaFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_campoCliente1FocusLost
+    }//GEN-LAST:event_campoNomeMotoristaFocusLost
 
     private void btnCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarActionPerformed
         adicionaSituacaoOS();
@@ -1559,32 +1641,32 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     }//GEN-LAST:event_selecionarArquivoCKeyPressed
 
     private void adicionarArquivoCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarArquivoCActionPerformed
-        adicionaArquivo(indexSituacao);
+        adicionaArquivo();
     }//GEN-LAST:event_adicionarArquivoCActionPerformed
 
     private void adicionarArquivoCKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adicionarArquivoCKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            adicionaArquivo(indexSituacao);
+            adicionaArquivo();
         }
     }//GEN-LAST:event_adicionarArquivoCKeyPressed
 
     private void btnFecharTela2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharTela2ActionPerformed
-        excluirSituacaoOS();
+        fechaCriacaoSituacao();
     }//GEN-LAST:event_btnFecharTela2ActionPerformed
 
     private void btnFecharTela2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnFecharTela2KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            excluirSituacaoOS();
+            fechaCriacaoSituacao();
         }
     }//GEN-LAST:event_btnFecharTela2KeyPressed
 
     private void btnSalvar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvar2ActionPerformed
-        adicionaSituacaoOS();
+        salvaSituacaoOS();
     }//GEN-LAST:event_btnSalvar2ActionPerformed
 
     private void btnSalvar2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvar2KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            adicionaSituacaoOS();
+            salvaSituacaoOS();
         }
     }//GEN-LAST:event_btnSalvar2KeyPressed
 
@@ -1610,6 +1692,22 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private void btnRemoveArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveArquivoActionPerformed
         removeArquivo();
     }//GEN-LAST:event_btnRemoveArquivoActionPerformed
+
+    private void adicionarArquivoOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarArquivoOSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_adicionarArquivoOSActionPerformed
+
+    private void adicionarArquivoOSKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adicionarArquivoOSKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_adicionarArquivoOSKeyPressed
+
+    private void removerArquivoOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerArquivoOSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_removerArquivoOSActionPerformed
+
+    private void removerArquivoOSKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_removerArquivoOSKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_removerArquivoOSKeyPressed
 
     private void setagemInicial(){
         listaRequisitos = new ArrayList();
@@ -1640,7 +1738,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             campoData1.setText(data);
             campoStatus1.setText(status);
             
-            if (status.equals("CONCLUÍDO")){
+            if (status.equals("")){
                 btnConclur1.setEnabled(false);
             }
             
@@ -1657,7 +1755,6 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 carregaSituacao2(i);
             }
         }
-        
     }
     
     private void carregaSituacao2(int i){
@@ -1671,7 +1768,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             campoData2.setText(data);
             campoStatus2.setText(status);
             
-            if (status.equals("CONCLUÍDO")){
+            if (status.equals("")){
                 btnConclur2.setEnabled(false);
             }
             
@@ -1701,7 +1798,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             campoData3.setText(data);
             campoStatus3.setText(status);
             
-            if (status.equals("CONCLUÍDO")){
+            if (status.equals("")){
                 btnConcluir3.setEnabled(false);
             }
             
@@ -1731,7 +1828,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             campoData4.setText(data);
             campoStatus4.setText(status);
             
-            if (status.equals("CONCLUÍDO")){
+            if (status.equals("")){
                 btnConcluir4.setEnabled(false);
             }
             
@@ -1761,7 +1858,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             campoData5.setText(data);
             campoStatus5.setText(status);
             
-            if (status.equals("CONCLUÍDO")){
+            if (status.equals("")){
                 btnConcluir5.setEnabled(false);
             }
             
@@ -1793,7 +1890,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     
     }
     
-    private void adicionaArquivo(int i){
+    private void adicionaArquivo(){
         if (campoCaminho.getText().equals("") || campoPendencia.getText().equals("") || cmpoDataStatusArquivo.getText().equals("  /  /    ")){
             String erros = "Os seguintes campos não foram preenchidos:";           
             if (campoCaminho.getText().equals("")){
@@ -1810,9 +1907,9 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         } else {
             Arquivo arquivoAux = new Arquivo(campoPendencia.getText(),campoCaminho.getText());
             arquivoAux.setData(cmpoDataStatusArquivo.getText());
-            getOsAux().getListaSituacao().get(indexSituacao).getListaArquivos().add(arquivoAux);
-            int index = tabelaArquivos.getRowCount();
-            DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivos.getModel();
+            getSituacaoOSAux().getListaArquivos().add(arquivoAux);
+            int index = tabelaArquivosC.getRowCount();
+            DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivosC.getModel();
             modeloAux.addRow(new Object[]{index+1, campoPendencia.getText()});
             campoPendencia.setText("");
             campoCaminho.setText("");
@@ -1820,29 +1917,485 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     }
     
     private void removeArquivo(){
-    
+        if (tabelaArquivosC.getSelectedRow() > -1){
+            int index = tabelaArquivosC.getSelectedRow();
+            DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivosC.getModel();
+            modeloAux.removeRow(tabelaArquivosC.getSelectedRow());
+            getSituacaoOSAux().getListaArquivos().remove(index);
+        } else {
+            // DO NOTHING
+        }
     }
     
     private void adicionaSituacaoOS(){
+        setSituacaoOSAux(null);
+        setSituacaoOSAux(new SituacaoOS());
+        int index = getOsAux().getListaSituacao().size();
+        indexSituacao = index;
+        criarSituacao.setEnabled(true);
+        criarSituacao.toFront();
+        this.setEnabled(false);
+    }
     
+    private void zeraTelaAdicionarSituacao(){
+        campoDescricaoC.setText("");
+        campoDataC.setText("");
+        campoCaminho.setText("");
+        campoPendencia.setText("");
+        cmpoDataStatusArquivo.setText("");
+        DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivosC.getModel();
+        int qtdRows = tabelaArquivosC.getRowCount();
+        while (qtdRows > 0){
+            modeloAux.removeRow(qtdRows-1);
+        }
+        situacaoOSAux = null;
+    }
+    
+    private void salvaSituacaoOS(){
+        if(campoDescricaoC.getText().equals("") || campoDataC.getText().equals("  /  /    ")){
+            String erros = "Os seguintes campos não foram preenchidos:";           
+            if (campoDescricaoC.getText().equals("")){
+                erros = erros + " Descrição,";
+            }            
+            if(campoDataC.getText().equals("  /  /    ")){
+                erros = erros + " Data,";
+            }     
+            erros = erros.substring(0, erros.length()-2);            
+            JOptionPane.showMessageDialog(null, erros);
+        } else {
+            int index = getOsAux().getListaSituacao().size();
+            switch (index){
+                case 0:
+                    salvaSituacao1();
+                    break;
+                case 1:
+                    salvaSituacao2();
+                    break;
+                case 2:
+                    salvaSituacao3();
+                    break;
+                case 3:
+                    salvaSituacao4();
+                    break;
+                case 4:
+                    salvaSituacao5();
+                    break;  
+            }
+            getOsAux().getListaSituacao().add(situacaoOSAux);
+            situacaoOSAux = null;
+            JOptionPane.showMessageDialog(null, "Situação cadastrada com sucesso.");
+            zeraTelaAdicionarSituacao();
+            criarSituacao.dispose();
+            this.setEnabled(true);
+            this.toFront();
+        }
     }
     
     private void editaSituacaoOS(){
-    
+        
     }
     
     private void excluirSituacaoOS(){
-    
+        int index = jTabbedPane1.getSelectedIndex();
+        String message = "Deseja realmente excluir a Situação "+(index+1)+"?";
+        String title = "Excluir Situação "+(index+1);
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            getOsAux().getListaSituacao().remove(index);
+            switch (index){
+                case 0:
+                    limpaSituacao1();
+                    break;
+                case 1:
+                    limpaSituacao2();
+                    break;
+                case 2:
+                    limpaSituacao3();
+                    break;
+                case 3:
+                    limpaSituacao4();
+                    break;
+                case 4:
+                    limpaSituacao5();
+                    break;
+            }
+            getOsAux().getListaSituacao().remove(index);
+            JOptionPane.showMessageDialog(null, "Situação "+(index+1)+" removido com sucesso.");
+        }
+        if (reply == JOptionPane.NO_OPTION) {
+            
+        }
     }
     
     private void atualizaOS(){
+        deletaArquivos();
+        deletaArquivoSituacao();
+        deletaSituacao();
+        
+        salvaSituacoes();
+        salvaArquivosOS();
+        atualizaOSLets();
+    }
     
+    private void salvaSituacoes(){
+        Iterator<SituacaoOS> iteradorSituacoes = getOsAux().getListaSituacao().iterator();
+        SituacaoOS situacaoAux;
+        while (iteradorSituacoes.hasNext()){
+            situacaoAux = iteradorSituacoes.next();
+            Arquivo arquivoAux;
+            Iterator<Arquivo> iteradorArquivosS = situacaoAux.getListaArquivos().iterator();
+            while(iteradorArquivosS.hasNext()){
+                arquivoAux = iteradorArquivosS.next();
+                salvaArquivosSituacao(situacaoAux.getCodigo(), arquivoAux);
+            }
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String url = SQL_URL.getUrl();
+                try (Connection con = DriverManager.getConnection(url)) {
+                    String sql;
+                    sql = "INSERT INTO SituacaoOS (Codigo, NumeroOS, Descricao, Data, Status) VALUES (?,?,?,?,?)";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    pst.setString(1,  situacaoAux.getCodigo());
+                    pst.setString(2, situacaoAux.getNumeroOS());
+                    pst.setString(3,  situacaoAux.getDescricao());
+                    pst.setString(4,  situacaoAux.getData());
+                    pst.setString(5,  situacaoAux.getStatus());
+                    ResultSet rs = pst.executeQuery();
+                    if (rs.next()) {
+
+                    }
+                }
+            } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+                //JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }
+    
+    private void salvaArquivosSituacao(String codigoS, Arquivo arquivoAux){
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql;
+                sql = "INSERT INTO Arquivo_Situacao (CodigoS, Path, Descricao, Data) VALUES (?,?,?,?)";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1,  codigoS);
+                pst.setString(2, arquivoAux.getPath());
+                pst.setString(3,  arquivoAux.getDescricao());
+                pst.setString(4,  arquivoAux.getData());
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+
+                }
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            //JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    private void salvaArquivosOS(){
+        Iterator<Arquivo> listaArquivos = getOsAux().getListaArquivos().iterator();
+        Arquivo arquivoAux;
+        while (listaArquivos.hasNext()){
+            arquivoAux = listaArquivos.next();
+            String numeroOs = jFormattedTextField1.getText();
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String url = SQL_URL.getUrl();
+                try (Connection con = DriverManager.getConnection(url)) {
+                    String sql;
+                    sql = "INSERT INTO Arquivo_OS (CodigoOS, Path, Descricao) VALUES (?,?,?)";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    pst.setString(1,  numeroOs);
+                    pst.setString(2, arquivoAux.getPath());
+                    pst.setString(3,  arquivoAux.getDescricao());
+                    ResultSet rs = pst.executeQuery();
+                    if (rs.next()) {
+
+                    }
+                }
+            } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+                //JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }
+    
+    private void atualizaOSLets(){
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql;
+                sql = "UPDATE OrdemServico NumOs, DocCliente, VeiculoPlaca, NomeMotorista, CPFMotorista, Data, Encerrada WHERE NumOs = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1,  jFormattedTextField1.getText());
+                pst.setString(2, campoCliente.getText());
+                pst.setString(3,  campoPlaca.getText());
+                pst.setString(4,  campoNomeMotorista.getText());
+                pst.setString(5,  campoCPF.getText());
+                pst.setString(6,  campoData.getText());
+                pst.setString(7,  getOsAux().getStatus());
+                pst.setString(8,  getOsAux().getNumOS());
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+
+                }
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            //JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    private void deletaArquivos(){
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "DELETE FROM Arquivo_OS WHERE CodigoOS = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, getOsAux().getNumOS());
+                ResultSet rs = pst.executeQuery();
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            //JOptionPane.showMessageDialog(null, e);
+        } 
+    }
+    
+    private void deletaArquivoSituacao(){
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "DELETE FROM Arquivo_Situacao WHERE CodigoOS IN (SELECT Codigo FROM SituacaoOS WHERE NumeroOS = ?)";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, getOsAux().getNumOS());
+                ResultSet rs = pst.executeQuery();
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            //JOptionPane.showMessageDialog(null, e);
+        } 
+    }
+    
+    private void deletaSituacao(){
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "DELETE FROM SituacaoOS WHERE NumeroOS = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, getOsAux().getNumOS());
+                ResultSet rs = pst.executeQuery();
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            //JOptionPane.showMessageDialog(null, e);
+        } 
     }
     
     private void concluirOS(){
-    
+        String message = "Deseja realmente concluir a OS?";
+        String title = "Concluir OS";
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            getOsAux().setStatus("ENCERRADA");
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String url = SQL_URL.getUrl();
+                try (Connection con = DriverManager.getConnection(url)) {
+                    String sql;
+                    sql = "UPDATE OrdemServico SET NumOs = ?, DocCliente = ?, VeiculoPlaca = ?, NomeMotorista = ?, CPFMotorista = ?, Data = ?, Encerrada = ? WHERE NumOS = ?";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    pst.setString(1, jFormattedTextField1.getText());
+                    pst.setString(2, campoCliente.getText());
+                    pst.setString(3, campoPlaca.getText());
+                    pst.setString(4, campoNomeMotorista.getText());
+                    pst.setString(5, campoCPF.getText());
+                    pst.setString(6, campoData.getText());
+                    pst.setString(7, "S");
+                    pst.setString(8, getOsAux().getNumOS());
+                    ResultSet rs = pst.executeQuery();
+                    if (rs.next()) {
+
+                    }
+                }
+            } catch(SQLException e){
+                campoStatus.setForeground(new java.awt.Color(0, 0, 153));
+                campoStatus.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+                campoStatus.setText("CONCLUÍDA");
+                getOsAux().setStatus("E");
+                JOptionPane.showMessageDialog(null, "Ordem de Serviço concluída com sucesso.");
+            } catch (HeadlessException | ClassNotFoundException e) {
+                //JOptionPane.showMessageDialog(null, e);
+            }
+        }
+        if (reply == JOptionPane.NO_OPTION) {
+            
+        }
     }
     
+    private void fechaCriacaoSituacao(){
+        String message = "Deseja realmente cancelar o cadastro?";
+        String title = "Cancelar Cadastro";
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            zeraTelaAdicionarSituacao();
+            criarSituacao.dispose();
+            this.setEnabled(true);
+            this.toFront();
+        }
+        if (reply == JOptionPane.NO_OPTION) {
+            
+        }
+    }
+    
+    private void salvaSituacao1(){
+        painel1.setEnabled(true);
+        campoDescricao1.setText(getSituacaoOSAux().getDescricao());
+        campoData1.setText(getSituacaoOSAux().getData());
+        campoStatus1.setText("EM ANDAMENTO");
+        Iterator<Arquivo> iteradorArquivos = getSituacaoOSAux().getListaArquivos().iterator();
+        Arquivo arquivoAux;
+        DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivosS1.getModel();
+        while (iteradorArquivos.hasNext()){
+            arquivoAux = iteradorArquivos.next();
+            modeloAux.addRow(new Object[]{arquivoAux.getDescricao(), arquivoAux.getData()});
+        }
+        jTabbedPane1.setSelectedIndex(indexSituacao-1);
+    }
+    
+    private void salvaSituacao2(){
+        painel2.setEnabled(true);
+        campoDescricao2.setText(getSituacaoOSAux().getDescricao());
+        campoData2.setText(getSituacaoOSAux().getData());
+        campoStatus2.setText("EM ANDAMENTO");
+        Iterator<Arquivo> iteradorArquivos = getSituacaoOSAux().getListaArquivos().iterator();
+        Arquivo arquivoAux;
+        DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivosS2.getModel();
+        while (iteradorArquivos.hasNext()){
+            arquivoAux = iteradorArquivos.next();
+            modeloAux.addRow(new Object[]{arquivoAux.getDescricao(), arquivoAux.getData()});
+        }
+        jTabbedPane1.setSelectedIndex(indexSituacao-1);
+    }
+    
+    private void salvaSituacao3(){
+        painel3.setEnabled(true);
+        campoDescricao3.setText(getSituacaoOSAux().getDescricao());
+        campoData3.setText(getSituacaoOSAux().getData());
+        campoStatus3.setText("EM ANDAMENTO");
+        Iterator<Arquivo> iteradorArquivos = getSituacaoOSAux().getListaArquivos().iterator();
+        Arquivo arquivoAux;
+        DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivosS3.getModel();
+        while (iteradorArquivos.hasNext()){
+            arquivoAux = iteradorArquivos.next();
+            modeloAux.addRow(new Object[]{arquivoAux.getDescricao(), arquivoAux.getData()});
+        }
+        jTabbedPane1.setSelectedIndex(indexSituacao-1);
+    }
+    
+    private void salvaSituacao4(){
+        painel4.setEnabled(true);
+        campoDescricao4.setText(getSituacaoOSAux().getDescricao());
+        campoData4.setText(getSituacaoOSAux().getData());
+        campoStatus4.setText("EM ANDAMENTO");
+        Iterator<Arquivo> iteradorArquivos = getSituacaoOSAux().getListaArquivos().iterator();
+        Arquivo arquivoAux;
+        DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivosS4.getModel();
+        while (iteradorArquivos.hasNext()){
+            arquivoAux = iteradorArquivos.next();
+            modeloAux.addRow(new Object[]{arquivoAux.getDescricao(), arquivoAux.getData()});
+        }
+        jTabbedPane1.setSelectedIndex(indexSituacao-1);
+    }
+    
+    private void salvaSituacao5(){
+        painel5.setEnabled(true);
+        campoDescricao5.setText(getSituacaoOSAux().getDescricao());
+        campoData5.setText(getSituacaoOSAux().getData());
+        campoStatus5.setText("EM ANDAMENTO");
+        Iterator<Arquivo> iteradorArquivos = getSituacaoOSAux().getListaArquivos().iterator();
+        Arquivo arquivoAux;
+        DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivosS5.getModel();
+        while (iteradorArquivos.hasNext()){
+            arquivoAux = iteradorArquivos.next();
+            modeloAux.addRow(new Object[]{arquivoAux.getDescricao(), arquivoAux.getData()});
+        }
+        jTabbedPane1.setSelectedIndex(indexSituacao-1);
+    }
+    
+    private void limpaSituacao1(){
+        campoDescricao1.setText("");
+        campoData1.setText("");
+        campoStatus1.setText("");
+        int rowCount = tabelaArquivosS4.getRowCount();
+        if (rowCount > 0) {
+            while (rowCount > 0) {
+                ((DefaultTableModel) tabelaArquivosS4.getModel()).removeRow(rowCount - 1);
+                rowCount--;
+            }
+        }
+        jTabbedPane1.setSelectedIndex(indexSituacao-1);
+        painel1.setEnabled(false);
+    }
+    
+    private void limpaSituacao2(){
+        campoDescricao2.setText("");
+        campoData2.setText("");
+        campoStatus2.setText("");
+        int rowCount = tabelaArquivosS4.getRowCount();
+        if (rowCount > 0) {
+            while (rowCount > 0) {
+                ((DefaultTableModel) tabelaArquivosS4.getModel()).removeRow(rowCount - 1);
+                rowCount--;
+            }
+        }
+        jTabbedPane1.setSelectedIndex(indexSituacao-1);
+        painel2.setEnabled(false);
+    }
+    
+    private void limpaSituacao3(){
+        campoDescricao3.setText("");
+        campoData3.setText("");
+        campoStatus3.setText("");
+        int rowCount = tabelaArquivosS4.getRowCount();
+        if (rowCount > 0) {
+            while (rowCount > 0) {
+                ((DefaultTableModel) tabelaArquivosS4.getModel()).removeRow(rowCount - 1);
+                rowCount--;
+            }
+        }
+        jTabbedPane1.setSelectedIndex(indexSituacao-1);
+        painel3.setEnabled(false);
+    }
+    
+    private void limpaSituacao4(){
+        campoDescricao4.setText("");
+        campoData4.setText("");
+        campoStatus4.setText("");
+        int rowCount = tabelaArquivosS4.getRowCount();
+        if (rowCount > 0) {
+            while (rowCount > 0) {
+                ((DefaultTableModel) tabelaArquivosS4.getModel()).removeRow(rowCount - 1);
+                rowCount--;
+            }
+        }
+        jTabbedPane1.setSelectedIndex(indexSituacao-1);
+        painel4.setEnabled(false);
+    }
+    
+    private void limpaSituacao5(){
+        campoDescricao5.setText("");
+        campoData5.setText("");
+        campoStatus5.setText("");
+        int rowCount = tabelaArquivosS5.getRowCount();
+        if (rowCount > 0) {
+            while (rowCount > 0) {
+                ((DefaultTableModel) tabelaArquivosS5.getModel()).removeRow(rowCount - 1);
+                rowCount--;
+            }
+        }
+        jTabbedPane1.setSelectedIndex(indexSituacao-1);
+        painel5.setEnabled(false);
+    }
     /**
      * @param args the command line arguments
      */
@@ -1871,6 +2424,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionarArquivoC;
+    private javax.swing.JButton adicionarArquivoOS;
     private javax.swing.JButton btnConcluir3;
     private javax.swing.JButton btnConcluir4;
     private javax.swing.JButton btnConcluir5;
@@ -1889,7 +2443,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField campoCPF;
     private javax.swing.JTextField campoCaminho;
     private javax.swing.JTextField campoCliente;
-    private javax.swing.JTextField campoCliente1;
+    private javax.swing.JFormattedTextField campoData;
     private javax.swing.JFormattedTextField campoData1;
     private javax.swing.JFormattedTextField campoData2;
     private javax.swing.JFormattedTextField campoData3;
@@ -1902,8 +2456,10 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private javax.swing.JTextField campoDescricao4;
     private javax.swing.JTextField campoDescricao5;
     private javax.swing.JTextField campoDescricaoC;
+    private javax.swing.JTextField campoNomeMotorista;
     private javax.swing.JTextField campoPendencia;
     private javax.swing.JFormattedTextField campoPlaca;
+    private javax.swing.JTextField campoStatus;
     private javax.swing.JTextField campoStatus1;
     private javax.swing.JTextField campoStatus2;
     private javax.swing.JTextField campoStatus3;
@@ -1945,6 +2501,8 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel149;
     private javax.swing.JLabel jLabel150;
     private javax.swing.JLabel jLabel151;
+    private javax.swing.JLabel jLabel152;
+    private javax.swing.JLabel jLabel153;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel25;
@@ -1974,6 +2532,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private javax.swing.JPanel painel3;
     private javax.swing.JPanel painel4;
     private javax.swing.JPanel painel5;
+    private javax.swing.JButton removerArquivoOS;
     private javax.swing.JButton selecionarArquivoC;
     private javax.swing.JTable tabelaArquivos;
     private javax.swing.JTable tabelaArquivosC;
@@ -2038,5 +2597,19 @@ public class OrdemServicoOP extends javax.swing.JFrame {
      */
     public void setIndexSituacao(int indexSituacao) {
         this.indexSituacao = indexSituacao;
+    }
+
+    /**
+     * @return the situacaoOSAux
+     */
+    public SituacaoOS getSituacaoOSAux() {
+        return situacaoOSAux;
+    }
+
+    /**
+     * @param situacaoOSAux the situacaoOSAux to set
+     */
+    public void setSituacaoOSAux(SituacaoOS situacaoOSAux) {
+        this.situacaoOSAux = situacaoOSAux;
     }
 }

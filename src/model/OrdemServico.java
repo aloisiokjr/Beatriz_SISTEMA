@@ -18,6 +18,7 @@ public class OrdemServico {
     private String NomeMotorista = null;
     private String CPFMotorista = null;
     private String Data = null;
+    private String Status = null;
     private ArrayList<Arquivo> listaArquivos = null;
     private ArrayList<SituacaoOS> listaSituacao = null;
     
@@ -135,5 +136,19 @@ public class OrdemServico {
      */
     public void setListaArquivos(ArrayList<Arquivo> listaArquivos) {
         this.listaArquivos = listaArquivos;
+    }
+
+    /**
+     * @return the Status
+     */
+    public String getStatus() {
+        return Status;
+    }
+
+    /**
+     * @param Status the Status to set
+     */
+    public void setStatus(String Status) {
+        this.Status = Status;
     }
 }

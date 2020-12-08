@@ -21,7 +21,16 @@ public class SituacaoOS {
     private ArrayList<Arquivo> listaArquivos = null;
     
     public SituacaoOS(){
-        
+    
+    }
+    
+    public SituacaoOS(String Data,String NumeroOS,String Codigo,String Descricao,String Status,ArrayList<Arquivo> listaArquivos){
+        this.Data = Data;
+        this.NumeroOS = NumeroOS;
+        this.Codigo = Codigo;
+        this.Descricao = Descricao;
+        this.Status = Status;
+        this.listaArquivos = listaArquivos;
     }
 
     /**

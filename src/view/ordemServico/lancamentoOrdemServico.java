@@ -688,7 +688,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -698,7 +698,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(15, 15, 15)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnFecharTela, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -907,8 +907,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
         } else {
             salvaArquivo();
             salvaOS();
-            salvaOSStatus();
-            //Controller de OS
+            osController.fechaLancamentoOS();
         }
     }
     private void salvaArquivo(){
@@ -952,7 +951,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql;
-                sql = "INSERT INTO OrdemServico (NumOs, DocCliente, VeiculoPlaca, NomeMotorista, CPFMotorista, Data) VALUES (?,?,?,?,?,?)";
+                sql = "INSERT INTO OrdemServico (NumOs, DocCliente, VeiculoPlaca, NomeMotorista, CPFMotorista, Data, Encerrada) VALUES (?,?,?,?,?,?,?)";
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1, numOs);
                 pst.setString(2, docCliente);
@@ -960,43 +959,17 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
                 pst.setString(4, nomeMotorista);
                 pst.setString(5, cpfMotorista);
                 pst.setString(6, data);
+                pst.setString(7, "N");
                 ResultSet rs = pst.executeQuery();
                 if (rs.next()) {
 
                 }
             }
-        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Ordem de Serviço de nº"+numOs+" salva com sucesso.");
+        }catch (HeadlessException | ClassNotFoundException e) {
             //JOptionPane.showMessageDialog(null, e);
         }
-    }
-    
-    private void salvaOSStatus(){
-        String numOs = campoNumOS.getText();
-        String data = campoDataOS.getText();
-        String descricao = "Lançamento da OS";
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = SQL_URL.getUrl();
-            try (Connection con = DriverManager.getConnection(url)) {
-                String sql;
-                sql = "INSERT INTO SituacaOS (NumOs, Data, Descricao) VALUES (?,?,?)";
-                PreparedStatement pst = con.prepareStatement(sql);
-                pst.setString(1, numOs);
-                pst.setString(2, data);
-                pst.setString(3, descricao);
-                
-                ResultSet rs = pst.executeQuery();
-                if (rs.next()) {
-
-                }
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Ordem de Serviço de nº"+numOs+" salva com sucesso.");
-            // CONTROLLER DE CLIENTE
-        }catch (HeadlessException | ClassNotFoundException e) {
-        //JOptionPane.showMessageDialog(null, e);
-        }
-        
     }
     
     private void fechaCadastroOS(){
