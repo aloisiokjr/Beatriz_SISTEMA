@@ -5,8 +5,10 @@
         <group>
             <file>file:/C:/Users/KLEYN/OneDrive/Documentos/GitHub/Beatriz_SISTEMA/src/view/ordemServico/OrdemServicoOP.java</file>
             <file>file:/C:/Users/KLEYN/OneDrive/Documentos/GitHub/Beatriz_SISTEMA/src/view/peca/PecaUI.java</file>
-            <file>file:/C:/Users/KLEYN/OneDrive/Documentos/GitHub/Beatriz_SISTEMA/src/model/OrdemServico.java</file>
+            <file>file:/C:/Users/KLEYN/OneDrive/Documentos/GitHub/Beatriz_SISTEMA/src/view/ordemServico/OrdemServicoUI.java</file>
+            <file>file:/C:/Users/KLEYN/OneDrive/Documentos/GitHub/Beatriz_SISTEMA/src/view/cliente/CriarCliente.java</file>
             <file>file:/C:/Users/KLEYN/OneDrive/Documentos/GitHub/Beatriz_SISTEMA/src/model/SituacaoOS.java</file>
+            <file>file:/C:/Users/KLEYN/OneDrive/Documentos/GitHub/Beatriz_SISTEMA/src/model/Arquivo.java</file>
             <file>file:/C:/Users/KLEYN/OneDrive/Documentos/GitHub/Beatriz_SISTEMA/src/view/ordemServico/lancamentoOrdemServico.java</file>
         </group>
     </open-files>

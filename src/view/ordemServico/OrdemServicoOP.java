@@ -104,6 +104,30 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         btnSalvar2 = new javax.swing.JButton();
         jDialog1 = new javax.swing.JDialog();
         jFileChooser1 = new javax.swing.JFileChooser();
+        editarSituacao = new javax.swing.JDialog();
+        jPanel13 = new javax.swing.JPanel();
+        jPanel14 = new javax.swing.JPanel();
+        campoCaminho1 = new javax.swing.JTextField();
+        jLabel23 = new javax.swing.JLabel();
+        selecionarArquivoC1 = new javax.swing.JButton();
+        adicionarArquivoC1 = new javax.swing.JButton();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        campoPendencia1 = new javax.swing.JTextField();
+        jLabel30 = new javax.swing.JLabel();
+        cmpoDataStatusArquivo1 = new javax.swing.JFormattedTextField();
+        jPanel15 = new javax.swing.JPanel();
+        campoDescricaoC1 = new javax.swing.JTextField();
+        jLabel154 = new javax.swing.JLabel();
+        jLabel155 = new javax.swing.JLabel();
+        campoDataC1 = new javax.swing.JFormattedTextField();
+        jLabel156 = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        tabelaArquivosC1 = new javax.swing.JTable();
+        btnRemoveArquivo1 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        btnFecharTela3 = new javax.swing.JButton();
+        btnSalvar3 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -452,7 +476,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addContainerGap(40, Short.MAX_VALUE)
-                .addComponent(jLabel4)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
@@ -510,6 +534,289 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        jPanel14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        campoCaminho1.setEditable(false);
+
+        jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel23.setText("Caminho");
+
+        selecionarArquivoC1.setText("SELECIONAR");
+        selecionarArquivoC1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selecionarArquivoC1ActionPerformed(evt);
+            }
+        });
+        selecionarArquivoC1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                selecionarArquivoC1KeyPressed(evt);
+            }
+        });
+
+        adicionarArquivoC1.setText("ADICIONAR");
+        adicionarArquivoC1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adicionarArquivoC1ActionPerformed(evt);
+            }
+        });
+        adicionarArquivoC1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                adicionarArquivoC1KeyPressed(evt);
+            }
+        });
+
+        jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel28.setText("ADICIONAR ARQUIVOS");
+
+        jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel29.setText("Pendência:");
+
+        jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel30.setText("Data:");
+
+        try {
+            cmpoDataStatusArquivo1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(campoCaminho1)
+                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(selecionarArquivoC1))
+                    .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmpoDataStatusArquivo1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(adicionarArquivoC1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(campoPendencia1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel23)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoCaminho1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(selecionarArquivoC1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel29)
+                    .addComponent(campoPendencia1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel30)
+                    .addComponent(cmpoDataStatusArquivo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(adicionarArquivoC1))
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+
+        jPanel15.setBackground(new java.awt.Color(250, 250, 250));
+        jPanel15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel15.setDoubleBuffered(false);
+        jPanel15.setEnabled(false);
+
+        campoDescricaoC1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        jLabel154.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel154.setText("Descrição");
+
+        jLabel155.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel155.setText("Data");
+
+        try {
+            campoDataC1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        campoDataC1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        jLabel156.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel156.setText("Arquivos");
+
+        tabelaArquivosC1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tabelaArquivosC1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Pendência", "Data"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelaArquivosC1.getTableHeader().setReorderingAllowed(false);
+        jScrollPane8.setViewportView(tabelaArquivosC1);
+        if (tabelaArquivosC1.getColumnModel().getColumnCount() > 0) {
+            tabelaArquivosC1.getColumnModel().getColumn(0).setResizable(false);
+            tabelaArquivosC1.getColumnModel().getColumn(0).setPreferredWidth(250);
+            tabelaArquivosC1.getColumnModel().getColumn(1).setResizable(false);
+            tabelaArquivosC1.getColumnModel().getColumn(1).setPreferredWidth(100);
+        }
+
+        btnRemoveArquivo1.setText("REMOVER");
+        btnRemoveArquivo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveArquivo1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel156, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnRemoveArquivo1)
+                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel15Layout.createSequentialGroup()
+                                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel154, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(campoDescricaoC1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(campoDataC1, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                                    .addComponent(jLabel155, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel155, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel154, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(campoDataC1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoDescricaoC1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel156)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnRemoveArquivo1)
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jLabel5.setText("EDIÇÃO DE STATUS DA ORDEM DE SERVIÇO");
+
+        btnFecharTela3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnFecharTela3.setText("FECHAR");
+        btnFecharTela3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharTela3ActionPerformed(evt);
+            }
+        });
+        btnFecharTela3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnFecharTela3KeyPressed(evt);
+            }
+        });
+
+        btnSalvar3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSalvar3.setText("SALVAR");
+        btnSalvar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvar3ActionPerformed(evt);
+            }
+        });
+        btnSalvar3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSalvar3KeyPressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel13Layout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnFecharTela3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSalvar3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(74, 74, 74)))))
+                .addContainerGap(36, Short.MAX_VALUE))
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+                .addContainerGap(40, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnFecharTela3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSalvar3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(87, 87, 87))
+        );
+
+        javax.swing.GroupLayout editarSituacaoLayout = new javax.swing.GroupLayout(editarSituacao.getContentPane());
+        editarSituacao.getContentPane().setLayout(editarSituacaoLayout);
+        editarSituacaoLayout.setHorizontalGroup(
+            editarSituacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editarSituacaoLayout.createSequentialGroup()
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        editarSituacaoLayout.setVerticalGroup(
+            editarSituacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editarSituacaoLayout.createSequentialGroup()
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(250, 250, 250));
@@ -524,6 +831,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         jLabel124.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel124.setText("Cliente *");
 
+        campoCliente.setEditable(false);
         campoCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         campoCliente.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -537,12 +845,14 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         jLabel125.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel125.setText("Placa do Veículo*");
 
+        campoPlaca.setEditable(false);
         try {
             campoPlaca.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("UUU-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
 
+        campoNomeMotorista.setEditable(false);
         campoNomeMotorista.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         campoNomeMotorista.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -556,12 +866,14 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         jLabel127.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel127.setText("CPF do Motorista *");
 
+        campoCPF.setEditable(false);
         try {
             campoCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
 
+        jFormattedTextField1.setEditable(false);
         try {
             jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###")));
         } catch (java.text.ParseException ex) {
@@ -569,6 +881,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         }
         jFormattedTextField1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
+        campoData.setEditable(false);
         try {
             campoData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
@@ -586,38 +899,36 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel123, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                            .addComponent(jFormattedTextField1))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel124, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel125, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(campoPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(campoNomeMotorista)
-                            .addComponent(jLabel126, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel134, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel123, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(campoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel124, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel125, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(campoPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(campoNomeMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel126, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(campoCPF)
-                            .addComponent(jLabel127, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel127))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(campoData, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-                                .addGap(27, 27, 27))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel153, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                                .addContainerGap())))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel134, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                            .addComponent(campoData, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                            .addComponent(jLabel153, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(27, 27, 27))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -626,32 +937,30 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel123)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(2, 2, 2))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel123)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(campoPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel125)
+                                    .addComponent(jLabel126)
+                                    .addComponent(jLabel127)
+                                    .addComponent(jLabel153))
+                                .addGap(27, 27, 27))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel124)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(campoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel126)
-                                .addComponent(jLabel127)
-                                .addComponent(jLabel153))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(campoNomeMotorista)
-                                .addComponent(campoCPF)
-                                .addComponent(campoData))))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(campoPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel125)
-                            .addGap(27, 27, 27))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel124)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(campoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(27, 27, 27)
+                                .addComponent(campoNomeMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(campoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(campoData, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(27, 27, 27)))
                 .addComponent(jLabel134)
                 .addGap(106, 106, 106))
         );
@@ -1709,6 +2018,44 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_removerArquivoOSKeyPressed
 
+    private void selecionarArquivoC1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionarArquivoC1ActionPerformed
+        procuraArquivo2();
+    }//GEN-LAST:event_selecionarArquivoC1ActionPerformed
+
+    private void selecionarArquivoC1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_selecionarArquivoC1KeyPressed
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+             procuraArquivo2();
+         }
+    }//GEN-LAST:event_selecionarArquivoC1KeyPressed
+
+    private void adicionarArquivoC1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarArquivoC1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_adicionarArquivoC1ActionPerformed
+
+    private void adicionarArquivoC1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adicionarArquivoC1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_adicionarArquivoC1KeyPressed
+
+    private void btnRemoveArquivo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveArquivo1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRemoveArquivo1ActionPerformed
+
+    private void btnFecharTela3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharTela3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFecharTela3ActionPerformed
+
+    private void btnFecharTela3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnFecharTela3KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFecharTela3KeyPressed
+
+    private void btnSalvar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvar3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalvar3ActionPerformed
+
+    private void btnSalvar3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvar3KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalvar3KeyPressed
+
     private void setagemInicial(){
         listaRequisitos = new ArrayList();
         listaRequisitos.add(new Requisito("Número da OS",true));
@@ -1716,6 +2063,13 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         listaRequisitos.add(new Requisito("Placa do Veículo",true));
         listaRequisitos.add(new Requisito("Nome do Motorista",true));
         listaRequisitos.add(new Requisito("CPF do Motorista",true));
+        
+        jFormattedTextField1.setText(getOsAux().getNumOS());
+        campoCliente.setText(buscaCliente(getOsAux().getDocCliente()));
+        campoPlaca.setText(getOsAux().getVeiculoPlaca());
+        campoNomeMotorista.setText(getOsAux().getNomeMotorista());
+        campoCPF.setText(getOsAux().getCPFMotorista());
+        campoData.setText(getOsAux().getData());
         
         DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivos.getModel();
         Iterator<Arquivo> iteradorArquivos = getOsAux().getListaArquivos().iterator();
@@ -1874,20 +2228,240 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         }
     }
     
+    private String buscaCliente(String docCliente){
+        String retorno = "";
+        
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "SELECT NomeFantasia FROM Cliente WHERE DocCliente = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, docCliente);
+                ResultSet rs = pst.executeQuery();
+
+                if(rs.next()){
+                    retorno = rs.getString("NomeFantasia");
+                }
+            }
+        } catch (SQLException | HeadlessException | ClassNotFoundException e) {
+            //JOptionPane.showMessageDialog(null, e);
+        }
+        
+        return retorno;
+    }
+    
     private void procuraArquivo(){
         this.setEnabled(false);
         int returnVal = jFileChooser1.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = jFileChooser1.getSelectedFile();
             campoCaminho.setText(file.getPath());
-            this.setEnabled(true);
+            criarSituacao.setEnabled(true);
+            criarSituacao.toFront();
+        } else {
+            //System.out.println("File access cancelled by user.");
+        }
+    }
+    
+    private void procuraArquivo2(){
+        this.setEnabled(false);
+        int returnVal = jFileChooser1.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = jFileChooser1.getSelectedFile();
+            campoCaminho1.setText(file.getPath());
+            editarSituacao.setEnabled(true);
+            editarSituacao.toFront();
         } else {
             //System.out.println("File access cancelled by user.");
         }
     }
     
     private void concluirSituacao(){
+        int index = jTabbedPane1.getSelectedIndex();
+        
+        switch(index){
+            case 0:
+                concluirSituacao1();
+                break;
+            case 1:
+                concluirSituacao2();
+                break;
+            case 2:
+                concluirSituacao3();
+                break;
+            case 3:
+                concluirSituacao4();
+                break;
+            case 4:
+                concluirSituacao5();
+                break;
+        }
+    }
     
+    private void concluirSituacao1(){
+        String message = "Deseja realmente concluir a Situação 1?";
+        String title = "Concluir Situação 1";
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String url = SQL_URL.getUrl();
+                try (Connection con = DriverManager.getConnection(url)) {
+                    String sql = "UPDATE SituacaoOS SET Status = ? WHERE Codigo = ?";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    pst.setString(1, "CONCLUÍDO");
+                    pst.setString(2, getOsAux().getListaSituacao().get(0).getCodigo());
+
+                    ResultSet rs = pst.executeQuery();
+                    
+                    if(rs.next()){
+                        
+                    }
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Situação 1 concluída com sucesso.");
+                getOsAux().getListaSituacao().get(0).setStatus("CONCLUÍDO");
+                painel1.setEnabled(false);
+            } catch (HeadlessException | ClassNotFoundException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+        if (reply == JOptionPane.NO_OPTION) {
+
+        }
+    }
+    
+    private void concluirSituacao2(){
+        String message = "Deseja realmente concluir a Situação 2?";
+        String title = "Concluir Situação 2";
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String url = SQL_URL.getUrl();
+                try (Connection con = DriverManager.getConnection(url)) {
+                    String sql = "UPDATE SituacaoOS SET Status = ? WHERE Codigo = ?";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    pst.setString(1, "CONCLUÍDO");
+                    pst.setString(2, getOsAux().getListaSituacao().get(1).getCodigo());
+
+                    ResultSet rs = pst.executeQuery();
+                    
+                    if(rs.next()){
+                        
+                    }
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Situação 2 concluída com sucesso.");
+                getOsAux().getListaSituacao().get(1).setStatus("CONCLUÍDO");
+                painel2.setEnabled(false);
+            } catch (HeadlessException | ClassNotFoundException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+        if (reply == JOptionPane.NO_OPTION) {
+
+        }
+    }
+    
+    private void concluirSituacao3(){
+        String message = "Deseja realmente concluir a Situação 3?";
+        String title = "Concluir Situação 3";
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String url = SQL_URL.getUrl();
+                try (Connection con = DriverManager.getConnection(url)) {
+                    String sql = "UPDATE SituacaoOS SET Status = ? WHERE Codigo = ?";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    pst.setString(1, "CONCLUÍDO");
+                    pst.setString(2, getOsAux().getListaSituacao().get(2).getCodigo());
+
+                    ResultSet rs = pst.executeQuery();
+                    
+                    if(rs.next()){
+                        
+                    }
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Situação 3 concluída com sucesso.");
+                getOsAux().getListaSituacao().get(2).setStatus("CONCLUÍDO");
+                painel3.setEnabled(false);
+            } catch (HeadlessException | ClassNotFoundException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+        if (reply == JOptionPane.NO_OPTION) {
+
+        }
+    }
+    
+    private void concluirSituacao4(){
+        String message = "Deseja realmente concluir a Situação 4?";
+        String title = "Concluir Situação 4";
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String url = SQL_URL.getUrl();
+                try (Connection con = DriverManager.getConnection(url)) {
+                    String sql = "UPDATE SituacaoOS SET Status = ? WHERE Codigo = ?";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    pst.setString(1, "CONCLUÍDO");
+                    pst.setString(2, getOsAux().getListaSituacao().get(3).getCodigo());
+
+                    ResultSet rs = pst.executeQuery();
+                    
+                    if(rs.next()){
+                        
+                    }
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Situação 4 concluída com sucesso.");
+                getOsAux().getListaSituacao().get(3).setStatus("CONCLUÍDO");
+                painel4.setEnabled(false);
+            } catch (HeadlessException | ClassNotFoundException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+        if (reply == JOptionPane.NO_OPTION) {
+
+        }
+    }
+    
+    private void concluirSituacao5(){
+        String message = "Deseja realmente concluir a Situação 5?";
+        String title = "Concluir Situação 5";
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String url = SQL_URL.getUrl();
+                try (Connection con = DriverManager.getConnection(url)) {
+                    String sql = "UPDATE SituacaoOS SET Status = ? WHERE Codigo = ?";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    pst.setString(1, "CONCLUÍDO");
+                    pst.setString(2, getOsAux().getListaSituacao().get(4).getCodigo());
+
+                    ResultSet rs = pst.executeQuery();
+                    
+                    if(rs.next()){
+                        
+                    }
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Situação 5 concluída com sucesso.");
+                getOsAux().getListaSituacao().get(4).setStatus("CONCLUÍDO");
+                painel5.setEnabled(false);
+            } catch (HeadlessException | ClassNotFoundException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+        if (reply == JOptionPane.NO_OPTION) {
+
+        }
     }
     
     private void adicionaArquivo(){
@@ -1913,6 +2487,32 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             modeloAux.addRow(new Object[]{index+1, campoPendencia.getText()});
             campoPendencia.setText("");
             campoCaminho.setText("");
+        }
+    }
+    
+    private void adicionaArquivo2(){
+        if (campoCaminho1.getText().equals("") || campoPendencia1.getText().equals("") || cmpoDataStatusArquivo1.getText().equals("  /  /    ")){
+            String erros = "Os seguintes campos não foram preenchidos:";           
+            if (campoCaminho1.getText().equals("")){
+                erros = erros + " Arquivo,";
+            }            
+            if(campoPendencia1.getText().equals("")){
+                erros = erros + " Pendencia,";
+            }
+            if(cmpoDataStatusArquivo1.getText().equals("  /  /    ")){
+                erros = erros + " Data,";
+            }            
+            erros = erros.substring(0, erros.length()-2);            
+            JOptionPane.showMessageDialog(null, erros);
+        } else {
+            Arquivo arquivoAux = new Arquivo(campoPendencia1.getText(),campoCaminho1.getText());
+            arquivoAux.setData(cmpoDataStatusArquivo1.getText());
+            getSituacaoOSAux().getListaArquivos().add(arquivoAux);
+            int index = tabelaArquivosC1.getRowCount();
+            DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivosC1.getModel();
+            modeloAux.addRow(new Object[]{index+1, campoPendencia1.getText()});
+            campoPendencia1.setText("");
+            campoCaminho1.setText("");
         }
     }
     
@@ -2141,9 +2741,11 @@ public class OrdemServicoOP extends javax.swing.JFrame {
 
                 }
             }
-        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(null, "A Ordem de Serviço "+jFormattedTextField1.getText()+ " foi atualizada com sucesso.");
+        } catch (HeadlessException | ClassNotFoundException e) {
             //JOptionPane.showMessageDialog(null, e);
-        }
+        } 
     }
     
     private void deletaArquivos(){
@@ -2424,6 +3026,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionarArquivoC;
+    private javax.swing.JButton adicionarArquivoC1;
     private javax.swing.JButton adicionarArquivoOS;
     private javax.swing.JButton btnConcluir3;
     private javax.swing.JButton btnConcluir4;
@@ -2437,11 +3040,15 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnFecharTela1;
     private javax.swing.JButton btnFecharTela2;
+    private javax.swing.JButton btnFecharTela3;
     private javax.swing.JButton btnRemoveArquivo;
+    private javax.swing.JButton btnRemoveArquivo1;
     private javax.swing.JButton btnSalvar1;
     private javax.swing.JButton btnSalvar2;
+    private javax.swing.JButton btnSalvar3;
     private javax.swing.JFormattedTextField campoCPF;
     private javax.swing.JTextField campoCaminho;
+    private javax.swing.JTextField campoCaminho1;
     private javax.swing.JTextField campoCliente;
     private javax.swing.JFormattedTextField campoData;
     private javax.swing.JFormattedTextField campoData1;
@@ -2450,14 +3057,17 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField campoData4;
     private javax.swing.JFormattedTextField campoData5;
     private javax.swing.JFormattedTextField campoDataC;
+    private javax.swing.JFormattedTextField campoDataC1;
     private javax.swing.JTextField campoDescricao1;
     private javax.swing.JTextField campoDescricao2;
     private javax.swing.JTextField campoDescricao3;
     private javax.swing.JTextField campoDescricao4;
     private javax.swing.JTextField campoDescricao5;
     private javax.swing.JTextField campoDescricaoC;
+    private javax.swing.JTextField campoDescricaoC1;
     private javax.swing.JTextField campoNomeMotorista;
     private javax.swing.JTextField campoPendencia;
+    private javax.swing.JTextField campoPendencia1;
     private javax.swing.JFormattedTextField campoPlaca;
     private javax.swing.JTextField campoStatus;
     private javax.swing.JTextField campoStatus1;
@@ -2466,7 +3076,9 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private javax.swing.JTextField campoStatus4;
     private javax.swing.JTextField campoStatus5;
     private javax.swing.JFormattedTextField cmpoDataStatusArquivo;
+    private javax.swing.JFormattedTextField cmpoDataStatusArquivo1;
     private javax.swing.JDialog criarSituacao;
+    private javax.swing.JDialog editarSituacao;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JFormattedTextField jFormattedTextField1;
@@ -2503,17 +3115,28 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel151;
     private javax.swing.JLabel jLabel152;
     private javax.swing.JLabel jLabel153;
+    private javax.swing.JLabel jLabel154;
+    private javax.swing.JLabel jLabel155;
+    private javax.swing.JLabel jLabel156;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
@@ -2525,6 +3148,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel painel1;
@@ -2534,8 +3158,10 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private javax.swing.JPanel painel5;
     private javax.swing.JButton removerArquivoOS;
     private javax.swing.JButton selecionarArquivoC;
+    private javax.swing.JButton selecionarArquivoC1;
     private javax.swing.JTable tabelaArquivos;
     private javax.swing.JTable tabelaArquivosC;
+    private javax.swing.JTable tabelaArquivosC1;
     private javax.swing.JTable tabelaArquivosS1;
     private javax.swing.JTable tabelaArquivosS2;
     private javax.swing.JTable tabelaArquivosS3;
