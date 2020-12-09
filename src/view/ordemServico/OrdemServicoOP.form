@@ -366,6 +366,7 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRemoveArquivoActionPerformed"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnRemoveArquivoKeyPressed"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -808,6 +809,7 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRemoveArquivo1ActionPerformed"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnRemoveArquivo1KeyPressed"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -1050,34 +1052,31 @@
                                   <Component id="jLabel123" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jFormattedTextField1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="campoPlaca" alignment="1" min="-2" pref="21" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="jLabel125" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel126" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel127" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel153" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="campoPlaca" alignment="1" min="-2" pref="21" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel125" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel126" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel127" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel153" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="jLabel124" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="campoCliente" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                                          <Component id="campoNomeMotorista" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
-                                          <Component id="campoCPF" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
-                                          <Component id="campoData" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                                      </Group>
+                                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="jLabel124" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="campoCliente" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                                      <Component id="campoNomeMotorista" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
+                                      <Component id="campoCPF" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
+                                      <Component id="campoData" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
+                          <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                           <Component id="jLabel134" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
                       </Group>
@@ -1574,6 +1573,10 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="CONCLUIR"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConclur2ActionPerformed"/>
+                        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnConclur2KeyPressed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campoStatus2">
                       <Properties>
@@ -1757,6 +1760,10 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="CONCLUIR"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConcluir3ActionPerformed"/>
+                        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnConcluir3KeyPressed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campoStatus3">
                       <Properties>
@@ -1939,6 +1946,10 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="CONCLUIR"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConcluir4ActionPerformed"/>
+                        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnConcluir4KeyPressed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campoStatus4">
                       <Properties>
@@ -2117,6 +2128,10 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="CONCLUIR"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConcluir5ActionPerformed"/>
+                        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnConcluir5KeyPressed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campoStatus5">
                       <Properties>
@@ -2387,23 +2402,9 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JButton" name="adicionarArquivoOS">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="ADICIONAR"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="adicionarArquivoOSActionPerformed"/>
-                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="adicionarArquivoOSKeyPressed"/>
-                  </Events>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="110" y="260" width="89" height="-1"/>
-                    </Constraint>
-                  </Constraints>
-                </Component>
                 <Component class="javax.swing.JButton" name="removerArquivoOS">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="REMOVER"/>
+                    <Property name="text" type="java.lang.String" value="EDITAR ARQUIVOS"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removerArquivoOSActionPerformed"/>
@@ -2411,7 +2412,7 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="210" y="260" width="89" height="-1"/>
+                      <AbsoluteConstraints x="170" y="260" width="130" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>

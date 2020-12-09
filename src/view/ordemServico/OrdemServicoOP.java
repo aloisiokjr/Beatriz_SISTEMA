@@ -216,7 +216,6 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaArquivos = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        adicionarArquivoOS = new javax.swing.JButton();
         removerArquivoOS = new javax.swing.JButton();
         jLabel152 = new javax.swing.JLabel();
         campoStatus = new javax.swing.JTextField();
@@ -376,6 +375,11 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         btnRemoveArquivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoveArquivoActionPerformed(evt);
+            }
+        });
+        btnRemoveArquivo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnRemoveArquivoKeyPressed(evt);
             }
         });
 
@@ -691,6 +695,11 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 btnRemoveArquivo1ActionPerformed(evt);
             }
         });
+        btnRemoveArquivo1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnRemoveArquivo1KeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -940,27 +949,25 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel123)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(campoPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel125)
-                                    .addComponent(jLabel126)
-                                    .addComponent(jLabel127)
-                                    .addComponent(jLabel153))
-                                .addGap(27, 27, 27))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel124)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(campoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(campoPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(campoNomeMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(campoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(campoData, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(27, 27, 27)))
+                                .addComponent(jLabel125)
+                                .addComponent(jLabel126)
+                                .addComponent(jLabel127)
+                                .addComponent(jLabel153))
+                            .addGap(27, 27, 27))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel124)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(campoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(campoNomeMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoData, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(29, 29, 29)
                 .addComponent(jLabel134)
                 .addGap(106, 106, 106))
         );
@@ -1147,6 +1154,16 @@ public class OrdemServicoOP extends javax.swing.JFrame {
 
         btnConclur2.setBackground(new java.awt.Color(204, 204, 204));
         btnConclur2.setText("CONCLUIR");
+        btnConclur2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConclur2ActionPerformed(evt);
+            }
+        });
+        btnConclur2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnConclur2KeyPressed(evt);
+            }
+        });
 
         campoStatus2.setEditable(false);
         campoStatus2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -1261,6 +1278,16 @@ public class OrdemServicoOP extends javax.swing.JFrame {
 
         btnConcluir3.setBackground(new java.awt.Color(204, 204, 204));
         btnConcluir3.setText("CONCLUIR");
+        btnConcluir3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConcluir3ActionPerformed(evt);
+            }
+        });
+        btnConcluir3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnConcluir3KeyPressed(evt);
+            }
+        });
 
         campoStatus3.setEditable(false);
         campoStatus3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -1376,6 +1403,16 @@ public class OrdemServicoOP extends javax.swing.JFrame {
 
         btnConcluir4.setBackground(new java.awt.Color(204, 204, 204));
         btnConcluir4.setText("CONCLUIR");
+        btnConcluir4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConcluir4ActionPerformed(evt);
+            }
+        });
+        btnConcluir4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnConcluir4KeyPressed(evt);
+            }
+        });
 
         campoStatus4.setEditable(false);
         campoStatus4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -1487,6 +1524,16 @@ public class OrdemServicoOP extends javax.swing.JFrame {
 
         btnConcluir5.setBackground(new java.awt.Color(204, 204, 204));
         btnConcluir5.setText("CONCLUIR");
+        btnConcluir5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConcluir5ActionPerformed(evt);
+            }
+        });
+        btnConcluir5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnConcluir5KeyPressed(evt);
+            }
+        });
 
         campoStatus5.setEditable(false);
         campoStatus5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -1735,21 +1782,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         jPanel6.add(jLabel3);
         jLabel3.setBounds(40, 20, 250, 20);
 
-        adicionarArquivoOS.setText("ADICIONAR");
-        adicionarArquivoOS.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adicionarArquivoOSActionPerformed(evt);
-            }
-        });
-        adicionarArquivoOS.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                adicionarArquivoOSKeyPressed(evt);
-            }
-        });
-        jPanel6.add(adicionarArquivoOS);
-        adicionarArquivoOS.setBounds(110, 260, 89, 21);
-
-        removerArquivoOS.setText("REMOVER");
+        removerArquivoOS.setText("EDITAR ARQUIVOS");
         removerArquivoOS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removerArquivoOSActionPerformed(evt);
@@ -1761,7 +1794,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             }
         });
         jPanel6.add(removerArquivoOS);
-        removerArquivoOS.setBounds(210, 260, 89, 21);
+        removerArquivoOS.setBounds(170, 260, 130, 21);
 
         jLabel152.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel152.setText("STATUS DA OS");
@@ -2002,20 +2035,14 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         removeArquivo();
     }//GEN-LAST:event_btnRemoveArquivoActionPerformed
 
-    private void adicionarArquivoOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarArquivoOSActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_adicionarArquivoOSActionPerformed
-
-    private void adicionarArquivoOSKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adicionarArquivoOSKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_adicionarArquivoOSKeyPressed
-
     private void removerArquivoOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerArquivoOSActionPerformed
-        // TODO add your handling code here:
+        editarArquivosOS();
     }//GEN-LAST:event_removerArquivoOSActionPerformed
 
     private void removerArquivoOSKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_removerArquivoOSKeyPressed
-        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            editarArquivosOS();
+        }
     }//GEN-LAST:event_removerArquivoOSKeyPressed
 
     private void selecionarArquivoC1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionarArquivoC1ActionPerformed
@@ -2023,38 +2050,96 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     }//GEN-LAST:event_selecionarArquivoC1ActionPerformed
 
     private void selecionarArquivoC1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_selecionarArquivoC1KeyPressed
-         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-             procuraArquivo2();
-         }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            procuraArquivo2();
+        }
     }//GEN-LAST:event_selecionarArquivoC1KeyPressed
 
     private void adicionarArquivoC1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarArquivoC1ActionPerformed
-        // TODO add your handling code here:
+        adicionaArquivo2();
     }//GEN-LAST:event_adicionarArquivoC1ActionPerformed
 
     private void adicionarArquivoC1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adicionarArquivoC1KeyPressed
-        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            adicionaArquivo2();
+        }
     }//GEN-LAST:event_adicionarArquivoC1KeyPressed
 
     private void btnRemoveArquivo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveArquivo1ActionPerformed
-        // TODO add your handling code here:
+        removeArquivo2();
     }//GEN-LAST:event_btnRemoveArquivo1ActionPerformed
 
     private void btnFecharTela3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharTela3ActionPerformed
-        // TODO add your handling code here:
+        fechaEdicaoSituacao();
     }//GEN-LAST:event_btnFecharTela3ActionPerformed
 
     private void btnFecharTela3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnFecharTela3KeyPressed
-        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            fechaEdicaoSituacao();
+        }
     }//GEN-LAST:event_btnFecharTela3KeyPressed
 
     private void btnSalvar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvar3ActionPerformed
-        // TODO add your handling code here:
+        salvaEdicaoSituacaoOS();
     }//GEN-LAST:event_btnSalvar3ActionPerformed
 
     private void btnSalvar3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvar3KeyPressed
-        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            salvaEdicaoSituacaoOS();
+        }
     }//GEN-LAST:event_btnSalvar3KeyPressed
+
+    private void btnRemoveArquivoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnRemoveArquivoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            removeArquivo();
+        }
+    }//GEN-LAST:event_btnRemoveArquivoKeyPressed
+
+    private void btnRemoveArquivo1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnRemoveArquivo1KeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            removeArquivo2();
+        }
+    }//GEN-LAST:event_btnRemoveArquivo1KeyPressed
+
+    private void btnConclur2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConclur2ActionPerformed
+        concluirSituacao();
+    }//GEN-LAST:event_btnConclur2ActionPerformed
+
+    private void btnConclur2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnConclur2KeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            concluirSituacao();
+        }
+    }//GEN-LAST:event_btnConclur2KeyPressed
+
+    private void btnConcluir3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConcluir3ActionPerformed
+        concluirSituacao();
+    }//GEN-LAST:event_btnConcluir3ActionPerformed
+
+    private void btnConcluir3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnConcluir3KeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            concluirSituacao();
+        }
+    }//GEN-LAST:event_btnConcluir3KeyPressed
+
+    private void btnConcluir4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConcluir4ActionPerformed
+        concluirSituacao();
+    }//GEN-LAST:event_btnConcluir4ActionPerformed
+
+    private void btnConcluir4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnConcluir4KeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            concluirSituacao();
+        }
+    }//GEN-LAST:event_btnConcluir4KeyPressed
+
+    private void btnConcluir5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnConcluir5KeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            concluirSituacao();
+        }
+    }//GEN-LAST:event_btnConcluir5KeyPressed
+
+    private void btnConcluir5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConcluir5ActionPerformed
+        concluirSituacao();
+    }//GEN-LAST:event_btnConcluir5ActionPerformed
 
     private void setagemInicial(){
         listaRequisitos = new ArrayList();
@@ -2252,7 +2337,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     }
     
     private void procuraArquivo(){
-        this.setEnabled(false);
+        criarSituacao.setEnabled(false);
         int returnVal = jFileChooser1.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = jFileChooser1.getSelectedFile();
@@ -2265,7 +2350,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     }
     
     private void procuraArquivo2(){
-        this.setEnabled(false);
+        editarSituacao.setEnabled(false);
         int returnVal = jFileChooser1.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = jFileChooser1.getSelectedFile();
@@ -2275,6 +2360,10 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         } else {
             //System.out.println("File access cancelled by user.");
         }
+    }
+    
+    private void editarArquivosOS(){
+    
     }
     
     private void concluirSituacao(){
@@ -2444,7 +2533,6 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                     PreparedStatement pst = con.prepareStatement(sql);
                     pst.setString(1, "CONCLUÍDO");
                     pst.setString(2, getOsAux().getListaSituacao().get(4).getCodigo());
-
                     ResultSet rs = pst.executeQuery();
                     
                     if(rs.next()){
@@ -2592,7 +2680,87 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     }
     
     private void editaSituacaoOS(){
-        
+        int index = jTabbedPane1.getSelectedIndex();
+        situacaoOSAux = getOsAux().getListaSituacao().get(index);
+        setaEdicaoSituacao();
+    }
+    
+    private void setaEdicaoSituacao(){
+        Iterator<Arquivo> iteradorArquivosS = situacaoOSAux.getListaArquivos().iterator();
+        Arquivo arquivoS;
+        while (iteradorArquivosS.hasNext()){
+            arquivoS = iteradorArquivosS.next();
+            DefaultTableModel modeloAuxA = (DefaultTableModel) tabelaArquivosC1.getModel();
+            modeloAuxA.addRow(new Object[]{arquivoS.getDescricao(),arquivoS.getData()});
+        }
+        editarSituacao.setVisible(true);
+        editarSituacao.toFront();
+        this.setEnabled(false); 
+    }
+    
+    private void removeArquivo2(){
+        if (tabelaArquivosC1.getSelectedRow() > -1){
+            int index = tabelaArquivosC1.getSelectedRow();
+            DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivosC1.getModel();
+            modeloAux.removeRow(tabelaArquivosC1.getSelectedRow());
+            getSituacaoOSAux().getListaArquivos().remove(index);
+        } else {
+            // DO NOTHING
+        }
+    }
+    
+    private void salvaEdicaoSituacaoOS(){
+        if(campoDescricaoC1.getText().equals("") || campoDataC1.getText().equals("  /  /    ")){
+            String erros = "Os seguintes campos não foram preenchidos:";           
+            if (campoDescricaoC1.getText().equals("")){
+                erros = erros + " Descrição,";
+            }            
+            if(campoDataC1.getText().equals("  /  /    ")){
+                erros = erros + " Data,";
+            }     
+            erros = erros.substring(0, erros.length()-2);            
+            JOptionPane.showMessageDialog(null, erros);
+        } else {
+            int index = indexSituacao;
+            switch (index){
+                case 0:
+                    salvaSituacao1();
+                    break;
+                case 1:
+                    salvaSituacao2();
+                    break;
+                case 2:
+                    salvaSituacao3();
+                    break;
+                case 3:
+                    salvaSituacao4();
+                    break;
+                case 4:
+                    salvaSituacao5();
+                    break;  
+            }
+            getOsAux().getListaSituacao().set(indexSituacao, situacaoOSAux);
+            situacaoOSAux = null;
+            JOptionPane.showMessageDialog(null, "Situação editada com sucesso.");
+            zeraTelaEditarSituacao();
+            editarSituacao.dispose();
+            this.setEnabled(true);
+            this.toFront();
+        }
+    }
+    
+    private void zeraTelaEditarSituacao(){
+        campoDescricaoC1.setText("");
+        campoDataC1.setText("");
+        campoCaminho1.setText("");
+        campoPendencia1.setText("");
+        cmpoDataStatusArquivo1.setText("");
+        DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivosC1.getModel();
+        int qtdRows = tabelaArquivosC1.getRowCount();
+        while (qtdRows > 0){
+            modeloAux.removeRow(qtdRows-1);
+        }
+        situacaoOSAux = null;
     }
     
     private void excluirSituacaoOS(){
@@ -2621,6 +2789,21 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             }
             getOsAux().getListaSituacao().remove(index);
             JOptionPane.showMessageDialog(null, "Situação "+(index+1)+" removido com sucesso.");
+        }
+        if (reply == JOptionPane.NO_OPTION) {
+            
+        }
+    }
+    
+    private void fechaEdicaoSituacao(){
+        String message = "Deseja realmente cancelar a edição?";
+        String title = "Cancelar Edição";
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            zeraTelaEditarSituacao();
+            editarSituacao.dispose();
+            this.setEnabled(true);
+            this.toFront();
         }
         if (reply == JOptionPane.NO_OPTION) {
             
@@ -2861,7 +3044,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             arquivoAux = iteradorArquivos.next();
             modeloAux.addRow(new Object[]{arquivoAux.getDescricao(), arquivoAux.getData()});
         }
-        jTabbedPane1.setSelectedIndex(indexSituacao-1);
+        jTabbedPane1.setSelectedIndex(indexSituacao);
     }
     
     private void salvaSituacao2(){
@@ -2876,7 +3059,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             arquivoAux = iteradorArquivos.next();
             modeloAux.addRow(new Object[]{arquivoAux.getDescricao(), arquivoAux.getData()});
         }
-        jTabbedPane1.setSelectedIndex(indexSituacao-1);
+        jTabbedPane1.setSelectedIndex(indexSituacao);
     }
     
     private void salvaSituacao3(){
@@ -2891,7 +3074,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             arquivoAux = iteradorArquivos.next();
             modeloAux.addRow(new Object[]{arquivoAux.getDescricao(), arquivoAux.getData()});
         }
-        jTabbedPane1.setSelectedIndex(indexSituacao-1);
+        jTabbedPane1.setSelectedIndex(indexSituacao);
     }
     
     private void salvaSituacao4(){
@@ -2906,7 +3089,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             arquivoAux = iteradorArquivos.next();
             modeloAux.addRow(new Object[]{arquivoAux.getDescricao(), arquivoAux.getData()});
         }
-        jTabbedPane1.setSelectedIndex(indexSituacao-1);
+        jTabbedPane1.setSelectedIndex(indexSituacao);
     }
     
     private void salvaSituacao5(){
@@ -2921,7 +3104,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             arquivoAux = iteradorArquivos.next();
             modeloAux.addRow(new Object[]{arquivoAux.getDescricao(), arquivoAux.getData()});
         }
-        jTabbedPane1.setSelectedIndex(indexSituacao-1);
+        jTabbedPane1.setSelectedIndex(indexSituacao);
     }
     
     private void limpaSituacao1(){
@@ -3027,7 +3210,6 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionarArquivoC;
     private javax.swing.JButton adicionarArquivoC1;
-    private javax.swing.JButton adicionarArquivoOS;
     private javax.swing.JButton btnConcluir3;
     private javax.swing.JButton btnConcluir4;
     private javax.swing.JButton btnConcluir5;
