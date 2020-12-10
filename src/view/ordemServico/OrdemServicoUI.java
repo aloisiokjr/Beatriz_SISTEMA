@@ -6,19 +6,30 @@
 package view.ordemServico;
 
 import controller.OrdemServicoController;
+import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import model.Arquivo;
+import model.Cliente;
 import model.OrdemServico;
+import model.SituacaoOS;
+import util.SQL_URL;
 
 /**
  *
@@ -549,7 +560,127 @@ public class OrdemServicoUI extends javax.swing.JFrame {
     }
     
     private void oSAcompanhamento(){
+        String numOS = (String) tabelaOS.getValueAt(tabelaOS.getSelectedRow(), 1);
+        String DocCliente,VeiculoPlaca,NomeMotorista,CPFMotorista,Data,Status;
+        ArrayList<Arquivo> listaArquivos;
+        ArrayList<SituacaoOS> listaSituacao;
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "SELECT * FROM OrdemServico WHERE NumOS = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, numOS);
+                ResultSet rs = pst.executeQuery();
+
+                if(rs.next()){
+                    DocCliente = rs.getString("DocCliente");
+                    VeiculoPlaca = rs.getString("VeiculoPlaca");
+                    NomeMotorista = rs.getString("NomeMotorista");
+                    CPFMotorista = rs.getString("CPFMotorista");
+                    Data = rs.getString("Data");
+                    Status = rs.getString("Status");
+                                        
+                    listaArquivos = buscaArquivos(numOS);
+                    listaSituacao = buscaSituacoes(numOS);
+                    
+                    OrdemServico os = new OrdemServico(numOS, DocCliente, VeiculoPlaca, NomeMotorista, CPFMotorista, Data, Status, listaArquivos, listaSituacao);
+                    setOsAux(os);
+                }
+            }
+        } catch (SQLException | HeadlessException | ClassNotFoundException e) {
+            //JOptionPane.showMessageDialog(null, e);
+        }
+        osController.abreAcompanhamentoOS();
+    }
+    
+    private ArrayList<Arquivo> buscaArquivos(String numOS){
+        ArrayList<Arquivo> listaArquivos = new ArrayList();
+        String Path, Descricao;
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "SELECT * FROM Arquivo_OS WHERE CodigoOS = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, numOS);
+                ResultSet rs = pst.executeQuery();
+
+                while(rs.next()){
+                    Path = rs.getString("Path");
+                    Descricao = rs.getString("Descricao");
+                    
+                    Arquivo arvAux = new Arquivo(Descricao, Path);
+                    listaArquivos.add(arvAux);
+                }
+            }
+        } catch (SQLException | HeadlessException | ClassNotFoundException e) {
+            //JOptionPane.showMessageDialog(null, e);
+        }
         
+        return listaArquivos;
+    }
+    
+    private ArrayList<SituacaoOS> buscaSituacoes(String numOS){
+        ArrayList<SituacaoOS> listaSituacao = new ArrayList();
+        String Data,Codigo,Descricao,Status;
+        ArrayList<Arquivo> listaArquivos;
+        
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "SELECT * FROM SituacaoOS WHERE NumeroOS = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, numOS);
+                ResultSet rs = pst.executeQuery();
+
+                while(rs.next()){
+                    Data = rs.getString("Data");
+                    Codigo = rs.getString("Codigo");
+                    Descricao = rs.getString("Descricao");
+                    Status = rs.getString("Status");
+                    
+                    listaArquivos = buscaArquivosS(Codigo);
+                    SituacaoOS sitOS = new SituacaoOS(Data,numOS,Codigo,Descricao,Status,listaArquivos);
+                    listaSituacao.add(sitOS);
+                }
+            }
+        } catch (SQLException | HeadlessException | ClassNotFoundException e) {
+            //JOptionPane.showMessageDialog(null, e);
+        }
+        
+        return listaSituacao;
+    }
+    
+    private ArrayList<Arquivo> buscaArquivosS(String codS){
+        ArrayList<Arquivo> listaArquivos = new ArrayList();
+        
+        String CodigoOS, Path, Descricao, Data;
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "SELECT * FROM Arquivo_Situacao WHERE CodigoS = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, codS);
+                ResultSet rs = pst.executeQuery();
+
+                while(rs.next()){
+                    Path = rs.getString("Path");
+                    Descricao = rs.getString("Descricao");
+                    Data = rs.getString("Data");
+                    
+                    Arquivo arvAux = new Arquivo(Descricao, Path);
+                    arvAux.setData(Data);
+                    listaArquivos.add(arvAux);
+                }
+            }
+        } catch (SQLException | HeadlessException | ClassNotFoundException e) {
+            //JOptionPane.showMessageDialog(null, e);
+        }
+        
+        return listaArquivos;
     }
     
     public void oSBuscaTodos(){

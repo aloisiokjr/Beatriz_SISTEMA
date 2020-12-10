@@ -22,8 +22,16 @@ public class OrdemServico {
     private ArrayList<Arquivo> listaArquivos = null;
     private ArrayList<SituacaoOS> listaSituacao = null;
     
-    public OrdemServico(){
-        
+    public OrdemServico(String NumOS,String DocCliente,String VeiculoPlaca,String NomeMotorista,String CPFMotorista,String Data,String Status,ArrayList<Arquivo> listaArquivos,ArrayList<SituacaoOS> listaSituacao){
+        this.NumOS = NumOS;
+        this.DocCliente = DocCliente;
+        this.VeiculoPlaca = VeiculoPlaca;
+        this.NomeMotorista = NomeMotorista;
+        this.CPFMotorista = CPFMotorista;
+        this.Data = Data;
+        this.Status = Status;
+        this.listaArquivos = listaArquivos;
+        this.listaSituacao = listaSituacao;
     }
     
     /**

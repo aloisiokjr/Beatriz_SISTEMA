@@ -1727,6 +1727,9 @@
                               <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                             </Property>
                           </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="MouseListener mouseListenerS1 = new MouseAdapter() {&#xd;&#xa;public void mouseClicked(MouseEvent mouseEvent) {&#xd;&#xa;    if (mouseEvent.getClickCount() == 2) {&#xd;&#xa;        try{&#xd;&#xa;            abreArquivoS1();&#xd;&#xa;        } catch (IOException ex) {&#xd;&#xa;            Logger.getLogger(OrdemServicoOP.class.getName()).log(Level.SEVERE, null, ex);&#xd;&#xa;        }&#xd;&#xa;    }&#xd;&#xa;  }&#xd;&#xa;};&#xd;&#xa;tabelaArquivosS1.addMouseListener(mouseListenerS1);"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -1971,6 +1974,9 @@
                               <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                             </Property>
                           </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="MouseListener mouseListenerS2 = new MouseAdapter() {&#xd;&#xa;public void mouseClicked(MouseEvent mouseEvent) {&#xd;&#xa;    if (mouseEvent.getClickCount() == 2) {&#xd;&#xa;        try{&#xd;&#xa;            abreArquivoS2();&#xd;&#xa;        } catch (IOException ex) {&#xd;&#xa;            Logger.getLogger(OrdemServicoOP.class.getName()).log(Level.SEVERE, null, ex);&#xd;&#xa;        }&#xd;&#xa;    }&#xd;&#xa;  }&#xd;&#xa;};&#xd;&#xa;tabelaArquivosS2.addMouseListener(mouseListenerS2);"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -2158,6 +2164,9 @@
                               <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                             </Property>
                           </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="MouseListener mouseListenerS3 = new MouseAdapter() {&#xd;&#xa;public void mouseClicked(MouseEvent mouseEvent) {&#xd;&#xa;    if (mouseEvent.getClickCount() == 2) {&#xd;&#xa;        try{&#xd;&#xa;            abreArquivoS3();&#xd;&#xa;        } catch (IOException ex) {&#xd;&#xa;            Logger.getLogger(OrdemServicoOP.class.getName()).log(Level.SEVERE, null, ex);&#xd;&#xa;        }&#xd;&#xa;    }&#xd;&#xa;  }&#xd;&#xa;};&#xd;&#xa;tabelaArquivosS3.addMouseListener(mouseListenerS3);"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -2344,6 +2353,9 @@
                               <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                             </Property>
                           </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="MouseListener mouseListenerS4 = new MouseAdapter() {&#xd;&#xa;public void mouseClicked(MouseEvent mouseEvent) {&#xd;&#xa;    if (mouseEvent.getClickCount() == 2) {&#xd;&#xa;        try{&#xd;&#xa;            abreArquivoS4();&#xd;&#xa;        } catch (IOException ex) {&#xd;&#xa;            Logger.getLogger(OrdemServicoOP.class.getName()).log(Level.SEVERE, null, ex);&#xd;&#xa;        }&#xd;&#xa;    }&#xd;&#xa;  }&#xd;&#xa;};&#xd;&#xa;tabelaArquivosS4.addMouseListener(mouseListenerS4);"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -2526,6 +2538,9 @@
                               <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                             </Property>
                           </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="MouseListener mouseListenerS5 = new MouseAdapter() {&#xd;&#xa;public void mouseClicked(MouseEvent mouseEvent) {&#xd;&#xa;    if (mouseEvent.getClickCount() == 2) {&#xd;&#xa;        try{&#xd;&#xa;            abreArquivoS5();&#xd;&#xa;        } catch (IOException ex) {&#xd;&#xa;            Logger.getLogger(OrdemServicoOP.class.getName()).log(Level.SEVERE, null, ex);&#xd;&#xa;        }&#xd;&#xa;    }&#xd;&#xa;  }&#xd;&#xa;};&#xd;&#xa;tabelaArquivosS5.addMouseListener(mouseListenerS5);"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>

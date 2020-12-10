@@ -1347,6 +1347,18 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             tabelaArquivosS1.getColumnModel().getColumn(1).setResizable(false);
             tabelaArquivosS1.getColumnModel().getColumn(1).setPreferredWidth(100);
         }
+        MouseListener mouseListenerS1 = new MouseAdapter() {
+            public void mouseClicked(MouseEvent mouseEvent) {
+                if (mouseEvent.getClickCount() == 2) {
+                    try{
+                        abreArquivoS1();
+                    } catch (IOException ex) {
+                        Logger.getLogger(OrdemServicoOP.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        };
+        tabelaArquivosS1.addMouseListener(mouseListenerS1);
 
         jLabel129.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel129.setText("Arquivos");
@@ -1506,6 +1518,18 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             tabelaArquivosS2.getColumnModel().getColumn(1).setResizable(false);
             tabelaArquivosS2.getColumnModel().getColumn(1).setPreferredWidth(100);
         }
+        MouseListener mouseListenerS2 = new MouseAdapter() {
+            public void mouseClicked(MouseEvent mouseEvent) {
+                if (mouseEvent.getClickCount() == 2) {
+                    try{
+                        abreArquivoS2();
+                    } catch (IOException ex) {
+                        Logger.getLogger(OrdemServicoOP.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        };
+        tabelaArquivosS2.addMouseListener(mouseListenerS2);
 
         javax.swing.GroupLayout painel2Layout = new javax.swing.GroupLayout(painel2);
         painel2.setLayout(painel2Layout);
@@ -1630,6 +1654,18 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             tabelaArquivosS3.getColumnModel().getColumn(1).setResizable(false);
             tabelaArquivosS3.getColumnModel().getColumn(1).setPreferredWidth(100);
         }
+        MouseListener mouseListenerS3 = new MouseAdapter() {
+            public void mouseClicked(MouseEvent mouseEvent) {
+                if (mouseEvent.getClickCount() == 2) {
+                    try{
+                        abreArquivoS3();
+                    } catch (IOException ex) {
+                        Logger.getLogger(OrdemServicoOP.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        };
+        tabelaArquivosS3.addMouseListener(mouseListenerS3);
 
         javax.swing.GroupLayout painel3Layout = new javax.swing.GroupLayout(painel3);
         painel3.setLayout(painel3Layout);
@@ -1755,6 +1791,18 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             tabelaArquivosS4.getColumnModel().getColumn(1).setResizable(false);
             tabelaArquivosS4.getColumnModel().getColumn(1).setPreferredWidth(100);
         }
+        MouseListener mouseListenerS4 = new MouseAdapter() {
+            public void mouseClicked(MouseEvent mouseEvent) {
+                if (mouseEvent.getClickCount() == 2) {
+                    try{
+                        abreArquivoS4();
+                    } catch (IOException ex) {
+                        Logger.getLogger(OrdemServicoOP.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        };
+        tabelaArquivosS4.addMouseListener(mouseListenerS4);
 
         javax.swing.GroupLayout painel4Layout = new javax.swing.GroupLayout(painel4);
         painel4.setLayout(painel4Layout);
@@ -1876,6 +1924,18 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             tabelaArquivosS5.getColumnModel().getColumn(1).setResizable(false);
             tabelaArquivosS5.getColumnModel().getColumn(1).setPreferredWidth(100);
         }
+        MouseListener mouseListenerS5 = new MouseAdapter() {
+            public void mouseClicked(MouseEvent mouseEvent) {
+                if (mouseEvent.getClickCount() == 2) {
+                    try{
+                        abreArquivoS5();
+                    } catch (IOException ex) {
+                        Logger.getLogger(OrdemServicoOP.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        };
+        tabelaArquivosS5.addMouseListener(mouseListenerS5);
 
         javax.swing.GroupLayout painel5Layout = new javax.swing.GroupLayout(painel5);
         painel5.setLayout(painel5Layout);
@@ -3617,6 +3677,42 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         Desktop desktop = Desktop.getDesktop();  
         desktop.open(new File(pathFile));
     }
+    
+    private void abreArquivoS1() throws IOException{
+        int index = tabelaArquivosS1.getSelectedRow();
+        String pathFile = getOsAux().getListaSituacao().get(0).getListaArquivos().get(index).getPath();
+        Desktop desktop = Desktop.getDesktop();  
+        desktop.open(new File(pathFile));
+    }
+    
+    private void abreArquivoS2() throws IOException{
+        int index = tabelaArquivosS2.getSelectedRow();
+        String pathFile = getOsAux().getListaSituacao().get(1).getListaArquivos().get(index).getPath();
+        Desktop desktop = Desktop.getDesktop();  
+        desktop.open(new File(pathFile));
+    }
+    
+    private void abreArquivoS3() throws IOException{
+        int index = tabelaArquivosS3.getSelectedRow();
+        String pathFile = getOsAux().getListaSituacao().get(2).getListaArquivos().get(index).getPath();
+        Desktop desktop = Desktop.getDesktop();  
+        desktop.open(new File(pathFile));
+    }
+    
+    private void abreArquivoS4() throws IOException{
+        int index = tabelaArquivosS4.getSelectedRow();
+        String pathFile = getOsAux().getListaSituacao().get(3).getListaArquivos().get(index).getPath();
+        Desktop desktop = Desktop.getDesktop();  
+        desktop.open(new File(pathFile));
+    }
+    
+    private void abreArquivoS5() throws IOException{
+        int index = tabelaArquivosS5.getSelectedRow();
+        String pathFile = getOsAux().getListaSituacao().get(4).getListaArquivos().get(index).getPath();
+        Desktop desktop = Desktop.getDesktop();  
+        desktop.open(new File(pathFile));
+    }
+    
     /**
      * @param args the command line arguments
      */

@@ -599,7 +599,7 @@ public class ClienteUI extends javax.swing.JFrame {
                 }
             }
         } catch (SQLException | HeadlessException | ClassNotFoundException e) {
-            JOptionPane.showMessageDialog(null, e);
+            //JOptionPane.showMessageDialog(null, e);
         }
     }
     
@@ -619,7 +619,7 @@ public class ClienteUI extends javax.swing.JFrame {
                 }
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
+            //JOptionPane.showMessageDialog(null, e);
         }
         
         return listaNomes;
