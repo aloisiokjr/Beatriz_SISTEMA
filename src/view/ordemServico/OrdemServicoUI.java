@@ -79,6 +79,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
         radio_NomeCliente = new javax.swing.JRadioButton();
         radio_NomeMotorista = new javax.swing.JRadioButton();
         radio_CPF = new javax.swing.JRadioButton();
+        radio_CaracVeiculo = new javax.swing.JRadioButton();
         jPanel1 = new javax.swing.JPanel();
         btnFechar = new javax.swing.JButton();
         btnRelatorio = new javax.swing.JButton();
@@ -302,6 +303,8 @@ public class OrdemServicoUI extends javax.swing.JFrame {
         radio_CPF.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_CPF.setText("CPF MOTORISTA");
 
+        radio_CaracVeiculo.setText("CARACT. VEÍCULO");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -319,13 +322,14 @@ public class OrdemServicoUI extends javax.swing.JFrame {
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addGap(16, 16, 16)
-                                        .addComponent(radio_PlacaVeiculo)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(radio_CPF))
+                                        .addComponent(radio_PlacaVeiculo))
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
-                                        .addComponent(radio_NomeMotorista)
-                                        .addGap(0, 0, Short.MAX_VALUE))))
+                                        .addComponent(radio_NomeMotorista)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(radio_CaracVeiculo)
+                                    .addComponent(radio_CPF)))
                             .addComponent(campoBusca)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -354,7 +358,8 @@ public class OrdemServicoUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(radio_NomeCliente)
-                    .addComponent(radio_NomeMotorista))
+                    .addComponent(radio_NomeMotorista)
+                    .addComponent(radio_CaracVeiculo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(btnBuscar)
                 .addGap(18, 18, 18))
@@ -392,7 +397,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(74, 74, 74)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                    .addComponent(btnRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnFechar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(76, Short.MAX_VALUE))
         );
@@ -544,7 +549,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
     }
     
     private void oSAcompanhamento(){
-    
+        
     }
     
     public void oSBuscaTodos(){
@@ -643,6 +648,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JRadioButton radio_CPF;
+    private javax.swing.JRadioButton radio_CaracVeiculo;
     private javax.swing.JRadioButton radio_NomeCliente;
     private javax.swing.JRadioButton radio_NomeMotorista;
     private javax.swing.JRadioButton radio_NumOS;
