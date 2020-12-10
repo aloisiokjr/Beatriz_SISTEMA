@@ -6,9 +6,14 @@
 package view.ordemServico;
 
 import controller.OrdemServicoController;
+import java.awt.Desktop;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,6 +21,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -128,6 +135,24 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         btnFecharTela3 = new javax.swing.JButton();
         btnSalvar3 = new javax.swing.JButton();
+        editarArquivos = new javax.swing.JDialog();
+        jPanel16 = new javax.swing.JPanel();
+        jPanel17 = new javax.swing.JPanel();
+        campoCaminhoArquivo = new javax.swing.JTextField();
+        jLabel24 = new javax.swing.JLabel();
+        selecionarArquivoC2 = new javax.swing.JButton();
+        adicionarArquivoC2 = new javax.swing.JButton();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        campoDescricaoArquivo = new javax.swing.JTextField();
+        jPanel18 = new javax.swing.JPanel();
+        jLabel159 = new javax.swing.JLabel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        tabelaArquivosOSEditar = new javax.swing.JTable();
+        btnRemoveArquivoOS = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        btnFecharTela4 = new javax.swing.JButton();
+        btnSalvar4 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -216,7 +241,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaArquivos = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        removerArquivoOS = new javax.swing.JButton();
+        editarArquivoOS = new javax.swing.JButton();
         jLabel152 = new javax.swing.JLabel();
         campoStatus = new javax.swing.JTextField();
 
@@ -370,6 +395,18 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             tabelaArquivosC.getColumnModel().getColumn(1).setResizable(false);
             tabelaArquivosC.getColumnModel().getColumn(1).setPreferredWidth(100);
         }
+        MouseListener mouseListenerArquivosCriarSituacao = new MouseAdapter() {
+            public void mouseClicked(MouseEvent mouseEvent) {
+                if (mouseEvent.getClickCount() == 2) {
+                    try{
+                        abreArquivosCriarSituacao();
+                    } catch (IOException ex) {
+                        Logger.getLogger(OrdemServicoOP.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        };
+        tabelaArquivosC.addMouseListener(mouseListenerArquivosCriarSituacao);
 
         btnRemoveArquivo.setText("REMOVER");
         btnRemoveArquivo.addActionListener(new java.awt.event.ActionListener() {
@@ -688,6 +725,18 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             tabelaArquivosC1.getColumnModel().getColumn(1).setResizable(false);
             tabelaArquivosC1.getColumnModel().getColumn(1).setPreferredWidth(100);
         }
+        MouseListener mouseListenerArquivosEditarSituacao = new MouseAdapter() {
+            public void mouseClicked(MouseEvent mouseEvent) {
+                if (mouseEvent.getClickCount() == 2) {
+                    try{
+                        abreArquivosEditarSituacao();
+                    } catch (IOException ex) {
+                        Logger.getLogger(OrdemServicoOP.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        };
+        tabelaArquivosC1.addMouseListener(mouseListenerArquivosEditarSituacao);
 
         btnRemoveArquivo1.setText("REMOVER");
         btnRemoveArquivo1.addActionListener(new java.awt.event.ActionListener() {
@@ -823,6 +872,257 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             editarSituacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(editarSituacaoLayout.createSequentialGroup()
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        campoCaminhoArquivo.setEditable(false);
+
+        jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel24.setText("Caminho");
+
+        selecionarArquivoC2.setText("SELECIONAR");
+        selecionarArquivoC2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selecionarArquivoC2ActionPerformed(evt);
+            }
+        });
+        selecionarArquivoC2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                selecionarArquivoC2KeyPressed(evt);
+            }
+        });
+
+        adicionarArquivoC2.setText("ADICIONAR");
+        adicionarArquivoC2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adicionarArquivoC2ActionPerformed(evt);
+            }
+        });
+        adicionarArquivoC2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                adicionarArquivoC2KeyPressed(evt);
+            }
+        });
+
+        jLabel31.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel31.setText("ADICIONAR ARQUIVOS");
+
+        jLabel32.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel32.setText("Descrição:");
+
+        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
+        jPanel17.setLayout(jPanel17Layout);
+        jPanel17Layout.setHorizontalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel17Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel17Layout.createSequentialGroup()
+                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(campoCaminhoArquivo)
+                            .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(selecionarArquivoC2))
+                    .addGroup(jPanel17Layout.createSequentialGroup()
+                        .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(campoDescricaoArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(adicionarArquivoC2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+        jPanel17Layout.setVerticalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel17Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoCaminhoArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(selecionarArquivoC2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel32)
+                    .addComponent(campoDescricaoArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(adicionarArquivoC2))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+
+        jPanel18.setBackground(new java.awt.Color(250, 250, 250));
+        jPanel18.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel18.setDoubleBuffered(false);
+        jPanel18.setEnabled(false);
+
+        jLabel159.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel159.setText("Arquivos");
+
+        tabelaArquivosOSEditar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tabelaArquivosOSEditar.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "", "Descrição"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelaArquivosOSEditar.getTableHeader().setReorderingAllowed(false);
+        jScrollPane9.setViewportView(tabelaArquivosOSEditar);
+        if (tabelaArquivosOSEditar.getColumnModel().getColumnCount() > 0) {
+            tabelaArquivosOSEditar.getColumnModel().getColumn(0).setResizable(false);
+            tabelaArquivosOSEditar.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tabelaArquivosOSEditar.getColumnModel().getColumn(1).setResizable(false);
+            tabelaArquivosOSEditar.getColumnModel().getColumn(1).setPreferredWidth(250);
+        }
+        MouseListener mouseListenerArquivosOSEditar = new MouseAdapter() {
+            public void mouseClicked(MouseEvent mouseEvent) {
+                if (mouseEvent.getClickCount() == 2) {
+                    try{
+                        abreArquivosOSEditar();
+                    } catch (IOException ex) {
+                        Logger.getLogger(OrdemServicoOP.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        };
+        tabelaArquivosOSEditar.addMouseListener(mouseListenerArquivosOSEditar);
+
+        btnRemoveArquivoOS.setText("REMOVER");
+        btnRemoveArquivoOS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveArquivoOSActionPerformed(evt);
+            }
+        });
+        btnRemoveArquivoOS.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnRemoveArquivoOSKeyPressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel159, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnRemoveArquivoOS)
+                        .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel159)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnRemoveArquivoOS)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jLabel6.setText("EDIÇÃO DE ARQUIVOS DA ORDEM DE SERVIÇO");
+
+        btnFecharTela4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnFecharTela4.setText("FECHAR");
+        btnFecharTela4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharTela4ActionPerformed(evt);
+            }
+        });
+        btnFecharTela4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnFecharTela4KeyPressed(evt);
+            }
+        });
+
+        btnSalvar4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSalvar4.setText("SALVAR");
+        btnSalvar4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvar4ActionPerformed(evt);
+            }
+        });
+        btnSalvar4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSalvar4KeyPressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
+        jPanel16.setLayout(jPanel16Layout);
+        jPanel16Layout.setHorizontalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel16Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel16Layout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnFecharTela4, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSalvar4, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(74, 74, 74)))))
+                .addContainerGap(36, Short.MAX_VALUE))
+        );
+        jPanel16Layout.setVerticalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
+                .addContainerGap(40, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnFecharTela4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSalvar4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(87, 87, 87))
+        );
+
+        javax.swing.GroupLayout editarArquivosLayout = new javax.swing.GroupLayout(editarArquivos.getContentPane());
+        editarArquivos.getContentPane().setLayout(editarArquivosLayout);
+        editarArquivosLayout.setHorizontalGroup(
+            editarArquivosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editarArquivosLayout.createSequentialGroup()
+                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        editarArquivosLayout.setVerticalGroup(
+            editarArquivosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editarArquivosLayout.createSequentialGroup()
+                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -1773,6 +2073,18 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             tabelaArquivos.getColumnModel().getColumn(1).setResizable(false);
             tabelaArquivos.getColumnModel().getColumn(1).setPreferredWidth(250);
         }
+        MouseListener mouseListenerOS = new MouseAdapter() {
+            public void mouseClicked(MouseEvent mouseEvent) {
+                if (mouseEvent.getClickCount() == 2) {
+                    try{
+                        abreArquivoOS();
+                    } catch (IOException ex) {
+                        Logger.getLogger(OrdemServicoOP.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        };
+        tabelaArquivos.addMouseListener(mouseListenerOS);
 
         jPanel6.add(jScrollPane2);
         jScrollPane2.setBounds(30, 50, 270, 200);
@@ -1782,19 +2094,19 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         jPanel6.add(jLabel3);
         jLabel3.setBounds(40, 20, 250, 20);
 
-        removerArquivoOS.setText("EDITAR ARQUIVOS");
-        removerArquivoOS.addActionListener(new java.awt.event.ActionListener() {
+        editarArquivoOS.setText("EDITAR ARQUIVOS");
+        editarArquivoOS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                removerArquivoOSActionPerformed(evt);
+                editarArquivoOSActionPerformed(evt);
             }
         });
-        removerArquivoOS.addKeyListener(new java.awt.event.KeyAdapter() {
+        editarArquivoOS.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                removerArquivoOSKeyPressed(evt);
+                editarArquivoOSKeyPressed(evt);
             }
         });
-        jPanel6.add(removerArquivoOS);
-        removerArquivoOS.setBounds(170, 260, 130, 21);
+        jPanel6.add(editarArquivoOS);
+        editarArquivoOS.setBounds(170, 260, 130, 21);
 
         jLabel152.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel152.setText("STATUS DA OS");
@@ -2035,15 +2347,15 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         removeArquivo();
     }//GEN-LAST:event_btnRemoveArquivoActionPerformed
 
-    private void removerArquivoOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerArquivoOSActionPerformed
+    private void editarArquivoOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarArquivoOSActionPerformed
         editarArquivosOS();
-    }//GEN-LAST:event_removerArquivoOSActionPerformed
+    }//GEN-LAST:event_editarArquivoOSActionPerformed
 
-    private void removerArquivoOSKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_removerArquivoOSKeyPressed
+    private void editarArquivoOSKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_editarArquivoOSKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             editarArquivosOS();
         }
-    }//GEN-LAST:event_removerArquivoOSKeyPressed
+    }//GEN-LAST:event_editarArquivoOSKeyPressed
 
     private void selecionarArquivoC1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionarArquivoC1ActionPerformed
         procuraArquivo2();
@@ -2141,6 +2453,46 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         concluirSituacao();
     }//GEN-LAST:event_btnConcluir5ActionPerformed
 
+    private void selecionarArquivoC2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionarArquivoC2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_selecionarArquivoC2ActionPerformed
+
+    private void selecionarArquivoC2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_selecionarArquivoC2KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_selecionarArquivoC2KeyPressed
+
+    private void adicionarArquivoC2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarArquivoC2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_adicionarArquivoC2ActionPerformed
+
+    private void adicionarArquivoC2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adicionarArquivoC2KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_adicionarArquivoC2KeyPressed
+
+    private void btnRemoveArquivoOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveArquivoOSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRemoveArquivoOSActionPerformed
+
+    private void btnRemoveArquivoOSKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnRemoveArquivoOSKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRemoveArquivoOSKeyPressed
+
+    private void btnFecharTela4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharTela4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFecharTela4ActionPerformed
+
+    private void btnFecharTela4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnFecharTela4KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFecharTela4KeyPressed
+
+    private void btnSalvar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvar4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalvar4ActionPerformed
+
+    private void btnSalvar4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvar4KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalvar4KeyPressed
+
     private void setagemInicial(){
         listaRequisitos = new ArrayList();
         listaRequisitos.add(new Requisito("Número da OS",true));
@@ -2177,7 +2529,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             campoData1.setText(data);
             campoStatus1.setText(status);
             
-            if (status.equals("")){
+            if (status.equals("CONCLUÍDO")){
                 btnConclur1.setEnabled(false);
             }
             
@@ -2193,6 +2545,11 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             if(i != 0){
                 carregaSituacao2(i);
             }
+        } else {
+            while (i<0){
+                jTabbedPane1.setEnabledAt(i, false);
+                i--;
+            }
         }
     }
     
@@ -2207,7 +2564,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             campoData2.setText(data);
             campoStatus2.setText(status);
             
-            if (status.equals("")){
+            if (status.equals("CONCLUÍDO")){
                 btnConclur2.setEnabled(false);
             }
             
@@ -2223,6 +2580,11 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             if(i != 0){
                 carregaSituacao3(i);
             }
+        } else {
+            while (i<0){
+                jTabbedPane1.setEnabledAt(i, false);
+                i--;
+            }
         }
     }
     
@@ -2237,7 +2599,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             campoData3.setText(data);
             campoStatus3.setText(status);
             
-            if (status.equals("")){
+            if (status.equals("CONCLUÍDO")){
                 btnConcluir3.setEnabled(false);
             }
             
@@ -2253,6 +2615,11 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             if(i != 0){
                 carregaSituacao4(i);
             }
+        } else {
+            while (i<0){
+                jTabbedPane1.setEnabledAt(i, false);
+                i--;
+            }
         }
     }
     
@@ -2267,7 +2634,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             campoData4.setText(data);
             campoStatus4.setText(status);
             
-            if (status.equals("")){
+            if (status.equals("CONCLUÍDO")){
                 btnConcluir4.setEnabled(false);
             }
             
@@ -2283,6 +2650,11 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             if(i != 0){
                 carregaSituacao5(i);
             }
+        } else {
+            while (i<0){
+                jTabbedPane1.setEnabledAt(i, false);
+                i--;
+            }
         }
     }
     
@@ -2297,7 +2669,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             campoData5.setText(data);
             campoStatus5.setText(status);
             
-            if (status.equals("")){
+            if (status.equals("CONCLUÍDO")){
                 btnConcluir5.setEnabled(false);
             }
             
@@ -2310,6 +2682,8 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 j++;
             }
             i--;
+        } else {
+            jTabbedPane1.setEnabledAt(i, false);
         }
     }
     
@@ -2363,7 +2737,20 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     }
     
     private void editarArquivosOS(){
-    
+        zeraTelaEditarArquivosOS();
+        Iterator<Arquivo> iteradorArquivos = getOsAux().getListaArquivos().iterator();
+        Arquivo arquivoS;
+        int j = 1;
+        while (iteradorArquivos.hasNext()){
+            arquivoS = iteradorArquivos.next();
+            DefaultTableModel modeloAuxA = (DefaultTableModel) tabelaArquivosOSEditar.getModel();
+            modeloAuxA.addRow(new Object[]{j,arquivoS.getDescricao()});
+            j++;
+        }
+        editarArquivos.setEnabled(true);
+        editarArquivos.setVisible(true);
+        editarArquivos.toFront();
+        this.setEnabled(false);
     }
     
     private void concluirSituacao(){
@@ -2621,6 +3008,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         int index = getOsAux().getListaSituacao().size();
         indexSituacao = index;
         criarSituacao.setEnabled(true);
+        criarSituacao.setVisible(true);
         criarSituacao.toFront();
         this.setEnabled(false);
     }
@@ -2694,6 +3082,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             modeloAuxA.addRow(new Object[]{arquivoS.getDescricao(),arquivoS.getData()});
         }
         editarSituacao.setVisible(true);
+        editarSituacao.setVisible(true);
         editarSituacao.toFront();
         this.setEnabled(false); 
     }
@@ -2763,32 +3152,46 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         situacaoOSAux = null;
     }
     
+    private void zeraTelaEditarArquivosOS(){
+        campoCaminhoArquivo.setText("");
+        campoDescricaoArquivo.setText("");
+        DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivosOSEditar.getModel();
+        int qtdRows = tabelaArquivosOSEditar.getRowCount();
+        while (qtdRows > 0){
+            modeloAux.removeRow(qtdRows-1);
+        }
+    }
+    
     private void excluirSituacaoOS(){
         int index = jTabbedPane1.getSelectedIndex();
         String message = "Deseja realmente excluir a Situação "+(index+1)+"?";
         String title = "Excluir Situação "+(index+1);
         int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
-            getOsAux().getListaSituacao().remove(index);
-            switch (index){
-                case 0:
-                    limpaSituacao1();
-                    break;
-                case 1:
-                    limpaSituacao2();
-                    break;
-                case 2:
-                    limpaSituacao3();
-                    break;
-                case 3:
-                    limpaSituacao4();
-                    break;
-                case 4:
-                    limpaSituacao5();
-                    break;
+            if (getOsAux().getListaSituacao().get(index).getStatus().equals("CONCLUÍDO")){
+                JOptionPane.showMessageDialog(null, "Não é possível excluir uma situação já concluída.");
+            } else {
+                getOsAux().getListaSituacao().remove(index);
+                switch (index){
+                    case 0:
+                        limpaSituacao1();
+                        break;
+                    case 1:
+                        limpaSituacao2();
+                        break;
+                    case 2:
+                        limpaSituacao3();
+                        break;
+                    case 3:
+                        limpaSituacao4();
+                        break;
+                    case 4:
+                        limpaSituacao5();
+                        break;
+                }
+                getOsAux().getListaSituacao().remove(index);
+                JOptionPane.showMessageDialog(null, "Situação "+(index+1)+" removido com sucesso.");
             }
-            getOsAux().getListaSituacao().remove(index);
-            JOptionPane.showMessageDialog(null, "Situação "+(index+1)+" removido com sucesso.");
         }
         if (reply == JOptionPane.NO_OPTION) {
             
@@ -3036,7 +3439,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         painel1.setEnabled(true);
         campoDescricao1.setText(getSituacaoOSAux().getDescricao());
         campoData1.setText(getSituacaoOSAux().getData());
-        campoStatus1.setText("EM ANDAMENTO");
+        campoStatus1.setText("");
         Iterator<Arquivo> iteradorArquivos = getSituacaoOSAux().getListaArquivos().iterator();
         Arquivo arquivoAux;
         DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivosS1.getModel();
@@ -3045,13 +3448,14 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             modeloAux.addRow(new Object[]{arquivoAux.getDescricao(), arquivoAux.getData()});
         }
         jTabbedPane1.setSelectedIndex(indexSituacao);
+        getOsAux().getListaSituacao().add(situacaoOSAux);
     }
     
     private void salvaSituacao2(){
         painel2.setEnabled(true);
         campoDescricao2.setText(getSituacaoOSAux().getDescricao());
         campoData2.setText(getSituacaoOSAux().getData());
-        campoStatus2.setText("EM ANDAMENTO");
+        campoStatus2.setText("");
         Iterator<Arquivo> iteradorArquivos = getSituacaoOSAux().getListaArquivos().iterator();
         Arquivo arquivoAux;
         DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivosS2.getModel();
@@ -3060,13 +3464,14 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             modeloAux.addRow(new Object[]{arquivoAux.getDescricao(), arquivoAux.getData()});
         }
         jTabbedPane1.setSelectedIndex(indexSituacao);
+        getOsAux().getListaSituacao().add(situacaoOSAux);
     }
     
     private void salvaSituacao3(){
         painel3.setEnabled(true);
         campoDescricao3.setText(getSituacaoOSAux().getDescricao());
         campoData3.setText(getSituacaoOSAux().getData());
-        campoStatus3.setText("EM ANDAMENTO");
+        campoStatus3.setText("");
         Iterator<Arquivo> iteradorArquivos = getSituacaoOSAux().getListaArquivos().iterator();
         Arquivo arquivoAux;
         DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivosS3.getModel();
@@ -3075,13 +3480,14 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             modeloAux.addRow(new Object[]{arquivoAux.getDescricao(), arquivoAux.getData()});
         }
         jTabbedPane1.setSelectedIndex(indexSituacao);
+        getOsAux().getListaSituacao().add(situacaoOSAux);
     }
     
     private void salvaSituacao4(){
         painel4.setEnabled(true);
         campoDescricao4.setText(getSituacaoOSAux().getDescricao());
         campoData4.setText(getSituacaoOSAux().getData());
-        campoStatus4.setText("EM ANDAMENTO");
+        campoStatus4.setText("");
         Iterator<Arquivo> iteradorArquivos = getSituacaoOSAux().getListaArquivos().iterator();
         Arquivo arquivoAux;
         DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivosS4.getModel();
@@ -3090,13 +3496,14 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             modeloAux.addRow(new Object[]{arquivoAux.getDescricao(), arquivoAux.getData()});
         }
         jTabbedPane1.setSelectedIndex(indexSituacao);
+        getOsAux().getListaSituacao().add(situacaoOSAux);
     }
     
     private void salvaSituacao5(){
         painel5.setEnabled(true);
         campoDescricao5.setText(getSituacaoOSAux().getDescricao());
         campoData5.setText(getSituacaoOSAux().getData());
-        campoStatus5.setText("EM ANDAMENTO");
+        campoStatus5.setText("");
         Iterator<Arquivo> iteradorArquivos = getSituacaoOSAux().getListaArquivos().iterator();
         Arquivo arquivoAux;
         DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivosS5.getModel();
@@ -3105,6 +3512,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             modeloAux.addRow(new Object[]{arquivoAux.getDescricao(), arquivoAux.getData()});
         }
         jTabbedPane1.setSelectedIndex(indexSituacao);
+        getOsAux().getListaSituacao().add(situacaoOSAux);
     }
     
     private void limpaSituacao1(){
@@ -3181,6 +3589,34 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         jTabbedPane1.setSelectedIndex(indexSituacao-1);
         painel5.setEnabled(false);
     }
+    
+    private void abreArquivoOS() throws IOException{
+        int index = tabelaArquivos.getSelectedRow();
+        String pathFile = getOsAux().getListaArquivos().get(index).getPath();
+        Desktop desktop = Desktop.getDesktop();  
+        desktop.open(new File(pathFile));
+    }
+    
+    private void abreArquivosOSEditar() throws IOException{
+        int index = tabelaArquivosOSEditar.getSelectedRow();
+        String pathFile = getOsAux().getListaArquivos().get(index).getPath();
+        Desktop desktop = Desktop.getDesktop();  
+        desktop.open(new File(pathFile));
+    }
+    
+    private void abreArquivosEditarSituacao() throws IOException{
+        int index = tabelaArquivosC1.getSelectedRow();
+        String pathFile = getOsAux().getListaSituacao().get(indexSituacao).getListaArquivos().get(index).getPath();
+        Desktop desktop = Desktop.getDesktop();  
+        desktop.open(new File(pathFile));
+    }
+    
+    private void abreArquivosCriarSituacao() throws IOException{
+        int index = tabelaArquivosC.getSelectedRow();
+        String pathFile = getOsAux().getListaSituacao().get(indexSituacao).getListaArquivos().get(index).getPath();
+        Desktop desktop = Desktop.getDesktop();  
+        desktop.open(new File(pathFile));
+    }
     /**
      * @param args the command line arguments
      */
@@ -3210,6 +3646,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionarArquivoC;
     private javax.swing.JButton adicionarArquivoC1;
+    private javax.swing.JButton adicionarArquivoC2;
     private javax.swing.JButton btnConcluir3;
     private javax.swing.JButton btnConcluir4;
     private javax.swing.JButton btnConcluir5;
@@ -3223,14 +3660,18 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private javax.swing.JButton btnFecharTela1;
     private javax.swing.JButton btnFecharTela2;
     private javax.swing.JButton btnFecharTela3;
+    private javax.swing.JButton btnFecharTela4;
     private javax.swing.JButton btnRemoveArquivo;
     private javax.swing.JButton btnRemoveArquivo1;
+    private javax.swing.JButton btnRemoveArquivoOS;
     private javax.swing.JButton btnSalvar1;
     private javax.swing.JButton btnSalvar2;
     private javax.swing.JButton btnSalvar3;
+    private javax.swing.JButton btnSalvar4;
     private javax.swing.JFormattedTextField campoCPF;
     private javax.swing.JTextField campoCaminho;
     private javax.swing.JTextField campoCaminho1;
+    private javax.swing.JTextField campoCaminhoArquivo;
     private javax.swing.JTextField campoCliente;
     private javax.swing.JFormattedTextField campoData;
     private javax.swing.JFormattedTextField campoData1;
@@ -3245,6 +3686,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private javax.swing.JTextField campoDescricao3;
     private javax.swing.JTextField campoDescricao4;
     private javax.swing.JTextField campoDescricao5;
+    private javax.swing.JTextField campoDescricaoArquivo;
     private javax.swing.JTextField campoDescricaoC;
     private javax.swing.JTextField campoDescricaoC1;
     private javax.swing.JTextField campoNomeMotorista;
@@ -3260,6 +3702,8 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField cmpoDataStatusArquivo;
     private javax.swing.JFormattedTextField cmpoDataStatusArquivo1;
     private javax.swing.JDialog criarSituacao;
+    private javax.swing.JButton editarArquivoOS;
+    private javax.swing.JDialog editarArquivos;
     private javax.swing.JDialog editarSituacao;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JFileChooser jFileChooser1;
@@ -3300,9 +3744,11 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel154;
     private javax.swing.JLabel jLabel155;
     private javax.swing.JLabel jLabel156;
+    private javax.swing.JLabel jLabel159;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
@@ -3310,8 +3756,11 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -3319,6 +3768,9 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
@@ -3331,6 +3783,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel painel1;
@@ -3338,12 +3791,13 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private javax.swing.JPanel painel3;
     private javax.swing.JPanel painel4;
     private javax.swing.JPanel painel5;
-    private javax.swing.JButton removerArquivoOS;
     private javax.swing.JButton selecionarArquivoC;
     private javax.swing.JButton selecionarArquivoC1;
+    private javax.swing.JButton selecionarArquivoC2;
     private javax.swing.JTable tabelaArquivos;
     private javax.swing.JTable tabelaArquivosC;
     private javax.swing.JTable tabelaArquivosC1;
+    private javax.swing.JTable tabelaArquivosOSEditar;
     private javax.swing.JTable tabelaArquivosS1;
     private javax.swing.JTable tabelaArquivosS2;
     private javax.swing.JTable tabelaArquivosS3;
