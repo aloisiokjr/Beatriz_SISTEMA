@@ -92,15 +92,13 @@
             <Property name="text" type="java.lang.String" value="Ordem de Servi&#xe7;o"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="menuOS_Cadastro">
+            <MenuItem class="javax.swing.JMenuItem" name="menuOS_Controle">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cadastro"/>
+                <Property name="text" type="java.lang.String" value="Painel de Controle"/>
               </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuOS_Acompanhamento">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Acompanhamento"/>
-              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuOS_ControleActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

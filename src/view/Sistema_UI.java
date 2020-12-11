@@ -74,6 +74,7 @@ public class Sistema_UI extends javax.swing.JFrame {
         this.veiculoController = new VeiculoController(this);
         this.fornecedorController = new FornecedorController(this);
         this.clienteController = new ClienteController(this);
+        this.osController = new OrdemServicoController(this);
         initComponents();
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         this.toFront();
@@ -105,8 +106,7 @@ public class Sistema_UI extends javax.swing.JFrame {
         menuHIST = new javax.swing.JMenu();
         menuHIST_Estoque = new javax.swing.JMenuItem();
         menuOS = new javax.swing.JMenu();
-        menuOS_Cadastro = new javax.swing.JMenuItem();
-        menuOS_Acompanhamento = new javax.swing.JMenuItem();
+        menuOS_Controle = new javax.swing.JMenuItem();
         menuImportar = new javax.swing.JMenu();
         menuImportacao_Usuario = new javax.swing.JMenuItem();
         menuImportacao_Fornecedor = new javax.swing.JMenuItem();
@@ -242,11 +242,13 @@ public class Sistema_UI extends javax.swing.JFrame {
 
         menuOS.setText("Ordem de Serviço");
 
-        menuOS_Cadastro.setText("Cadastro");
-        menuOS.add(menuOS_Cadastro);
-
-        menuOS_Acompanhamento.setText("Acompanhamento");
-        menuOS.add(menuOS_Acompanhamento);
+        menuOS_Controle.setText("Painel de Controle");
+        menuOS_Controle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuOS_ControleActionPerformed(evt);
+            }
+        });
+        menuOS.add(menuOS_Controle);
 
         barraMenuADM.add(menuOS);
 
@@ -349,6 +351,10 @@ public class Sistema_UI extends javax.swing.JFrame {
         getClienteController().abreClienteUI();
     }//GEN-LAST:event_menuADM_ClienteActionPerformed
 
+    private void menuOS_ControleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOS_ControleActionPerformed
+        osController.abreOSUI();
+    }//GEN-LAST:event_menuOS_ControleActionPerformed
+
     public void atualizaDados(){
         
     }
@@ -407,8 +413,7 @@ public class Sistema_UI extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuImportacao_Usuario;
     private javax.swing.JMenu menuImportar;
     private javax.swing.JMenu menuOS;
-    private javax.swing.JMenuItem menuOS_Acompanhamento;
-    private javax.swing.JMenuItem menuOS_Cadastro;
+    private javax.swing.JMenuItem menuOS_Controle;
     private javax.swing.JMenu menuSair;
     private javax.swing.JMenuItem menuSair_Logoff;
     private javax.swing.JMenuItem menuSair_Sair;

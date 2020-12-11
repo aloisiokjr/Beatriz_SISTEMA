@@ -8,6 +8,8 @@ package view.ordemServico;
 import controller.OrdemServicoController;
 import java.awt.Desktop;
 import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -89,7 +91,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        comboBoxClientes = new javax.swing.JComboBox<>();
+        comboBoxCliente = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         campoNomeCliente = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -101,7 +103,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        comboBoxVeiculos = new javax.swing.JComboBox<>();
+        comboBoxVeiculo = new javax.swing.JComboBox<>();
         jLabel18 = new javax.swing.JLabel();
         campoRenavam = new javax.swing.JTextField();
         campoChassi = new javax.swing.JTextField();
@@ -135,6 +137,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
         campoNumOS = new javax.swing.JFormattedTextField();
         jLabel29 = new javax.swing.JLabel();
         campoDataOS = new javax.swing.JFormattedTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         jDialog1.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -203,7 +206,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabel10.setText("DADOS DO CLIENTE");
 
-        comboBoxClientes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        comboBoxCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setText("Nome *");
@@ -237,7 +240,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboBoxClientes, 0, 175, Short.MAX_VALUE)
+                    .addComponent(comboBoxCliente, 0, 175, Short.MAX_VALUE)
                     .addComponent(jLabel10)
                     .addComponent(campoNomeCliente))
                 .addGap(18, 18, 18)
@@ -274,13 +277,19 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(campoRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(comboBoxClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(comboBoxCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(campoNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        comboBoxCliente.addActionListener (new ActionListener () {
+            public void actionPerformed(ActionEvent e) {
+                carregaDadosVeiculo();
+            }
+        });
 
         jPanel4.setBackground(new java.awt.Color(250, 250, 250));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -291,13 +300,18 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel15.setText("Placa do Veículo *");
 
-        comboBoxVeiculos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        comboBoxVeiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel18.setText("Renavam*");
 
         campoRenavam.setEditable(false);
         campoRenavam.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        campoRenavam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoRenavamActionPerformed(evt);
+            }
+        });
 
         campoChassi.setEditable(false);
         campoChassi.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -324,7 +338,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(comboBoxVeiculos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(comboBoxVeiculo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                     .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -353,7 +367,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboBoxVeiculos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(comboBoxVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -373,6 +387,12 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
                             .addComponent(campoMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        comboBoxVeiculo.addActionListener (new ActionListener () {
+            public void actionPerformed(ActionEvent e) {
+                carregaDadosVeiculo();
+            }
+        });
 
         jPanel6.setBackground(new java.awt.Color(250, 250, 250));
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -531,7 +551,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(campoDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -539,7 +559,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
                             .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)))
-                .addGap(20, 20, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -662,30 +682,37 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jLabel2.setText("LANÇAMENTO DA ORDEM DE SERVIÇO");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(btnFecharTela, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25)
-                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel5Layout.createSequentialGroup()
+                            .addComponent(btnFecharTela, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(25, 25, 25)
+                            .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(587, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addGap(14, 14, 14)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -790,6 +817,10 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
         removeArquivo();
     }//GEN-LAST:event_btnRemoveArquivoActionPerformed
 
+    private void campoRenavamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoRenavamActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoRenavamActionPerformed
+
     private void setagemInicial(){
         listaRequisitos.add(new Requisito("Cliente", false));
         listaRequisitos.add(new Requisito("Veículo", false));
@@ -797,8 +828,8 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
         listaRequisitos.add(new Requisito("CPF do Motorista", false));
         listaRequisitos.add(new Requisito("Arquivo", false));
         
-        comboBoxVeiculos.removeAllItems();
-        comboBoxVeiculos.addItem("Selecione");
+        comboBoxVeiculo.removeAllItems();
+        comboBoxVeiculo.addItem("Selecione");
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String url = SQL_URL.getUrl();
@@ -808,29 +839,102 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
                 ResultSet rs = pst.executeQuery();
                 while (rs.next()) {
                     String placa = rs.getString("Placa");
-                    comboBoxClientes.addItem(placa);
+                    comboBoxVeiculo.addItem(placa);
                 }
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
 
-        comboBoxClientes.removeAllItems();
-        comboBoxClientes.addItem("Selecione");
+        comboBoxCliente.removeAllItems();
+        comboBoxCliente.addItem("Selecione");
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
-                String sql = "SELECT Nome_Fantasia FROM Cliente";
+                String sql = "SELECT NomeFantasia FROM Cliente";
                 PreparedStatement pst = con.prepareStatement(sql);
                 ResultSet rs = pst.executeQuery();
                 while (rs.next()) {
-                    String nomeF = rs.getString("Nome_Fantasia");
-                    comboBoxVeiculos.addItem(nomeF);
+                    String nomeF = rs.getString("NomeFantasia");
+                    comboBoxCliente.addItem(nomeF);
                 }
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    private void carregaDadosVeiculo(){
+        if (comboBoxVeiculo.getItemCount()>0){
+            if (((String)comboBoxVeiculo.getSelectedItem()).equals("Selecione")){
+            listaRequisitos.get(1).setIsOk(false);
+            } else {
+                String placa = (String) comboBoxVeiculo.getSelectedItem();
+                String marca, modelo, renavam, chassi;
+                try {
+                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    String url = SQL_URL.getUrl();
+                    try (Connection con = DriverManager.getConnection(url)) {
+                        String sql2 = "SELECT Renavam, NumeroChassi, Marca, Modelo FROM Veiculo WHERE Placa = ?";
+                        PreparedStatement pst2 = con.prepareStatement(sql2);
+                        pst2.setString(1, placa);
+                        ResultSet rs2 = pst2.executeQuery();
+                        if (rs2.next()){
+
+                        }
+                        renavam = rs2.getString("Renavam");
+                        chassi = rs2.getString("NumeroChassi");
+                        marca = rs2.getString("Marca");
+                        modelo = rs2.getString("Modelo");
+
+                        campoRenavam.setText(renavam);
+                        campoChassi.setText(chassi);
+                        campoMarca.setText(marca);
+                        campoModelo.setText(modelo);
+                        listaRequisitos.get(1).setIsOk(true);
+                    }
+                } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+                    JOptionPane.showMessageDialog(null, e+" teste");
+                }
+            }
+        }
+    }
+    
+    private void carregaDadosCliente(){
+        if(comboBoxCliente.getItemCount() >0){
+            if (((String)comboBoxCliente.getSelectedItem()).equals("Selecione")){
+            listaRequisitos.get(0).setIsOk(false);
+            } else {
+                String cliente = (String) comboBoxCliente.getSelectedItem();
+                String nome, razaoSocial, nomeFantasia, doc;
+                try {
+                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    String url = SQL_URL.getUrl();
+                    try (Connection con = DriverManager.getConnection(url)) {
+                        String sql2 = "SELECT Nome, RazaoSocial, NomeFantasia, DocCliente FROM Cliente WHERE NomeFantasia = ?";
+                        PreparedStatement pst2 = con.prepareStatement(sql2);
+                        pst2.setString(1, cliente);
+                        ResultSet rs2 = pst2.executeQuery();
+                        if (rs2.next()){
+
+                        }
+                        nome = rs2.getString("Nome");
+                        razaoSocial = rs2.getString("RazaoSocial");
+                        nomeFantasia = rs2.getString("NomeFantasia");
+                        doc = rs2.getString("DocCliente");
+
+                        campoNomeCliente.setText(nome);
+                        campoRazaoSocial.setText(razaoSocial);
+                        campoNomeFantasia.setText(nomeFantasia);
+                        campoCNPJ.setText(doc);
+
+                        listaRequisitos.get(0).setIsOk(true);
+                    }
+                } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+                    JOptionPane.showMessageDialog(null, e+" teste");
+                }
+            }
         }
     }
     
@@ -939,7 +1043,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
     private void salvaOS(){
         String numOs = campoNumOS.getText();
         String docCliente = campoCNPJ.getText();
-        String placaVeiculo = (String)comboBoxVeiculos.getSelectedItem();
+        String placaVeiculo = (String)comboBoxVeiculo.getSelectedItem();
         String nomeMotorista = campoNomeMotorista.getText();
         String cpfMotorista = campoCPF.getText();
         String data = campoDataOS.getText();
@@ -974,7 +1078,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
         String title = "Cancelar o Lançamento";
         int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
-            // CONTROLLER PARA FECHAR
+            osController.fechaOSUI();
         }
         if (reply == JOptionPane.NO_OPTION) {
 
@@ -1026,8 +1130,8 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField campoNumOS;
     private javax.swing.JTextField campoRazaoSocial;
     private javax.swing.JTextField campoRenavam;
-    private javax.swing.JComboBox<String> comboBoxClientes;
-    private javax.swing.JComboBox<String> comboBoxVeiculos;
+    private javax.swing.JComboBox<String> comboBoxCliente;
+    private javax.swing.JComboBox<String> comboBoxVeiculo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JDialog jDialog1;
@@ -1043,6 +1147,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;

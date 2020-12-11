@@ -12,6 +12,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -25,11 +27,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.Arquivo;
-import model.Cliente;
 import model.OrdemServico;
 import model.SituacaoOS;
 import util.SQL_URL;
+import util.ToHashHex;
 
 /**
  *
@@ -314,6 +317,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
         radio_CPF.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_CPF.setText("CPF MOTORISTA");
 
+        radio_CaracVeiculo.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_CaracVeiculo.setText("CARACT. VEÍCULO");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -483,12 +487,20 @@ public class OrdemServicoUI extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaOSMouseClicked
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        oSExcluir();
+        try {
+            oSExcluir();
+        } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
+            Logger.getLogger(OrdemServicoUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnExcluirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnExcluirKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            oSExcluir();
+            try {
+                oSExcluir();
+            } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
+                Logger.getLogger(OrdemServicoUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_btnExcluirKeyPressed
 
@@ -684,15 +696,345 @@ public class OrdemServicoUI extends javax.swing.JFrame {
     }
     
     public void oSBuscaTodos(){
-    
+        limpaTabelaOS();
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "SELECT * FROM OrdemServico";
+                PreparedStatement pst = con.prepareStatement(sql);
+                ResultSet rs = pst.executeQuery();
+                int i = 1;
+                while (rs.next()) {
+                    String nomeCliente = buscaCliente(rs.getString("DocCliente"));
+                    String status = rs.getString("Encerrada");
+                    if (status.equals("E")){
+                        status = "ENCERRADA";
+                    } else if (status.equals("A")){
+                        status = "ABERTO";
+                    }
+                    DefaultTableModel modeloAux = (DefaultTableModel) tabelaOS.getModel();
+                    modeloAux.addRow(new Object[]{i, status, rs.getString("NumOS"), nomeCliente, rs.getString("VeiculoPlaca"), rs.getString("NomeMotorista"), rs.getString("CPFMotorista"), rs.getString("Data")});
+                    i++;
+                }  
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
     
     private void oSBuscar(){
-    
+        if (radio_NumOS.isSelected() ||  radio_PlacaVeiculo.isSelected() || radio_NomeMotorista.isSelected() || radio_CPF.isSelected()){
+            limpaTabelaOS();
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String url = SQL_URL.getUrl();
+                try (Connection con = DriverManager.getConnection(url)) {
+                    String sql = null;
+                    String palavraBusca = campoBusca.getText();
+                    if (palavraBusca.equals("")) {
+                        oSBuscaTodos();
+                    } else {
+                        if (radio_NumOS.isSelected()) {
+                            sql = "SELECT * FROM OrdemServico WHERE NumOS LIKE '%"+palavraBusca+"%' ORDER BY Encerrada";
+                        } else if (radio_PlacaVeiculo.isSelected()) {
+                            sql = "SELECT * FROM OrdemServico WHERE VeiculoPlaca LIKE '%"+palavraBusca+"%' ORDER BY Encerrada";
+                        } else if(radio_NomeMotorista.isSelected()){
+                            sql = "SELECT * FROM OrdemServico WHERE NomeMotorista LIKE '%"+palavraBusca+"%' ORDER BY Encerrada";
+                        } else if (radio_CPF.isSelected()){
+                            sql = "SELECT * FROM OrdemServico WHERE CPFMotoristaa LIKE '%"+palavraBusca+"%' ORDER BY Encerrada";
+                        }
+                        PreparedStatement pst = con.prepareStatement(sql);;
+                        ResultSet rs = pst.executeQuery();
+                        int i = 1;
+                        while (rs.next()) {
+                            String nomeCliente = buscaCliente(rs.getString("DocCliente"));
+                            String status = rs.getString("Encerrada");
+                            if (status.equals("E")){
+                                status = "ENCERRADA";
+                            } else if (status.equals("A")){
+                                status = "ABERTO";
+                            }
+                            DefaultTableModel modeloAux = (DefaultTableModel) tabelaOS.getModel();
+                            modeloAux.addRow(new Object[]{i, status, rs.getString("NumOS"), nomeCliente, rs.getString("VeiculoPlaca"), rs.getString("NomeMotorista"), rs.getString("CPFMotorista"), rs.getString("Data")});
+                            i++;
+                        }
+                    }
+                    
+                    if (tabelaOS.getRowCount() == 0) {
+                        JOptionPane.showMessageDialog(null, "A pesquisa não encontrou nenhuma OS.");
+                    }
+                }
+            } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        } else if (radio_NomeCliente.isSelected()){
+            limpaTabelaOS();
+            int i = 1;
+            String palavraBusca = campoBusca.getText();
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String url = SQL_URL.getUrl();
+                try (Connection con = DriverManager.getConnection(url)) {
+                    String sql = "SELECT DocCliente FROM Cliente WHERE Nome LIKE '%"+palavraBusca+"%' OR RazaoSocial LIKE '%"+palavraBusca+"%' OR NomeFantasia LIKE '%"+palavraBusca+"%'";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    ResultSet rs = pst.executeQuery();
+                    String docCliente;
+                    while(rs.next()){
+                        docCliente = rs.getString("DocCliente");
+                        i = buscaOsPorCliente(docCliente,i);
+                    }
+                }
+            } catch (SQLException | HeadlessException | ClassNotFoundException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+            
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String url = SQL_URL.getUrl();
+                try (Connection con = DriverManager.getConnection(url)) {
+                    String sql = "SELECT DocCliente FROM Cliente_NomeVariante WHERE NomeVariante LIKE '%"+palavraBusca+"%'";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    ResultSet rs = pst.executeQuery();
+                    String docCliente;
+                    while(rs.next()){
+                        docCliente = rs.getString("DocCliente");
+                        i = buscaOsPorCliente(docCliente,i);
+                    }
+                }
+            } catch (SQLException | HeadlessException | ClassNotFoundException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+            
+            if (tabelaOS.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(null, "A pesquisa não encontrou nenhuma OS.");
+            }
+        } else if(radio_CaracVeiculo.isSelected()){
+            limpaTabelaOS();
+            int i = 1;
+            String palavraBusca = campoBusca.getText();
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String url = SQL_URL.getUrl();
+                try (Connection con = DriverManager.getConnection(url)) {
+                    String sql = "SELECT PlacaVeiculo FROM Veiculo_Caracteristica WHERE Caracteristica LIKE '%"+palavraBusca+"%'";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    ResultSet rs = pst.executeQuery();
+                    String docCliente;
+                    while(rs.next()){
+                        docCliente = rs.getString("PlacaVeiculo");
+                        i = buscaOsPorVeiculo(docCliente,i);
+                    }
+                }
+            } catch (SQLException | HeadlessException | ClassNotFoundException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }else {
+            JOptionPane.showMessageDialog(null, "Selecione um filtro de busca.");
+        }
     }
     
-    private void oSExcluir(){
+    private int buscaOsPorCliente(String aux, int i){
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "SELECT * FROM OrdemServico WHERE DocCliente = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, aux);
+                ResultSet rs = pst.executeQuery();
+                while (rs.next()) {
+                    String nomeCliente = buscaCliente(rs.getString("DocCliente"));
+                    String status = rs.getString("Encerrada");
+                    if (status.equals("E")){
+                        status = "ENCERRADA";
+                    } else if (status.equals("A")){
+                        status = "ABERTO";
+                    }
+                    DefaultTableModel modeloAux = (DefaultTableModel) tabelaOS.getModel();
+                    modeloAux.addRow(new Object[]{i, status, rs.getString("NumOS"), nomeCliente, rs.getString("VeiculoPlaca"), rs.getString("NomeMotorista"), rs.getString("CPFMotorista"), rs.getString("Data")});
+                    i++;
+                }  
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+        return i;
+    }
     
+    private int buscaOsPorVeiculo(String aux, int i){
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "SELECT * FROM OrdemServico WHERE VeiculoPlaca = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, aux);
+                ResultSet rs = pst.executeQuery();
+                while (rs.next()) {
+                    String nomeCliente = buscaCliente(rs.getString("DocCliente"));
+                    String status = rs.getString("Encerrada");
+                    if (status.equals("E")){
+                        status = "ENCERRADA";
+                    } else if (status.equals("A")){
+                        status = "ABERTO";
+                    }
+                    DefaultTableModel modeloAux = (DefaultTableModel) tabelaOS.getModel();
+                    modeloAux.addRow(new Object[]{i, status, rs.getString("NumOS"), nomeCliente, rs.getString("VeiculoPlaca"), rs.getString("NomeMotorista"), rs.getString("CPFMotorista"), rs.getString("Data")});
+                    i++;
+                }  
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+        return i;
+    }
+    
+    private void limpaTabelaOS(){
+        int rowCount = tabelaOS.getRowCount();
+        if (rowCount > 0) {
+            while (rowCount > 0) {
+                ((DefaultTableModel) tabelaOS.getModel()).removeRow(rowCount - 1);
+                rowCount--;
+            }
+        }
+    }
+    
+    private String buscaCliente(String docCliente){
+        String retorno = "";
+        
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "SELECT NomeFantasia FROM Cliente WHERE DocCliente = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, docCliente);
+                ResultSet rs = pst.executeQuery();
+
+                if(rs.next()){
+                    retorno = rs.getString("NomeFantasia");
+                }
+            }
+        } catch (SQLException | HeadlessException | ClassNotFoundException e) {
+            //JOptionPane.showMessageDialog(null, e);
+        }
+        
+        return retorno;
+    }
+    
+    private void oSExcluir() throws UnsupportedEncodingException, NoSuchAlgorithmException{
+        String numOS = ((String)tabelaOS.getValueAt(tabelaOS.getSelectedRow(), 1));
+        String message = "Deseja realmente excluir a OS '" + numOS + "'?";
+        String title = "Confirmação de Exclusao";
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            String senhaM = JOptionPane.showInputDialog("Digite a senha mestre para exclusão:");
+            String aux = ToHashHex.toHexSHA256(senhaM);
+            boolean controle = false;
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String url = SQL_URL.getUrl();
+                try (Connection con = DriverManager.getConnection(url)) {
+                    String sql = "SELECT SenhaM FROM PassC WHERE SenhaM = ?";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    pst.setString(1, numOS);
+                    ResultSet rs = pst.executeQuery();
+                    if (rs.next()){
+                        controle = true;
+                    }
+                }
+            } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+            
+            if (controle){
+                excluiOSTrue(numOS);
+            }
+        }
+        if (reply == JOptionPane.NO_OPTION) {
+
+        }
+    }
+    
+    private void excluiOSTrue(String numOS){
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "DELETE FROM OrdemServico WHERE NumOS = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, numOS);
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()){
+                
+                }
+            }
+        } catch (HeadlessException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e);
+        } catch (SQLException e){
+            osExcluiArquivos(numOS);
+            osExcluiSituacoes(numOS);
+        }
+    }
+    
+    private void osExcluiArquivos(String numOS){
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "DELETE FROM Arquivo_OS WHERE CodigoOS = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, numOS);
+                ResultSet rs = pst.executeQuery();
+
+            }
+        } catch (HeadlessException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e);
+        } catch (SQLException e) {
+            
+        }
+    }
+    
+    private void osExcluiSituacoes(String numOS){
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "DELETE FROM Arquivo_Situacao WHERE CodigoS IN (SELECT Codigo FROM SituacaoOS WHERE NumeroOS = ?)";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, numOS);
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()){
+                    
+                }
+
+            }
+        } catch (HeadlessException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e);
+        } catch (SQLException e) {
+            
+        }
+        
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "DELETE FROM SituacaoOS WHERE NumeroOS = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, numOS);
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()){
+                    
+                }
+            }
+        } catch (HeadlessException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e);
+        } catch (SQLException e) {
+            
+        }
     }
     
     private void geraTxt()throws IOException{

@@ -2567,6 +2567,13 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         campoNomeMotorista.setText(getOsAux().getNomeMotorista());
         campoCPF.setText(getOsAux().getCPFMotorista());
         campoData.setText(getOsAux().getData());
+        campoStatus.setText(getOsAux().getStatus());
+        
+        if (getOsAux().getStatus().equals("ABERTO")){
+            campoStatus.setForeground(new java.awt.Color(0, 0, 153));
+        } else if (getOsAux().getStatus().equals("ENCERRADA")){
+            campoStatus.setForeground(new java.awt.Color(153, 0, 0));
+        }
         
         DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivos.getModel();
         Iterator<Arquivo> iteradorArquivos = getOsAux().getListaArquivos().iterator();
