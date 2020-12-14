@@ -9,7 +9,7 @@ package model;
  *
  * @author KLEYN
  */
-public class Arquivo {
+public class Arquivo implements Cloneable {
     private String descricao;
     private String path;
     private String data;
@@ -59,5 +59,10 @@ public class Arquivo {
      */
     public void setData(String data) {
         this.data = data;
+    }
+    
+    @Override
+    public Arquivo clone () throws CloneNotSupportedException{
+        return (Arquivo) super.clone();
     }
 }
