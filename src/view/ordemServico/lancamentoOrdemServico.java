@@ -139,6 +139,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
         campoDataOS = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
 
+        jDialog1.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         jDialog1.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 jDialog1WindowClosed(evt);
@@ -287,7 +288,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
 
         comboBoxCliente.addActionListener (new ActionListener () {
             public void actionPerformed(ActionEvent e) {
-                carregaDadosVeiculo();
+                carregaDadosCliente();
             }
         });
 
@@ -404,6 +405,11 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
         jLabel23.setText("Nome do Motorista *");
 
         campoNomeMotorista.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        campoNomeMotorista.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoNomeMotoristaFocusLost(evt);
+            }
+        });
 
         jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel24.setText("CPF *");
@@ -414,6 +420,11 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         campoCPF.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        campoCPF.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoCPFFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -635,6 +646,11 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         campoNumOS.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        campoNumOS.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoNumOSFocusLost(evt);
+            }
+        });
 
         jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel29.setText("Data de Emissão *");
@@ -645,6 +661,11 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         campoDataOS.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        campoDataOS.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoDataOSFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -805,8 +826,8 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2KeyPressed
 
     private void jDialog1WindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jDialog1WindowClosed
-        this.setEnabled(true);
-        this.toFront();
+        osController.getLancamentoOS().setEnabled(true);
+        osController.getLancamentoOS().toFront();
     }//GEN-LAST:event_jDialog1WindowClosed
 
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
@@ -821,11 +842,45 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoRenavamActionPerformed
 
+    private void campoNomeMotoristaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNomeMotoristaFocusLost
+        if (campoNomeMotorista.getText().equals("")){
+            listaRequisitos.get(0).setIsOk(false);
+        } else {
+            listaRequisitos.get(0).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoNomeMotoristaFocusLost
+
+    private void campoCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCPFFocusLost
+        if (campoCPF.getText().equals("   .   .   -  ")){
+            listaRequisitos.get(1).setIsOk(false);
+        } else {
+            listaRequisitos.get(1).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoCPFFocusLost
+
+    private void campoNumOSFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoNumOSFocusLost
+        if (campoNumOS.getText().equals("   .   ")){
+            listaRequisitos.get(2).setIsOk(false);
+        } else {
+            listaRequisitos.get(2).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoNumOSFocusLost
+
+    private void campoDataOSFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoDataOSFocusLost
+        if (campoDataOS.getText().equals("   .   ")){
+            listaRequisitos.get(3).setIsOk(false);
+        } else {
+            listaRequisitos.get(3).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoDataOSFocusLost
+
     private void setagemInicial(){
-        listaRequisitos.add(new Requisito("Cliente", false));
-        listaRequisitos.add(new Requisito("Veículo", false));
         listaRequisitos.add(new Requisito("Nome do Motorista", false));
         listaRequisitos.add(new Requisito("CPF do Motorista", false));
+        listaRequisitos.add(new Requisito("Número da OS", false));
+        listaRequisitos.add(new Requisito("Data de Emissão", false));
+        listaRequisitos.add(new Requisito("Cliente", false));
+        listaRequisitos.add(new Requisito("Veículo", false));
         listaRequisitos.add(new Requisito("Arquivo", false));
         
         comboBoxVeiculo.removeAllItems();
@@ -868,7 +923,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
     private void carregaDadosVeiculo(){
         if (comboBoxVeiculo.getItemCount()>0){
             if (((String)comboBoxVeiculo.getSelectedItem()).equals("Selecione")){
-            listaRequisitos.get(1).setIsOk(false);
+            listaRequisitos.get(5).setIsOk(false);
             } else {
                 String placa = (String) comboBoxVeiculo.getSelectedItem();
                 String marca, modelo, renavam, chassi;
@@ -892,7 +947,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
                         campoChassi.setText(chassi);
                         campoMarca.setText(marca);
                         campoModelo.setText(modelo);
-                        listaRequisitos.get(1).setIsOk(true);
+                        listaRequisitos.get(5).setIsOk(true);
                     }
                 } catch (HeadlessException | ClassNotFoundException | SQLException e) {
                     JOptionPane.showMessageDialog(null, e+" teste");
@@ -904,7 +959,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
     private void carregaDadosCliente(){
         if(comboBoxCliente.getItemCount() >0){
             if (((String)comboBoxCliente.getSelectedItem()).equals("Selecione")){
-            listaRequisitos.get(0).setIsOk(false);
+            listaRequisitos.get(4).setIsOk(false);
             } else {
                 String cliente = (String) comboBoxCliente.getSelectedItem();
                 String nome, razaoSocial, nomeFantasia, doc;
@@ -929,7 +984,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
                         campoNomeFantasia.setText(nomeFantasia);
                         campoCNPJ.setText(doc);
 
-                        listaRequisitos.get(0).setIsOk(true);
+                        listaRequisitos.get(4).setIsOk(true);
                     }
                 } catch (HeadlessException | ClassNotFoundException | SQLException e) {
                     JOptionPane.showMessageDialog(null, e+" teste");
@@ -957,6 +1012,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
             modeloAux.addRow(new Object[]{index+1, campoDescricao.getText()});
             campoDescricao.setText("");
             campoCaminho.setText("");
+            listaRequisitos.get(6).setIsOk(true);
         }
     }
     
@@ -966,6 +1022,9 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
             DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivos.getModel();
             modeloAux.removeRow(tabelaArquivos.getSelectedRow());
             listaArquivos.remove(index);
+            if (listaArquivos.isEmpty()){
+                listaRequisitos.get(6).setIsOk(false);
+            }
         } else {
             // DO NOTHING
         }
@@ -978,8 +1037,10 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
             File file = jFileChooser1.getSelectedFile();
             campoCaminho.setText(file.getPath());
             this.setEnabled(true);
+            this.toFront();
         } else {
-            //System.out.println("File access cancelled by user.");
+            this.setEnabled(true);
+            this.toFront();
         }
     }
     
@@ -1060,14 +1121,14 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
                 pst.setString(4, nomeMotorista);
                 pst.setString(5, cpfMotorista);
                 pst.setString(6, data);
-                pst.setString(7, "N");
+                pst.setString(7, "A");
                 ResultSet rs = pst.executeQuery();
                 if (rs.next()) {
 
                 }
             }
         } catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Ordem de Serviço de nº"+numOs+" salva com sucesso.");
+            JOptionPane.showMessageDialog(null, "Ordem de Serviço de nº "+numOs+" salva com sucesso.");
         }catch (HeadlessException | ClassNotFoundException e) {
             //JOptionPane.showMessageDialog(null, e);
         }

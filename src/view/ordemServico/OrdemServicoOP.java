@@ -7,6 +7,7 @@ package view.ordemServico;
 
 import controller.OrdemServicoController;
 import java.awt.Desktop;
+import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -56,6 +57,8 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private ArrayList<Requisito> listaRequisitos = null;
     private OrdemServicoController osController = null;
     private OrdemServico osAux = null;
+    
+    private ArrayList<Arquivo> listaArquivosAux = null;
 
     private int indexSituacao = 1;
     
@@ -184,13 +187,13 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         campoData1 = new javax.swing.JFormattedTextField();
         campoStatus1 = new javax.swing.JTextField();
         jLabel131 = new javax.swing.JLabel();
-        btnConclur1 = new javax.swing.JButton();
+        btnConcluir1 = new javax.swing.JButton();
         painel2 = new javax.swing.JPanel();
         campoDescricao2 = new javax.swing.JTextField();
         jLabel132 = new javax.swing.JLabel();
         jLabel133 = new javax.swing.JLabel();
         campoData2 = new javax.swing.JFormattedTextField();
-        btnConclur2 = new javax.swing.JButton();
+        btnConcluir2 = new javax.swing.JButton();
         campoStatus2 = new javax.swing.JTextField();
         jLabel135 = new javax.swing.JLabel();
         jLabel136 = new javax.swing.JLabel();
@@ -244,6 +247,8 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         editarArquivoOS = new javax.swing.JButton();
         jLabel152 = new javax.swing.JLabel();
         campoStatus = new javax.swing.JTextField();
+
+        criarSituacao.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jPanel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -309,13 +314,13 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                         .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmpoDataStatusArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(adicionarArquivoC, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(adicionarArquivoC, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE))
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(campoPendencia, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -428,18 +433,17 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel148, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnRemoveArquivo)
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel12Layout.createSequentialGroup()
-                                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel145, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(campoDescricaoC, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(campoDataC, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
-                                    .addComponent(jLabel146, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel12Layout.createSequentialGroup()
+                            .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel145, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(campoDescricaoC, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(campoDataC, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                                .addComponent(jLabel146, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnRemoveArquivo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
@@ -1126,7 +1130,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(250, 250, 250));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -1380,16 +1384,16 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         jLabel131.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel131.setText("Status:");
 
-        btnConclur1.setBackground(new java.awt.Color(204, 204, 204));
-        btnConclur1.setText("CONCLUIR");
-        btnConclur1.addActionListener(new java.awt.event.ActionListener() {
+        btnConcluir1.setBackground(new java.awt.Color(204, 204, 204));
+        btnConcluir1.setText("CONCLUIR");
+        btnConcluir1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConclur1ActionPerformed(evt);
+                btnConcluir1ActionPerformed(evt);
             }
         });
-        btnConclur1.addKeyListener(new java.awt.event.KeyAdapter() {
+        btnConcluir1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnConclur1KeyPressed(evt);
+                btnConcluir1KeyPressed(evt);
             }
         });
 
@@ -1414,7 +1418,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                             .addGroup(painel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(campoData1)
                                 .addComponent(jLabel130, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnConclur1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnConcluir1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
@@ -1433,7 +1437,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 .addGroup(painel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel131)
                     .addComponent(campoStatus1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnConclur1))
+                    .addComponent(btnConcluir1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel129)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1464,16 +1468,16 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         }
         campoData2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        btnConclur2.setBackground(new java.awt.Color(204, 204, 204));
-        btnConclur2.setText("CONCLUIR");
-        btnConclur2.addActionListener(new java.awt.event.ActionListener() {
+        btnConcluir2.setBackground(new java.awt.Color(204, 204, 204));
+        btnConcluir2.setText("CONCLUIR");
+        btnConcluir2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConclur2ActionPerformed(evt);
+                btnConcluir2ActionPerformed(evt);
             }
         });
-        btnConclur2.addKeyListener(new java.awt.event.KeyAdapter() {
+        btnConcluir2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnConclur2KeyPressed(evt);
+                btnConcluir2KeyPressed(evt);
             }
         });
 
@@ -1552,7 +1556,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                             .addGroup(painel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(campoData2)
                                 .addComponent(jLabel133, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnConclur2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnConcluir2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
@@ -1571,7 +1575,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 .addGroup(painel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel135)
                     .addComponent(campoStatus2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnConclur2))
+                    .addComponent(btnConcluir2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel136)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2166,7 +2170,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             }
         });
         jPanel6.add(editarArquivoOS);
-        editarArquivoOS.setBounds(170, 260, 130, 21);
+        editarArquivoOS.setBounds(150, 260, 150, 21);
 
         jLabel152.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel152.setText("STATUS DA OS");
@@ -2271,12 +2275,12 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     }//GEN-LAST:event_campoClienteFocusLost
 
     private void btnFecharTela1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharTela1ActionPerformed
-//        fechaCadastroCliente();
+        fechaAcompanhamento();
     }//GEN-LAST:event_btnFecharTela1ActionPerformed
 
     private void btnFecharTela1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnFecharTela1KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-//            fechaCadastroCliente();
+            fechaAcompanhamento();
         }
     }//GEN-LAST:event_btnFecharTela1KeyPressed
 
@@ -2384,15 +2388,15 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSalvar2KeyPressed
 
-    private void btnConclur1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConclur1ActionPerformed
+    private void btnConcluir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConcluir1ActionPerformed
         concluirSituacao();
-    }//GEN-LAST:event_btnConclur1ActionPerformed
+    }//GEN-LAST:event_btnConcluir1ActionPerformed
 
-    private void btnConclur1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnConclur1KeyPressed
+    private void btnConcluir1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnConcluir1KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             concluirSituacao();
         }
-    }//GEN-LAST:event_btnConclur1KeyPressed
+    }//GEN-LAST:event_btnConcluir1KeyPressed
 
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
         // TODO add your handling code here:
@@ -2473,15 +2477,15 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnRemoveArquivo1KeyPressed
 
-    private void btnConclur2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConclur2ActionPerformed
+    private void btnConcluir2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConcluir2ActionPerformed
         concluirSituacao();
-    }//GEN-LAST:event_btnConclur2ActionPerformed
+    }//GEN-LAST:event_btnConcluir2ActionPerformed
 
-    private void btnConclur2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnConclur2KeyPressed
+    private void btnConcluir2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnConcluir2KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             concluirSituacao();
         }
-    }//GEN-LAST:event_btnConclur2KeyPressed
+    }//GEN-LAST:event_btnConcluir2KeyPressed
 
     private void btnConcluir3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConcluir3ActionPerformed
         concluirSituacao();
@@ -2555,11 +2559,13 @@ public class OrdemServicoOP extends javax.swing.JFrame {
 
     private void setagemInicial(){
         listaRequisitos = new ArrayList();
-        listaRequisitos.add(new Requisito("Número da OS",true));
-        listaRequisitos.add(new Requisito("Cliente",true));
-        listaRequisitos.add(new Requisito("Placa do Veículo",true));
-        listaRequisitos.add(new Requisito("Nome do Motorista",true));
-        listaRequisitos.add(new Requisito("CPF do Motorista",true));
+        listaRequisitos.add(new Requisito("Nome do Motorista", true));
+        listaRequisitos.add(new Requisito("CPF do Motorista", true));
+        listaRequisitos.add(new Requisito("Número da OS", true));
+        listaRequisitos.add(new Requisito("Data de Emissão", true));
+        listaRequisitos.add(new Requisito("Cliente", true));
+        listaRequisitos.add(new Requisito("Veículo", true));
+        listaRequisitos.add(new Requisito("Arquivo", true));
         
         jFormattedTextField1.setText(getOsAux().getNumOS());
         campoCliente.setText(buscaCliente(getOsAux().getDocCliente()));
@@ -2568,6 +2574,12 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         campoCPF.setText(getOsAux().getCPFMotorista());
         campoData.setText(getOsAux().getData());
         campoStatus.setText(getOsAux().getStatus());
+        
+        if (campoStatus.getText().equals("A")){
+            campoStatus.setText("ABERTA");
+        } else if (campoStatus.getText().equals("E")){
+            campoStatus.setText("ENCERRADA");
+        }
         
         if (getOsAux().getStatus().equals("ABERTO")){
             campoStatus.setForeground(new java.awt.Color(0, 0, 153));
@@ -2597,7 +2609,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             campoStatus1.setText(status);
             
             if (status.equals("CONCLUÍDO")){
-                btnConclur1.setEnabled(false);
+                btnConcluir1.setEnabled(false);
             }
             
             Arquivo arquivoS;
@@ -2613,10 +2625,16 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 carregaSituacao2(i);
             }
         } else {
-            while (i<0){
+            i = 0;
+            while (i<5){
                 jTabbedPane1.setEnabledAt(i, false);
-                i--;
+                i++;
             }
+            btnConcluir1.setEnabled(false);
+            btnConcluir2.setEnabled(false);
+            btnConcluir3.setEnabled(false);
+            btnConcluir4.setEnabled(false);
+            btnConcluir5.setEnabled(false);
         }
     }
     
@@ -2632,7 +2650,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             campoStatus2.setText(status);
             
             if (status.equals("CONCLUÍDO")){
-                btnConclur2.setEnabled(false);
+                btnConcluir2.setEnabled(false);
             }
             
             Arquivo arquivoS;
@@ -2648,10 +2666,15 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 carregaSituacao3(i);
             }
         } else {
-            while (i<0){
+            i = 1;
+            while (i<5){
                 jTabbedPane1.setEnabledAt(i, false);
-                i--;
+                i++;
             }
+            btnConcluir2.setEnabled(false);
+            btnConcluir3.setEnabled(false);
+            btnConcluir4.setEnabled(false);
+            btnConcluir5.setEnabled(false);
         }
     }
     
@@ -2683,10 +2706,14 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 carregaSituacao4(i);
             }
         } else {
-            while (i<0){
+            i = 2;
+            while (i<5){
                 jTabbedPane1.setEnabledAt(i, false);
-                i--;
+                i++;
             }
+            btnConcluir3.setEnabled(false);
+            btnConcluir4.setEnabled(false);
+            btnConcluir5.setEnabled(false);
         }
     }
     
@@ -2718,10 +2745,13 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 carregaSituacao5(i);
             }
         } else {
-            while (i<0){
+            i = 3;
+            while (i<5){
                 jTabbedPane1.setEnabledAt(i, false);
-                i--;
+                i++;
             }
+            btnConcluir4.setEnabled(false);
+            btnConcluir5.setEnabled(false);
         }
     }
     
@@ -2750,7 +2780,9 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             }
             i--;
         } else {
+            i = 4;
             jTabbedPane1.setEnabledAt(i, false);
+            btnConcluir5.setEnabled(false);
         }
     }
     
@@ -2775,6 +2807,18 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         }
         
         return retorno;
+    }
+    
+    private void fechaAcompanhamento(){
+        String message = "Deseja realmente fechar o acompanhamento?";
+        String title = "Fechar o Acompanhamento";
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            osController.fechaAcompanhamentoOS();
+        }
+        if (reply == JOptionPane.NO_OPTION) {
+
+        }
     }
     
     private void procuraArquivo(){
@@ -2843,166 +2887,176 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     }
     
     private void concluirSituacao1(){
-        String message = "Deseja realmente concluir a Situação 1?";
-        String title = "Concluir Situação 1";
-        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
-        if (reply == JOptionPane.YES_OPTION) {
-            try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                String url = SQL_URL.getUrl();
-                try (Connection con = DriverManager.getConnection(url)) {
-                    String sql = "UPDATE SituacaoOS SET Status = ? WHERE Codigo = ?";
-                    PreparedStatement pst = con.prepareStatement(sql);
-                    pst.setString(1, "CONCLUÍDO");
-                    pst.setString(2, getOsAux().getListaSituacao().get(0).getCodigo());
+        if (!campoStatus1.getText().equals("")){
+            String message = "Deseja realmente concluir a Situação 1?";
+            String title = "Concluir Situação 1";
+            int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+                try {
+                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    String url = SQL_URL.getUrl();
+                    try (Connection con = DriverManager.getConnection(url)) {
+                        String sql = "UPDATE SituacaoOS SET Status = ? WHERE Codigo = ?";
+                        PreparedStatement pst = con.prepareStatement(sql);
+                        pst.setString(1, "CONCLUÍDO");
+                        pst.setString(2, getOsAux().getListaSituacao().get(0).getCodigo());
 
-                    ResultSet rs = pst.executeQuery();
-                    
-                    if(rs.next()){
-                        
+                        ResultSet rs = pst.executeQuery();
+
+                        if(rs.next()){
+
+                        }
                     }
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "Situação 1 concluída com sucesso.");
+                    getOsAux().getListaSituacao().get(0).setStatus("CONCLUÍDO");
+                    painel1.setEnabled(false);
+                } catch (HeadlessException | ClassNotFoundException e) {
+                    JOptionPane.showMessageDialog(null, e);
                 }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Situação 1 concluída com sucesso.");
-                getOsAux().getListaSituacao().get(0).setStatus("CONCLUÍDO");
-                painel1.setEnabled(false);
-            } catch (HeadlessException | ClassNotFoundException e) {
-                JOptionPane.showMessageDialog(null, e);
             }
-        }
-        if (reply == JOptionPane.NO_OPTION) {
+            if (reply == JOptionPane.NO_OPTION) {
 
+            }
         }
     }
     
     private void concluirSituacao2(){
-        String message = "Deseja realmente concluir a Situação 2?";
-        String title = "Concluir Situação 2";
-        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
-        if (reply == JOptionPane.YES_OPTION) {
-            try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                String url = SQL_URL.getUrl();
-                try (Connection con = DriverManager.getConnection(url)) {
-                    String sql = "UPDATE SituacaoOS SET Status = ? WHERE Codigo = ?";
-                    PreparedStatement pst = con.prepareStatement(sql);
-                    pst.setString(1, "CONCLUÍDO");
-                    pst.setString(2, getOsAux().getListaSituacao().get(1).getCodigo());
+        if (!campoStatus2.getText().equals("")){
+            String message = "Deseja realmente concluir a Situação 2?";
+            String title = "Concluir Situação 2";
+            int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+                try {
+                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    String url = SQL_URL.getUrl();
+                    try (Connection con = DriverManager.getConnection(url)) {
+                        String sql = "UPDATE SituacaoOS SET Status = ? WHERE Codigo = ?";
+                        PreparedStatement pst = con.prepareStatement(sql);
+                        pst.setString(1, "CONCLUÍDO");
+                        pst.setString(2, getOsAux().getListaSituacao().get(1).getCodigo());
 
-                    ResultSet rs = pst.executeQuery();
-                    
-                    if(rs.next()){
-                        
+                        ResultSet rs = pst.executeQuery();
+
+                        if(rs.next()){
+
+                        }
                     }
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "Situação 2 concluída com sucesso.");
+                    getOsAux().getListaSituacao().get(1).setStatus("CONCLUÍDO");
+                    painel2.setEnabled(false);
+                } catch (HeadlessException | ClassNotFoundException e) {
+                    JOptionPane.showMessageDialog(null, e);
                 }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Situação 2 concluída com sucesso.");
-                getOsAux().getListaSituacao().get(1).setStatus("CONCLUÍDO");
-                painel2.setEnabled(false);
-            } catch (HeadlessException | ClassNotFoundException e) {
-                JOptionPane.showMessageDialog(null, e);
             }
-        }
-        if (reply == JOptionPane.NO_OPTION) {
+            if (reply == JOptionPane.NO_OPTION) {
 
+            }
         }
     }
     
     private void concluirSituacao3(){
-        String message = "Deseja realmente concluir a Situação 3?";
-        String title = "Concluir Situação 3";
-        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
-        if (reply == JOptionPane.YES_OPTION) {
-            try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                String url = SQL_URL.getUrl();
-                try (Connection con = DriverManager.getConnection(url)) {
-                    String sql = "UPDATE SituacaoOS SET Status = ? WHERE Codigo = ?";
-                    PreparedStatement pst = con.prepareStatement(sql);
-                    pst.setString(1, "CONCLUÍDO");
-                    pst.setString(2, getOsAux().getListaSituacao().get(2).getCodigo());
+        if (!campoStatus3.getText().equals("")){
+            String message = "Deseja realmente concluir a Situação 3?";
+            String title = "Concluir Situação 3";
+            int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+                try {
+                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    String url = SQL_URL.getUrl();
+                    try (Connection con = DriverManager.getConnection(url)) {
+                        String sql = "UPDATE SituacaoOS SET Status = ? WHERE Codigo = ?";
+                        PreparedStatement pst = con.prepareStatement(sql);
+                        pst.setString(1, "CONCLUÍDO");
+                        pst.setString(2, getOsAux().getListaSituacao().get(2).getCodigo());
 
-                    ResultSet rs = pst.executeQuery();
-                    
-                    if(rs.next()){
-                        
+                        ResultSet rs = pst.executeQuery();
+
+                        if(rs.next()){
+
+                        }
                     }
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "Situação 3 concluída com sucesso.");
+                    getOsAux().getListaSituacao().get(2).setStatus("CONCLUÍDO");
+                    painel3.setEnabled(false);
+                } catch (HeadlessException | ClassNotFoundException e) {
+                    JOptionPane.showMessageDialog(null, e);
                 }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Situação 3 concluída com sucesso.");
-                getOsAux().getListaSituacao().get(2).setStatus("CONCLUÍDO");
-                painel3.setEnabled(false);
-            } catch (HeadlessException | ClassNotFoundException e) {
-                JOptionPane.showMessageDialog(null, e);
             }
-        }
-        if (reply == JOptionPane.NO_OPTION) {
+            if (reply == JOptionPane.NO_OPTION) {
 
+            }
         }
     }
     
     private void concluirSituacao4(){
-        String message = "Deseja realmente concluir a Situação 4?";
-        String title = "Concluir Situação 4";
-        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
-        if (reply == JOptionPane.YES_OPTION) {
-            try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                String url = SQL_URL.getUrl();
-                try (Connection con = DriverManager.getConnection(url)) {
-                    String sql = "UPDATE SituacaoOS SET Status = ? WHERE Codigo = ?";
-                    PreparedStatement pst = con.prepareStatement(sql);
-                    pst.setString(1, "CONCLUÍDO");
-                    pst.setString(2, getOsAux().getListaSituacao().get(3).getCodigo());
+        if (!campoStatus4.getText().equals("")){
+            String message = "Deseja realmente concluir a Situação 4?";
+            String title = "Concluir Situação 4";
+            int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+                try {
+                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    String url = SQL_URL.getUrl();
+                    try (Connection con = DriverManager.getConnection(url)) {
+                        String sql = "UPDATE SituacaoOS SET Status = ? WHERE Codigo = ?";
+                        PreparedStatement pst = con.prepareStatement(sql);
+                        pst.setString(1, "CONCLUÍDO");
+                        pst.setString(2, getOsAux().getListaSituacao().get(3).getCodigo());
 
-                    ResultSet rs = pst.executeQuery();
-                    
-                    if(rs.next()){
-                        
+                        ResultSet rs = pst.executeQuery();
+
+                        if(rs.next()){
+
+                        }
                     }
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "Situação 4 concluída com sucesso.");
+                    getOsAux().getListaSituacao().get(3).setStatus("CONCLUÍDO");
+                    painel4.setEnabled(false);
+                } catch (HeadlessException | ClassNotFoundException e) {
+                    JOptionPane.showMessageDialog(null, e);
                 }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Situação 4 concluída com sucesso.");
-                getOsAux().getListaSituacao().get(3).setStatus("CONCLUÍDO");
-                painel4.setEnabled(false);
-            } catch (HeadlessException | ClassNotFoundException e) {
-                JOptionPane.showMessageDialog(null, e);
             }
-        }
-        if (reply == JOptionPane.NO_OPTION) {
+            if (reply == JOptionPane.NO_OPTION) {
 
+            }
         }
     }
     
     private void concluirSituacao5(){
-        String message = "Deseja realmente concluir a Situação 5?";
-        String title = "Concluir Situação 5";
-        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
-        if (reply == JOptionPane.YES_OPTION) {
-            try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                String url = SQL_URL.getUrl();
-                try (Connection con = DriverManager.getConnection(url)) {
-                    String sql = "UPDATE SituacaoOS SET Status = ? WHERE Codigo = ?";
-                    PreparedStatement pst = con.prepareStatement(sql);
-                    pst.setString(1, "CONCLUÍDO");
-                    pst.setString(2, getOsAux().getListaSituacao().get(4).getCodigo());
-                    ResultSet rs = pst.executeQuery();
-                    
-                    if(rs.next()){
-                        
-                    }
-                }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Situação 5 concluída com sucesso.");
-                getOsAux().getListaSituacao().get(4).setStatus("CONCLUÍDO");
-                painel5.setEnabled(false);
-            } catch (HeadlessException | ClassNotFoundException e) {
-                JOptionPane.showMessageDialog(null, e);
-            }
-        }
-        if (reply == JOptionPane.NO_OPTION) {
+        if (!campoStatus5.getText().equals("")){
+            String message = "Deseja realmente concluir a Situação 5?";
+            String title = "Concluir Situação 5";
+            int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+                try {
+                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    String url = SQL_URL.getUrl();
+                    try (Connection con = DriverManager.getConnection(url)) {
+                        String sql = "UPDATE SituacaoOS SET Status = ? WHERE Codigo = ?";
+                        PreparedStatement pst = con.prepareStatement(sql);
+                        pst.setString(1, "CONCLUÍDO");
+                        pst.setString(2, getOsAux().getListaSituacao().get(4).getCodigo());
+                        ResultSet rs = pst.executeQuery();
 
+                        if(rs.next()){
+
+                        }
+                    }
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "Situação 5 concluída com sucesso.");
+                    getOsAux().getListaSituacao().get(4).setStatus("CONCLUÍDO");
+                    painel5.setEnabled(false);
+                } catch (HeadlessException | ClassNotFoundException e) {
+                    JOptionPane.showMessageDialog(null, e);
+                }
+            }
+            if (reply == JOptionPane.NO_OPTION) {
+
+            }
         }
     }
     
@@ -3023,7 +3077,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         } else {
             Arquivo arquivoAux = new Arquivo(campoPendencia.getText(),campoCaminho.getText());
             arquivoAux.setData(cmpoDataStatusArquivo.getText());
-            getSituacaoOSAux().getListaArquivos().add(arquivoAux);
+            getListaArquivosAux().add(arquivoAux);
             int index = tabelaArquivosC.getRowCount();
             DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivosC.getModel();
             modeloAux.addRow(new Object[]{index+1, campoPendencia.getText()});
@@ -3063,7 +3117,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             int index = tabelaArquivosC.getSelectedRow();
             DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivosC.getModel();
             modeloAux.removeRow(tabelaArquivosC.getSelectedRow());
-            getSituacaoOSAux().getListaArquivos().remove(index);
+            getListaArquivosAux().remove(index);
         } else {
             // DO NOTHING
         }
@@ -3074,7 +3128,11 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         setSituacaoOSAux(new SituacaoOS());
         int index = getOsAux().getListaSituacao().size();
         indexSituacao = index;
+        setListaArquivosAux((ArrayList<Arquivo>) new ArrayList());
         criarSituacao.setEnabled(true);
+        Dimension d = new Dimension();
+        d.setSize(870, 535);
+        criarSituacao.setMinimumSize(d);
         criarSituacao.setVisible(true);
         criarSituacao.toFront();
         this.setEnabled(false);
@@ -3750,13 +3808,13 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private javax.swing.JButton adicionarArquivoC;
     private javax.swing.JButton adicionarArquivoC1;
     private javax.swing.JButton adicionarArquivoC2;
+    private javax.swing.JButton btnConcluir1;
+    private javax.swing.JButton btnConcluir2;
     private javax.swing.JButton btnConcluir3;
     private javax.swing.JButton btnConcluir4;
     private javax.swing.JButton btnConcluir5;
     private javax.swing.JButton btnConcluirOS;
     private javax.swing.JButton btnConcluirS;
-    private javax.swing.JButton btnConclur1;
-    private javax.swing.JButton btnConclur2;
     private javax.swing.JButton btnCriar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
@@ -3976,5 +4034,19 @@ public class OrdemServicoOP extends javax.swing.JFrame {
      */
     public void setSituacaoOSAux(SituacaoOS situacaoOSAux) {
         this.situacaoOSAux = situacaoOSAux;
+    }
+
+    /**
+     * @return the listaArquivosAux
+     */
+    public ArrayList<Arquivo> getListaArquivosAux() {
+        return listaArquivosAux;
+    }
+
+    /**
+     * @param listaArquivosAux the listaArquivosAux to set
+     */
+    public void setListaArquivosAux(ArrayList<Arquivo> listaArquivosAux) {
+        this.listaArquivosAux = listaArquivosAux;
     }
 }

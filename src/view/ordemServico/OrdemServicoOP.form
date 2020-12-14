@@ -3,6 +3,9 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Container class="javax.swing.JDialog" name="criarSituacao">
+      <Properties>
+        <Property name="defaultCloseOperation" type="int" value="0"/>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -104,8 +107,8 @@
                                   <Component id="jLabel27" min="-2" pref="81" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="cmpoDataStatusArquivo" min="-2" pref="174" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="adicionarArquivoC" min="-2" pref="91" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="adicionarArquivoC" pref="109" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel26" min="-2" pref="81" max="-2" attributes="0"/>
@@ -113,7 +116,7 @@
                                   <Component id="campoPendencia" min="-2" pref="174" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="20" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -233,23 +236,21 @@
                           <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel148" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Component id="btnRemoveArquivo" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel145" alignment="0" min="-2" pref="117" max="-2" attributes="0"/>
-                                              <Component id="campoDescricaoC" alignment="0" min="-2" pref="182" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="campoDataC" alignment="0" pref="101" max="32767" attributes="0"/>
-                                              <Component id="jLabel146" alignment="0" max="32767" attributes="0"/>
-                                          </Group>
+                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel145" alignment="0" min="-2" pref="117" max="-2" attributes="0"/>
+                                          <Component id="campoDescricaoC" alignment="0" min="-2" pref="182" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="jScrollPane6" alignment="1" min="-2" pref="308" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="campoDataC" alignment="0" pref="101" max="32767" attributes="0"/>
+                                          <Component id="jLabel146" alignment="0" max="32767" attributes="0"/>
+                                      </Group>
                                   </Group>
+                                  <Component id="jScrollPane6" alignment="1" min="-2" pref="308" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="btnRemoveArquivo" alignment="1" min="-2" pref="92" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="24" max="32767" attributes="0"/>
                       </Group>
@@ -1185,7 +1186,7 @@
     </Container>
   </NonVisualComponents>
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="0"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -1636,7 +1637,7 @@
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="campoData1" max="32767" attributes="0"/>
                                               <Component id="jLabel130" max="32767" attributes="0"/>
-                                              <Component id="btnConclur1" alignment="0" min="-2" pref="101" max="-2" attributes="0"/>
+                                              <Component id="btnConcluir1" alignment="0" min="-2" pref="101" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Component id="jScrollPane1" min="-2" pref="308" max="-2" attributes="0"/>
@@ -1663,7 +1664,7 @@
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel131" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="campoStatus1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnConclur1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnConcluir1" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jLabel129" min="-2" max="-2" attributes="0"/>
@@ -1776,7 +1777,7 @@
                         <Property name="text" type="java.lang.String" value="Status:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="btnConclur1">
+                    <Component class="javax.swing.JButton" name="btnConcluir1">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -1784,8 +1785,8 @@
                         <Property name="text" type="java.lang.String" value="CONCLUIR"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConclur1ActionPerformed"/>
-                        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnConclur1KeyPressed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConcluir1ActionPerformed"/>
+                        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnConcluir1KeyPressed"/>
                       </Events>
                     </Component>
                   </SubComponents>
@@ -1828,7 +1829,7 @@
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="campoData2" alignment="0" max="32767" attributes="0"/>
                                               <Component id="jLabel133" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="btnConclur2" alignment="0" min="-2" pref="101" max="-2" attributes="0"/>
+                                              <Component id="btnConcluir2" alignment="0" min="-2" pref="101" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Component id="jScrollPane3" alignment="1" min="-2" pref="308" max="-2" attributes="0"/>
@@ -1855,7 +1856,7 @@
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel135" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="campoStatus2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnConclur2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnConcluir2" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jLabel136" min="-2" max="-2" attributes="0"/>
@@ -1902,7 +1903,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="btnConclur2">
+                    <Component class="javax.swing.JButton" name="btnConcluir2">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -1910,8 +1911,8 @@
                         <Property name="text" type="java.lang.String" value="CONCLUIR"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConclur2ActionPerformed"/>
-                        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnConclur2KeyPressed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConcluir2ActionPerformed"/>
+                        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnConcluir2KeyPressed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campoStatus2">
@@ -2763,7 +2764,7 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="170" y="260" width="130" height="-1"/>
+                      <AbsoluteConstraints x="150" y="260" width="150" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>

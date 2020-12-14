@@ -3,6 +3,9 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Container class="javax.swing.JDialog" name="jDialog1">
+      <Properties>
+        <Property name="defaultCloseOperation" type="int" value="2"/>
+      </Properties>
       <Events>
         <EventHandler event="windowClosed" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="jDialog1WindowClosed"/>
       </Events>
@@ -280,7 +283,7 @@
                   </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                    <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="comboBoxCliente.addActionListener (new ActionListener () {&#xd;&#xa;    public void actionPerformed(ActionEvent e) {&#xd;&#xa;        carregaDadosVeiculo();&#xd;&#xa;    }&#xd;&#xa;});"/>
+                    <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="comboBoxCliente.addActionListener (new ActionListener () {&#xd;&#xa;    public void actionPerformed(ActionEvent e) {&#xd;&#xa;        carregaDadosCliente();&#xd;&#xa;    }&#xd;&#xa;});"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel9">
@@ -606,6 +609,9 @@
                       <Font name="Tahoma" size="12" style="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoNomeMotoristaFocusLost"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel24">
                   <Properties>
@@ -624,6 +630,9 @@
                       <Font name="Tahoma" size="12" style="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoCPFFocusLost"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -937,6 +946,9 @@
                       <Font name="Tahoma" size="12" style="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoNumOSFocusLost"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel29">
                   <Properties>
@@ -955,6 +967,9 @@
                       <Font name="Tahoma" size="12" style="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="campoDataOSFocusLost"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

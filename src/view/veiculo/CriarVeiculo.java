@@ -111,7 +111,7 @@ public class CriarVeiculo extends javax.swing.JFrame {
         jLabel122.setText("Placa *");
 
         try {
-            campoPlaca.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("UUU-####")));
+            campoPlaca.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("UUU-#A##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }

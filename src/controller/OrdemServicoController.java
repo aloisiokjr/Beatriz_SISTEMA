@@ -58,7 +58,7 @@ public class OrdemServicoController {
     
     public void abreAcompanhamentoOS(){
         osUI.setOsOP(new OrdemServicoOP(this, osUI.getOsAux()));
-        setLancamentoOS(osUI.getLancamentoOS());
+        setOsOP(osUI.getOsOP());
         osUI.setEnabled(false);
     }
     

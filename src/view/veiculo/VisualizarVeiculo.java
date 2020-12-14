@@ -90,7 +90,7 @@ public class VisualizarVeiculo extends javax.swing.JFrame {
 
         campoPlaca.setEditable(false);
         try {
-            campoPlaca.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("UUU-####")));
+            campoPlaca.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("UUU-#A##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -547,12 +547,9 @@ public class VisualizarVeiculo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdicionaCaract;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnFecharTela1;
-    private javax.swing.JButton btnRemoveCaract;
     private javax.swing.JFormattedTextField campoAno;
-    private javax.swing.JTextField campoCaract;
     private javax.swing.JFormattedTextField campoChassi;
     private javax.swing.JTextField campoCor;
     private javax.swing.JTextField campoMarca;
@@ -564,8 +561,6 @@ public class VisualizarVeiculo extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboBoxPais;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel122;
     private javax.swing.JLabel jLabel123;
     private javax.swing.JLabel jLabel124;
@@ -580,14 +575,10 @@ public class VisualizarVeiculo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel156;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tabelaCaract;
     private javax.swing.JTable tabelaCaract1;
     // End of variables declaration//GEN-END:variables
 
