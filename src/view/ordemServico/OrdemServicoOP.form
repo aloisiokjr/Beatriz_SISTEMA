@@ -552,7 +552,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="cmpoDataStatusArquivo1" min="-2" pref="174" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="adicionarArquivoC1" min="-2" pref="91" max="-2" attributes="0"/>
+                                  <Component id="adicionarArquivoC1" pref="101" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel29" min="-2" pref="81" max="-2" attributes="0"/>
@@ -560,7 +560,7 @@
                                   <Component id="campoPendencia1" min="-2" pref="174" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="20" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1643,7 +1643,7 @@
                                       <Component id="jScrollPane1" min="-2" pref="308" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="22" max="32767" attributes="0"/>
+                              <EmptySpace pref="25" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
