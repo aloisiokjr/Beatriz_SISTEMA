@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author KLEYN
  */
-public class SituacaoOS {
+public class SituacaoOS implements Cloneable {
     private String Data = null;
     private String NumeroOS = null;
     private String Codigo = null;
@@ -115,6 +115,11 @@ public class SituacaoOS {
      */
     public void setStatus(String Status) {
         this.Status = Status;
+    }
+    
+    @Override
+    public SituacaoOS clone () throws CloneNotSupportedException{
+        return (SituacaoOS) super.clone();
     }
     
 }

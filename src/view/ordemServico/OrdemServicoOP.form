@@ -250,7 +250,7 @@
                                   </Group>
                                   <Component id="jScrollPane6" alignment="1" min="-2" pref="308" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="btnRemoveArquivo" alignment="1" min="-2" pref="92" max="-2" attributes="0"/>
+                              <Component id="btnRemoveArquivo" alignment="1" min="-2" pref="105" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="24" max="32767" attributes="0"/>
                       </Group>
