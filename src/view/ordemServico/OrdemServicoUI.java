@@ -68,6 +68,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -108,14 +109,14 @@ public class OrdemServicoUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "", "Numero da OS", "Nome do Cliente", "Placa do Veículo", "Nome do Motorista", "CPF do Motorista", "Data de Entrada"
+                "", "Numero da OS", "Nome do Cliente", "Placa do Veículo", "Nome do Motorista", "CPF do Motorista", "Data de Entrada", "Previsão de Entrega"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -142,6 +143,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
             tabelaOS.getColumnModel().getColumn(4).setPreferredWidth(200);
             tabelaOS.getColumnModel().getColumn(5).setPreferredWidth(120);
             tabelaOS.getColumnModel().getColumn(6).setPreferredWidth(120);
+            tabelaOS.getColumnModel().getColumn(7).setPreferredWidth(120);
         }
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logoR.png"))); // NOI18N
@@ -238,17 +240,16 @@ public class OrdemServicoUI extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator2)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(134, 134, 134)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAcompanhamento)
-                            .addComponent(btnCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(19, 19, 19)
+                .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnCriar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAcompanhamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(128, 128, 128))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,6 +292,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(radio_NumOS);
         radio_NumOS.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_NumOS.setText("NÚMERO DA OS");
         radio_NumOS.setToolTipText("");
@@ -300,12 +302,15 @@ public class OrdemServicoUI extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(radio_PlacaVeiculo);
         radio_PlacaVeiculo.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_PlacaVeiculo.setText("PLACA DO VEÍCULO");
 
+        buttonGroup1.add(radio_NomeCliente);
         radio_NomeCliente.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_NomeCliente.setText("NOME DO CLIENTE");
 
+        buttonGroup1.add(radio_NomeMotorista);
         radio_NomeMotorista.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_NomeMotorista.setText("NOME DO MOTORISTA");
         radio_NomeMotorista.addActionListener(new java.awt.event.ActionListener() {
@@ -314,9 +319,11 @@ public class OrdemServicoUI extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(radio_CPF);
         radio_CPF.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_CPF.setText("CPF MOTORISTA");
 
+        buttonGroup1.add(radio_CaracVeiculo);
         radio_CaracVeiculo.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_CaracVeiculo.setText("CARACT. VEÍCULO");
 
@@ -573,7 +580,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
     
     private void oSAcompanhamento(){
         String numOS = (String) tabelaOS.getValueAt(tabelaOS.getSelectedRow(), 2);
-        String DocCliente,VeiculoPlaca,NomeMotorista,CPFMotorista,Data,Status;
+        String DocCliente,VeiculoPlaca,NomeMotorista,CPFMotorista,Data,DataPrevisao,Status;
         ArrayList<Arquivo> listaArquivos;
         ArrayList<SituacaoOS> listaSituacao;
         try {
@@ -591,12 +598,13 @@ public class OrdemServicoUI extends javax.swing.JFrame {
                     NomeMotorista = rs.getString("NomeMotorista");
                     CPFMotorista = rs.getString("CPFMotorista");
                     Data = rs.getString("Data");
+                    DataPrevisao = rs.getString("DataEntrega");
                     Status = rs.getString("Encerrada");
                                         
                     listaArquivos = buscaArquivos(numOS);
                     listaSituacao = buscaSituacoes(numOS);
                     
-                    OrdemServico os = new OrdemServico(numOS, DocCliente, VeiculoPlaca, NomeMotorista, CPFMotorista, Data, Status, listaArquivos, listaSituacao);
+                    OrdemServico os = new OrdemServico(numOS, DocCliente, VeiculoPlaca, NomeMotorista, CPFMotorista, Data,DataPrevisao, Status, listaArquivos, listaSituacao);
                     setOsAux(os);
                 }
             }
@@ -635,7 +643,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
     
     private ArrayList<SituacaoOS> buscaSituacoes(String numOS){
         ArrayList<SituacaoOS> listaSituacao = new ArrayList();
-        String Data,Codigo,Descricao,Status;
+        String Data,Codigo,Descricao,Status,DataPrevisao;
         ArrayList<Arquivo> listaArquivos;
         
         try {
@@ -652,9 +660,10 @@ public class OrdemServicoUI extends javax.swing.JFrame {
                     Codigo = rs.getString("Codigo");
                     Descricao = rs.getString("Descricao");
                     Status = rs.getString("Status");
+                    DataPrevisao = rs.getString("DataEntrega");
                     
                     listaArquivos = buscaArquivosS(Codigo);
-                    SituacaoOS sitOS = new SituacaoOS(Data,numOS,Codigo,Descricao,Status,listaArquivos);
+                    SituacaoOS sitOS = new SituacaoOS(Data,numOS,Codigo,Descricao,Status,DataPrevisao,listaArquivos);
                     listaSituacao.add(sitOS);
                 }
             }
@@ -714,7 +723,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
                         status = "ABERTO";
                     }
                     DefaultTableModel modeloAux = (DefaultTableModel) tabelaOS.getModel();
-                    modeloAux.addRow(new Object[]{i, status, rs.getString("NumOS"), nomeCliente, rs.getString("VeiculoPlaca"), rs.getString("NomeMotorista"), rs.getString("CPFMotorista"), rs.getString("Data")});
+                    modeloAux.addRow(new Object[]{i, status, rs.getString("NumOS"), nomeCliente, rs.getString("VeiculoPlaca"), rs.getString("NomeMotorista"), rs.getString("CPFMotorista"), rs.getString("Data"), rs.getString("DataEntrega")});
                     i++;
                 }  
             }
@@ -1106,6 +1115,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnRelatorio;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField campoBusca;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;

@@ -17,6 +17,7 @@ public class SituacaoOS implements Cloneable {
     private String Codigo = null;
     private String Descricao = null;
     private String Status = null;
+    private String DataEntrega = null;
     
     private ArrayList<Arquivo> listaArquivos = null;
     
@@ -24,12 +25,13 @@ public class SituacaoOS implements Cloneable {
     
     }
     
-    public SituacaoOS(String Data,String NumeroOS,String Codigo,String Descricao,String Status,ArrayList<Arquivo> listaArquivos){
+    public SituacaoOS(String Data,String NumeroOS,String Codigo,String Descricao,String Status,String DataPrevisao,ArrayList<Arquivo> listaArquivos){
         this.Data = Data;
         this.NumeroOS = NumeroOS;
         this.Codigo = Codigo;
         this.Descricao = Descricao;
         this.Status = Status;
+        this.DataEntrega = DataPrevisao;
         this.listaArquivos = listaArquivos;
     }
 
@@ -120,6 +122,20 @@ public class SituacaoOS implements Cloneable {
     @Override
     public SituacaoOS clone () throws CloneNotSupportedException{
         return (SituacaoOS) super.clone();
+    }
+
+    /**
+     * @return the DataPrevisao
+     */
+    public String getDataEntrega() {
+        return DataEntrega;
+    }
+
+    /**
+     * @param DataPrevisao the DataPrevisao to set
+     */
+    public void setDataEntrega(String DataPrevisao) {
+        this.DataEntrega = DataPrevisao;
     }
     
 }

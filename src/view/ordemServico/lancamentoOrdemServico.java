@@ -137,6 +137,8 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
         campoNumOS = new javax.swing.JFormattedTextField();
         jLabel29 = new javax.swing.JLabel();
         campoDataOS = new javax.swing.JFormattedTextField();
+        campoDataEntrega = new javax.swing.JFormattedTextField();
+        jLabel30 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         jDialog1.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -611,9 +613,9 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
                             .addComponent(btnRemoveArquivo))
                         .addGap(51, 51, 51)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(114, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(708, 708, 708))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -667,6 +669,21 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
             }
         });
 
+        try {
+            campoDataEntrega.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        campoDataEntrega.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        campoDataEntrega.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoDataEntregaFocusLost(evt);
+            }
+        });
+
+        jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel30.setText("Previsão de Entrega *");
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -682,8 +699,12 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(campoDataOS))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(campoDataOS))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(campoDataEntrega))))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -699,7 +720,11 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel29)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campoDataOS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(campoDataOS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jLabel30)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(campoDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -713,20 +738,21 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel5Layout.createSequentialGroup()
                             .addComponent(btnFecharTela, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(25, 25, 25)
-                            .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
-                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(587, Short.MAX_VALUE))
+                            .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(610, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -743,11 +769,11 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnFecharTela, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(2243, Short.MAX_VALUE))
+                .addContainerGap(2240, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -874,6 +900,14 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_campoDataOSFocusLost
 
+    private void campoDataEntregaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoDataEntregaFocusLost
+        if (campoDataEntrega.getText().equals("  /  /    ")){
+            listaRequisitos.get(7).setIsOk(false);
+        } else {
+            listaRequisitos.get(7).setIsOk(true);
+        }
+    }//GEN-LAST:event_campoDataEntregaFocusLost
+
     private void setagemInicial(){
         listaRequisitos.add(new Requisito("Nome do Motorista", false));
         listaRequisitos.add(new Requisito("CPF do Motorista", false));
@@ -882,6 +916,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
         listaRequisitos.add(new Requisito("Cliente", false));
         listaRequisitos.add(new Requisito("Veículo", false));
         listaRequisitos.add(new Requisito("Arquivo", false));
+        listaRequisitos.add(new Requisito("Previsão de Entrega", false));
         
         comboBoxVeiculo.removeAllItems();
         comboBoxVeiculo.addItem("Selecione");
@@ -1108,12 +1143,13 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
         String nomeMotorista = campoNomeMotorista.getText();
         String cpfMotorista = campoCPF.getText();
         String data = campoDataOS.getText();
+        String dataEntrega = campoDataEntrega.getText();
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql;
-                sql = "INSERT INTO OrdemServico (NumOs, DocCliente, VeiculoPlaca, NomeMotorista, CPFMotorista, Data, Encerrada) VALUES (?,?,?,?,?,?,?)";
+                sql = "INSERT INTO OrdemServico (NumOs, DocCliente, VeiculoPlaca, NomeMotorista, CPFMotorista, Data, DataEntrega, Encerrada) VALUES (?,?,?,?,?,?,?,?)";
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1, numOs);
                 pst.setString(2, docCliente);
@@ -1121,7 +1157,8 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
                 pst.setString(4, nomeMotorista);
                 pst.setString(5, cpfMotorista);
                 pst.setString(6, data);
-                pst.setString(7, "A");
+                pst.setString(7, dataEntrega);
+                pst.setString(8, "A");
                 ResultSet rs = pst.executeQuery();
                 if (rs.next()) {
 
@@ -1139,7 +1176,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
         String title = "Cancelar o Lançamento";
         int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
-            osController.fechaOSUI();
+            osController.fechaLancamentoOS();
         }
         if (reply == JOptionPane.NO_OPTION) {
 
@@ -1181,6 +1218,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField campoCPF;
     private javax.swing.JTextField campoCaminho;
     private javax.swing.JTextField campoChassi;
+    private javax.swing.JFormattedTextField campoDataEntrega;
     private javax.swing.JFormattedTextField campoDataOS;
     private javax.swing.JTextField campoDescricao;
     private javax.swing.JTextField campoMarca;
@@ -1219,6 +1257,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

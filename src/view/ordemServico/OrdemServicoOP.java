@@ -173,6 +173,8 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
         campoData = new javax.swing.JFormattedTextField();
         jLabel153 = new javax.swing.JLabel();
+        campoPrevisao = new javax.swing.JFormattedTextField();
+        jLabel157 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         btnFecharTela1 = new javax.swing.JButton();
         btnSalvar1 = new javax.swing.JButton();
@@ -1160,7 +1162,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
 
         campoPlaca.setEditable(false);
         try {
-            campoPlaca.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("UUU-####")));
+            campoPlaca.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("UUU-#A##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -1202,18 +1204,31 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         }
 
         jLabel153.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel153.setText("Data *");
+        jLabel153.setText("Data de Emissão*");
+
+        campoPrevisao.setEditable(false);
+        try {
+            campoPrevisao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        jLabel157.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel157.setText("Previsão de Entrega*");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel134, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoPrevisao)
+                            .addComponent(jLabel157, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(619, 619, 619)
+                        .addComponent(jLabel134, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING)
@@ -1239,14 +1254,14 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                             .addComponent(jLabel127))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoData, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-                            .addComponent(jLabel153, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(27, 27, 27))))
+                            .addComponent(campoData)
+                            .addComponent(jLabel153, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(27, 27, 27))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addContainerGap()
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1269,11 +1284,20 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                             .addComponent(campoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(campoNomeMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(campoData, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(29, 29, 29)
-                .addComponent(jLabel134)
-                .addGap(106, 106, 106))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel134))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel157)
+                                .addGap(27, 27, 27))
+                            .addComponent(campoPrevisao, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(102, 102, 102))
         );
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
@@ -2240,7 +2264,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(172, Short.MAX_VALUE)
+                .addContainerGap(157, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -2591,6 +2615,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         campoNomeMotorista.setText(getOsAux().getNomeMotorista());
         campoCPF.setText(getOsAux().getCPFMotorista());
         campoData.setText(getOsAux().getData());
+        campoPrevisao.setText(getOsAux().getDataPrevisao());
         campoStatus.setText(getOsAux().getStatus());
         
         if (campoStatus.getText().equals("A")){
@@ -3183,7 +3208,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             erros = erros.substring(0, erros.length()-2);            
             JOptionPane.showMessageDialog(null, erros);
         } else {
-            SituacaoOS situacaoAux = new SituacaoOS(campoDataC.getText(),getOsAux().getNumOS(),indexSituacao+"",campoDescricaoC.getText(),"EM ABERTO", listaArquivosAux);  
+            SituacaoOS situacaoAux = new SituacaoOS(campoDataC.getText(),getOsAux().getNumOS(),indexSituacao+"",campoDescricaoC.getText(),"EM ABERTO", campoPrevisao.getText(),listaArquivosAux);  
             setSituacaoOSAux(situacaoAux);
             int index = getOsAux().getListaSituacao().size();
             switch (index){
@@ -3325,6 +3350,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         int qtdRows = tabelaArquivosOSEditar.getRowCount();
         while (qtdRows > 0){
             modeloAux.removeRow(qtdRows-1);
+            qtdRows--;
         }
     }
     
@@ -3562,45 +3588,43 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     }
     
     private void concluirOS(){
-        String message = "Deseja realmente concluir a OS?";
-        String title = "Concluir OS";
-        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
-        if (reply == JOptionPane.YES_OPTION) {
-            getOsAux().setStatus("ENCERRADA");
-            try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                String url = SQL_URL.getUrl();
-                try (Connection con = DriverManager.getConnection(url)) {
-                    String sql;
-                    sql = "UPDATE OrdemServico SET NumOs = ?, DocCliente = ?, VeiculoPlaca = ?, NomeMotorista = ?, CPFMotorista = ?, Data = ?, Encerrada = ? WHERE NumOS = ?";
-                    PreparedStatement pst = con.prepareStatement(sql);
-                    pst.setString(1, jFormattedTextField1.getText());
-                    pst.setString(2, campoCliente.getText());
-                    pst.setString(3, campoPlaca.getText());
-                    pst.setString(4, campoNomeMotorista.getText());
-                    pst.setString(5, campoCPF.getText());
-                    pst.setString(6, campoData.getText());
-                    pst.setString(7, "S");
-                    pst.setString(8, getOsAux().getNumOS());
-                    ResultSet rs = pst.executeQuery();
-                    if (rs.next()) {
-
+        if (getOsAux().getStatus().equals("A")){
+            String message = "Deseja realmente concluir a OS?";
+            String title = "Concluir OS";
+            int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+                int index = getOsAux().getListaSituacao().size();
+                if (getOsAux().getListaSituacao().get(index-1).getStatus().equals("EM ABERTO")){
+                    String message1 = "A última situação se encontra em aberto. Deseja concluir a OS mesmo assim?";
+                    String title1 = "Concluir OS";
+                    int reply1 = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+                    if (reply1 == JOptionPane.YES_OPTION) {
+                        campoStatus.setForeground(new java.awt.Color(0, 0, 153));
+                        campoStatus.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+                        campoStatus.setText("ENCERRADA");
+                        getOsAux().setStatus("E");
+                        getOsAux().getListaSituacao().get(index-1).setStatus("CONCLUÍDO");
+                        JOptionPane.showMessageDialog(null, "Ordem de Serviço concluída com sucesso.");
                     }
+                    if (reply1 == JOptionPane.NO_OPTION) {
+                        
+                    }
+                } else {
+                    campoStatus.setForeground(new java.awt.Color(0, 0, 153));
+                    campoStatus.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+                    campoStatus.setText("ENCERRADA");
+                    getOsAux().setStatus("E");
+                    JOptionPane.showMessageDialog(null, "Ordem de Serviço concluída com sucesso.");
                 }
-            } catch(SQLException e){
-                campoStatus.setForeground(new java.awt.Color(0, 0, 153));
-                campoStatus.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-                campoStatus.setText("CONCLUÍDA");
-                getOsAux().setStatus("E");
-                JOptionPane.showMessageDialog(null, "Ordem de Serviço concluída com sucesso.");
-            } catch (HeadlessException | ClassNotFoundException e) {
-                //JOptionPane.showMessageDialog(null, e);
             }
-        }
-        if (reply == JOptionPane.NO_OPTION) {
-            
+            if (reply == JOptionPane.NO_OPTION) {
+
+            }
+        } else if (getOsAux().getStatus().equals("E")){
+            JOptionPane.showMessageDialog(null, "A Ordem de Serviço já se encontra concluída.");
         }
     }
+    
     
     private void fechaCriacaoSituacao(){
         String message = "Deseja realmente cancelar o cadastro?";
@@ -3971,6 +3995,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private javax.swing.JTextField campoPendencia;
     private javax.swing.JTextField campoPendencia1;
     private javax.swing.JFormattedTextField campoPlaca;
+    private javax.swing.JFormattedTextField campoPrevisao;
     private javax.swing.JTextField campoStatus;
     private javax.swing.JTextField campoStatus1;
     private javax.swing.JTextField campoStatus2;
@@ -4022,6 +4047,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel154;
     private javax.swing.JLabel jLabel155;
     private javax.swing.JLabel jLabel156;
+    private javax.swing.JLabel jLabel157;
     private javax.swing.JLabel jLabel159;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel22;

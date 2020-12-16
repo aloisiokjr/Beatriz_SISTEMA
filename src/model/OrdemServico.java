@@ -18,17 +18,19 @@ public class OrdemServico {
     private String NomeMotorista = null;
     private String CPFMotorista = null;
     private String Data = null;
+    private String DataPrevisao = null;
     private String Status = null;
     private ArrayList<Arquivo> listaArquivos = null;
     private ArrayList<SituacaoOS> listaSituacao = null;
     
-    public OrdemServico(String NumOS,String DocCliente,String VeiculoPlaca,String NomeMotorista,String CPFMotorista,String Data,String Status,ArrayList<Arquivo> listaArquivos,ArrayList<SituacaoOS> listaSituacao){
+    public OrdemServico(String NumOS,String DocCliente,String VeiculoPlaca,String NomeMotorista,String CPFMotorista,String Data,String DataPrevisao,String Status,ArrayList<Arquivo> listaArquivos,ArrayList<SituacaoOS> listaSituacao){
         this.NumOS = NumOS;
         this.DocCliente = DocCliente;
         this.VeiculoPlaca = VeiculoPlaca;
         this.NomeMotorista = NomeMotorista;
         this.CPFMotorista = CPFMotorista;
         this.Data = Data;
+        this.DataPrevisao = DataPrevisao;
         this.Status = Status;
         this.listaArquivos = listaArquivos;
         this.listaSituacao = listaSituacao;
@@ -158,5 +160,19 @@ public class OrdemServico {
      */
     public void setStatus(String Status) {
         this.Status = Status;
+    }
+
+    /**
+     * @return the DataPrevisao
+     */
+    public String getDataPrevisao() {
+        return DataPrevisao;
+    }
+
+    /**
+     * @param DataPrevisao the DataPrevisao to set
+     */
+    public void setDataPrevisao(String DataPrevisao) {
+        this.DataPrevisao = DataPrevisao;
     }
 }
