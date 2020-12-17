@@ -25,13 +25,13 @@ public class SituacaoOS implements Cloneable {
     
     }
     
-    public SituacaoOS(String Data,String NumeroOS,String Codigo,String Descricao,String Status,String DataPrevisao,ArrayList<Arquivo> listaArquivos){
+    public SituacaoOS(String Data,String NumeroOS,String Codigo,String Descricao,String Status,String DataEntrega,ArrayList<Arquivo> listaArquivos){
         this.Data = Data;
         this.NumeroOS = NumeroOS;
         this.Codigo = Codigo;
         this.Descricao = Descricao;
         this.Status = Status;
-        this.DataEntrega = DataPrevisao;
+        this.DataEntrega = DataEntrega;
         this.listaArquivos = listaArquivos;
     }
 
@@ -132,10 +132,10 @@ public class SituacaoOS implements Cloneable {
     }
 
     /**
-     * @param DataPrevisao the DataPrevisao to set
+     * @param DataEntrega the DataPrevisao to set
      */
-    public void setDataEntrega(String DataPrevisao) {
-        this.DataEntrega = DataPrevisao;
+    public void setDataEntrega(String DataEntrega) {
+        this.DataEntrega = DataEntrega;
     }
     
 }

@@ -20,7 +20,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -1334,7 +1337,6 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         painel1.setBackground(new java.awt.Color(250, 250, 250));
-        painel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         painel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel128.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -1349,14 +1351,14 @@ public class OrdemServicoOP extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Pendência", "Data"
+                "Pendência", "Data", "Data de Conclusão"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1371,9 +1373,9 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabelaArquivosS1);
         if (tabelaArquivosS1.getColumnModel().getColumnCount() > 0) {
             tabelaArquivosS1.getColumnModel().getColumn(0).setResizable(false);
-            tabelaArquivosS1.getColumnModel().getColumn(0).setPreferredWidth(250);
-            tabelaArquivosS1.getColumnModel().getColumn(1).setResizable(false);
-            tabelaArquivosS1.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tabelaArquivosS1.getColumnModel().getColumn(0).setPreferredWidth(300);
+            tabelaArquivosS1.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tabelaArquivosS1.getColumnModel().getColumn(2).setPreferredWidth(200);
         }
         MouseListener mouseListenerS1 = new MouseAdapter() {
             public void mouseClicked(MouseEvent mouseEvent) {
@@ -1444,7 +1446,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                                 .addComponent(jLabel130, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnConcluir1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         painel1Layout.setVerticalGroup(
             painel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1466,7 +1468,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 .addComponent(jLabel129)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("SITUAÇÃO 1", painel1);
@@ -1520,14 +1522,14 @@ public class OrdemServicoOP extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Pendência", "Data"
+                "Pendência", "Data", "Data de Conclusão"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1541,10 +1543,9 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         tabelaArquivosS2.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(tabelaArquivosS2);
         if (tabelaArquivosS2.getColumnModel().getColumnCount() > 0) {
-            tabelaArquivosS2.getColumnModel().getColumn(0).setResizable(false);
-            tabelaArquivosS2.getColumnModel().getColumn(0).setPreferredWidth(250);
-            tabelaArquivosS2.getColumnModel().getColumn(1).setResizable(false);
-            tabelaArquivosS2.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tabelaArquivosS2.getColumnModel().getColumn(0).setPreferredWidth(300);
+            tabelaArquivosS2.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tabelaArquivosS2.getColumnModel().getColumn(2).setPreferredWidth(200);
         }
         MouseListener mouseListenerS2 = new MouseAdapter() {
             public void mouseClicked(MouseEvent mouseEvent) {
@@ -1656,14 +1657,14 @@ public class OrdemServicoOP extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Pendência", "Data"
+                "Pendência", "Data", "Data de Conclusão"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1677,10 +1678,9 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         tabelaArquivosS3.getTableHeader().setReorderingAllowed(false);
         jScrollPane5.setViewportView(tabelaArquivosS3);
         if (tabelaArquivosS3.getColumnModel().getColumnCount() > 0) {
-            tabelaArquivosS3.getColumnModel().getColumn(0).setResizable(false);
-            tabelaArquivosS3.getColumnModel().getColumn(0).setPreferredWidth(250);
-            tabelaArquivosS3.getColumnModel().getColumn(1).setResizable(false);
-            tabelaArquivosS3.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tabelaArquivosS3.getColumnModel().getColumn(0).setPreferredWidth(300);
+            tabelaArquivosS3.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tabelaArquivosS3.getColumnModel().getColumn(2).setPreferredWidth(200);
         }
         MouseListener mouseListenerS3 = new MouseAdapter() {
             public void mouseClicked(MouseEvent mouseEvent) {
@@ -1793,14 +1793,14 @@ public class OrdemServicoOP extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Pendência", "Data"
+                "Pendência", "Data", "Data de Conclusão"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1814,10 +1814,9 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         tabelaArquivosS4.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(tabelaArquivosS4);
         if (tabelaArquivosS4.getColumnModel().getColumnCount() > 0) {
-            tabelaArquivosS4.getColumnModel().getColumn(0).setResizable(false);
-            tabelaArquivosS4.getColumnModel().getColumn(0).setPreferredWidth(250);
-            tabelaArquivosS4.getColumnModel().getColumn(1).setResizable(false);
-            tabelaArquivosS4.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tabelaArquivosS4.getColumnModel().getColumn(0).setPreferredWidth(300);
+            tabelaArquivosS4.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tabelaArquivosS4.getColumnModel().getColumn(2).setPreferredWidth(200);
         }
         MouseListener mouseListenerS4 = new MouseAdapter() {
             public void mouseClicked(MouseEvent mouseEvent) {
@@ -1881,6 +1880,8 @@ public class OrdemServicoOP extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("SITUAÇÃO 4", painel4);
 
+        painel5.setBackground(new java.awt.Color(250, 250, 250));
+
         jLabel147.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel147.setText("Descrição");
 
@@ -1895,6 +1896,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         }
         campoData5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
+        jLabel149.setBackground(new java.awt.Color(250, 250, 250));
         jLabel149.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel149.setText("Data");
 
@@ -1926,14 +1928,14 @@ public class OrdemServicoOP extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Pendência", "Data"
+                "Pendência", "Data", "Data de Conclusão"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1947,10 +1949,9 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         tabelaArquivosS5.getTableHeader().setReorderingAllowed(false);
         jScrollPane7.setViewportView(tabelaArquivosS5);
         if (tabelaArquivosS5.getColumnModel().getColumnCount() > 0) {
-            tabelaArquivosS5.getColumnModel().getColumn(0).setResizable(false);
-            tabelaArquivosS5.getColumnModel().getColumn(0).setPreferredWidth(250);
-            tabelaArquivosS5.getColumnModel().getColumn(1).setResizable(false);
-            tabelaArquivosS5.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tabelaArquivosS5.getColumnModel().getColumn(0).setPreferredWidth(300);
+            tabelaArquivosS5.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tabelaArquivosS5.getColumnModel().getColumn(2).setPreferredWidth(200);
         }
         MouseListener mouseListenerS5 = new MouseAdapter() {
             public void mouseClicked(MouseEvent mouseEvent) {
@@ -2210,7 +2211,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -2233,7 +2234,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                                         .addComponent(campoStatus)
                                         .addComponent(jLabel152, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(556, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2256,7 +2257,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                             .addComponent(btnSalvar1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTabbedPane1))
-                .addContainerGap(1450, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -2264,7 +2265,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(157, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -2273,7 +2274,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(870, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -2932,34 +2933,36 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     }
     
     private void concluirSituacao(){
-        int index = jTabbedPane1.getSelectedIndex();
-        if (!(getOsAux().getListaSituacao().get(index).getStatus().equals("CONCLUÍDO") || getOsAux().getListaSituacao().get(index).getStatus().equals(""))){        
-            
-            switch(index){
-                case 0:
-                    concluirSituacao1();
-                    break;
-                case 1:
-                    concluirSituacao2();
-                    break;
-                case 2:
-                    concluirSituacao3();
-                    break;
-                case 3:
-                    concluirSituacao4();
-                    break;
-                case 4:
-                    concluirSituacao5();
-                    break;
-            }
-        } else {
-            if (getOsAux().getListaSituacao().isEmpty()){
-                JOptionPane.showMessageDialog(null, "A situação ainda não foi cadastrada.");
+        if (getOsAux().getListaSituacao().size() > 0){
+            int index = jTabbedPane1.getSelectedIndex();
+            if (!(getOsAux().getListaSituacao().get(index).getStatus().equals("CONCLUÍDO") || getOsAux().getListaSituacao().get(index).getStatus().equals(""))){        
+
+                switch(index){
+                    case 0:
+                        concluirSituacao1();
+                        break;
+                    case 1:
+                        concluirSituacao2();
+                        break;
+                    case 2:
+                        concluirSituacao3();
+                        break;
+                    case 3:
+                        concluirSituacao4();
+                        break;
+                    case 4:
+                        concluirSituacao5();
+                        break;
+                }
             } else {
-                if (getOsAux().getListaSituacao().get(index).getStatus().equals("CONCLUÍDO")){
-                    JOptionPane.showMessageDialog(null, "A situação já se encontra concluída.");
-                } else if (getOsAux().getListaSituacao().get(index).getStatus().equals("")){
+                if (getOsAux().getListaSituacao().isEmpty()){
                     JOptionPane.showMessageDialog(null, "A situação ainda não foi cadastrada.");
+                } else {
+                    if (getOsAux().getListaSituacao().get(index).getStatus().equals("CONCLUÍDO")){
+                        JOptionPane.showMessageDialog(null, "A situação já se encontra concluída.");
+                    } else if (getOsAux().getListaSituacao().get(index).getStatus().equals("")){
+                        JOptionPane.showMessageDialog(null, "A situação ainda não foi cadastrada.");
+                    }
                 }
             }
         }
@@ -2972,6 +2975,10 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION) {
                 getOsAux().getListaSituacao().get(0).setStatus("CONCLUÍDO");
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = new Date();
+                String data = dateFormat.format(date);
+                getOsAux().getListaSituacao().get(0).setDataEntrega(data);
                 JOptionPane.showMessageDialog(null, "Situação 1 concluída com sucesso.");
                 campoStatus1.setText("CONCLUÍDO");
                 btnConcluir1.setEnabled(false);
@@ -2989,6 +2996,10 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION) {
                 getOsAux().getListaSituacao().get(1).setStatus("CONCLUÍDO");
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = new Date();
+                String data = dateFormat.format(date);
+                getOsAux().getListaSituacao().get(1).setDataEntrega(data);
                 JOptionPane.showMessageDialog(null, "Situação 2 concluída com sucesso.");
                 campoStatus2.setText("CONCLUÍDO");
                 btnConcluir2.setEnabled(false);
@@ -3006,6 +3017,10 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION) {
                 getOsAux().getListaSituacao().get(2).setStatus("CONCLUÍDO");
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = new Date();
+                String data = dateFormat.format(date);
+                getOsAux().getListaSituacao().get(2).setDataEntrega(data);
                 JOptionPane.showMessageDialog(null, "Situação 3 concluída com sucesso.");
                 campoStatus3.setText("CONCLUÍDO");
                 btnConcluir3.setEnabled(false);
@@ -3023,6 +3038,10 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION) {
                 getOsAux().getListaSituacao().get(3).setStatus("CONCLUÍDO");
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = new Date();
+                String data = dateFormat.format(date);
+                getOsAux().getListaSituacao().get(3).setDataEntrega(data);
                 JOptionPane.showMessageDialog(null, "Situação 4 concluída com sucesso.");
                 campoStatus4.setText("CONCLUÍDO");
                 btnConcluir4.setEnabled(false);
@@ -3040,6 +3059,10 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION) {
                 getOsAux().getListaSituacao().get(4).setStatus("CONCLUÍDO");
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = new Date();
+                String data = dateFormat.format(date);
+                getOsAux().getListaSituacao().get(4).setDataEntrega(data);
                 JOptionPane.showMessageDialog(null, "Situação 5 concluída com sucesso.");
                 campoStatus5.setText("CONCLUÍDO");
                 btnConcluir5.setEnabled(false);
@@ -3238,19 +3261,21 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     }
     
     private void editaSituacaoOS(){
-        int index = jTabbedPane1.getSelectedIndex();
-        if (!(getOsAux().getListaSituacao().get(index).getStatus().equals("CONCLUÍDO") || getOsAux().getListaSituacao().get(index).getStatus().equals(""))){  
-            try {
-                situacaoOSAux = getOsAux().getListaSituacao().get(index).clone();
-            } catch (CloneNotSupportedException ex) {
-                Logger.getLogger(OrdemServicoOP.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            setaEdicaoSituacao();
-        } else {
-            if (getOsAux().getListaSituacao().get(index).getStatus().equals("CONCLUÍDO")){
-                JOptionPane.showMessageDialog(null, "Não é possível editar uma situação que já se encontra concluída.");
-            } else if (getOsAux().getListaSituacao().get(index).getStatus().equals("")){
-                JOptionPane.showMessageDialog(null, "Não é possível editar uma situação que não foi cadastrada.");
+        if (getOsAux().getListaSituacao().size() > 0){
+            int index = jTabbedPane1.getSelectedIndex();
+            if (!(getOsAux().getListaSituacao().get(index).getStatus().equals("CONCLUÍDO") || getOsAux().getListaSituacao().get(index).getStatus().equals(""))){  
+                try {
+                    situacaoOSAux = getOsAux().getListaSituacao().get(index).clone();
+                } catch (CloneNotSupportedException ex) {
+                    Logger.getLogger(OrdemServicoOP.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                setaEdicaoSituacao();
+            } else {
+                if (getOsAux().getListaSituacao().get(index).getStatus().equals("CONCLUÍDO")){
+                    JOptionPane.showMessageDialog(null, "Não é possível editar uma situação que já se encontra concluída.");
+                } else if (getOsAux().getListaSituacao().get(index).getStatus().equals("")){
+                    JOptionPane.showMessageDialog(null, "Não é possível editar uma situação que não foi cadastrada.");
+                }
             }
         }
     }
@@ -3355,36 +3380,38 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     }
     
     private void excluirSituacaoOS(){
-        int index = jTabbedPane1.getSelectedIndex();
-        if (getOsAux().getListaSituacao().get(index).getStatus().equals("CONCLUÍDO")){
-            JOptionPane.showMessageDialog(null, "Não é possível excluir uma situação já concluída.");
-        } else {
-            String message = "Deseja realmente excluir a Situação "+(index+1)+"?";
-            String title = "Excluir Situação "+(index+1);
-            int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
-            if (reply == JOptionPane.YES_OPTION) {
-                getOsAux().getListaSituacao().remove(index);
-                switch (index){
-                    case 0:
-                        limpaSituacao1();
-                        break;
-                    case 1:
-                        limpaSituacao2();
-                        break;
-                    case 2:
-                        limpaSituacao3();
-                        break;
-                    case 3:
-                        limpaSituacao4();
-                        break;
-                    case 4:
-                        limpaSituacao5();
-                        break;
+        if (getOsAux().getListaSituacao().size() > 0){
+            int index = jTabbedPane1.getSelectedIndex();
+            if (getOsAux().getListaSituacao().get(index).getStatus().equals("CONCLUÍDO")){
+                JOptionPane.showMessageDialog(null, "Não é possível excluir uma situação já concluída.");
+            } else {
+                String message = "Deseja realmente excluir a Situação "+(index+1)+"?";
+                String title = "Excluir Situação "+(index+1);
+                int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+                if (reply == JOptionPane.YES_OPTION) {
+                    getOsAux().getListaSituacao().remove(index);
+                    switch (index){
+                        case 0:
+                            limpaSituacao1();
+                            break;
+                        case 1:
+                            limpaSituacao2();
+                            break;
+                        case 2:
+                            limpaSituacao3();
+                            break;
+                        case 3:
+                            limpaSituacao4();
+                            break;
+                        case 4:
+                            limpaSituacao5();
+                            break;
+                    }
+                    JOptionPane.showMessageDialog(null, "Situação "+(index+1)+" removido com sucesso.");
                 }
-                JOptionPane.showMessageDialog(null, "Situação "+(index+1)+" removido com sucesso.");
-            }
-            if (reply == JOptionPane.NO_OPTION) {
+                if (reply == JOptionPane.NO_OPTION) {
 
+                }
             }
         }
     }
