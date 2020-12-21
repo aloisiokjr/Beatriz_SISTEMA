@@ -58,9 +58,9 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jScrollPane1" alignment="0" pref="500" max="32767" attributes="0"/>
                       <Component id="jPanel4" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabel1" alignment="0" min="-2" pref="312" max="-2" attributes="0"/>
+                      <Component id="jLabel1" alignment="0" min="-2" pref="362" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="16" max="32767" attributes="0"/>
+                  <EmptySpace pref="26" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -84,7 +84,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="24" style="3"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Lista de Ordens de Servi&#xe7;o"/>
+            <Property name="text" type="java.lang.String" value="LISTA DE ORDENS DE SERVI&#xc7;O"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -550,7 +550,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="btnRelatorio" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnRelatorio" alignment="0" pref="183" max="32767" attributes="0"/>
                           <Component id="btnFechar" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>

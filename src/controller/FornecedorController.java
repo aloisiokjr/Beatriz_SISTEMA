@@ -72,6 +72,7 @@ public class FornecedorController {
         getEditarFornecedor().dispose();
         fornecedorUI.setEnabled(true);
         fornecedorUI.setFornecedorAux(null);
+        fornecedorUI.setagemInicial();
         fornecedorUI.fornecedorBuscaTodos();
         sistemaUI.toFront();
         fornecedorUI.toFront();

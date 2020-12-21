@@ -170,12 +170,12 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jPanel7" max="32767" attributes="0"/>
                                       <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jPanel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jPanel8" alignment="0" max="32767" attributes="0"/>
                                               <Component id="checkBoxAtualizaCV" alignment="0" min="-2" pref="284" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
@@ -185,7 +185,7 @@
                                               <Component id="jLabel27" alignment="0" min="-2" pref="148" max="-2" attributes="0"/>
                                               <Component id="campoQuantidadeEstoque" alignment="0" min="-2" pref="148" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace max="32767" attributes="0"/>
+                                          <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="btnSalvarAumento" alignment="1" min="-2" pref="111" max="-2" attributes="0"/>
                                               <Component id="btnFechar" alignment="1" min="-2" pref="111" max="-2" attributes="0"/>
@@ -193,7 +193,7 @@
                                       </Group>
                                       <Component id="jPanel6" alignment="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="19" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -915,20 +915,20 @@
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <EmptySpace min="-2" pref="317" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="1" attributes="0">
                                           <Component id="btnFechar1" min="-2" pref="111" max="-2" attributes="0"/>
                                           <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                                               <Component id="jLabel28" alignment="0" min="-2" pref="148" max="-2" attributes="0"/>
-                                              <Component id="campoQuantidadeEstoque1" alignment="0" min="-2" pref="148" max="-2" attributes="0"/>
+                                              <Component id="campoQuantidadeEstoque1" alignment="0" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="btnSalvarDiminuicao" min="-2" pref="111" max="-2" attributes="0"/>
-                                          <Component id="campoQuantidadeRetirar" min="-2" pref="165" max="-2" attributes="0"/>
+                                          <Component id="campoQuantidadeRetirar" max="32767" attributes="0"/>
                                           <Component id="jLabel17" min="-2" pref="165" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -1080,7 +1080,7 @@
                                       <Component id="comboBoxProdutos1" alignment="0" min="-2" pref="325" max="-2" attributes="0"/>
                                       <Component id="jLabel15" alignment="0" min="-2" pref="148" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="69" max="32767" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>

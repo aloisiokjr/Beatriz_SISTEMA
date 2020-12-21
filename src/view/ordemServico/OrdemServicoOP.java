@@ -2214,7 +2214,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel5Layout.createSequentialGroup()
                             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGap(18, 18, 18)
@@ -2233,8 +2233,8 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(campoStatus)
                                         .addComponent(jLabel152, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(40, Short.MAX_VALUE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(40, 40, 40))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2265,8 +2265,8 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -3231,7 +3231,8 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             erros = erros.substring(0, erros.length()-2);            
             JOptionPane.showMessageDialog(null, erros);
         } else {
-            SituacaoOS situacaoAux = new SituacaoOS(campoDataC.getText(),getOsAux().getNumOS(),indexSituacao+"",campoDescricaoC.getText(),"EM ABERTO", campoPrevisao.getText(),listaArquivosAux);  
+            int codigo = pegaNumeroSituacao();
+            SituacaoOS situacaoAux = new SituacaoOS(campoDataC.getText(),codigo+"",getOsAux().getNumOS(),indexSituacao+"",campoDescricaoC.getText(),"EM ABERTO", campoPrevisao.getText(),listaArquivosAux);  
             setSituacaoOSAux(situacaoAux);
             int index = getOsAux().getListaSituacao().size();
             switch (index){
@@ -3258,6 +3259,28 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             this.setEnabled(true);
             this.toFront();
         }
+    }
+    
+    private int pegaNumeroSituacao(){
+        int retorno = 0;
+        
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql;
+                sql = "SELECT MAX(Codigo) AS 'Codigo' FROM SituacaoOS";
+                PreparedStatement pst = con.prepareStatement(sql);
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+                    retorno = rs.getInt("Codigo") + 1;
+                }
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            //JOptionPane.showMessageDialog(null, e);
+        }
+        
+        return retorno;
     }
     
     private void editaSituacaoOS(){
@@ -3457,9 +3480,10 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql;
+                    int codigo = Integer.parseInt(situacaoAux.getCodigo());
                     sql = "INSERT INTO SituacaoOS (Codigo, NumeroOS, Descricao, Data, Status) VALUES (?,?,?,?,?)";
                     PreparedStatement pst = con.prepareStatement(sql);
-                    pst.setString(1,  situacaoAux.getCodigo());
+                    pst.setInt(1,  codigo);
                     pst.setString(2, situacaoAux.getNumeroOS());
                     pst.setString(3,  situacaoAux.getDescricao());
                     pst.setString(4,  situacaoAux.getData());
@@ -3470,7 +3494,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                     }
                 }
             } catch (HeadlessException | ClassNotFoundException | SQLException e) {
-                //JOptionPane.showMessageDialog(null, e);
+                JOptionPane.showMessageDialog(null, e);
             }
         }
     }
@@ -3493,7 +3517,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 }
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
-            //JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, e);
         }
     }
     
@@ -3519,7 +3543,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                     }
                 }
             } catch (HeadlessException | ClassNotFoundException | SQLException e) {
-                //JOptionPane.showMessageDialog(null, e);
+                JOptionPane.showMessageDialog(null, e);
             }
         }
     }

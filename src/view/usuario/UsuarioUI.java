@@ -91,9 +91,9 @@ public class UsuarioUI extends javax.swing.JFrame {
         jPanel1.setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
-        jLabel1.setText("Lista de Usuários");
+        jLabel1.setText("LISTA DE USUÁRIOS");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(20, 0, 210, 50);
+        jLabel1.setBounds(40, 20, 240, 50);
 
         tabelaUsuarios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tabelaUsuarios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -132,7 +132,7 @@ public class UsuarioUI extends javax.swing.JFrame {
         tabelaUsuarios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         jPanel1.add(jScrollPane2);
-        jScrollPane2.setBounds(190, 60, 652, 550);
+        jScrollPane2.setBounds(40, 80, 530, 550);
 
         jPanel2.setBackground(new java.awt.Color(242, 242, 242));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
@@ -214,7 +214,7 @@ public class UsuarioUI extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(910, 60, 300, 210);
+        jPanel2.setBounds(610, 80, 300, 210);
 
         jPanel3.setBackground(new java.awt.Color(242, 242, 242));
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
@@ -316,7 +316,7 @@ public class UsuarioUI extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel3);
-        jPanel3.setBounds(910, 290, 300, 250);
+        jPanel3.setBounds(610, 310, 300, 250);
 
         btnFechar.setBackground(new java.awt.Color(145, 0, 0));
         btnFechar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -328,10 +328,10 @@ public class UsuarioUI extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnFechar);
-        btnFechar.setBounds(1000, 570, 130, 40);
+        btnFechar.setBounds(700, 590, 130, 40);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 1530, 810);
+        jPanel1.setBounds(0, 0, 1510, 810);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
