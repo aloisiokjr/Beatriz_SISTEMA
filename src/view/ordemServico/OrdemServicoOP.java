@@ -193,6 +193,8 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         campoStatus1 = new javax.swing.JTextField();
         jLabel131 = new javax.swing.JLabel();
         btnConcluir1 = new javax.swing.JButton();
+        campoDataConclusão1 = new javax.swing.JFormattedTextField();
+        jLabel158 = new javax.swing.JLabel();
         painel2 = new javax.swing.JPanel();
         campoDescricao2 = new javax.swing.JTextField();
         jLabel132 = new javax.swing.JLabel();
@@ -204,6 +206,8 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         jLabel136 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabelaArquivosS2 = new javax.swing.JTable();
+        campoDataConclusão2 = new javax.swing.JFormattedTextField();
+        jLabel160 = new javax.swing.JLabel();
         painel3 = new javax.swing.JPanel();
         campoDescricao3 = new javax.swing.JTextField();
         jLabel141 = new javax.swing.JLabel();
@@ -215,6 +219,8 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         jLabel144 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tabelaArquivosS3 = new javax.swing.JTable();
+        campoDataConclusão3 = new javax.swing.JFormattedTextField();
+        jLabel161 = new javax.swing.JLabel();
         painel4 = new javax.swing.JPanel();
         campoDescricao4 = new javax.swing.JTextField();
         jLabel137 = new javax.swing.JLabel();
@@ -226,6 +232,8 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         jLabel140 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tabelaArquivosS4 = new javax.swing.JTable();
+        campoDataConclusão4 = new javax.swing.JFormattedTextField();
+        jLabel162 = new javax.swing.JLabel();
         painel5 = new javax.swing.JPanel();
         jLabel147 = new javax.swing.JLabel();
         campoDescricao5 = new javax.swing.JTextField();
@@ -237,6 +245,8 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         jLabel151 = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
         tabelaArquivosS5 = new javax.swing.JTable();
+        campoDataConclusão5 = new javax.swing.JFormattedTextField();
+        jLabel163 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnCriar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -940,8 +950,8 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(campoDescricaoArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(adicionarArquivoC2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addComponent(adicionarArquivoC2, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1351,14 +1361,14 @@ public class OrdemServicoOP extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Pendência", "Data", "Data de Conclusão"
+                "Pendência", "Data"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1375,7 +1385,6 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             tabelaArquivosS1.getColumnModel().getColumn(0).setResizable(false);
             tabelaArquivosS1.getColumnModel().getColumn(0).setPreferredWidth(300);
             tabelaArquivosS1.getColumnModel().getColumn(1).setPreferredWidth(150);
-            tabelaArquivosS1.getColumnModel().getColumn(2).setPreferredWidth(200);
         }
         MouseListener mouseListenerS1 = new MouseAdapter() {
             public void mouseClicked(MouseEvent mouseEvent) {
@@ -1423,6 +1432,17 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             }
         });
 
+        campoDataConclusão1.setEditable(false);
+        try {
+            campoDataConclusão1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        campoDataConclusão1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        jLabel158.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel158.setText("Data de Conclusão");
+
         javax.swing.GroupLayout painel1Layout = new javax.swing.GroupLayout(painel1);
         painel1.setLayout(painel1Layout);
         painel1Layout.setHorizontalGroup(
@@ -1445,7 +1465,10 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                                 .addComponent(campoData1)
                                 .addComponent(jLabel130, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnConcluir1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel158, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(campoDataConclusão1, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         painel1Layout.setVerticalGroup(
@@ -1467,8 +1490,12 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel129)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel158)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(campoDataConclusão1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("SITUAÇÃO 1", painel1);
@@ -1522,14 +1549,14 @@ public class OrdemServicoOP extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Pendência", "Data", "Data de Conclusão"
+                "Pendência", "Data"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1545,7 +1572,6 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         if (tabelaArquivosS2.getColumnModel().getColumnCount() > 0) {
             tabelaArquivosS2.getColumnModel().getColumn(0).setPreferredWidth(300);
             tabelaArquivosS2.getColumnModel().getColumn(1).setPreferredWidth(150);
-            tabelaArquivosS2.getColumnModel().getColumn(2).setPreferredWidth(200);
         }
         MouseListener mouseListenerS2 = new MouseAdapter() {
             public void mouseClicked(MouseEvent mouseEvent) {
@@ -1560,6 +1586,17 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         };
         tabelaArquivosS2.addMouseListener(mouseListenerS2);
 
+        campoDataConclusão2.setEditable(false);
+        try {
+            campoDataConclusão2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        campoDataConclusão2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        jLabel160.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel160.setText("Data de Conclusão");
+
         javax.swing.GroupLayout painel2Layout = new javax.swing.GroupLayout(painel2);
         painel2.setLayout(painel2Layout);
         painel2Layout.setHorizontalGroup(
@@ -1567,6 +1604,9 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             .addGroup(painel2Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(painel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel160, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(campoDataConclusão2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel136, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(painel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(painel2Layout.createSequentialGroup()
@@ -1604,8 +1644,12 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel136)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel160)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(campoDataConclusão2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("SITUAÇÃO 2", painel2);
@@ -1657,14 +1701,14 @@ public class OrdemServicoOP extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Pendência", "Data", "Data de Conclusão"
+                "Pendência", "Data"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1680,7 +1724,6 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         if (tabelaArquivosS3.getColumnModel().getColumnCount() > 0) {
             tabelaArquivosS3.getColumnModel().getColumn(0).setPreferredWidth(300);
             tabelaArquivosS3.getColumnModel().getColumn(1).setPreferredWidth(150);
-            tabelaArquivosS3.getColumnModel().getColumn(2).setPreferredWidth(200);
         }
         MouseListener mouseListenerS3 = new MouseAdapter() {
             public void mouseClicked(MouseEvent mouseEvent) {
@@ -1695,6 +1738,17 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         };
         tabelaArquivosS3.addMouseListener(mouseListenerS3);
 
+        campoDataConclusão3.setEditable(false);
+        try {
+            campoDataConclusão3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        campoDataConclusão3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        jLabel161.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel161.setText("Data de Conclusão");
+
         javax.swing.GroupLayout painel3Layout = new javax.swing.GroupLayout(painel3);
         painel3.setLayout(painel3Layout);
         painel3Layout.setHorizontalGroup(
@@ -1702,6 +1756,9 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             .addGroup(painel3Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(painel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel161, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(campoDataConclusão3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel144, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(painel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(painel3Layout.createSequentialGroup()
@@ -1739,8 +1796,12 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel144)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel161)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(campoDataConclusão3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("SITUAÇÃO 3", painel3);
@@ -1793,14 +1854,14 @@ public class OrdemServicoOP extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Pendência", "Data", "Data de Conclusão"
+                "Pendência", "Data"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1816,7 +1877,6 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         if (tabelaArquivosS4.getColumnModel().getColumnCount() > 0) {
             tabelaArquivosS4.getColumnModel().getColumn(0).setPreferredWidth(300);
             tabelaArquivosS4.getColumnModel().getColumn(1).setPreferredWidth(150);
-            tabelaArquivosS4.getColumnModel().getColumn(2).setPreferredWidth(200);
         }
         MouseListener mouseListenerS4 = new MouseAdapter() {
             public void mouseClicked(MouseEvent mouseEvent) {
@@ -1831,6 +1891,17 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         };
         tabelaArquivosS4.addMouseListener(mouseListenerS4);
 
+        campoDataConclusão4.setEditable(false);
+        try {
+            campoDataConclusão4.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        campoDataConclusão4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        jLabel162.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel162.setText("Data de Conclusão");
+
         javax.swing.GroupLayout painel4Layout = new javax.swing.GroupLayout(painel4);
         painel4.setLayout(painel4Layout);
         painel4Layout.setHorizontalGroup(
@@ -1838,6 +1909,9 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             .addGroup(painel4Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(painel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel162, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(campoDataConclusão4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel140, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(painel4Layout.createSequentialGroup()
@@ -1874,8 +1948,12 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel140)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel162)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(campoDataConclusão4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("SITUAÇÃO 4", painel4);
@@ -1928,14 +2006,14 @@ public class OrdemServicoOP extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Pendência", "Data", "Data de Conclusão"
+                "Pendência", "Data"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1951,7 +2029,6 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         if (tabelaArquivosS5.getColumnModel().getColumnCount() > 0) {
             tabelaArquivosS5.getColumnModel().getColumn(0).setPreferredWidth(300);
             tabelaArquivosS5.getColumnModel().getColumn(1).setPreferredWidth(150);
-            tabelaArquivosS5.getColumnModel().getColumn(2).setPreferredWidth(200);
         }
         MouseListener mouseListenerS5 = new MouseAdapter() {
             public void mouseClicked(MouseEvent mouseEvent) {
@@ -1966,6 +2043,17 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         };
         tabelaArquivosS5.addMouseListener(mouseListenerS5);
 
+        campoDataConclusão5.setEditable(false);
+        try {
+            campoDataConclusão5.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        campoDataConclusão5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        jLabel163.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel163.setText("Data de Conclusão");
+
         javax.swing.GroupLayout painel5Layout = new javax.swing.GroupLayout(painel5);
         painel5.setLayout(painel5Layout);
         painel5Layout.setHorizontalGroup(
@@ -1973,6 +2061,9 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             .addGroup(painel5Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(painel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel163, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(campoDataConclusão5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel151, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(painel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(painel5Layout.createSequentialGroup()
@@ -2010,8 +2101,12 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel151)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel163)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(campoDataConclusão5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("SITUAÇÃO 5", painel5);
@@ -2640,29 +2735,36 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             modeloAux.addRow(new Object[]{index+1, arquivoAux.getDescricao()});
             index++;
         }
+        
+        jTabbedPane1.setEnabledAt(0, false);
+        jTabbedPane1.setEnabledAt(1, false);
+        jTabbedPane1.setEnabledAt(2, false);
+        jTabbedPane1.setEnabledAt(3, false);
+        jTabbedPane1.setEnabledAt(4, false);
         int i = getOsAux().getListaSituacao().size();
         
         if (i != 0){
+            jTabbedPane1.setEnabledAt(0, true);
             String descricao = getOsAux().getListaSituacao().get(0).getDescricao();
             String data = getOsAux().getListaSituacao().get(0).getData();
+            String dataEntrega = getOsAux().getListaSituacao().get(0).getDataEntrega();
             String status = getOsAux().getListaSituacao().get(0).getStatus();
             Iterator<Arquivo> iteradorArquivosS = getOsAux().getListaSituacao().get(0).getListaArquivos().iterator();
 
             campoDescricao1.setText(descricao);
             campoData1.setText(data);
             campoStatus1.setText(status);
+            campoDataConclusão1.setText(dataEntrega);
             
             if (status.equals("CONCLUÍDO")){
                 btnConcluir1.setEnabled(false);
             }
             
             Arquivo arquivoS;
-            int j = 1;
             while (iteradorArquivosS.hasNext()){
                 arquivoS = iteradorArquivosS.next();
                 DefaultTableModel modeloAuxA = (DefaultTableModel) tabelaArquivosS1.getModel();
-                modeloAuxA.addRow(new Object[]{j,arquivoS.getDescricao(),arquivoS.getData()});
-                j++;
+                modeloAuxA.addRow(new Object[]{arquivoS.getDescricao(),arquivoS.getData()});
             }
             i--;
             if(i != 0){
@@ -2684,14 +2786,17 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     
     private void carregaSituacao2(int i){
         if (i != 0){
+            jTabbedPane1.setEnabledAt(1, true);
             String descricao = getOsAux().getListaSituacao().get(1).getDescricao();
             String data = getOsAux().getListaSituacao().get(1).getData();
+            String dataEntrega = getOsAux().getListaSituacao().get(1).getDataEntrega();
             String status = getOsAux().getListaSituacao().get(1).getStatus();
             Iterator<Arquivo> iteradorArquivosS = getOsAux().getListaSituacao().get(1).getListaArquivos().iterator();
 
             campoDescricao2.setText(descricao);
             campoData2.setText(data);
             campoStatus2.setText(status);
+            campoDataConclusão2.setText(dataEntrega);
             
             if (status.equals("CONCLUÍDO")){
                 btnConcluir2.setEnabled(false);
@@ -2702,7 +2807,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             while (iteradorArquivosS.hasNext()){
                 arquivoS = iteradorArquivosS.next();
                 DefaultTableModel modeloAuxA = (DefaultTableModel) tabelaArquivosS2.getModel();
-                modeloAuxA.addRow(new Object[]{j,arquivoS.getDescricao(),arquivoS.getData()});
+                modeloAuxA.addRow(new Object[]{arquivoS.getDescricao(),arquivoS.getData()});
                 j++;
             }
             i--;
@@ -2724,14 +2829,17 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     
     private void carregaSituacao3(int i){
         if (i != 0){
+            jTabbedPane1.setEnabledAt(2, true);
             String descricao = getOsAux().getListaSituacao().get(2).getDescricao();
             String data = getOsAux().getListaSituacao().get(2).getData();
+            String dataEntrega = getOsAux().getListaSituacao().get(2).getDataEntrega();
             String status = getOsAux().getListaSituacao().get(2).getStatus();
             Iterator<Arquivo> iteradorArquivosS = getOsAux().getListaSituacao().get(2).getListaArquivos().iterator();
 
             campoDescricao3.setText(descricao);
             campoData3.setText(data);
             campoStatus3.setText(status);
+            campoDataConclusão3.setText(dataEntrega);
             
             if (status.equals("CONCLUÍDO")){
                 btnConcluir3.setEnabled(false);
@@ -2742,7 +2850,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             while (iteradorArquivosS.hasNext()){
                 arquivoS = iteradorArquivosS.next();
                 DefaultTableModel modeloAuxA = (DefaultTableModel) tabelaArquivosS3.getModel();
-                modeloAuxA.addRow(new Object[]{j,arquivoS.getDescricao(),arquivoS.getData()});
+                modeloAuxA.addRow(new Object[]{arquivoS.getDescricao(),arquivoS.getData()});
                 j++;
             }
             i--;
@@ -2763,14 +2871,17 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     
     private void carregaSituacao4(int i){
         if (i != 0){
+            jTabbedPane1.setEnabledAt(3, true);
             String descricao = getOsAux().getListaSituacao().get(3).getDescricao();
             String data = getOsAux().getListaSituacao().get(3).getData();
+            String dataEntrega = getOsAux().getListaSituacao().get(3).getDataEntrega();
             String status = getOsAux().getListaSituacao().get(3).getStatus();
             Iterator<Arquivo> iteradorArquivosS = getOsAux().getListaSituacao().get(3).getListaArquivos().iterator();
 
             campoDescricao4.setText(descricao);
             campoData4.setText(data);
             campoStatus4.setText(status);
+            campoDataConclusão4.setText(dataEntrega);
             
             if (status.equals("CONCLUÍDO")){
                 btnConcluir4.setEnabled(false);
@@ -2781,7 +2892,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             while (iteradorArquivosS.hasNext()){
                 arquivoS = iteradorArquivosS.next();
                 DefaultTableModel modeloAuxA = (DefaultTableModel) tabelaArquivosS4.getModel();
-                modeloAuxA.addRow(new Object[]{j,arquivoS.getDescricao(),arquivoS.getData()});
+                modeloAuxA.addRow(new Object[]{arquivoS.getDescricao(),arquivoS.getData()});
                 j++;
             }
             i--;
@@ -2801,14 +2912,17 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     
     private void carregaSituacao5(int i){
         if (i != 0){
+            jTabbedPane1.setEnabledAt(4, true);
             String descricao = getOsAux().getListaSituacao().get(4).getDescricao();
             String data = getOsAux().getListaSituacao().get(4).getData();
+            String dataEntrega = getOsAux().getListaSituacao().get(4).getDataEntrega();
             String status = getOsAux().getListaSituacao().get(4).getStatus();
             Iterator<Arquivo> iteradorArquivosS = getOsAux().getListaSituacao().get(4).getListaArquivos().iterator();
 
             campoDescricao5.setText(descricao);
             campoData5.setText(data);
             campoStatus5.setText(status);
+            campoDataConclusão5.setText(dataEntrega);
             
             if (status.equals("CONCLUÍDO")){
                 btnConcluir5.setEnabled(false);
@@ -2819,7 +2933,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             while (iteradorArquivosS.hasNext()){
                 arquivoS = iteradorArquivosS.next();
                 DefaultTableModel modeloAuxA = (DefaultTableModel) tabelaArquivosS5.getModel();
-                modeloAuxA.addRow(new Object[]{j,arquivoS.getDescricao(),arquivoS.getData()});
+                modeloAuxA.addRow(new Object[]{arquivoS.getDescricao(),arquivoS.getData()});
                 j++;
             }
             i--;
@@ -2980,6 +3094,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 String data = dateFormat.format(date);
                 getOsAux().getListaSituacao().get(0).setDataEntrega(data);
                 JOptionPane.showMessageDialog(null, "Situação 1 concluída com sucesso.");
+                campoDataConclusão1.setText(data);
                 campoStatus1.setText("CONCLUÍDO");
                 btnConcluir1.setEnabled(false);
             }
@@ -3001,6 +3116,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 String data = dateFormat.format(date);
                 getOsAux().getListaSituacao().get(1).setDataEntrega(data);
                 JOptionPane.showMessageDialog(null, "Situação 2 concluída com sucesso.");
+                campoDataConclusão2.setText(data);
                 campoStatus2.setText("CONCLUÍDO");
                 btnConcluir2.setEnabled(false);
             }
@@ -3022,6 +3138,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 String data = dateFormat.format(date);
                 getOsAux().getListaSituacao().get(2).setDataEntrega(data);
                 JOptionPane.showMessageDialog(null, "Situação 3 concluída com sucesso.");
+                campoDataConclusão3.setText(data);
                 campoStatus3.setText("CONCLUÍDO");
                 btnConcluir3.setEnabled(false);
             }
@@ -3043,6 +3160,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 String data = dateFormat.format(date);
                 getOsAux().getListaSituacao().get(3).setDataEntrega(data);
                 JOptionPane.showMessageDialog(null, "Situação 4 concluída com sucesso.");
+                campoDataConclusão4.setText(data);
                 campoStatus4.setText("CONCLUÍDO");
                 btnConcluir4.setEnabled(false);
             }
@@ -3064,6 +3182,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 String data = dateFormat.format(date);
                 getOsAux().getListaSituacao().get(4).setDataEntrega(data);
                 JOptionPane.showMessageDialog(null, "Situação 5 concluída com sucesso.");
+                campoDataConclusão5.setText(data);
                 campoStatus5.setText("CONCLUÍDO");
                 btnConcluir5.setEnabled(false);
             }
@@ -3149,8 +3268,8 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             erros = erros.substring(0, erros.length()-2);            
             JOptionPane.showMessageDialog(null, erros);
         } else {
-            Arquivo arquivoAux = new Arquivo(campoDescricaoArquivo.getText(),campoDescricaoArquivo.getText());
-            getSituacaoOSAux().getListaArquivos().add(arquivoAux);
+            Arquivo arquivoAux = new Arquivo(campoDescricaoArquivo.getText(),campoCaminhoArquivo.getText());
+            getListaArquivosAux().add(arquivoAux);
             int index = tabelaArquivosOSEditar.getRowCount();
             DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivosOSEditar.getModel();
             modeloAux.addRow(new Object[]{index+1, campoDescricaoArquivo.getText()});
@@ -3160,14 +3279,23 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     }
     
     private void removerArquivodaOS(){
-        if (tabelaArquivosOSEditar.getSelectedRow() > -1){
-            int index = tabelaArquivosOSEditar.getSelectedRow();
-            DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivosOSEditar.getModel();
-            modeloAux.removeRow(tabelaArquivosOSEditar.getSelectedRow());
-            getListaArquivosAux().remove(index);
-        } else {
-            // DO NOTHING
-        }
+        String message = "Deseja realmente excluir o arquivo?";
+            String title = "Excluir Arquivo";
+            int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+                if (tabelaArquivosOSEditar.getSelectedRow() > -1){
+                    int index = tabelaArquivosOSEditar.getSelectedRow();
+                    DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivosOSEditar.getModel();
+                    modeloAux.removeRow(tabelaArquivosOSEditar.getSelectedRow());
+                    getListaArquivosAux().remove(index);
+                } else {
+                    // DO NOTHING
+                }
+            }
+            if (reply == JOptionPane.NO_OPTION) {
+
+            }
+        
     }
     
     private void adicionaSituacaoOS(){
@@ -3232,7 +3360,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, erros);
         } else {
             int codigo = pegaNumeroSituacao();
-            SituacaoOS situacaoAux = new SituacaoOS(campoDataC.getText(),codigo+"",getOsAux().getNumOS(),indexSituacao+"",campoDescricaoC.getText(),"EM ABERTO", campoPrevisao.getText(),listaArquivosAux);  
+            SituacaoOS situacaoAux = new SituacaoOS(campoDataC.getText(),getOsAux().getNumOS(),indexSituacao,campoDescricaoC.getText(),"EM ABERTO", campoPrevisao.getText(),listaArquivosAux);  
             setSituacaoOSAux(situacaoAux);
             int index = getOsAux().getListaSituacao().size();
             switch (index){
@@ -3473,28 +3601,28 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             Iterator<Arquivo> iteradorArquivosS = situacaoAux.getListaArquivos().iterator();
             while(iteradorArquivosS.hasNext()){
                 arquivoAux = iteradorArquivosS.next();
-                salvaArquivosSituacao(situacaoAux.getCodigo(), arquivoAux);
+                salvaArquivosSituacao(situacaoAux.getCodigo()+"", arquivoAux);
             }
             try {
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql;
-                    int codigo = Integer.parseInt(situacaoAux.getCodigo());
-                    sql = "INSERT INTO SituacaoOS (Codigo, NumeroOS, Descricao, Data, Status) VALUES (?,?,?,?,?)";
+                    sql = "INSERT INTO SituacaoOS (Codigo, NumeroOS, Descricao, Data, DataEntrega, Status) VALUES (?,?,?,?,?,?)";
                     PreparedStatement pst = con.prepareStatement(sql);
-                    pst.setInt(1,  codigo);
+                    pst.setInt(1, situacaoAux.getCodigo());
                     pst.setString(2, situacaoAux.getNumeroOS());
                     pst.setString(3,  situacaoAux.getDescricao());
                     pst.setString(4,  situacaoAux.getData());
-                    pst.setString(5,  situacaoAux.getStatus());
+                    pst.setString(5,  situacaoAux.getDataEntrega());
+                    pst.setString(6,  situacaoAux.getStatus());
                     ResultSet rs = pst.executeQuery();
                     if (rs.next()) {
 
                     }
                 }
             } catch (HeadlessException | ClassNotFoundException | SQLException e) {
-                JOptionPane.showMessageDialog(null, e);
+                //JOptionPane.showMessageDialog(null, e);
             }
         }
     }
@@ -3517,7 +3645,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 }
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
+            //JOptionPane.showMessageDialog(null, e);
         }
     }
     
@@ -3543,7 +3671,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                     }
                 }
             } catch (HeadlessException | ClassNotFoundException | SQLException e) {
-                JOptionPane.showMessageDialog(null, e);
+                //JOptionPane.showMessageDialog(null, e);
             }
         }
     }
@@ -3554,11 +3682,21 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         Iterator<Arquivo> iteradorArquivos = getOsAux().getListaArquivos().iterator();
         Arquivo arquivoAux;
         int index  = 0;
+        
+        int rowCount = tabelaArquivos.getRowCount();
+        if (rowCount > 0) {
+            while (rowCount > 0) {
+                ((DefaultTableModel) tabelaArquivos.getModel()).removeRow(rowCount - 1);
+                rowCount--;
+            }
+        }
+        
         while(iteradorArquivos.hasNext()){
             arquivoAux = iteradorArquivos.next();
             modeloAux.addRow(new Object[]{index+1, arquivoAux.getDescricao()});
             index++;
         }
+        
         JOptionPane.showMessageDialog(null, "Arquivos da OS alterados com sucesso.");
         editarArquivos.dispose();
         this.setEnabled(true);
@@ -3588,6 +3726,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             }
         } catch (SQLException e){
             JOptionPane.showMessageDialog(null, "A Ordem de Serviço "+jFormattedTextField1.getText()+ " foi atualizada com sucesso.");
+            osController.fechaAcompanhamentoOS();
         } catch (HeadlessException | ClassNotFoundException e) {
             //JOptionPane.showMessageDialog(null, e);
         } 
@@ -3613,7 +3752,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
-                String sql = "DELETE FROM Arquivo_Situacao WHERE CodigoOS IN (SELECT Codigo FROM SituacaoOS WHERE NumeroOS = ?)";
+                String sql = "DELETE FROM Arquivo_Situacao WHERE CodigoS IN (SELECT Codigo FROM SituacaoOS WHERE NumeroOS = ?)";
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1, getOsAux().getNumOS());
                 ResultSet rs = pst.executeQuery();
@@ -3629,6 +3768,22 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "DELETE FROM SituacaoOS WHERE NumeroOS = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, getOsAux().getNumOS());
+                ResultSet rs = pst.executeQuery();
+                deletaArquivosSituacao();
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            //JOptionPane.showMessageDialog(null, e);
+        } 
+    }
+    
+    private void deletaArquivosSituacao(){
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "DELETE FROM Arquivo_Situacao WHERE CodigoS = 1 AND CodigoS = 2 AND CodigoS = 3 AND CodigoS = 4 AND CodigoS = 5";
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1, getOsAux().getNumOS());
                 ResultSet rs = pst.executeQuery();
@@ -3916,7 +4071,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     
     private void abreArquivosOSEditar() throws IOException{
         int index = tabelaArquivosOSEditar.getSelectedRow();
-        String pathFile = getOsAux().getListaArquivos().get(index).getPath();
+        String pathFile = getListaArquivosAux().get(index).getPath();
         Desktop desktop = Desktop.getDesktop();  
         desktop.open(new File(pathFile));
     }
@@ -4034,6 +4189,11 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField campoData5;
     private javax.swing.JFormattedTextField campoDataC;
     private javax.swing.JFormattedTextField campoDataC1;
+    private javax.swing.JFormattedTextField campoDataConclusão1;
+    private javax.swing.JFormattedTextField campoDataConclusão2;
+    private javax.swing.JFormattedTextField campoDataConclusão3;
+    private javax.swing.JFormattedTextField campoDataConclusão4;
+    private javax.swing.JFormattedTextField campoDataConclusão5;
     private javax.swing.JTextField campoDescricao1;
     private javax.swing.JTextField campoDescricao2;
     private javax.swing.JTextField campoDescricao3;
@@ -4099,7 +4259,12 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel155;
     private javax.swing.JLabel jLabel156;
     private javax.swing.JLabel jLabel157;
+    private javax.swing.JLabel jLabel158;
     private javax.swing.JLabel jLabel159;
+    private javax.swing.JLabel jLabel160;
+    private javax.swing.JLabel jLabel161;
+    private javax.swing.JLabel jLabel162;
+    private javax.swing.JLabel jLabel163;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;

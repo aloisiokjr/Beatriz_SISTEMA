@@ -13,9 +13,8 @@ import java.util.ArrayList;
  */
 public class SituacaoOS implements Cloneable {
     private String Data = null;
-    private String NumSituacao = null;
     private String NumeroOS = null;
-    private String Codigo = null;
+    private int Codigo = 0;
     private String Descricao = null;
     private String Status = null;
     private String DataEntrega = null;
@@ -26,9 +25,8 @@ public class SituacaoOS implements Cloneable {
     
     }
     
-    public SituacaoOS(String Data,String NumSituacao,String NumeroOS,String Codigo,String Descricao,String Status,String DataEntrega,ArrayList<Arquivo> listaArquivos){
+    public SituacaoOS(String Data,String NumeroOS,int Codigo,String Descricao,String Status,String DataEntrega,ArrayList<Arquivo> listaArquivos){
         this.Data = Data;
-        this.NumSituacao = NumSituacao;
         this.NumeroOS = NumeroOS;
         this.Codigo = Codigo;
         this.Descricao = Descricao;
@@ -68,14 +66,14 @@ public class SituacaoOS implements Cloneable {
     /**
      * @return the Codigo
      */
-    public String getCodigo() {
+    public int getCodigo() {
         return Codigo;
     }
 
     /**
      * @param Codigo the Codigo to set
      */
-    public void setCodigo(String Codigo) {
+    public void setCodigo(int Codigo) {
         this.Codigo = Codigo;
     }
 
@@ -138,20 +136,6 @@ public class SituacaoOS implements Cloneable {
      */
     public void setDataEntrega(String DataEntrega) {
         this.DataEntrega = DataEntrega;
-    }
-
-    /**
-     * @return the NumSituacao
-     */
-    public String getNumSituacao() {
-        return NumSituacao;
-    }
-
-    /**
-     * @param NumSituacao the NumSituacao to set
-     */
-    public void setNumSituacao(String NumSituacao) {
-        this.NumSituacao = NumSituacao;
     }
     
 }

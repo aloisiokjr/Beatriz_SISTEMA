@@ -5,6 +5,7 @@
  */
 package controller;
 
+import model.OrdemServico;
 import view.Sistema_UI;
 import view.ordemServico.OrdemServicoOP;
 import view.ordemServico.OrdemServicoUI;
@@ -19,6 +20,7 @@ public class OrdemServicoController {
     private OrdemServicoUI osUI = null;
     private lancamentoOrdemServico lancamentoOS = null;
     private OrdemServicoOP osOP = null;
+    private OrdemServico osAux = null;
 
     
     public OrdemServicoController(Sistema_UI sistemaUI){
@@ -59,12 +61,14 @@ public class OrdemServicoController {
     public void abreAcompanhamentoOS(){
         osUI.setOsOP(new OrdemServicoOP(this, osUI.getOsAux()));
         setOsOP(osUI.getOsOP());
+        setOsAux(osUI.getOsAux());
         osUI.setEnabled(false);
     }
     
     public void fechaAcompanhamentoOS(){
         getOsOP().dispose();
         setOsOP(null);
+        setOsAux(null);
         sistemaUI.toFront();
         osUI.setEnabled(true);
         osUI.toFront();
@@ -112,5 +116,19 @@ public class OrdemServicoController {
      */
     public void setOsOP(OrdemServicoOP osOP) {
         this.osOP = osOP;
+    }
+
+    /**
+     * @return the osAux
+     */
+    public OrdemServico getOsAux() {
+        return osAux;
+    }
+
+    /**
+     * @param osAux the osAux to set
+     */
+    public void setOsAux(OrdemServico osAux) {
+        this.osAux = osAux;
     }
 }
