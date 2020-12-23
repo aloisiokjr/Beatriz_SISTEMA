@@ -42,19 +42,20 @@ public class CriarPeca extends javax.swing.JFrame {
         @Override
         public boolean accept(File file) {
             // Allow only directories, or files with ".txt" extension
-            return file.isDirectory() || file.getAbsolutePath().endsWith(".pdf");
+            return file.isDirectory() || file.getAbsolutePath().endsWith(".jpg");
         }
         @Override
         public String getDescription() {
             // This description will be displayed in the dialog,
             // hard-coded = ugly, should be done via I18N
-            return "Documento PDF (*.pdf)";
+            return "Imagem JPG (*.jpg)";
         }
     } 
     
     private ArrayList<Requisito> listaRequisitos = null;
     private PecasController pecaController = null;
     private File file = null;
+    private String caminhoImagem = null;
 
     /**
      * Creates new form CriarPeca
@@ -873,7 +874,7 @@ public class CriarPeca extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1298,7 +1299,7 @@ public class CriarPeca extends javax.swing.JFrame {
             requisitosN = requisitosN.substring(0, requisitosN.length() - 1);
             JOptionPane.showMessageDialog(null, "Os seguintes requisitos não foram preeenchidos:" + requisitosN + ".");
         } else {
-            String codigo, descricao, valorCompra, margemLucro, precoVenda, marca, modelo, ano, qtdEstoque;
+            String codigo, descricao, valorCompra, margemLucro, precoVenda, marca, modelo, ano, qtdEstoque,pathImagem;
             codigo = campoCodigoPeca.getText();
             descricao = campoDescricaoPeca.getText();
             valorCompra = campoPrecoCompra.getText();
@@ -1307,13 +1308,14 @@ public class CriarPeca extends javax.swing.JFrame {
             marca = campoMarcaPeca.getText();
             modelo = campoModeloPeca.getText();
             ano = campoAnoPeca.getText();
+            pathImagem = caminhoImagem;
             qtdEstoque = "0";
             
             try {
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
-                    String sql = "INSERT INTO Produto (Codigo, Descricao, PrecoCompra, MargemLucro, PrecoVenda, Marca, Modelo, Ano, QtdEstoque) VALUES (?,?,?,?,?,?,?,?,?)";
+                    String sql = "INSERT INTO Produto (Codigo, Descricao, PrecoCompra, MargemLucro, PrecoVenda, Marca, Modelo, Ano, QtdEstoque, PathImagem) VALUES (?,?,?,?,?,?,?,?,?,?)";
                     PreparedStatement pst = con.prepareStatement(sql);
                     pst.setString(1, codigo);
                     pst.setString(2, descricao);
@@ -1324,7 +1326,7 @@ public class CriarPeca extends javax.swing.JFrame {
                     pst.setString(7, modelo);
                     pst.setString(8, ano);
                     pst.setString(9, qtdEstoque);
-
+                    pst.setString(10, pathImagem);
                     ResultSet rs = pst.executeQuery();
                     
                     if(rs.next()){
@@ -1398,7 +1400,8 @@ public class CriarPeca extends javax.swing.JFrame {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             file = jFileChooser1.getSelectedFile();
             this.setEnabled(true);
-            ImageIcon icon = new ImageIcon(file.getAbsolutePath());
+            ImageIcon icon = new ImageIcon(file.getPath());
+            setCaminhoImagem(file.getPath());
             icon.setImage(icon.getImage().getScaledInstance(418, 261, 100));
             labelImagem.setIcon(icon);
             this.toFront();
@@ -1533,5 +1536,19 @@ public class CriarPeca extends javax.swing.JFrame {
      */
     public void setFile(File file) {
         this.file = file;
+    }
+
+    /**
+     * @return the caminhoImagem
+     */
+    public String getCaminhoImagem() {
+        return caminhoImagem;
+    }
+
+    /**
+     * @param caminhoImagem the caminhoImagem to set
+     */
+    public void setCaminhoImagem(String caminhoImagem) {
+        this.caminhoImagem = caminhoImagem;
     }
 }

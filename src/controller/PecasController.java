@@ -81,6 +81,7 @@ public class PecasController {
         sistemaUI.toFront();
         pecaUI.toFront();
         pecaUI.produtoBuscaTodos();
+        pecaUI.setagemInicial();
         sistemaUI.atualizaDados();
     }
     
@@ -97,6 +98,7 @@ public class PecasController {
         pecaUI.setPecaAux(null);
         sistemaUI.toFront();
         pecaUI.produtoBuscaTodos();
+        pecaUI.setagemInicial();
         pecaUI.toFront();
         sistemaUI.atualizaDados();
     }
@@ -117,6 +119,7 @@ public class PecasController {
         pecaUI.setEnabled(true);
         sistemaUI.toFront();
         pecaUI.produtoBuscaTodos();
+        pecaUI.setagemInicial();
         pecaUI.toFront();
         sistemaUI.atualizaDados();
     }

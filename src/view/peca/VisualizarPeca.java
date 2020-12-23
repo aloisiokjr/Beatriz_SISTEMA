@@ -584,7 +584,7 @@ public class VisualizarPeca extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarKeyPressed
 
     private void fechaVisualizacao(){
-        getPecaController().fechaEdicaoPeca();
+        getPecaController().fechaVisualizacaoPeca();
     }
     
     private void editarPeca(){
@@ -594,7 +594,7 @@ public class VisualizarPeca extends javax.swing.JFrame {
     public void setaVisualizacao(){
         campoCodigoPeca.setText(getPecaAux().getCodigo());
         campoDescricaoPeca.setText(getPecaAux().getDescricao());
-        campoPrecoCompra.setText(getPecaAux().getPrecoVenda());
+        campoPrecoCompra.setText(getPecaAux().getPrecoCompra());
         campoPorcentagemLucro.setText(getPecaAux().getMargemLucro());
         campoPrecoVenda.setText(getPecaAux().getPrecoVenda());
         campoMarcaPeca.setText(getPecaAux().getMarca());

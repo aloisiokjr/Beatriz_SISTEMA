@@ -44,20 +44,21 @@ public class EditarPeca extends javax.swing.JFrame {
         @Override
         public boolean accept(File file) {
             // Allow only directories, or files with ".txt" extension
-            return file.isDirectory() || file.getAbsolutePath().endsWith(".pdf");
+            return file.isDirectory() || file.getAbsolutePath().endsWith(".jpg");
         }
         @Override
         public String getDescription() {
             // This description will be displayed in the dialog,
             // hard-coded = ugly, should be done via I18N
-            return "Documento PDF (*.pdf)";
+            return "Imagem JPG (*.jpg)";
         }
-    } 
+    }
     
     private ArrayList<Requisito> listaRequisitos = null;
     private PecasController pecaController = null;
     private Peca pecaAux = null;
     private File file = null;
+    private String caminhoImagem = null;
     /**
      * Creates new form EditarPeca
      * @param pecaController
@@ -882,7 +883,7 @@ public class EditarPeca extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
@@ -1129,15 +1130,15 @@ public class EditarPeca extends javax.swing.JFrame {
         listaRequisitos = new ArrayList();
         labelNomeVariante.setVisible(false);
         
-        getListaRequisitos().add(new Requisito("Codigo", false));
-        getListaRequisitos().add(new Requisito("Descrição", false));
-        getListaRequisitos().add(new Requisito("Preço de Compra", false));
-        getListaRequisitos().add(new Requisito("Porcentagem de Lucro", false));
-        getListaRequisitos().add(new Requisito("Preço de Venda", false));
+        getListaRequisitos().add(new Requisito("Codigo", true));
+        getListaRequisitos().add(new Requisito("Descrição", true));
+        getListaRequisitos().add(new Requisito("Preço de Compra", true));
+        getListaRequisitos().add(new Requisito("Porcentagem de Lucro", true));
+        getListaRequisitos().add(new Requisito("Preço de Venda", true));
         
         campoCodigoPeca.setText(getPecaAux().getCodigo());
         campoDescricaoPeca.setText(getPecaAux().getDescricao());
-        campoPrecoCompra.setText(getPecaAux().getPrecoVenda());
+        campoPrecoCompra.setText(getPecaAux().getPrecoCompra());
         campoPorcentagemLucro.setText(getPecaAux().getMargemLucro());
         campoPrecoVenda.setText(getPecaAux().getPrecoVenda());
         campoMarcaPeca.setText(getPecaAux().getMarca());
@@ -1331,7 +1332,7 @@ public class EditarPeca extends javax.swing.JFrame {
             requisitosN = requisitosN.substring(0, requisitosN.length() - 1);
             JOptionPane.showMessageDialog(null, "Os seguintes requisitos não foram preeenchidos:" + requisitosN + ".");
         } else {
-            String codigo, descricao, valorCompra, margemLucro, precoVenda, marca, modelo, ano, usuario, qtdEstoque;
+            String codigo, descricao, valorCompra, margemLucro, precoVenda, marca, modelo, ano, usuario, qtdEstoque, pathImagem;
             codigo = campoCodigoPeca.getText();
             descricao = campoDescricaoPeca.getText();
             valorCompra = campoPrecoCompra.getText();
@@ -1341,13 +1342,15 @@ public class EditarPeca extends javax.swing.JFrame {
             modelo = campoModeloPeca.getText();
             ano = campoAnoPeca.getText();
             usuario = pecaController.getSistemaUI().getLoginCheck();
+            pathImagem = caminhoImagem;
+            caminhoImagem = null;
             qtdEstoque = "0";
             
             try {
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
-                    String sql = "UPDATE Produto SET Codigo = ?, Descricao = ?, PrecoCompra = ?, MargemLucro = ?, PrecoVenda = ?, Marca = ?, Modelo = ?, Ano = ?, CodUserAlt = ?, QtdEstoque = ? WHERE Codigo = ?";
+                    String sql = "UPDATE Produto SET Codigo = ?, Descricao = ?, PrecoCompra = ?, MargemLucro = ?, PrecoVenda = ?, Marca = ?, Modelo = ?, Ano = ?, QtdEstoque = ?, PathImagem = ? WHERE Codigo = ?";
                     PreparedStatement pst = con.prepareStatement(sql);
                     pst.setString(1, codigo);
                     pst.setString(2, descricao);
@@ -1357,9 +1360,9 @@ public class EditarPeca extends javax.swing.JFrame {
                     pst.setString(6, marca);
                     pst.setString(7, modelo);
                     pst.setString(8, ano);
-                    pst.setString(9, usuario);
-                    pst.setString(10, qtdEstoque);
-                    pst.setString(10, getPecaAux().getCodigo());
+                    pst.setString(9, qtdEstoque);
+                    pst.setString(10, pathImagem);
+                    pst.setString(11, getPecaAux().getCodigo());
 
                     ResultSet rs = pst.executeQuery();
                     
@@ -1369,7 +1372,7 @@ public class EditarPeca extends javax.swing.JFrame {
                 }
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Produto '" + descricao + "' editado com sucesso.");
-                //JOptionPane.showMessageDialog(null,e);
+                JOptionPane.showMessageDialog(null,e);
                 pecaController.fechaEdicaoPeca();
             } catch (HeadlessException | ClassNotFoundException e) {
                 JOptionPane.showMessageDialog(null, e);
@@ -1483,7 +1486,8 @@ public class EditarPeca extends javax.swing.JFrame {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             file = jFileChooser1.getSelectedFile();
             this.setEnabled(true);
-            ImageIcon icon = new ImageIcon(file.getAbsolutePath()); 
+            ImageIcon icon = new ImageIcon(file.getPath());
+            setCaminhoImagem(file.getPath());
             icon.setImage(icon.getImage().getScaledInstance(418, 261, 100));
             labelImagem.setIcon(icon);
             this.toFront();
@@ -1632,5 +1636,19 @@ public class EditarPeca extends javax.swing.JFrame {
      */
     public void setFile(File file) {
         this.file = file;
+    }
+
+    /**
+     * @return the caminhoImagem
+     */
+    public String getCaminhoImagem() {
+        return caminhoImagem;
+    }
+
+    /**
+     * @param caminhoImagem the caminhoImagem to set
+     */
+    public void setCaminhoImagem(String caminhoImagem) {
+        this.caminhoImagem = caminhoImagem;
     }
 }
