@@ -35,6 +35,8 @@ import model.Arquivo;
 import model.OrdemServico;
 import model.Requisito;
 import model.SituacaoOS;
+import util.CaminhoDB;
+import util.CopiadorArquivos;
 import util.SQL_URL;
 
 /**
@@ -66,6 +68,8 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     private int indexSituacao = 1;
     
     private SituacaoOS situacaoOSAux = null;
+    
+    private String nomeArquivo = null;
     
     /**
      * Creates new form OrdemServicoOP
@@ -2984,6 +2988,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         int returnVal = jFileChooser1.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = jFileChooser1.getSelectedFile();
+            nomeArquivo = file.getName();
             campoCaminho.setText(file.getPath());
             criarSituacao.setEnabled(true);
             this.toFront();
@@ -3209,6 +3214,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         } else {
             Arquivo arquivoAux = new Arquivo(campoPendencia.getText(),campoCaminho.getText());
             arquivoAux.setData(cmpoDataStatusArquivo.getText());
+            arquivoAux.setNomeArquivo(nomeArquivo);
             getListaArquivosAux().add(arquivoAux);
             DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivosC.getModel();
             modeloAux.addRow(new Object[]{campoPendencia.getText(), cmpoDataStatusArquivo.getText()});
@@ -3601,7 +3607,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             Iterator<Arquivo> iteradorArquivosS = situacaoAux.getListaArquivos().iterator();
             while(iteradorArquivosS.hasNext()){
                 arquivoAux = iteradorArquivosS.next();
-                salvaArquivosSituacao(situacaoAux.getCodigo()+"", arquivoAux);
+                salvaArquivosSituacao(situacaoAux.getNumeroOS(),situacaoAux.getCodigo()+"", arquivoAux);
             }
             try {
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -3627,7 +3633,9 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         }
     }
     
-    private void salvaArquivosSituacao(String codigoS, Arquivo arquivoAux){
+    private void salvaArquivosSituacao(String numOS, String codigoS, Arquivo arquivoAux){
+        String nomeArquivoAux = arquivoAux.getNomeArquivo();
+        String path = salvaArquivosOSServer(numOS,arquivoAux.getPath(), nomeArquivoAux);
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String url = SQL_URL.getUrl();
@@ -3636,7 +3644,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 sql = "INSERT INTO Arquivo_Situacao (CodigoS, Path, Descricao, Data) VALUES (?,?,?,?)";
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1,  codigoS);
-                pst.setString(2, arquivoAux.getPath());
+                pst.setString(2, path);
                 pst.setString(3,  arquivoAux.getDescricao());
                 pst.setString(4,  arquivoAux.getData());
                 ResultSet rs = pst.executeQuery();
@@ -3649,12 +3657,23 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         }
     }
     
+    private String salvaArquivosOSServer(String numOS, String path, String nomeArquivo){
+        String caminho = CaminhoDB.getCaminho()+"\\OS\\"+numOS;
+        File f = new File(caminho);
+        if(f.mkdir()){
+        }
+        String pathDestino = caminho + nomeArquivo;
+        CopiadorArquivos.copia(path, pathDestino);
+        return pathDestino;
+    }
+    
     private void salvaArquivosOS(){
         Iterator<Arquivo> listaArquivos = getOsAux().getListaArquivos().iterator();
         Arquivo arquivoAux;
         while (listaArquivos.hasNext()){
             arquivoAux = listaArquivos.next();
             String numeroOs = jFormattedTextField1.getText();
+            String path = salvaArquivosOSServer(numeroOs, arquivoAux.getPath(), arquivoAux.getNomeArquivo());
             try {
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 String url = SQL_URL.getUrl();
@@ -3709,7 +3728,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql;
-                sql = "UPDATE OrdemServico NumOs, DocCliente, VeiculoPlaca, NomeMotorista, CPFMotorista, Data, Encerrada WHERE NumOs = ?";
+                sql = "UPDATE OrdemServico SET NumOs = ?, DocCliente = ?, VeiculoPlaca = ?, NomeMotorista = ?, CPFMotorista = ?, Data = ?, Encerrada = ? WHERE NumOs = ?";
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1,  jFormattedTextField1.getText());
                 pst.setString(2, campoCliente.getText());
@@ -3803,13 +3822,48 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                 if (getOsAux().getListaSituacao().get(index-1).getStatus().equals("EM ABERTO")){
                     String message1 = "A última situação se encontra em aberto. Deseja concluir a OS mesmo assim?";
                     String title1 = "Concluir OS";
-                    int reply1 = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+                    int reply1 = JOptionPane.showConfirmDialog(null, message1, title1, JOptionPane.YES_NO_OPTION);
                     if (reply1 == JOptionPane.YES_OPTION) {
                         campoStatus.setForeground(new java.awt.Color(0, 0, 153));
                         campoStatus.setHorizontalAlignment(javax.swing.JTextField.CENTER);
                         campoStatus.setText("ENCERRADA");
                         getOsAux().setStatus("E");
                         getOsAux().getListaSituacao().get(index-1).setStatus("CONCLUÍDO");
+                        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        Date date = new Date();
+                        String data = dateFormat.format(date);
+                        int auxInt = index - 1;
+                        switch (auxInt){
+                            case 0:
+                                btnConcluir1.setEnabled(false);
+                                campoStatus1.setText("CONCLUÍDO");
+                                campoDataConclusão1.setText(data);
+                                break;
+                             
+                            case 1:
+                                btnConcluir2.setEnabled(false);
+                                campoStatus2.setText("CONCLUÍDO");
+                                campoDataConclusão2.setText(data);
+                                break;
+                            
+                            case 2:
+                                btnConcluir3.setEnabled(false);
+                                campoStatus3.setText("CONCLUÍDO");
+                                campoDataConclusão3.setText(data);
+                                break;
+                            
+                            case 3:
+                                btnConcluir4.setEnabled(false);
+                                campoStatus4.setText("CONCLUÍDO");
+                                campoDataConclusão4.setText(data);
+                                break;
+                            
+                            case 4:
+                                btnConcluir5.setEnabled(false);
+                                campoStatus5.setText("CONCLUÍDO");
+                                campoDataConclusão5.setText(data);
+                                break;
+                        }
                         JOptionPane.showMessageDialog(null, "Ordem de Serviço concluída com sucesso.");
                     }
                     if (reply1 == JOptionPane.NO_OPTION) {
@@ -4407,5 +4461,19 @@ public class OrdemServicoOP extends javax.swing.JFrame {
      */
     public void setListaArquivosAux(ArrayList<Arquivo> listaArquivosAux) {
         this.listaArquivosAux = listaArquivosAux;
+    }
+
+    /**
+     * @return the nomeArquivoAux
+     */
+    public String getNomeArquivo() {
+        return nomeArquivo;
+    }
+
+    /**
+     * @param nomeArquivoAux the nomeArquivoAux to set
+     */
+    public void setNomeArquivo(String nomeArquivo) {
+        this.nomeArquivo = nomeArquivo;
     }
 }

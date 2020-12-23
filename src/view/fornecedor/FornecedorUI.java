@@ -96,7 +96,7 @@ public class FornecedorUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(242, 242, 242));
+        jPanel2.setBackground(new java.awt.Color(250, 250, 250));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -191,7 +191,7 @@ public class FornecedorUI extends javax.swing.JFrame {
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(242, 242, 242));
+        jPanel3.setBackground(new java.awt.Color(250, 250, 250));
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -216,6 +216,7 @@ public class FornecedorUI extends javax.swing.JFrame {
             }
         });
 
+        radio_CPFCNPJ.setBackground(new java.awt.Color(250, 250, 250));
         buttonGroup1.add(radio_CPFCNPJ);
         radio_CPFCNPJ.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_CPFCNPJ.setText("CPF/CNPJ");
@@ -225,14 +226,17 @@ public class FornecedorUI extends javax.swing.JFrame {
             }
         });
 
+        radio_NomeFantasia.setBackground(new java.awt.Color(250, 250, 250));
         buttonGroup1.add(radio_NomeFantasia);
         radio_NomeFantasia.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_NomeFantasia.setText("Nome Fantasia");
 
+        radio_Razao.setBackground(new java.awt.Color(250, 250, 250));
         buttonGroup1.add(radio_Razao);
         radio_Razao.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_Razao.setText("Razão Social");
 
+        radio_Responsavel.setBackground(new java.awt.Color(250, 250, 250));
         buttonGroup1.add(radio_Responsavel);
         radio_Responsavel.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_Responsavel.setText("Responsável");

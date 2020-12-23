@@ -20,10 +20,11 @@ public class Peca {
     private String marca = null;
     private String modelo = null;
     private String ano = null;
+    private String pathImagem = null;
     private ArrayList<Especificacao> listaEspecificacoes = null;
     private ArrayList<String> listaNomesVariantes = null;
 
-    public Peca(String codigo, String descricao, String precoCompra, String margemLucro, String precoVenda, String marca, String modelo, String ano, ArrayList listaEspecificacoes, ArrayList listaNomesVariantes){
+    public Peca(String codigo, String descricao, String precoCompra, String margemLucro, String precoVenda, String marca, String modelo, String ano, String pathImagem, ArrayList listaEspecificacoes, ArrayList listaNomesVariantes){
         this.codigo = codigo;
         this.descricao = descricao;
         this.precoCompra = precoCompra;
@@ -32,6 +33,7 @@ public class Peca {
         this.marca = marca;
         this.modelo = modelo;
         this.ano = ano;
+        this.pathImagem = pathImagem;
         this.listaEspecificacoes = listaEspecificacoes;
         this.listaNomesVariantes = listaNomesVariantes;
     }
@@ -173,6 +175,20 @@ public class Peca {
      */
     public void setListaNomesVariantes(ArrayList<String> listaNomesVariantes) {
         this.listaNomesVariantes = listaNomesVariantes;
+    }
+
+    /**
+     * @return the pathImagem
+     */
+    public String getPathImagem() {
+        return pathImagem;
+    }
+
+    /**
+     * @param pathImagem the pathImagem to set
+     */
+    public void setPathImagem(String pathImagem) {
+        this.pathImagem = pathImagem;
     }
     
     

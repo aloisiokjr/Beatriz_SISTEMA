@@ -303,6 +303,7 @@ public class ClienteUI extends javax.swing.JFrame {
             }
         });
 
+        radio_Nome.setBackground(new java.awt.Color(250, 250, 250));
         buttonGroup1.add(radio_Nome);
         radio_Nome.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_Nome.setText("NOME");
@@ -312,14 +313,17 @@ public class ClienteUI extends javax.swing.JFrame {
             }
         });
 
+        radio_NF.setBackground(new java.awt.Color(250, 250, 250));
         buttonGroup1.add(radio_NF);
         radio_NF.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_NF.setText("NOME FANTASIA");
 
+        radio_RS.setBackground(new java.awt.Color(250, 250, 250));
         buttonGroup1.add(radio_RS);
         radio_RS.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_RS.setText("RAZÃO SOCIAL");
 
+        radio_DOC.setBackground(new java.awt.Color(250, 250, 250));
         buttonGroup1.add(radio_DOC);
         radio_DOC.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_DOC.setText("CPF/CNPJ");
@@ -329,6 +333,7 @@ public class ClienteUI extends javax.swing.JFrame {
             }
         });
 
+        radio_NV.setBackground(new java.awt.Color(250, 250, 250));
         buttonGroup1.add(radio_NV);
         radio_NV.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_NV.setText("NOME VARIANTE");

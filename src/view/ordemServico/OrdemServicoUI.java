@@ -292,6 +292,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
             }
         });
 
+        radio_NumOS.setBackground(new java.awt.Color(250, 250, 250));
         buttonGroup1.add(radio_NumOS);
         radio_NumOS.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_NumOS.setText("NÚMERO DA OS");
@@ -302,14 +303,17 @@ public class OrdemServicoUI extends javax.swing.JFrame {
             }
         });
 
+        radio_PlacaVeiculo.setBackground(new java.awt.Color(250, 250, 250));
         buttonGroup1.add(radio_PlacaVeiculo);
         radio_PlacaVeiculo.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_PlacaVeiculo.setText("PLACA DO VEÍCULO");
 
+        radio_NomeCliente.setBackground(new java.awt.Color(250, 250, 250));
         buttonGroup1.add(radio_NomeCliente);
         radio_NomeCliente.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_NomeCliente.setText("NOME DO CLIENTE");
 
+        radio_NomeMotorista.setBackground(new java.awt.Color(250, 250, 250));
         buttonGroup1.add(radio_NomeMotorista);
         radio_NomeMotorista.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_NomeMotorista.setText("NOME DO MOTORISTA");
@@ -319,10 +323,12 @@ public class OrdemServicoUI extends javax.swing.JFrame {
             }
         });
 
+        radio_CPF.setBackground(new java.awt.Color(250, 250, 250));
         buttonGroup1.add(radio_CPF);
         radio_CPF.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_CPF.setText("CPF MOTORISTA");
 
+        radio_CaracVeiculo.setBackground(new java.awt.Color(250, 250, 250));
         buttonGroup1.add(radio_CaracVeiculo);
         radio_CaracVeiculo.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_CaracVeiculo.setText("CARACT. VEÍCULO");
@@ -710,7 +716,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
-                String sql = "SELECT * FROM OrdemServico";
+                String sql = "SELECT * FROM OrdemServico ORDER BY Encerrada, NumOS";
                 PreparedStatement pst = con.prepareStatement(sql);
                 ResultSet rs = pst.executeQuery();
                 int i = 1;
@@ -745,13 +751,13 @@ public class OrdemServicoUI extends javax.swing.JFrame {
                         oSBuscaTodos();
                     } else {
                         if (radio_NumOS.isSelected()) {
-                            sql = "SELECT * FROM OrdemServico WHERE NumOS LIKE '%"+palavraBusca+"%' ORDER BY Encerrada";
+                            sql = "SELECT * FROM OrdemServico WHERE NumOS LIKE '%"+palavraBusca+"%' ORDER BY Encerrada, NumOS";
                         } else if (radio_PlacaVeiculo.isSelected()) {
-                            sql = "SELECT * FROM OrdemServico WHERE VeiculoPlaca LIKE '%"+palavraBusca+"%' ORDER BY Encerrada";
+                            sql = "SELECT * FROM OrdemServico WHERE VeiculoPlaca LIKE '%"+palavraBusca+"%' ORDER BY Encerrada, NumOS";
                         } else if(radio_NomeMotorista.isSelected()){
-                            sql = "SELECT * FROM OrdemServico WHERE NomeMotorista LIKE '%"+palavraBusca+"%' ORDER BY Encerrada";
+                            sql = "SELECT * FROM OrdemServico WHERE NomeMotorista LIKE '%"+palavraBusca+"%' ORDER BY Encerrada, NumOS";
                         } else if (radio_CPF.isSelected()){
-                            sql = "SELECT * FROM OrdemServico WHERE CPFMotoristaa LIKE '%"+palavraBusca+"%' ORDER BY Encerrada";
+                            sql = "SELECT * FROM OrdemServico WHERE CPFMotoristaa LIKE '%"+palavraBusca+"%' ORDER BY Encerrada, NumOS";
                         }
                         PreparedStatement pst = con.prepareStatement(sql);;
                         ResultSet rs = pst.executeQuery();
@@ -781,62 +787,70 @@ public class OrdemServicoUI extends javax.swing.JFrame {
             limpaTabelaOS();
             int i = 1;
             String palavraBusca = campoBusca.getText();
-            try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                String url = SQL_URL.getUrl();
-                try (Connection con = DriverManager.getConnection(url)) {
-                    String sql = "SELECT DocCliente FROM Cliente WHERE Nome LIKE '%"+palavraBusca+"%' OR RazaoSocial LIKE '%"+palavraBusca+"%' OR NomeFantasia LIKE '%"+palavraBusca+"%'";
-                    PreparedStatement pst = con.prepareStatement(sql);
-                    ResultSet rs = pst.executeQuery();
-                    String docCliente;
-                    while(rs.next()){
-                        docCliente = rs.getString("DocCliente");
-                        i = buscaOsPorCliente(docCliente,i);
+            if (palavraBusca.equals("")) {
+                oSBuscaTodos();
+            } else {
+                try {
+                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    String url = SQL_URL.getUrl();
+                    try (Connection con = DriverManager.getConnection(url)) {
+                        String sql = "SELECT DocCliente FROM Cliente WHERE Nome LIKE '%"+palavraBusca+"%' OR RazaoSocial LIKE '%"+palavraBusca+"%' OR NomeFantasia LIKE '%"+palavraBusca+"%'";
+                        PreparedStatement pst = con.prepareStatement(sql);
+                        ResultSet rs = pst.executeQuery();
+                        String docCliente;
+                        while(rs.next()){
+                            docCliente = rs.getString("DocCliente");
+                            i = buscaOsPorCliente(docCliente,i);
+                        }
                     }
+                } catch (SQLException | HeadlessException | ClassNotFoundException e) {
+                    JOptionPane.showMessageDialog(null, e);
                 }
-            } catch (SQLException | HeadlessException | ClassNotFoundException e) {
-                JOptionPane.showMessageDialog(null, e);
-            }
-            
-            try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                String url = SQL_URL.getUrl();
-                try (Connection con = DriverManager.getConnection(url)) {
-                    String sql = "SELECT DocCliente FROM Cliente_NomeVariante WHERE NomeVariante LIKE '%"+palavraBusca+"%'";
-                    PreparedStatement pst = con.prepareStatement(sql);
-                    ResultSet rs = pst.executeQuery();
-                    String docCliente;
-                    while(rs.next()){
-                        docCliente = rs.getString("DocCliente");
-                        i = buscaOsPorCliente(docCliente,i);
+
+                try {
+                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    String url = SQL_URL.getUrl();
+                    try (Connection con = DriverManager.getConnection(url)) {
+                        String sql = "SELECT DocCliente FROM Cliente_NomeVariante WHERE NomeVariante LIKE '%"+palavraBusca+"%'";
+                        PreparedStatement pst = con.prepareStatement(sql);
+                        ResultSet rs = pst.executeQuery();
+                        String docCliente;
+                        while(rs.next()){
+                            docCliente = rs.getString("DocCliente");
+                            i = buscaOsPorCliente(docCliente,i);
+                        }
                     }
+                } catch (SQLException | HeadlessException | ClassNotFoundException e) {
+                    JOptionPane.showMessageDialog(null, e);
                 }
-            } catch (SQLException | HeadlessException | ClassNotFoundException e) {
-                JOptionPane.showMessageDialog(null, e);
-            }
-            
-            if (tabelaOS.getRowCount() == 0) {
-                JOptionPane.showMessageDialog(null, "A pesquisa não encontrou nenhuma OS.");
+
+                if (tabelaOS.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(null, "A pesquisa não encontrou nenhuma OS.");
+                }
             }
         } else if(radio_CaracVeiculo.isSelected()){
             limpaTabelaOS();
             int i = 1;
             String palavraBusca = campoBusca.getText();
-            try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                String url = SQL_URL.getUrl();
-                try (Connection con = DriverManager.getConnection(url)) {
-                    String sql = "SELECT PlacaVeiculo FROM Veiculo_Caracteristica WHERE Caracteristica LIKE '%"+palavraBusca+"%'";
-                    PreparedStatement pst = con.prepareStatement(sql);
-                    ResultSet rs = pst.executeQuery();
-                    String docCliente;
-                    while(rs.next()){
-                        docCliente = rs.getString("PlacaVeiculo");
-                        i = buscaOsPorVeiculo(docCliente,i);
+            if (palavraBusca.equals("")) {
+                oSBuscaTodos();
+            } else {
+                try {
+                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    String url = SQL_URL.getUrl();
+                    try (Connection con = DriverManager.getConnection(url)) {
+                        String sql = "SELECT PlacaVeiculo FROM Veiculo_Caracteristica WHERE Caracteristica LIKE '%"+palavraBusca+"%'";
+                        PreparedStatement pst = con.prepareStatement(sql);
+                        ResultSet rs = pst.executeQuery();
+                        String docCliente;
+                        while(rs.next()){
+                            docCliente = rs.getString("PlacaVeiculo");
+                            i = buscaOsPorVeiculo(docCliente,i);
+                        }
                     }
+                } catch (SQLException | HeadlessException | ClassNotFoundException e) {
+                    JOptionPane.showMessageDialog(null, e);
                 }
-            } catch (SQLException | HeadlessException | ClassNotFoundException e) {
-                JOptionPane.showMessageDialog(null, e);
             }
         }else {
             JOptionPane.showMessageDialog(null, "Selecione um filtro de busca.");

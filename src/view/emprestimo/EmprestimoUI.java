@@ -185,7 +185,7 @@ public class EmprestimoUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel2.setBackground(new java.awt.Color(242, 242, 242));
+        jPanel2.setBackground(new java.awt.Color(250, 250, 250));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -280,7 +280,7 @@ public class EmprestimoUI extends javax.swing.JFrame {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(242, 242, 242));
+        jPanel3.setBackground(new java.awt.Color(250, 250, 250));
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -292,6 +292,7 @@ public class EmprestimoUI extends javax.swing.JFrame {
             }
         });
 
+        jRadioButton_Item.setBackground(new java.awt.Color(250, 250, 250));
         buttonGroup1.add(jRadioButton_Item);
         jRadioButton_Item.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jRadioButton_Item.setText("ITEM");
@@ -302,6 +303,7 @@ public class EmprestimoUI extends javax.swing.JFrame {
             }
         });
 
+        jRadioButton_Funcionario.setBackground(new java.awt.Color(250, 250, 250));
         buttonGroup1.add(jRadioButton_Funcionario);
         jRadioButton_Funcionario.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jRadioButton_Funcionario.setText("FUNCIONARIO");
@@ -325,6 +327,7 @@ public class EmprestimoUI extends javax.swing.JFrame {
             }
         });
 
+        jRadioButton_Setor.setBackground(new java.awt.Color(250, 250, 250));
         buttonGroup1.add(jRadioButton_Setor);
         jRadioButton_Setor.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jRadioButton_Setor.setText("SETOR");

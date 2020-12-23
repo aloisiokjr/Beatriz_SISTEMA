@@ -13,6 +13,7 @@ public class Arquivo implements Cloneable {
     private String descricao;
     private String path;
     private String data;
+    private String nomeArquivo;
     
     public Arquivo(String descricao, String path){
         this.descricao = descricao;
@@ -65,4 +66,20 @@ public class Arquivo implements Cloneable {
     public Arquivo clone () throws CloneNotSupportedException{
         return (Arquivo) super.clone();
     }
+
+    /**
+     * @return the nomeArquivo
+     */
+    public String getNomeArquivo() {
+        return nomeArquivo;
+    }
+
+    /**
+     * @param nomeArquivo the nomeArquivo to set
+     */
+    public void setNomeArquivo(String nomeArquivo) {
+        this.nomeArquivo = nomeArquivo;
+    }
+
+    
 }

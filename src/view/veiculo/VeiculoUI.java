@@ -101,6 +101,7 @@ public class VeiculoUI extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel1.setText("LISTA DE VEÍCULOS");
 
+        tabelaVeiculos.setBackground(new java.awt.Color(250, 250, 250));
         tabelaVeiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -189,7 +190,7 @@ public class VeiculoUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel2.setBackground(new java.awt.Color(242, 242, 242));
+        jPanel2.setBackground(new java.awt.Color(250, 250, 250));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -284,7 +285,7 @@ public class VeiculoUI extends javax.swing.JFrame {
                 .addGap(29, 29, 29))
         );
 
-        jPanel3.setBackground(new java.awt.Color(242, 242, 242));
+        jPanel3.setBackground(new java.awt.Color(250, 250, 250));
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -309,6 +310,7 @@ public class VeiculoUI extends javax.swing.JFrame {
             }
         });
 
+        radio_Placa.setBackground(new java.awt.Color(250, 250, 250));
         buttonGroup1.add(radio_Placa);
         radio_Placa.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_Placa.setText("PLACA");
@@ -318,18 +320,22 @@ public class VeiculoUI extends javax.swing.JFrame {
             }
         });
 
+        radio_Modelo.setBackground(new java.awt.Color(250, 250, 250));
         buttonGroup1.add(radio_Modelo);
         radio_Modelo.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_Modelo.setText("MODELO");
 
+        radio_Marca.setBackground(new java.awt.Color(250, 250, 250));
         buttonGroup1.add(radio_Marca);
         radio_Marca.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_Marca.setText("MARCA");
 
+        radio_Renavam.setBackground(new java.awt.Color(250, 250, 250));
         buttonGroup1.add(radio_Renavam);
         radio_Renavam.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_Renavam.setText("RENAVAM");
 
+        radio_Chassi.setBackground(new java.awt.Color(250, 250, 250));
         buttonGroup1.add(radio_Chassi);
         radio_Chassi.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_Chassi.setText("Nº CHASSI");

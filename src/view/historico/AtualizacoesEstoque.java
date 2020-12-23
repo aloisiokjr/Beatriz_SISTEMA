@@ -169,7 +169,7 @@ public class AtualizacoesEstoque extends javax.swing.JFrame {
                 .addGap(0, 43, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(242, 242, 242));
+        jPanel3.setBackground(new java.awt.Color(250, 250, 250));
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -194,6 +194,7 @@ public class AtualizacoesEstoque extends javax.swing.JFrame {
             }
         });
 
+        radio_ProdutoA.setBackground(new java.awt.Color(250, 250, 250));
         buttonGroup2.add(radio_ProdutoA);
         radio_ProdutoA.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_ProdutoA.setText("Produto");
@@ -203,6 +204,7 @@ public class AtualizacoesEstoque extends javax.swing.JFrame {
             }
         });
 
+        radio_Fornecedor.setBackground(new java.awt.Color(250, 250, 250));
         buttonGroup2.add(radio_Fornecedor);
         radio_Fornecedor.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         radio_Fornecedor.setText("Fornecedor");

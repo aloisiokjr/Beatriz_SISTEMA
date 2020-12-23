@@ -31,6 +31,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Arquivo;
 import model.Requisito;
+import util.CaminhoDB;
+import util.CopiadorArquivos;
 import util.SQL_URL;
 
 /**
@@ -43,6 +45,8 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
     private ArrayList<Arquivo> listaArquivos = null;
     
     private OrdemServicoController osController = null;
+    
+    private String nomeArquivo = null;
 
     class MyCustomFilter extends javax.swing.filechooser.FileFilter {
         @Override
@@ -1071,6 +1075,8 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, erros);
         } else {
             Arquivo arquivoAux = new Arquivo(campoDescricao.getText(),campoCaminho.getText());
+            arquivoAux.setNomeArquivo(nomeArquivo);
+            nomeArquivo = null;
             listaArquivos.add(arquivoAux);
             int index = tabelaArquivos.getRowCount();
             DefaultTableModel modeloAux = (DefaultTableModel) tabelaArquivos.getModel();
@@ -1101,6 +1107,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = jFileChooser1.getSelectedFile();
             campoCaminho.setText(file.getPath());
+            setNomeArquivo(file.getName());
             this.setEnabled(true);
             this.toFront();
         } else {
@@ -1145,6 +1152,8 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
             String descricao = arquivoAux.getDescricao();
             String path = arquivoAux.getPath();
             String numOs = campoNumOS.getText();
+            String nomeArquivoAux = arquivoAux.getNomeArquivo();
+            path = salvaArquivosOSServer(numOs, path, nomeArquivoAux);
             try {
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 String url = SQL_URL.getUrl();
@@ -1164,6 +1173,16 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
                 //JOptionPane.showMessageDialog(null, e);
             }
         }
+    }
+    
+    private String salvaArquivosOSServer(String numOS, String path, String nomeArquivo){
+        String caminho = CaminhoDB.getCaminho()+"\\OS\\"+numOS;
+        File f = new File(caminho);
+        if(f.mkdir()){
+        }
+        String pathDestino = caminho + nomeArquivo;
+        CopiadorArquivos.copia(path, pathDestino);
+        return pathDestino;
     }
     
     private void salvaOS(){
@@ -1327,6 +1346,20 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
      */
     public void setListaRequisitos(ArrayList<Requisito> listaRequisitos) {
         this.listaRequisitos = listaRequisitos;
+    }
+
+    /**
+     * @return the nomeArquivo
+     */
+    public String getNomeArquivo() {
+        return nomeArquivo;
+    }
+
+    /**
+     * @param nomeArquivo the nomeArquivo to set
+     */
+    public void setNomeArquivo(String nomeArquivo) {
+        this.nomeArquivo = nomeArquivo;
     }
 
     
