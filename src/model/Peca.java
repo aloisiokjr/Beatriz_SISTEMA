@@ -23,8 +23,9 @@ public class Peca {
     private String pathImagem = null;
     private ArrayList<Especificacao> listaEspecificacoes = null;
     private ArrayList<String> listaNomesVariantes = null;
+    private String localEstoque = null;
 
-    public Peca(String codigo, String descricao, String precoCompra, String margemLucro, String precoVenda, String marca, String modelo, String ano, String pathImagem, ArrayList listaEspecificacoes, ArrayList listaNomesVariantes){
+    public Peca(String codigo, String descricao, String precoCompra, String margemLucro, String precoVenda, String marca, String modelo, String ano, String pathImagem, ArrayList listaEspecificacoes, ArrayList listaNomesVariantes, String localEstoque){
         this.codigo = codigo;
         this.descricao = descricao;
         this.precoCompra = precoCompra;
@@ -36,6 +37,7 @@ public class Peca {
         this.pathImagem = pathImagem;
         this.listaEspecificacoes = listaEspecificacoes;
         this.listaNomesVariantes = listaNomesVariantes;
+        this.localEstoque = localEstoque;
     }
     /**
      * @return the codigo
@@ -189,6 +191,20 @@ public class Peca {
      */
     public void setPathImagem(String pathImagem) {
         this.pathImagem = pathImagem;
+    }
+
+    /**
+     * @return the localEstoque
+     */
+    public String getLocalEstoque() {
+        return localEstoque;
+    }
+
+    /**
+     * @param localEstoque the localEstoque to set
+     */
+    public void setLocalEstoque(String localEstoque) {
+        this.localEstoque = localEstoque;
     }
     
     

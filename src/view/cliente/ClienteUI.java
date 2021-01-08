@@ -583,7 +583,7 @@ public class ClienteUI extends javax.swing.JFrame {
         String aux = (String)tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 5);
         String nome, razaoSocial, nomeFantasia, tipoCliente = "", cpf_cnpj;
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT * FROM Cliente WHERE DocCliente = ?";
@@ -614,7 +614,7 @@ public class ClienteUI extends javax.swing.JFrame {
         ArrayList<String> listaNomes = new ArrayList();
         
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT NomeVariante FROM Cliente_NomeVariante WHERE DocCliente = ?";
@@ -640,27 +640,25 @@ public class ClienteUI extends javax.swing.JFrame {
         int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
             try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = "DELETE FROM Cliente WHERE DocCliente = ?";
                     PreparedStatement pst = con.prepareStatement(sql);
                     colunaSelecionada = 5;
                     pst.setString(1, (String) tabelaClientes.getValueAt(linhaSelecionada, colunaSelecionada));
-                    ResultSet rs = pst.executeQuery();
+                    pst.execute();
+                    con.close();
+                    
                     deletaNome((String) tabelaClientes.getValueAt(linhaSelecionada, colunaSelecionada));
                     
-                    if(rs.next()){
-                        
-                    }
+                    colunaSelecionada = 3;
+                    JOptionPane.showMessageDialog(null, "O cliente '" + (String) tabelaClientes.getValueAt(linhaSelecionada, colunaSelecionada) + "' foi excluído.");
+                    setagemInicial();
+                    clienteBuscaTodos();
                 }
-            } catch (HeadlessException | ClassNotFoundException e) {
+            } catch (HeadlessException | ClassNotFoundException | SQLException e) {
                 JOptionPane.showMessageDialog(null, e);
-            } catch (SQLException e) {
-                colunaSelecionada = 3;
-                JOptionPane.showMessageDialog(null, "O cliente '" + (String) tabelaClientes.getValueAt(linhaSelecionada, colunaSelecionada) + "' foi excluído.");
-                setagemInicial();
-                clienteBuscaTodos();
             }
         }
         if (reply == JOptionPane.NO_OPTION) {
@@ -670,19 +668,18 @@ public class ClienteUI extends javax.swing.JFrame {
     
     private void deletaNome(String doc){
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "DELETE FROM Cliente_NomeVariante WHERE DocCliente = ?";
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1, doc);
-                ResultSet rs = pst.executeQuery();
+                pst.execute();
+                con.close();
 
             }
-        } catch (HeadlessException | ClassNotFoundException e) {
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null, e);
-        } catch (SQLException e) {
-            //JOptionPane.showMessageDialog(null, e);
         }
     }
     
@@ -690,7 +687,7 @@ public class ClienteUI extends javax.swing.JFrame {
         if (radio_Nome.isSelected() || radio_RS.isSelected() || radio_NF.isSelected() || radio_DOC.isSelected() || radio_NV.isSelected()){
             limpaTabelaClientes();
             try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = null;
@@ -742,7 +739,7 @@ public class ClienteUI extends javax.swing.JFrame {
     
     private void buscaNomeVariante(String aux){
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT * FROM Cliente_NomeVariante WHERE NomeVariante LIKE '%"+aux+"%'";
@@ -763,7 +760,7 @@ public class ClienteUI extends javax.swing.JFrame {
     
     private int buscaCliente(String doc, int index){
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT * FROM Cliente WHERE DocCliente = ?";
@@ -792,7 +789,7 @@ public class ClienteUI extends javax.swing.JFrame {
         String aux = (String)tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 5);
         String nome, razaoSocial, nomeFantasia, tipoCliente = "", cpf_cnpj;
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT * FROM Cliente WHERE DocCliente = ?";
@@ -822,7 +819,7 @@ public class ClienteUI extends javax.swing.JFrame {
     public void clienteBuscaTodos(){
         limpaTabelaClientes();
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT * FROM Cliente";

@@ -876,7 +876,7 @@ public class CriarFornecedor extends javax.swing.JFrame {
             Observacao = campoObservacaoFornecedorCriacao.getText();
 
             try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try ( Connection con = DriverManager.getConnection(url)) {
                     String sql = "INSERT INTO Fornecedor (Razao_Social,Nome_Fantasia,Tipo,CPF_CNPJ,Telefone,Celular,Email,Responsavel,CEP,Logradouro,Numero,Complemento,Bairro,Cidade,UF,Observacao) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -898,15 +898,15 @@ public class CriarFornecedor extends javax.swing.JFrame {
                     pst.setString(15, UF);
                     pst.setString(16, Observacao);
 
-                    ResultSet rs = pst.executeQuery();
+                    pst.execute();
+                    con.close();
+                    
+                    JOptionPane.showMessageDialog(null, "Fornecedor '" + Nome_Fantasia + "' criado com sucesso.");
+                    fornecedorController.fechaCriacaoFornecedor();
 
-                    if (rs.next()) {
-
-                    }
                 }
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Fornecedor '" + Nome_Fantasia + "' criado com sucesso.");
-                fornecedorController.fechaCriacaoFornecedor();
+                
             } catch (HeadlessException | ClassNotFoundException e) {
                 JOptionPane.showMessageDialog(null, e);
             }
@@ -934,7 +934,7 @@ public class CriarFornecedor extends javax.swing.JFrame {
                 listaRequisitos.get(3).setIsOk(false);
             } else {
                 if (!campoAux.getText().contains(" ")) {
-                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    Class.forName("com.mysql.cj.jdbc.Driver");
                     String url = SQL_URL.getUrl();
                     try ( Connection con = DriverManager.getConnection(url)) {
                         String sql = "SELECT CPF_CNPJ FROM Fornecedor WHERE CPF_CNPJ = ?";
@@ -965,7 +965,7 @@ public class CriarFornecedor extends javax.swing.JFrame {
                 listaRequisitos.get(3).setIsOk(false);
             } else {
                 if (!campoAux.getText().contains(" ")) {
-                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    Class.forName("com.mysql.cj.jdbc.Driver");
                     String url = SQL_URL.getUrl();
                     try ( Connection con = DriverManager.getConnection(url)) {
                         String sql = "SELECT CPF_CNPJ FROM Fornecedor WHERE CPF_CNPJ = ?";

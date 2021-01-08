@@ -16,8 +16,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +33,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import model.Requisito;
+import util.CaminhoDB;
+import util.CopiadorArquivos;
 import util.SQL_URL;
 
 /**
@@ -104,6 +109,8 @@ public class CriarPeca extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         labelDescricao = new javax.swing.JLabel();
         labelCodigo = new javax.swing.JLabel();
+        campoLocalEstoque = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
@@ -257,6 +264,11 @@ public class CriarPeca extends javax.swing.JFrame {
 
         labelCodigo.setText("jLabel17");
 
+        campoLocalEstoque.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel18.setText("Local no Estoque");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -306,7 +318,11 @@ public class CriarPeca extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoAnoPeca)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(544, 544, 544))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoLocalEstoque)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(386, 386, 386))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addGap(571, 571, 571))))
@@ -336,29 +352,35 @@ public class CriarPeca extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(campoPrecoCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelCodigo)
-                    .addComponent(labelDescricao))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel9)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(campoPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel6)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(campoMarcaPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel8)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(campoAnoPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel7)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(campoModeloPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelCodigo)
+                            .addComponent(labelDescricao))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel9)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(campoPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel6)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(campoMarcaPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel8)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(campoAnoPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel7)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(campoModeloPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(campoLocalEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -1139,7 +1161,7 @@ public class CriarPeca extends javax.swing.JFrame {
             labelCodigoAux.setForeground(new java.awt.Color(212, 0, 51));
             labelCodigoAux.setText("Campo Vazio.");
         } else {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT Codigo FROM Produto WHERE Codigo = ?";
@@ -1167,7 +1189,7 @@ public class CriarPeca extends javax.swing.JFrame {
             labelAux.setForeground(new java.awt.Color(212, 0, 51));
             labelAux.setText("Campo Vazio.");
         } else {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT Descricao FROM Produto WHERE Descricao = ?";
@@ -1195,7 +1217,7 @@ public class CriarPeca extends javax.swing.JFrame {
             labelAux.setForeground(new java.awt.Color(212, 0, 51));
             labelAux.setText("Campo Vazio.");
         } else {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT NomeVariavel FROM Produto_Variante WHERE NomeVariavel = ?";
@@ -1284,6 +1306,7 @@ public class CriarPeca extends javax.swing.JFrame {
     }
     
     private void cadastraPeca(){
+        salvaImagemLocal();
         Iterator<Requisito> iterador = listaRequisitos.iterator();
         String requisitosN = "";
         Requisito aux;
@@ -1299,7 +1322,7 @@ public class CriarPeca extends javax.swing.JFrame {
             requisitosN = requisitosN.substring(0, requisitosN.length() - 1);
             JOptionPane.showMessageDialog(null, "Os seguintes requisitos não foram preeenchidos:" + requisitosN + ".");
         } else {
-            String codigo, descricao, valorCompra, margemLucro, precoVenda, marca, modelo, ano, qtdEstoque,pathImagem;
+            String codigo, descricao, valorCompra, margemLucro, precoVenda, marca, modelo, ano, qtdEstoque,pathImagem, LocalEstoque;
             codigo = campoCodigoPeca.getText();
             descricao = campoDescricaoPeca.getText();
             valorCompra = campoPrecoCompra.getText();
@@ -1310,42 +1333,13 @@ public class CriarPeca extends javax.swing.JFrame {
             ano = campoAnoPeca.getText();
             pathImagem = caminhoImagem;
             qtdEstoque = "0";
-            
-            try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                String url = SQL_URL.getUrl();
-                try (Connection con = DriverManager.getConnection(url)) {
-                    String sql = "INSERT INTO Produto (Codigo, Descricao, PrecoCompra, MargemLucro, PrecoVenda, Marca, Modelo, Ano, QtdEstoque, PathImagem) VALUES (?,?,?,?,?,?,?,?,?,?)";
-                    PreparedStatement pst = con.prepareStatement(sql);
-                    pst.setString(1, codigo);
-                    pst.setString(2, descricao);
-                    pst.setString(3, valorCompra);
-                    pst.setString(4, margemLucro);
-                    pst.setString(5, precoVenda);
-                    pst.setString(6, marca);
-                    pst.setString(7, modelo);
-                    pst.setString(8, ano);
-                    pst.setString(9, qtdEstoque);
-                    pst.setString(10, pathImagem);
-                    ResultSet rs = pst.executeQuery();
-                    
-                    if(rs.next()){
-                        // FAZ NADA
-                    }
-                }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Produto '" + descricao + "' criado com sucesso.");
-                //JOptionPane.showMessageDialog(null,e);
-                pecaController.fechaCriacaoPeca();
-            } catch (HeadlessException | ClassNotFoundException e) {
-                JOptionPane.showMessageDialog(null, e);
-            }
+            LocalEstoque = campoLocalEstoque.getText();
             
             if(tabelaNomeVariantes.getRowCount() > 0){
                 int indexNome = 0;
                 while (indexNome < tabelaNomeVariantes.getRowCount()){
                     try {
-                        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                        Class.forName("com.mysql.cj.jdbc.Driver");
                         String url = SQL_URL.getUrl();
                         try (Connection con = DriverManager.getConnection(url)) {
                             String sql;
@@ -1353,10 +1347,8 @@ public class CriarPeca extends javax.swing.JFrame {
                             PreparedStatement pst = con.prepareStatement(sql);
                             pst.setString(1, codigo);
                             pst.setString(2, (String)tabelaNomeVariantes.getValueAt(indexNome, 1));
-                            ResultSet rs = pst.executeQuery();
-                            if (rs.next()) {
-
-                            }
+                            pst.execute();
+                            con.close();
                         }
                     } catch (HeadlessException | ClassNotFoundException | SQLException e) {
                         //JOptionPane.showMessageDialog(null, e);
@@ -1369,7 +1361,7 @@ public class CriarPeca extends javax.swing.JFrame {
                 int index = 0;
                 while (index < tabelaEspGerais.getRowCount()){
                     try {
-                        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                        Class.forName("com.mysql.cj.jdbc.Driver");
                         String url = SQL_URL.getUrl();
                         try (Connection con = DriverManager.getConnection(url)) {
                             String sql;
@@ -1379,19 +1371,62 @@ public class CriarPeca extends javax.swing.JFrame {
                             pst.setString(2, (String)tabelaEspGerais.getValueAt(index, 0));
                             pst.setString(3, (String)tabelaEspGerais.getValueAt(index, 2));
                             pst.setString(4, (String)tabelaEspGerais.getValueAt(index, 1));
-                            ResultSet rs = pst.executeQuery();
-                            if (rs.next()) {
-
-                            }
+                            pst.execute();
+                            con.close();
                         }
                     } catch (HeadlessException | ClassNotFoundException | SQLException e) {
                         //JOptionPane.showMessageDialog(null, e);
-                        pecaController.fechaCriacaoPeca();
                     }
                     index++;
                 }
             }
+            
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                String url = SQL_URL.getUrl();
+                try (Connection con = DriverManager.getConnection(url)) {
+                    String sql = "INSERT INTO Produto (Codigo, Descricao, PrecoCompra, MargemLucro, PrecoVenda, Marca, Modelo, Ano, QtdEstoque, PathImagem, LocalEstoque) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    pst.setString(1, codigo);
+                    pst.setString(2, descricao);
+                    pst.setString(3, valorCompra);
+                    pst.setString(4, margemLucro);
+                    pst.setString(5, precoVenda);
+                    pst.setString(6, marca);
+                    pst.setString(7, modelo);
+                    pst.setString(8, ano);
+                    pst.setString(9, qtdEstoque);
+                    pst.setString(10, pathImagem);
+                    pst.setString(11, LocalEstoque);
+                    pst.execute();
+                    con.close();
+                    
+                    JOptionPane.showMessageDialog(null, "Produto '" + descricao + "' criado com sucesso.");
+                    //JOptionPane.showMessageDialog(null,e);
+                    pecaController.fechaCriacaoPeca();
+                }
+            } catch (SQLException | HeadlessException | ClassNotFoundException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
         }
+    }
+    
+    private void salvaImagemLocal(){
+        File diretorio = new File(CaminhoDB.getCaminho()+"\\imagens");
+        if(diretorio.mkdir()){
+        } 
+        
+        File fileImagem = new File (caminhoImagem);
+        String nomeArquivoAux = fileImagem.getName();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        String dataAux = dateFormat.format(date);
+        dataAux = dataAux.replaceAll(" ", "--");
+        dataAux = dataAux.replaceAll("/", "-");
+        dataAux = dataAux.replaceAll(":", "");
+        String caminhoDestino = CaminhoDB.getCaminho()+"\\imagens\\"+dataAux+"-"+nomeArquivoAux;
+        CopiadorArquivos.copia(caminhoImagem, caminhoDestino);
+        caminhoImagem = caminhoDestino;
     }
     
     private void procuraImagem(){
@@ -1448,6 +1483,7 @@ public class CriarPeca extends javax.swing.JFrame {
     private javax.swing.JTextField campoCodigoPeca;
     private javax.swing.JTextField campoDescricaoEsp;
     private javax.swing.JTextField campoDescricaoPeca;
+    private javax.swing.JTextField campoLocalEstoque;
     private javax.swing.JTextField campoMarcaPeca;
     private javax.swing.JTextField campoModeloPeca;
     private javax.swing.JTextField campoNomeVar;
@@ -1467,6 +1503,7 @@ public class CriarPeca extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

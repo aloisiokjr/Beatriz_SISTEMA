@@ -21,7 +21,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -955,7 +958,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
         comboBoxVeiculo.removeAllItems();
         comboBoxVeiculo.addItem("Selecione");
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT Placa FROM Veiculo";
@@ -973,7 +976,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
         comboBoxCliente.removeAllItems();
         comboBoxCliente.addItem("Selecione");
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT NomeFantasia FROM Cliente";
@@ -997,7 +1000,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
                 String placa = (String) comboBoxVeiculo.getSelectedItem();
                 String marca, modelo, renavam, chassi;
                 try {
-                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    Class.forName("com.mysql.cj.jdbc.Driver");
                     String url = SQL_URL.getUrl();
                     try (Connection con = DriverManager.getConnection(url)) {
                         String sql2 = "SELECT Renavam, NumeroChassi, Marca, Modelo FROM Veiculo WHERE Placa = ?";
@@ -1033,7 +1036,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
                 String cliente = (String) comboBoxCliente.getSelectedItem();
                 String nome, razaoSocial, nomeFantasia, doc;
                 try {
-                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    Class.forName("com.mysql.cj.jdbc.Driver");
                     String url = SQL_URL.getUrl();
                     try (Connection con = DriverManager.getConnection(url)) {
                         String sql2 = "SELECT Nome, RazaoSocial, NomeFantasia, DocCliente FROM Cliente WHERE NomeFantasia = ?";
@@ -1155,7 +1158,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
             String nomeArquivoAux = arquivoAux.getNomeArquivo();
             path = salvaArquivosOSServer(numOs, path, nomeArquivoAux);
             try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql;
@@ -1164,10 +1167,8 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
                     pst.setString(1, numOs);
                     pst.setString(2, path);
                     pst.setString(3, descricao);
-                    ResultSet rs = pst.executeQuery();
-                    if (rs.next()) {
-
-                    }
+                    pst.execute();
+                    con.close();
                 }
             } catch (HeadlessException | ClassNotFoundException | SQLException e) {
                 //JOptionPane.showMessageDialog(null, e);
@@ -1176,11 +1177,24 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
     }
     
     private String salvaArquivosOSServer(String numOS, String path, String nomeArquivo){
-        String caminho = CaminhoDB.getCaminho()+"\\OS\\"+numOS;
+        
+        String caminho = CaminhoDB.getCaminho()+"\\OS";
         File f = new File(caminho);
         if(f.mkdir()){
         }
-        String pathDestino = caminho + nomeArquivo;
+        
+        caminho = CaminhoDB.getCaminho()+"\\OS\\"+numOS;
+        f = new File(caminho);
+        if(f.mkdir()){
+        }
+        
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        String dataAux = dateFormat.format(date);
+        dataAux = dataAux.replaceAll(" ", "--");
+        dataAux = dataAux.replaceAll("/", "-");
+        dataAux = dataAux.replaceAll(":", "");
+        String pathDestino = caminho +"\\"+ dataAux + "-" + nomeArquivo;
         CopiadorArquivos.copia(path, pathDestino);
         return pathDestino;
     }
@@ -1194,7 +1208,7 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
         String data = campoDataOS.getText();
         String dataEntrega = campoDataEntrega.getText();
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql;
@@ -1208,16 +1222,16 @@ public class lancamentoOrdemServico extends javax.swing.JFrame {
                 pst.setString(6, data);
                 pst.setString(7, dataEntrega);
                 pst.setString(8, "A");
-                ResultSet rs = pst.executeQuery();
-                if (rs.next()) {
-
-                }
+                pst.execute();
+                con.close();
+                
+                JOptionPane.showMessageDialog(null, "Ordem de Serviço de nº "+numOs+" salva com sucesso.");
             }
-        } catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Ordem de Serviço de nº "+numOs+" salva com sucesso.");
-        }catch (HeadlessException | ClassNotFoundException e) {
+        } catch(SQLException | HeadlessException | ClassNotFoundException e){
             //JOptionPane.showMessageDialog(null, e);
         }
+        
+        
     }
     
     private void fechaCadastroOS(){

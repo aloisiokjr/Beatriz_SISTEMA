@@ -10,7 +10,8 @@ package util;
  * @author KLEYN
  */
 public class CaminhoDB {
-    public static String caminhoDB = "";
+    public static String caminhoDB = "Z:\\GESTÃO\\Beatriz_SISTEMA";
+    //public static String caminhoDB = "D:\\teste";
     
     public static String getCaminho(){
         return caminhoDB;

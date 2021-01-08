@@ -578,7 +578,7 @@ public class EmprestimoUI extends javax.swing.JFrame {
     private void emprestimoAlterar(){
         if(tabelaEmprestimos.getSelectedRow() > -1){
             try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT * FROM Emprestimo WHERE Codigo = ?";
@@ -618,7 +618,7 @@ public class EmprestimoUI extends javax.swing.JFrame {
 	Date date = new Date();
 	String dataAux = dateFormat.format(date);
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "UPDATE Emprestimo SET Devolvido = ?, DiaDeDevolucao = ? WHERE Codigo = ?";
@@ -626,17 +626,13 @@ public class EmprestimoUI extends javax.swing.JFrame {
                 pst.setString(1, "S");
                 pst.setString(2, dataAux);
                 pst.setString(3, (String)tabelaEmprestimos.getValueAt(tabelaEmprestimos.getSelectedRow(), 0));
-                ResultSet rs = pst.executeQuery();
+                pst.executeUpdate();
+                con.close();
 
-                if(rs.next()){
-                    // FAZ NADA
-                }
+                JOptionPane.showMessageDialog(null, "Item '" + (String)tabelaEmprestimos.getValueAt(tabelaEmprestimos.getSelectedRow(), 1) + "' devolvido com sucesso.");
+                emprestimoBuscaTodos();
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Item '" + (String)tabelaEmprestimos.getValueAt(tabelaEmprestimos.getSelectedRow(), 1) + "' devolvido com sucesso.");
-            //JOptionPane.showMessageDialog(null,e);
-            emprestimoBuscaTodos();
-        } catch (HeadlessException | ClassNotFoundException e) {
+        } catch (SQLException | HeadlessException | ClassNotFoundException e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
@@ -649,23 +645,21 @@ public class EmprestimoUI extends javax.swing.JFrame {
         int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
             try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = "DELETE FROM Emprestimo WHERE Codigo = ?";
                     PreparedStatement pst = con.prepareStatement(sql);
                     colunaSelecionada = 0;
                     pst.setString(1, (String) tabelaEmprestimos.getValueAt(linhaSelecionada, colunaSelecionada));
-                    ResultSet rs = pst.executeQuery();
-
+                    pst.execute();
+                    colunaSelecionada = 1;
+                    JOptionPane.showMessageDialog(null, "O motorista '" + (String) tabelaEmprestimos.getValueAt(linhaSelecionada, colunaSelecionada) + "' foi excluído.");
+                    setagemInicial();
+                    emprestimoBuscaTodos();
                 }
-            } catch (HeadlessException | ClassNotFoundException e) {
+            } catch (HeadlessException | ClassNotFoundException | SQLException e) {
                 JOptionPane.showMessageDialog(null, e);
-            } catch (SQLException e) {
-                colunaSelecionada = 1;
-                JOptionPane.showMessageDialog(null, "O motorista '" + (String) tabelaEmprestimos.getValueAt(linhaSelecionada, colunaSelecionada) + "' foi excluído.");
-                setagemInicial();
-                emprestimoBuscaTodos();
             }
             if (reply == JOptionPane.NO_OPTION) {
 
@@ -676,7 +670,7 @@ public class EmprestimoUI extends javax.swing.JFrame {
     public void emprestimoBuscaTodos(){
         limpaTabelaEmprestimos();
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = null;
@@ -710,7 +704,7 @@ public class EmprestimoUI extends javax.swing.JFrame {
         if (jRadioButton_Item.isSelected() || jRadioButton_Funcionario.isSelected() || jRadioButton_Setor.isSelected()){
             limpaTabelaEmprestimos();
             try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = null;

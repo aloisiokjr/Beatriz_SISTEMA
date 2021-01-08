@@ -11,10 +11,10 @@ package util;
  */
 public class SQL_URL {
     //public static String url = "jdbc:sqlserver://localhost:14333;databaseName=Beatriz_SISTEMA;user=user;password=mastersys";
-    public static String url = "jdbc:sqlserver://localhost:1433;databaseName=Beatriz_SISTEMA;user=sa;password=mastersys";
+    public static String url = "jdbc:mysql://192.168.0.250/beatriz_sistema?user=beatriz&password=mastersys&useTimezone=true&serverTimezone=UTC";
     
     public static String getUrl(){
         return url;
     }
-    
+   
 }

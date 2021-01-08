@@ -102,15 +102,10 @@ public class Sistema_UI extends javax.swing.JFrame {
         menuADM_Fornecedor = new javax.swing.JMenuItem();
         menuADM_Pecas = new javax.swing.JMenuItem();
         menuADM_Emprestimos = new javax.swing.JMenuItem();
-        menuADM_Usuario = new javax.swing.JMenuItem();
         menuHIST = new javax.swing.JMenu();
         menuHIST_Estoque = new javax.swing.JMenuItem();
         menuOS = new javax.swing.JMenu();
         menuOS_Controle = new javax.swing.JMenuItem();
-        menuImportar = new javax.swing.JMenu();
-        menuImportacao_Usuario = new javax.swing.JMenuItem();
-        menuImportacao_Fornecedor = new javax.swing.JMenuItem();
-        menuImportacao_Pecas = new javax.swing.JMenuItem();
         menuSair = new javax.swing.JMenu();
         menuSair_Logoff = new javax.swing.JMenuItem();
         menuSair_Sair = new javax.swing.JMenuItem();
@@ -217,15 +212,6 @@ public class Sistema_UI extends javax.swing.JFrame {
         });
         menuADM.add(menuADM_Emprestimos);
 
-        menuADM_Usuario.setText("Usuários");
-        menuADM_Usuario.setBorderPainted(true);
-        menuADM_Usuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuADM_UsuarioActionPerformed(evt);
-            }
-        });
-        menuADM.add(menuADM_Usuario);
-
         barraMenuADM.add(menuADM);
 
         menuHIST.setText("Histórico");
@@ -251,19 +237,6 @@ public class Sistema_UI extends javax.swing.JFrame {
         menuOS.add(menuOS_Controle);
 
         barraMenuADM.add(menuOS);
-
-        menuImportar.setText("Importar Dados");
-
-        menuImportacao_Usuario.setText("Usuário");
-        menuImportar.add(menuImportacao_Usuario);
-
-        menuImportacao_Fornecedor.setText("Fornecedor");
-        menuImportar.add(menuImportacao_Fornecedor);
-
-        menuImportacao_Pecas.setText("Peças");
-        menuImportar.add(menuImportacao_Pecas);
-
-        barraMenuADM.add(menuImportar);
 
         menuSair.setText("Sair");
 
@@ -308,10 +281,6 @@ public class Sistema_UI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void menuADM_UsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuADM_UsuarioActionPerformed
-        //usuarioController.abreUsuarioUI();
-    }//GEN-LAST:event_menuADM_UsuarioActionPerformed
 
     private void menuADM_PecasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuADM_PecasActionPerformed
         getPecasController().abrePecaUI();
@@ -404,14 +373,9 @@ public class Sistema_UI extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuADM_Emprestimos;
     private javax.swing.JMenuItem menuADM_Fornecedor;
     private javax.swing.JMenuItem menuADM_Pecas;
-    private javax.swing.JMenuItem menuADM_Usuario;
     private javax.swing.JMenuItem menuADM_Veiculo;
     private javax.swing.JMenu menuHIST;
     private javax.swing.JMenuItem menuHIST_Estoque;
-    private javax.swing.JMenuItem menuImportacao_Fornecedor;
-    private javax.swing.JMenuItem menuImportacao_Pecas;
-    private javax.swing.JMenuItem menuImportacao_Usuario;
-    private javax.swing.JMenu menuImportar;
     private javax.swing.JMenu menuOS;
     private javax.swing.JMenuItem menuOS_Controle;
     private javax.swing.JMenu menuSair;

@@ -16,7 +16,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import util.SQL_URL;
 import util.ToHashHex;
@@ -209,7 +208,7 @@ public class Login_UI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"A caixa 'Senha' está vazia... Insira uma senha válida.");
         } else{
             try{
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = "SELECT * FROM Usuario WHERE Login = ?";

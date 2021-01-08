@@ -623,7 +623,7 @@ public class EditarCliente extends javax.swing.JFrame {
             listaRequisitos.get(4).setIsOk(false);
         } else {
             if (!campoAux.getText().contains(" ")){
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = "SELECT DocCliente FROM Cliente WHERE DocCliente = ?";
@@ -699,7 +699,7 @@ public class EditarCliente extends javax.swing.JFrame {
                 int index = 0;
                 while (index < tabelaNomes.getRowCount()){
                     try {
-                        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                        Class.forName("com.mysql.cj.jdbc.Driver");
                         String url = SQL_URL.getUrl();
                         try (Connection con = DriverManager.getConnection(url)) {
                             String sql;
@@ -707,10 +707,8 @@ public class EditarCliente extends javax.swing.JFrame {
                             PreparedStatement pst = con.prepareStatement(sql);
                             pst.setString(1, cpf_cnpj);
                             pst.setString(2, (String)tabelaNomes.getValueAt(index, 1));
-                            ResultSet rs = pst.executeQuery();
-                            if (rs.next()) {
-
-                            }
+                            con.close();
+                            pst.execute();
                         }
                     } catch (HeadlessException | ClassNotFoundException | SQLException e) {
                         //JOptionPane.showMessageDialog(null, e);
@@ -720,7 +718,7 @@ public class EditarCliente extends javax.swing.JFrame {
             }
             
             try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = "UPDATE Cliente SET Nome = ?,RazaoSocial = ?,NomeFantasia = ?,TipoCliente = ?,DocCliente = ? WHERE DocCliente = ?";
@@ -732,16 +730,13 @@ public class EditarCliente extends javax.swing.JFrame {
                     pst.setString(5, cpf_cnpj);
                     pst.setString(6, clienteAux.getCpf_cnpj());
 
-                    ResultSet rs = pst.executeQuery();
+                    pst.executeUpdate();
+                    con.close();
+                    JOptionPane.showMessageDialog(null, "Cliente '" + nomeFantasia + "' editado com sucesso.");
+                    clienteController.fechaEdicaoCliente();
                     
-                    if(rs.next()){
-                        
-                    }
                 }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Cliente '" + nomeFantasia + "' editado com sucesso.");
-                clienteController.fechaEdicaoCliente();
-            } catch (HeadlessException | ClassNotFoundException e) {
+            } catch (SQLException | HeadlessException | ClassNotFoundException e) {
                 JOptionPane.showMessageDialog(null, e);
             }
         }
@@ -749,19 +744,17 @@ public class EditarCliente extends javax.swing.JFrame {
     
     private void deletaNome(String doc){
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "DELETE FROM Cliente_NomeVariante WHERE DocCliente = ?";
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1, doc);
-                ResultSet rs = pst.executeQuery();
-
+                pst.execute();
+                con.close();
             }
-        } catch (HeadlessException | ClassNotFoundException e) {
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null, e);
-        } catch (SQLException e) {
-            //JOptionPane.showMessageDialog(null, e);
         }
     }
     

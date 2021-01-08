@@ -71,6 +71,9 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     
     private String nomeArquivo = null;
     
+    private ArrayList<Arquivo> listaArquivosOSInicial = null;
+    private ArrayList<Arquivo> listaArquivosSituacoesInicial = null;
+    
     /**
      * Creates new form OrdemServicoOP
      * @param osController
@@ -2786,6 +2789,27 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             btnConcluir4.setEnabled(false);
             btnConcluir5.setEnabled(false);
         }
+        setListaArquivosSituacoesInicial((ArrayList<Arquivo>) new ArrayList());
+        Iterator<SituacaoOS> iteradorSituacoes = getOsAux().getListaSituacao().iterator();
+        SituacaoOS situacaoAux;
+        while (iteradorSituacoes.hasNext()){
+            situacaoAux = iteradorSituacoes.next();
+            Iterator<Arquivo> iteradorArquivosS = situacaoAux.getListaArquivos().iterator();
+            Arquivo arquivoAux2;
+            while (iteradorArquivosS.hasNext()){
+                arquivoAux2 = iteradorArquivosS.next();
+                getListaArquivosSituacoesInicial().add(arquivoAux2);
+            }
+        }
+        
+        setListaArquivosOSInicial((ArrayList<Arquivo>) new ArrayList());
+        Iterator<Arquivo> iteradorArquivos2 = getOsAux().getListaArquivos().iterator();
+        Arquivo arquivoAux2;
+        while(iteradorArquivos2.hasNext()){
+            arquivoAux2 = iteradorArquivos2.next();
+            getListaArquivosOSInicial().add(arquivoAux2);
+        }
+        
     }
     
     private void carregaSituacao2(int i){
@@ -2952,7 +2976,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         String retorno = "";
         
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT NomeFantasia FROM Cliente WHERE DocCliente = ?";
@@ -3366,7 +3390,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, erros);
         } else {
             int codigo = pegaNumeroSituacao();
-            SituacaoOS situacaoAux = new SituacaoOS(campoDataC.getText(),getOsAux().getNumOS(),indexSituacao,campoDescricaoC.getText(),"EM ABERTO", campoPrevisao.getText(),listaArquivosAux);  
+            SituacaoOS situacaoAux = new SituacaoOS(campoDataC.getText(),getOsAux().getNumOS(),indexSituacao,campoDescricaoC.getText(),"EM ABERTO", "",listaArquivosAux);  
             setSituacaoOSAux(situacaoAux);
             int index = getOsAux().getListaSituacao().size();
             switch (index){
@@ -3390,6 +3414,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Situação cadastrada com sucesso.");
             zeraTelaAdicionarSituacao();
             criarSituacao.dispose();
+            jTabbedPane1.setSelectedIndex(indexSituacao);
             this.setEnabled(true);
             this.toFront();
         }
@@ -3399,7 +3424,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         int retorno = 0;
         
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql;
@@ -3482,7 +3507,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             erros = erros.substring(0, erros.length()-2);            
             JOptionPane.showMessageDialog(null, erros);
         } else {
-            int index = indexSituacao;
+            int index = indexSituacao-1;
             switch (index){
                 case 0:
                     salvaSituacao1();
@@ -3500,7 +3525,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                     salvaSituacao5();
                     break;  
             }
-            getOsAux().getListaSituacao().set(indexSituacao, situacaoOSAux);
+            getOsAux().getListaSituacao().set(index, situacaoOSAux);
             situacaoOSAux = null;
             JOptionPane.showMessageDialog(null, "Situação editada com sucesso.");
             zeraTelaEditarSituacao();
@@ -3593,9 +3618,161 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         deletaArquivoSituacao();
         deletaSituacao();
         
+        salvaArquivosLocal();
         salvaSituacoes();
         salvaArquivosOS();
         atualizaOSLets();
+    }
+    
+    private void salvaArquivosLocal(){
+        File diretorio = new File(CaminhoDB.getCaminho()+"\\OS");
+        if(diretorio.mkdir()){
+        }
+        
+        diretorio = new File(CaminhoDB.getCaminho()+"\\OS\\"+getOsAux().getNumOS());
+        if(diretorio.mkdir()){
+            Iterator<Arquivo> listaArquivos = getOsAux().getListaArquivos().iterator();
+            Arquivo arquivoAux;
+            while (listaArquivos.hasNext()){
+                arquivoAux = listaArquivos.next();
+                File fileNomeArquivo = new File (arquivoAux.getPath());
+                String nomeArquivoAux = fileNomeArquivo.getName();
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                Date date = new Date();
+                String dataAux = dateFormat.format(date);
+                dataAux = dataAux.replaceAll(" ", "--");
+                dataAux = dataAux.replaceAll("/", "-");
+                dataAux = dataAux.replaceAll(":", "");
+                String caminhoDestino = CaminhoDB.getCaminho()+"\\"+getOsAux().getNumOS()+"\\"+dataAux+"-"+nomeArquivoAux;
+                CopiadorArquivos.copia(arquivoAux.getPath(), caminhoDestino);
+                arquivoAux.setPath(caminhoDestino);
+            }
+        } else {
+            Iterator<Arquivo> listaArquivos = getListaArquivosOSInicial().iterator();
+            Arquivo arquivoAux;
+            boolean controle;
+            while(listaArquivos.hasNext()){
+                controle = false;
+                arquivoAux = listaArquivos.next();
+                Iterator<Arquivo> listaArquivos2 = getOsAux().getListaArquivos().iterator();
+                Arquivo arquivoAux2;
+                while (listaArquivos2.hasNext() && controle == false){
+                    arquivoAux2 = listaArquivos2.next();
+                    if (arquivoAux.getPath().equals(arquivoAux2.getPath())){
+                        controle = true;
+                    }
+                }
+                if (!controle){
+                    File fileAux2 = new File(arquivoAux.getPath());
+                    if(fileAux2.delete()){
+                    }
+                }
+            }
+            
+            listaArquivos = getOsAux().getListaArquivos().iterator();
+            arquivoAux = null;
+            controle = false;
+            while(listaArquivos.hasNext()){
+                controle = false;
+                arquivoAux = listaArquivos.next();
+                File fileNomeArquivo = new File (arquivoAux.getPath());
+                String nomeArquivoAux = fileNomeArquivo.getName();
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                Date date = new Date();
+                String dataAux = dateFormat.format(date);
+                dataAux = dataAux.replaceAll(" ", "--");
+                dataAux = dataAux.replaceAll("/", "-");
+                dataAux = dataAux.replaceAll(":", "");
+                String caminhoDestino = CaminhoDB.getCaminho()+"\\OS\\"+getOsAux().getNumOS()+"\\"+dataAux+"-"+nomeArquivoAux;
+                CopiadorArquivos.copia(arquivoAux.getPath(), caminhoDestino);
+                arquivoAux.setPath(caminhoDestino);
+            }
+        }
+        
+        salvaArquivosSituacoes();
+        
+    }
+    
+    private void salvaArquivosSituacoes(){
+        ArrayList<Arquivo> listaArquivosSituacoes = new ArrayList();
+        Iterator<SituacaoOS> iteradorSituacoes = getOsAux().getListaSituacao().iterator();
+        SituacaoOS situacaoAux;
+        while (iteradorSituacoes.hasNext()){
+            situacaoAux = iteradorSituacoes.next();
+            Iterator<Arquivo> iteradorArquivosS = situacaoAux.getListaArquivos().iterator();
+            Arquivo arquivoAux;
+            while (iteradorArquivosS.hasNext()){
+                arquivoAux = iteradorArquivosS.next();
+                listaArquivosSituacoes.add(arquivoAux);
+            }
+        }
+        File diretorio = new File(CaminhoDB.getCaminho()+"\\OS\\"+getOsAux().getNumOS()+"\\situacoes");
+        if(diretorio.mkdir()){
+            Iterator<Arquivo> listaArquivos = listaArquivosSituacoes.iterator();
+            Arquivo arquivoAux;
+            while (listaArquivos.hasNext()){
+                arquivoAux = listaArquivos.next();
+                File fileNomeArquivo = new File (arquivoAux.getPath());
+                String nomeArquivoAux = fileNomeArquivo.getName();
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                Date date = new Date();
+                String dataAux = dateFormat.format(date);
+                dataAux = dataAux.replaceAll(" ", "--");
+                dataAux = dataAux.replaceAll("/", "-");
+                dataAux = dataAux.replaceAll(":", "");
+                String caminhoDestino = CaminhoDB.getCaminho()+"\\OS\\"+getOsAux().getNumOS()+"\\situacoes\\"+dataAux+"-"+nomeArquivoAux;
+                CopiadorArquivos.copia(arquivoAux.getPath(), caminhoDestino);
+                arquivoAux.setPath(caminhoDestino);
+            }
+        } else {
+            boolean controle = false;
+            Iterator<Arquivo> listaArquivosS = listaArquivosSituacoes.iterator();
+            Arquivo arquivoAux;
+            while (listaArquivosS.hasNext()){
+                arquivoAux = listaArquivosS.next();
+                controle = false;
+                Iterator<SituacaoOS> listaSituacoes = getOsAux().getListaSituacao().iterator();
+                SituacaoOS situacaoOS;
+                while (listaSituacoes.hasNext()){
+                    situacaoOS = listaSituacoes.next();
+                    Iterator<Arquivo> listaArquivosDaS = situacaoOS.getListaArquivos().iterator();
+                    Arquivo arquivoDaS;
+                    while (listaArquivosDaS.hasNext()){
+                        arquivoDaS = listaArquivosDaS.next();
+                        if (arquivoDaS.getPath().equals(arquivoAux.getPath())){
+                            controle = true;
+                        }
+                    }
+                }
+                if (!controle){
+                    File fileAux2 = new File(arquivoAux.getPath());
+                    if(fileAux2.delete()){
+                    }
+                }
+            }
+            
+            Iterator<SituacaoOS> listaSituacoes = getOsAux().getListaSituacao().iterator();
+            SituacaoOS situacaoOS;
+            while (listaSituacoes.hasNext()){
+                situacaoOS = listaSituacoes.next();
+                Iterator<Arquivo> listaArquivosDaS = situacaoOS.getListaArquivos().iterator();
+                Arquivo arquivoDaS;
+                while (listaArquivosDaS.hasNext()){
+                    arquivoDaS = listaArquivosDaS.next();
+                    File fileNomeArquivo = new File (arquivoDaS.getPath());
+                    String nomeArquivoAux = fileNomeArquivo.getName();
+                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                    Date date = new Date();
+                    String dataAux = dateFormat.format(date);
+                    dataAux = dataAux.replaceAll(" ", "--");
+                    dataAux = dataAux.replaceAll("/", "-");
+                    dataAux = dataAux.replaceAll(":", "");
+                    String caminhoDestino = CaminhoDB.getCaminho()+"\\OS\\"+getOsAux().getNumOS()+"\\situacoes\\"+dataAux+"-"+nomeArquivoAux;
+                    CopiadorArquivos.copia(arquivoDaS.getPath(), caminhoDestino);
+                    arquivoDaS.setPath(caminhoDestino);
+                }
+            }
+        }
     }
     
     private void salvaSituacoes(){
@@ -3607,10 +3784,10 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             Iterator<Arquivo> iteradorArquivosS = situacaoAux.getListaArquivos().iterator();
             while(iteradorArquivosS.hasNext()){
                 arquivoAux = iteradorArquivosS.next();
-                salvaArquivosSituacao(situacaoAux.getNumeroOS(),situacaoAux.getCodigo()+"", arquivoAux);
+                salvaArquivosSituacao(situacaoAux.getCodigo()+"", arquivoAux);
             }
             try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql;
@@ -3622,10 +3799,8 @@ public class OrdemServicoOP extends javax.swing.JFrame {
                     pst.setString(4,  situacaoAux.getData());
                     pst.setString(5,  situacaoAux.getDataEntrega());
                     pst.setString(6,  situacaoAux.getStatus());
-                    ResultSet rs = pst.executeQuery();
-                    if (rs.next()) {
-
-                    }
+                    pst.execute();
+                    con.close();
                 }
             } catch (HeadlessException | ClassNotFoundException | SQLException e) {
                 //JOptionPane.showMessageDialog(null, e);
@@ -3633,24 +3808,22 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         }
     }
     
-    private void salvaArquivosSituacao(String numOS, String codigoS, Arquivo arquivoAux){
-        String nomeArquivoAux = arquivoAux.getNomeArquivo();
-        String path = salvaArquivosOSServer(numOS,arquivoAux.getPath(), nomeArquivoAux);
+    private void salvaArquivosSituacao(String codigoS, Arquivo arquivoAux){
+        String path = arquivoAux.getPath();
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql;
-                sql = "INSERT INTO Arquivo_Situacao (CodigoS, Path, Descricao, Data) VALUES (?,?,?,?)";
+                sql = "INSERT INTO Arquivo_Situacao (CodigoS, Path, Descricao, Data, NumOS) VALUES (?,?,?,?,?)";
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1,  codigoS);
                 pst.setString(2, path);
                 pst.setString(3,  arquivoAux.getDescricao());
                 pst.setString(4,  arquivoAux.getData());
-                ResultSet rs = pst.executeQuery();
-                if (rs.next()) {
-
-                }
+                pst.setString(5, getOsAux().getNumOS());
+                pst.execute();
+                con.close();
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             //JOptionPane.showMessageDialog(null, e);
@@ -3673,21 +3846,19 @@ public class OrdemServicoOP extends javax.swing.JFrame {
         while (listaArquivos.hasNext()){
             arquivoAux = listaArquivos.next();
             String numeroOs = jFormattedTextField1.getText();
-            String path = salvaArquivosOSServer(numeroOs, arquivoAux.getPath(), arquivoAux.getNomeArquivo());
+            String path = arquivoAux.getPath();
             try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql;
                     sql = "INSERT INTO Arquivo_OS (CodigoOS, Path, Descricao) VALUES (?,?,?)";
                     PreparedStatement pst = con.prepareStatement(sql);
                     pst.setString(1,  numeroOs);
-                    pst.setString(2, arquivoAux.getPath());
+                    pst.setString(2, path);
                     pst.setString(3,  arquivoAux.getDescricao());
-                    ResultSet rs = pst.executeQuery();
-                    if (rs.next()) {
-
-                    }
+                    pst.execute();
+                    con.close();
                 }
             } catch (HeadlessException | ClassNotFoundException | SQLException e) {
                 //JOptionPane.showMessageDialog(null, e);
@@ -3724,42 +3895,40 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     
     private void atualizaOSLets(){
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql;
-                sql = "UPDATE OrdemServico SET NumOs = ?, DocCliente = ?, VeiculoPlaca = ?, NomeMotorista = ?, CPFMotorista = ?, Data = ?, Encerrada = ? WHERE NumOs = ?";
+                sql = "UPDATE OrdemServico SET NumOs = ?, VeiculoPlaca = ?, NomeMotorista = ?, CPFMotorista = ?, Data = ?, Encerrada = ? WHERE NumOs = ?";
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1,  jFormattedTextField1.getText());
-                pst.setString(2, campoCliente.getText());
-                pst.setString(3,  campoPlaca.getText());
-                pst.setString(4,  campoNomeMotorista.getText());
-                pst.setString(5,  campoCPF.getText());
-                pst.setString(6,  campoData.getText());
-                pst.setString(7,  getOsAux().getStatus());
-                pst.setString(8,  getOsAux().getNumOS());
-                ResultSet rs = pst.executeQuery();
-                if (rs.next()) {
-
-                }
+                pst.setString(2,  campoPlaca.getText());
+                pst.setString(3,  campoNomeMotorista.getText());
+                pst.setString(4,  campoCPF.getText());
+                pst.setString(5,  campoData.getText());
+                pst.setString(6,  getOsAux().getStatus());
+                pst.setString(7,  getOsAux().getNumOS());
+                pst.executeUpdate();
+                con.close();
+                
+                JOptionPane.showMessageDialog(null, "A Ordem de Serviço "+jFormattedTextField1.getText()+ " foi atualizada com sucesso.");
+                osController.fechaAcompanhamentoOS();
             }
-        } catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "A Ordem de Serviço "+jFormattedTextField1.getText()+ " foi atualizada com sucesso.");
-            osController.fechaAcompanhamentoOS();
-        } catch (HeadlessException | ClassNotFoundException e) {
-            //JOptionPane.showMessageDialog(null, e);
+        } catch (SQLException | HeadlessException | ClassNotFoundException e){
+            JOptionPane.showMessageDialog(null, e);
         } 
     }
     
     private void deletaArquivos(){
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "DELETE FROM Arquivo_OS WHERE CodigoOS = ?";
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1, getOsAux().getNumOS());
-                ResultSet rs = pst.executeQuery();
+                pst.execute();
+                con.close();
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             //JOptionPane.showMessageDialog(null, e);
@@ -3768,13 +3937,14 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     
     private void deletaArquivoSituacao(){
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
-                String sql = "DELETE FROM Arquivo_Situacao WHERE CodigoS IN (SELECT Codigo FROM SituacaoOS WHERE NumeroOS = ?)";
+                String sql = "DELETE FROM Arquivo_Situacao WHERE NumOS = ?";
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1, getOsAux().getNumOS());
-                ResultSet rs = pst.executeQuery();
+                pst.execute();
+                con.close();
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             //JOptionPane.showMessageDialog(null, e);
@@ -3783,13 +3953,14 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     
     private void deletaSituacao(){
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "DELETE FROM SituacaoOS WHERE NumeroOS = ?";
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1, getOsAux().getNumOS());
-                ResultSet rs = pst.executeQuery();
+                pst.execute();
+                con.close();
                 deletaArquivosSituacao();
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
@@ -3799,13 +3970,14 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     
     private void deletaArquivosSituacao(){
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "DELETE FROM Arquivo_Situacao WHERE CodigoS = 1 AND CodigoS = 2 AND CodigoS = 3 AND CodigoS = 4 AND CodigoS = 5";
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1, getOsAux().getNumOS());
-                ResultSet rs = pst.executeQuery();
+                pst.execute();
+                con.close();
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             //JOptionPane.showMessageDialog(null, e);
@@ -3938,7 +4110,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             arquivoAux = iteradorArquivos.next();
             modeloAux.addRow(new Object[]{arquivoAux.getDescricao(), arquivoAux.getData()});
         }
-        jTabbedPane1.setSelectedIndex(indexSituacao);
+        jTabbedPane1.setSelectedIndex(indexSituacao-1);
     }
     
     private void salvaSituacao2(){
@@ -3963,7 +4135,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             arquivoAux = iteradorArquivos.next();
             modeloAux.addRow(new Object[]{arquivoAux.getDescricao(), arquivoAux.getData()});
         }
-        jTabbedPane1.setSelectedIndex(indexSituacao);
+        jTabbedPane1.setSelectedIndex(indexSituacao-1);
     }
     
     private void salvaSituacao3(){
@@ -3988,7 +4160,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             arquivoAux = iteradorArquivos.next();
             modeloAux.addRow(new Object[]{arquivoAux.getDescricao(), arquivoAux.getData()});
         }
-        jTabbedPane1.setSelectedIndex(indexSituacao);
+        jTabbedPane1.setSelectedIndex(indexSituacao-1);
     }
     
     private void salvaSituacao4(){
@@ -4013,7 +4185,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             arquivoAux = iteradorArquivos.next();
             modeloAux.addRow(new Object[]{arquivoAux.getDescricao(), arquivoAux.getData()});
         }
-        jTabbedPane1.setSelectedIndex(indexSituacao);
+        jTabbedPane1.setSelectedIndex(indexSituacao-1);
     }
     
     private void salvaSituacao5(){
@@ -4038,7 +4210,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             arquivoAux = iteradorArquivos.next();
             modeloAux.addRow(new Object[]{arquivoAux.getDescricao(), arquivoAux.getData()});
         }
-        jTabbedPane1.setSelectedIndex(indexSituacao);
+        jTabbedPane1.setSelectedIndex(indexSituacao-1);
     }
     
     private void limpaSituacao1(){
@@ -4068,7 +4240,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             }
         }
         jTabbedPane1.setSelectedIndex(indexSituacao-1);
-        jTabbedPane1.setEnabledAt(indexSituacao, false);
+        jTabbedPane1.setEnabledAt(indexSituacao-1, false);
     }
     
     private void limpaSituacao3(){
@@ -4083,7 +4255,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             }
         }
         jTabbedPane1.setSelectedIndex(indexSituacao-1);
-        jTabbedPane1.setEnabledAt(indexSituacao, false);
+        jTabbedPane1.setEnabledAt(indexSituacao-1, false);
     }
     
     private void limpaSituacao4(){
@@ -4098,7 +4270,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             }
         }
         jTabbedPane1.setSelectedIndex(indexSituacao-1);
-        jTabbedPane1.setEnabledAt(indexSituacao, false);
+        jTabbedPane1.setEnabledAt(indexSituacao-1, false);
     }
     
     private void limpaSituacao5(){
@@ -4113,7 +4285,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
             }
         }
         jTabbedPane1.setSelectedIndex(indexSituacao-1);
-        jTabbedPane1.setEnabledAt(indexSituacao, false);
+        jTabbedPane1.setEnabledAt(indexSituacao-1, false);
     }
     
     private void abreArquivoOS() throws IOException{
@@ -4132,7 +4304,7 @@ public class OrdemServicoOP extends javax.swing.JFrame {
     
     private void abreArquivosEditarSituacao() throws IOException{
         int index = tabelaArquivosC1.getSelectedRow();
-        String pathFile = getOsAux().getListaSituacao().get(indexSituacao).getListaArquivos().get(index).getPath();
+        String pathFile = getOsAux().getListaSituacao().get(indexSituacao-1).getListaArquivos().get(index).getPath();
         Desktop desktop = Desktop.getDesktop();  
         desktop.open(new File(pathFile));
     }
@@ -4475,5 +4647,33 @@ public class OrdemServicoOP extends javax.swing.JFrame {
      */
     public void setNomeArquivo(String nomeArquivo) {
         this.nomeArquivo = nomeArquivo;
+    }
+
+    /**
+     * @return the listaArquivosOSInicial
+     */
+    public ArrayList<Arquivo> getListaArquivosOSInicial() {
+        return listaArquivosOSInicial;
+    }
+
+    /**
+     * @param listaArquivosOSInicial the listaArquivosOSInicial to set
+     */
+    public void setListaArquivosOSInicial(ArrayList<Arquivo> listaArquivosOSInicial) {
+        this.listaArquivosOSInicial = listaArquivosOSInicial;
+    }
+
+    /**
+     * @return the listaArquivosSituacoesInicial
+     */
+    public ArrayList<Arquivo> getListaArquivosSituacoesInicial() {
+        return listaArquivosSituacoesInicial;
+    }
+
+    /**
+     * @param listaArquivosSituacoesInicial the listaArquivosSituacoesInicial to set
+     */
+    public void setListaArquivosSituacoesInicial(ArrayList<Arquivo> listaArquivosSituacoesInicial) {
+        this.listaArquivosSituacoesInicial = listaArquivosSituacoesInicial;
     }
 }

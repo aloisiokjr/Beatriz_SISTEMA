@@ -846,7 +846,7 @@ public class CriarVeiculo extends javax.swing.JFrame {
             //listaRequisitos.get(6).setIsOk(false);
         } else {
             if (!campoAux.getText().contains(" ")){
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = "SELECT Placa FROM Veiculo WHERE Placa = ?";
@@ -879,7 +879,7 @@ public class CriarVeiculo extends javax.swing.JFrame {
             listaRequisitos.get(5).setIsOk(false);
         } else {
             if (!campoAux.getText().contains(" ")){
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = "SELECT Renavam FROM Veiculo WHERE Renavam = ?";
@@ -912,7 +912,7 @@ public class CriarVeiculo extends javax.swing.JFrame {
             listaRequisitos.get(7).setIsOk(false);
         } else {
             if (!campoAux.getText().contains(" ")){
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = "SELECT NumeroChassi FROM Veiculo WHERE NumeroChassi = ?";
@@ -947,7 +947,7 @@ public class CriarVeiculo extends javax.swing.JFrame {
             }
         } else {
             if (!campoAux.getText().contains(" ")){
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = "SELECT NroMotor FROM Veiculo WHERE NroMotor = ?";
@@ -1009,7 +1009,7 @@ public class CriarVeiculo extends javax.swing.JFrame {
                 int index = 0;
                 while (index < tabelaCaract.getRowCount()){
                     try {
-                        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                        Class.forName("com.mysql.cj.jdbc.Driver");
                         String url = SQL_URL.getUrl();
                         try (Connection con = DriverManager.getConnection(url)) {
                             String sql;
@@ -1017,20 +1017,18 @@ public class CriarVeiculo extends javax.swing.JFrame {
                             PreparedStatement pst = con.prepareStatement(sql);
                             pst.setString(1, Placa);
                             pst.setString(2, (String)tabelaCaract.getValueAt(index, 1));
-                            ResultSet rs = pst.executeQuery();
-                            if (rs.next()) {
-
-                            }
+                            pst.execute();
+                            con.close();
                         }
                     } catch (HeadlessException | ClassNotFoundException | SQLException e) {
-                        //JOptionPane.showMessageDialog(null, e);
+                        JOptionPane.showMessageDialog(null, e);
                     }
                     index++;
                 }
             }
 
             try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = "INSERT INTO Veiculo (Placa,Marca,Modelo,Pais,Renavam,Ano,NumeroEixos,NumeroChassi,NroMotor,Cor) VALUES (?,?,?,?,?,?,?,?,?,?)";
@@ -1046,17 +1044,15 @@ public class CriarVeiculo extends javax.swing.JFrame {
                     pst.setString(9, NMotor);
                     pst.setString(10, Cor);
 
-                    ResultSet rs = pst.executeQuery();
+                    pst.execute();
+                    con.close();
                     
-                    if(rs.next()){
-                        
-                    }
+                    JOptionPane.showMessageDialog(null, "Veículo de placa '" + Placa + "' criado com sucesso.");
+                    veiculoController.fechaCriacaoVeiculo();
                 }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Veículo de placa '" + Placa + "' criado com sucesso.");
-                veiculoController.fechaCriacaoVeiculo();
-            } catch (HeadlessException | ClassNotFoundException e) {
-                JOptionPane.showMessageDialog(null, e);
+            } catch (SQLException | HeadlessException | ClassNotFoundException e) {
+                JOptionPane.showMessageDialog(null,e);
+                
             }
         }
     }

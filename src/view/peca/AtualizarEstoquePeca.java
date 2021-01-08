@@ -1169,29 +1169,25 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
             int resultado = numEstoque + numAumentar;
 
             try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = "UPDATE Produto SET QtdEstoque = ? WHERE Codigo = ?";
                     PreparedStatement pst = con.prepareStatement(sql);
                     pst.setString(1, resultado+"");
                     pst.setString(2, campoCodigoPeca.getText());
-                    ResultSet rs = pst.executeQuery();
-                    if (rs.next()) {
-
-                    }
+                    pst.executeUpdate();
+                    con.close();
                 }
-            } catch (SQLException e) {
-                //JOptionPane.showMessageDialog(null,e);
-            } catch (HeadlessException | ClassNotFoundException e) {
-                JOptionPane.showMessageDialog(null, e);
+            } catch (SQLException | HeadlessException | ClassNotFoundException e) {
+                JOptionPane.showMessageDialog(null,e);
             }
             
             String precoCompra, margemLucro, precoVenda;
             
             if (checkBoxAtualizaCV.isSelected()){
                 try {
-                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    Class.forName("com.mysql.cj.jdbc.Driver");
                     String url = SQL_URL.getUrl();
                     try (Connection con = DriverManager.getConnection(url)) {
                         String sql = "UPDATE Produto SET PrecoCompra = ?, MargemLucro = ?, PrecoVenda = ? WHERE Codigo = ?";
@@ -1200,15 +1196,11 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
                         pst.setString(2, campoPorcentagemLucro1.getText());
                         pst.setString(3, campoPrecoVenda1.getText());
                         pst.setString(4, campoCodigoPeca.getText());
-                        ResultSet rs = pst.executeQuery();
-                        if (rs.next()) {
-
-                        }
+                        pst.executeUpdate();
+                        con.close();
                     }
-                } catch (SQLException e) {
-                    //JOptionPane.showMessageDialog(null,e);
-                } catch (HeadlessException | ClassNotFoundException e) {
-                    JOptionPane.showMessageDialog(null, e);
+                } catch (SQLException | HeadlessException | ClassNotFoundException e) {
+                    JOptionPane.showMessageDialog(null,e);
                 }
                 precoCompra = campoPrecoCompra1.getText();
                 margemLucro = campoPorcentagemLucro1.getText();
@@ -1224,7 +1216,7 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
                 Date date = new Date();
                 String dataCadastro = dateFormat.format(date);
                 
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = "INSERT INTO AtualizacaoEstoque (CodigoProduto ,CNPJFornecedor,PrecoCompra,PorcentagemLucro,PrecoVenda,QuantidadeReposta, Descricao_Retirada, TipoOP, Data) VALUES (?,?,?,?,?,?,?,?,?)";
@@ -1239,17 +1231,14 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
                     pst.setString(8, "A");
                     pst.setString(9, dataCadastro);
 
-                    ResultSet rs = pst.executeQuery();
+                    pst.execute();
+                    con.close();
                     
-                    if(rs.next()){
-                        // FAZ NADA
-                    }
+                    JOptionPane.showMessageDialog(null, "Produto '" + campoNomeMotorista.getText() + "' atualizado com sucesso.");
+                    //JOptionPane.showMessageDialog(null,e);
+                    pecaController.fechaAtualizacaoEstoque();
                 }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Produto '" + campoNomeMotorista.getText() + "' atualizado com sucesso.");
-                //JOptionPane.showMessageDialog(null,e);
-                pecaController.fechaAtualizacaoEstoque();
-            } catch (HeadlessException | ClassNotFoundException e) {
+            } catch (SQLException | HeadlessException | ClassNotFoundException e) {
                 JOptionPane.showMessageDialog(null, e);
             }
         }
@@ -1264,23 +1253,20 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
         } else {
             int resultado = numEstoque - numDiminuir;
             try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = "UPDATE Produto SET QtdEstoque = ? WHERE Codigo = ?";
                     PreparedStatement pst = con.prepareStatement(sql);
                     pst.setString(1, resultado+"");
                     pst.setString(2, campoCodigoPeca1.getText());
-                    ResultSet rs = pst.executeQuery();
-                    if (rs.next()) {
-                        
-                    }
+                    pst.executeUpdate();
+                    con.close();
+                    
+                    JOptionPane.showMessageDialog(null, "Produto '" + campoNomeMotorista1.getText() + "' atualizado com sucesso.");
+                    pecaController.fechaAtualizacaoEstoque();
                 }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Produto '" + campoNomeMotorista1.getText() + "' atualizado com sucesso.");
-                //JOptionPane.showMessageDialog(null,e);
-                pecaController.fechaAtualizacaoEstoque();
-            } catch (HeadlessException | ClassNotFoundException e) {
+            } catch (SQLException | HeadlessException | ClassNotFoundException e) {
                 JOptionPane.showMessageDialog(null, e);
             } 
             
@@ -1293,7 +1279,7 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
         Date date = new Date();
         String dataCadastro = dateFormat.format(date);
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "INSERT INTO AtualizacaoEstoque (CodigoProduto ,CNPJFornecedor,PrecoCompra,PorcentagemLucro,PrecoVenda,QuantidadeReposta, Descricao_Retirada, TipoOP, Data) VALUES (?,?,?,?,?,?,?,?,?)";
@@ -1308,17 +1294,14 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
                 pst.setString(8, "D");
                 pst.setString(9, dataCadastro);
 
-                ResultSet rs = pst.executeQuery();
-
-                if(rs.next()){
-                    // FAZ NADA
-                }
+                pst.execute();
+                con.close();
+                
+                JOptionPane.showMessageDialog(null, "Produto '" + campoNomeMotorista.getText() + "' atualizado com sucesso.");
+                //JOptionPane.showMessageDialog(null,e);
+                pecaController.fechaAtualizacaoEstoque();
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Produto '" + campoNomeMotorista.getText() + "' atualizado com sucesso.");
-            //JOptionPane.showMessageDialog(null,e);
-            pecaController.fechaAtualizacaoEstoque();
-        } catch (HeadlessException | ClassNotFoundException e) {
+        } catch (SQLException | HeadlessException | ClassNotFoundException e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
@@ -1356,7 +1339,7 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
         comboBoxProdutos.addItem("Selecione");
         
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT Descricao FROM Produto";
@@ -1377,7 +1360,7 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
         comboBoxProdutos1.addItem("Selecione");
         
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT Descricao FROM Produto";
@@ -1398,7 +1381,7 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
         comboBoxFornecedor.addItem("Selecione");
         
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT Nome_Fantasia, CPF_CNPJ FROM Fornecedor";
@@ -1419,7 +1402,7 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
             String palavraBusca = (String)comboBoxProdutos.getSelectedItem(); 
             if (!palavraBusca.equals("Selecione")){
                 try {
-                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    Class.forName("com.mysql.cj.jdbc.Driver");
                     String url = SQL_URL.getUrl();
                     try (Connection con = DriverManager.getConnection(url)) {
                         String sql = "SELECT Codigo, Descricao, PrecoCompra, MargemLucro, PrecoVenda, Marca, Modelo, Ano, QtdEstoque FROM Produto WHERE Descricao = ?";
@@ -1462,7 +1445,7 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
             String palavraBusca = (String)comboBoxProdutos1.getSelectedItem();
             if (!palavraBusca.equals("Selecione")){
                 try {
-                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    Class.forName("com.mysql.cj.jdbc.Driver");
                     String url = SQL_URL.getUrl();
                     try (Connection con = DriverManager.getConnection(url)) {
                         String sql = "SELECT Codigo, Descricao, PrecoCompra, MargemLucro, PrecoVenda, Marca, Modelo, Ano, QtdEstoque FROM Produto WHERE Descricao = ?";
@@ -1519,7 +1502,7 @@ public class AtualizarEstoquePeca extends javax.swing.JFrame {
                     palavraBusca = palavraBuscaAux2;
                 }
                 try {
-                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    Class.forName("com.mysql.cj.jdbc.Driver");
                     String url = SQL_URL.getUrl();
                     try (Connection con = DriverManager.getConnection(url)) {
                         String sql = "SELECT Razao_Social, Nome_Fantasia, CPF_CNPJ FROM Fornecedor WHERE CPF_CNPJ = ?";

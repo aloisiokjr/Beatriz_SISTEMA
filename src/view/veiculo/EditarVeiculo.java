@@ -855,7 +855,7 @@ public class EditarVeiculo extends javax.swing.JFrame {
             listaRequisitos.get(0).setIsOk(false);
         } else {
             if (!campoAux.getText().contains(" ")){
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = "SELECT Placa FROM Veiculo WHERE Placa = ?";
@@ -894,7 +894,7 @@ public class EditarVeiculo extends javax.swing.JFrame {
             listaRequisitos.get(5).setIsOk(false);
         } else {
             if (!campoAux.getText().contains(" ")){
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = "SELECT Renavam FROM Veiculo WHERE Renavam = ?";
@@ -933,7 +933,7 @@ public class EditarVeiculo extends javax.swing.JFrame {
             listaRequisitos.get(7).setIsOk(false);
         } else {
             if (!campoAux.getText().contains(" ")){
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = "SELECT NumeroChassi FROM Veiculo WHERE NumeroChassi = ?";
@@ -974,7 +974,7 @@ public class EditarVeiculo extends javax.swing.JFrame {
             }
         } else {
             if (!campoAux.getText().contains(" ")){
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = "SELECT NroMotor FROM Veiculo WHERE NroMotor = ?";
@@ -1043,7 +1043,7 @@ public class EditarVeiculo extends javax.swing.JFrame {
                 int index = 0;
                 while (index < tabelaCaract.getRowCount()){
                     try {
-                        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                        Class.forName("com.mysql.cj.jdbc.Driver");
                         String url = SQL_URL.getUrl();
                         try (Connection con = DriverManager.getConnection(url)) {
                             String sql;
@@ -1051,10 +1051,8 @@ public class EditarVeiculo extends javax.swing.JFrame {
                             PreparedStatement pst = con.prepareStatement(sql);
                             pst.setString(1, Placa);
                             pst.setString(2, (String)tabelaCaract.getValueAt(index, 1));
-                            ResultSet rs = pst.executeQuery();
-                            if (rs.next()) {
-
-                            }
+                            pst.execute();
+                            con.close();
                         }
                     } catch (HeadlessException | ClassNotFoundException | SQLException e) {
                         //JOptionPane.showMessageDialog(null, e);
@@ -1064,7 +1062,7 @@ public class EditarVeiculo extends javax.swing.JFrame {
             }
 
             try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = "UPDATE Veiculo SET Placa = ?, Marca = ?, Modelo = ?, Pais = ?, Renavam = ?, Ano = ?, NumeroEixos = ?, NumeroChassi = ?, NroMotor = ?, Cor = ? WHERE Placa = ?";
@@ -1081,16 +1079,13 @@ public class EditarVeiculo extends javax.swing.JFrame {
                     pst.setString(10, Cor);
                     pst.setString(11, getVeiculoAux().getPlaca());
 
-                    ResultSet rs = pst.executeQuery();
+                    pst.executeUpdate();
+                    con.close();
                     
-                    if(rs.next()){
-                        
-                    }
+                    JOptionPane.showMessageDialog(null, "Veículo de placa '" + Placa + "' editado com sucesso.");
+                    veiculoController.fechaEdicaoVeiculo();
                 }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Veículo de placa '" + Placa + "' criado com sucesso.");
-                veiculoController.fechaEdicaoVeiculo();
-            } catch (HeadlessException | ClassNotFoundException e) {
+            } catch (SQLException | HeadlessException | ClassNotFoundException e) {
                 JOptionPane.showMessageDialog(null, e);
             }
         }
@@ -1098,19 +1093,17 @@ public class EditarVeiculo extends javax.swing.JFrame {
     
     private void deletaCaracteristica(String placa){
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "DELETE FROM Veiculo_Caracteristica WHERE PlacaVeiculo = ?";
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1, placa);
-                ResultSet rs = pst.executeQuery();
-
+                pst.execute();
+                con.close();
             }
-        } catch (HeadlessException | ClassNotFoundException e) {
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null, e);
-        } catch (SQLException e) {
-            //JOptionPane.showMessageDialog(null, e);
         }
     }
     

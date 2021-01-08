@@ -608,7 +608,7 @@ public class CriarCliente extends javax.swing.JFrame {
             //listaRequisitos.get(6).setIsOk(false);
         } else {
             if (!campoAux.getText().contains(" ")){
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = "SELECT DocCliente FROM Cliente WHERE DocCliente = ?";
@@ -665,7 +665,7 @@ public class CriarCliente extends javax.swing.JFrame {
                 int index = 0;
                 while (index < tabelaNomes.getRowCount()){
                     try {
-                        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                        Class.forName("com.mysql.cj.jdbc.Driver");
                         String url = SQL_URL.getUrl();
                         try (Connection con = DriverManager.getConnection(url)) {
                             String sql;
@@ -673,10 +673,9 @@ public class CriarCliente extends javax.swing.JFrame {
                             PreparedStatement pst = con.prepareStatement(sql);
                             pst.setString(1, cpf_cnpj);
                             pst.setString(2, (String)tabelaNomes.getValueAt(index, 1));
-                            ResultSet rs = pst.executeQuery();
-                            if (rs.next()) {
-
-                            }
+                            pst.execute();
+                            con.close();
+                            
                         }
                     } catch (HeadlessException | ClassNotFoundException | SQLException e) {
                         //JOptionPane.showMessageDialog(null, e);
@@ -686,7 +685,7 @@ public class CriarCliente extends javax.swing.JFrame {
             }
             
             try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = "INSERT INTO Cliente (Nome,RazaoSocial,NomeFantasia,TipoCliente,DocCliente) VALUES (?,?,?,?,?)";
@@ -696,18 +695,14 @@ public class CriarCliente extends javax.swing.JFrame {
                     pst.setString(3, nomeFantasia);
                     pst.setString(4, tipoCliente);
                     pst.setString(5, cpf_cnpj);
-                    ResultSet rs = pst.executeQuery();
-                    
-                    if(rs.next()){
-                        
-                    }
+                    pst.execute();
+                    con.close();
+                    JOptionPane.showMessageDialog(null, "Cliente '" + nomeFantasia + "' criado com sucesso.");
+                    clienteController.fechaCriacaoCliente();
                 }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Cliente '" + nomeFantasia + "' criado com sucesso.");
-                clienteController.fechaCriacaoCliente();
-            } catch (HeadlessException | ClassNotFoundException e) {
-                JOptionPane.showMessageDialog(null, e);
-            }
+            } catch (HeadlessException | ClassNotFoundException| SQLException e) {
+                
+            } 
         }
     }
     

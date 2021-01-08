@@ -106,14 +106,14 @@ public class PecaUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Codigo", "Descrição", "Valor", "Quantidade em Estoque"
+                "Codigo", "Descrição", "Valor", "Quantidade em Estoque", "Local no Estoque"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -133,14 +133,11 @@ public class PecaUI extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabelaProdutos);
         if (tabelaProdutos.getColumnModel().getColumnCount() > 0) {
-            tabelaProdutos.getColumnModel().getColumn(0).setResizable(false);
             tabelaProdutos.getColumnModel().getColumn(0).setPreferredWidth(100);
-            tabelaProdutos.getColumnModel().getColumn(1).setResizable(false);
             tabelaProdutos.getColumnModel().getColumn(1).setPreferredWidth(250);
-            tabelaProdutos.getColumnModel().getColumn(2).setResizable(false);
             tabelaProdutos.getColumnModel().getColumn(2).setPreferredWidth(100);
-            tabelaProdutos.getColumnModel().getColumn(3).setResizable(false);
             tabelaProdutos.getColumnModel().getColumn(3).setPreferredWidth(150);
+            tabelaProdutos.getColumnModel().getColumn(4).setPreferredWidth(150);
         }
 
         jPanel2.setBackground(new java.awt.Color(250, 250, 250));
@@ -619,11 +616,11 @@ public class PecaUI extends javax.swing.JFrame {
         String codigo;
         codigo = (String) tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 0);
         Peca pecaAuxLocal;
-        String Codigo = null,Descricao = null,PrecoCompra = null,PrecoVenda = null,MargemLucro = null,Marca = null,Modelo = null,Ano = null, Imagem = null;
+        String Codigo = null,Descricao = null,PrecoCompra = null,PrecoVenda = null,MargemLucro = null,Marca = null,Modelo = null,Ano = null, Imagem = null, LocalEstoque = null;
         ArrayList<Especificacao> listaEspecificacoes = new ArrayList();
         ArrayList<String> listaNomesVariantes = new ArrayList();
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT * FROM Produto WHERE Codigo = ?";
@@ -641,6 +638,7 @@ public class PecaUI extends javax.swing.JFrame {
                     Modelo = rs.getString("Modelo");
                     Ano = rs.getString("Ano");
                     Imagem = rs.getString("PathImagem");
+                    LocalEstoque = rs.getString("LocalEstoque");
                 }
             }
         } catch (SQLException | HeadlessException | ClassNotFoundException e) {
@@ -648,7 +646,7 @@ public class PecaUI extends javax.swing.JFrame {
         }
         
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT * FROM Produto_Variante WHERE CodigoProduto = ?";
@@ -666,7 +664,7 @@ public class PecaUI extends javax.swing.JFrame {
         }
         
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT * FROM Produto_Especificacao WHERE CodigoProduto = ?";
@@ -686,7 +684,7 @@ public class PecaUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
         
-        pecaAuxLocal = new Peca(Codigo,Descricao,PrecoCompra,MargemLucro,PrecoVenda,Marca,Modelo,Ano,Imagem, listaEspecificacoes, listaNomesVariantes);
+        pecaAuxLocal = new Peca(Codigo,Descricao,PrecoCompra,MargemLucro,PrecoVenda,Marca,Modelo,Ano,Imagem, listaEspecificacoes, listaNomesVariantes, LocalEstoque);
         setPecaAux(pecaAuxLocal);
         pecaController.abreEdicaoPeca();
     }
@@ -695,11 +693,11 @@ public class PecaUI extends javax.swing.JFrame {
         String codigo;
         codigo = (String) tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 0);
         Peca pecaAuxLocal;
-        String Codigo = null,Descricao = null,PrecoCompra = null,PrecoVenda = null,MargemLucro = null,Marca = null,Modelo = null,Ano = null,Imagem = null;
+        String Codigo = null,Descricao = null,PrecoCompra = null,PrecoVenda = null,MargemLucro = null,Marca = null,Modelo = null,Ano = null,Imagem = null, LocalEstoque = null;
         ArrayList<Especificacao> listaEspecificacoes = new ArrayList();
         ArrayList<String> listaNomesVariantes = new ArrayList();
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT * FROM Produto WHERE Codigo = ?";
@@ -717,6 +715,7 @@ public class PecaUI extends javax.swing.JFrame {
                     Modelo = rs.getString("Modelo");
                     Ano = rs.getString("Ano");
                     Imagem = rs.getString("PathImagem");
+                    LocalEstoque = rs.getString("LocalEstoque");
                 }
             }
         } catch (SQLException | HeadlessException | ClassNotFoundException e) {
@@ -724,7 +723,7 @@ public class PecaUI extends javax.swing.JFrame {
         }
         
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT * FROM Produto_Variante WHERE CodigoProduto = ?";
@@ -742,7 +741,7 @@ public class PecaUI extends javax.swing.JFrame {
         }
         
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT * FROM Produto_Especificacao WHERE CodigoProduto = ?";
@@ -762,7 +761,7 @@ public class PecaUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
         
-        pecaAuxLocal = new Peca(Codigo,Descricao,PrecoCompra,MargemLucro,PrecoVenda,Marca,Modelo,Ano,Imagem, listaEspecificacoes, listaNomesVariantes);
+        pecaAuxLocal = new Peca(Codigo,Descricao,PrecoCompra,MargemLucro,PrecoVenda,Marca,Modelo,Ano,Imagem, listaEspecificacoes, listaNomesVariantes,LocalEstoque);
         setPecaAux(pecaAuxLocal);
         pecaController.abreVisualizacaoPeca();
     }
@@ -773,24 +772,25 @@ public class PecaUI extends javax.swing.JFrame {
         String message = "Deseja realmente excluir o motorista '" + ((String)tabelaProdutos.getValueAt(linhaSelecionada, 1)) + "'?";
         String title = "Confirmação de Exclusao";
         int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
-        if (reply == JOptionPane.YES_OPTION) {
+        if (reply == JOptionPane.YES_OPTION) {        
+            deletaImagemPeca();            
             try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = "DELETE FROM Produto WHERE Codigo = ?";
                     PreparedStatement pst = con.prepareStatement(sql);
                     colunaSelecionada = 0;
                     pst.setString(1, (String) tabelaProdutos.getValueAt(linhaSelecionada, colunaSelecionada));
-                    ResultSet rs = pst.executeQuery();
-
+                    pst.execute();
+                    con.close();
+                    
+                    JOptionPane.showMessageDialog(null, "O produto '" + (String) tabelaProdutos.getValueAt(linhaSelecionada, 1) + "' foi excluído.");
+                    setagemInicial();
+                    produtoBuscaTodos();
                 }
-            } catch (HeadlessException | ClassNotFoundException e) {
+            } catch (HeadlessException | ClassNotFoundException | SQLException e) {
                 JOptionPane.showMessageDialog(null, e);
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "O produto '" + (String) tabelaProdutos.getValueAt(linhaSelecionada, 1) + "' foi excluído.");
-                setagemInicial();
-                produtoBuscaTodos();
             }
         }
         if (reply == JOptionPane.NO_OPTION) {
@@ -798,11 +798,34 @@ public class PecaUI extends javax.swing.JFrame {
         }
     }
     
+    private void deletaImagemPeca(){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "SELECT PathImagem FROM Produto WHERE Codigo = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, (String)tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 0));
+                ResultSet rs = pst.executeQuery();
+                while (rs.next()){
+                    String pathArquivo = rs.getString("PathImagem");
+                    File arquivoAux = new File(pathArquivo);
+                    if (arquivoAux.delete()){
+                    }
+                }
+                con.close();
+
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
     private String buscaImagem(String numProduto){
         String retorno = "";
         
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = null;
@@ -825,7 +848,7 @@ public class PecaUI extends javax.swing.JFrame {
         if (jRadioButton_Codigo.isSelected() || jRadioButton_Descricao.isSelected()){
             limpaTabelaProdutos();
             try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = null;
@@ -842,7 +865,7 @@ public class PecaUI extends javax.swing.JFrame {
                         ResultSet rs = pst.executeQuery();
                         while (rs.next()) {
                             DefaultTableModel modeloAux = (DefaultTableModel) tabelaProdutos.getModel();
-                            modeloAux.addRow(new Object[]{rs.getString("Codigo"), rs.getString("Descricao"), rs.getString("PrecoVenda"), rs.getString("QtdEstoque")});
+                            modeloAux.addRow(new Object[]{rs.getString("Codigo"), rs.getString("Descricao"), rs.getString("PrecoVenda"), rs.getString("QtdEstoque"), rs.getString("LocalEstoque")});
                         }
                     }
                     
@@ -869,7 +892,7 @@ public class PecaUI extends javax.swing.JFrame {
             ArrayList<String> listaNomes = new ArrayList();
             //listaNomes.add("0");
             try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql;
@@ -917,7 +940,7 @@ public class PecaUI extends javax.swing.JFrame {
     
     private void buscaNomeVariavelContinue(String codigo){   
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = null;
@@ -937,7 +960,7 @@ public class PecaUI extends javax.swing.JFrame {
     public void produtoBuscaTodos(){
         limpaTabelaProdutos();
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = null;
@@ -946,7 +969,7 @@ public class PecaUI extends javax.swing.JFrame {
                 ResultSet rs = pst.executeQuery();
                 while (rs.next()) {
                     DefaultTableModel modeloAux = (DefaultTableModel) tabelaProdutos.getModel();
-                    modeloAux.addRow(new Object[]{rs.getString("Codigo"), rs.getString("Descricao"), rs.getString("PrecoVenda"), rs.getString("QtdEstoque")});
+                    modeloAux.addRow(new Object[]{rs.getString("Codigo"), rs.getString("Descricao"), rs.getString("PrecoVenda"), rs.getString("QtdEstoque"), rs.getString("LocalEstoque")});
                 }
                 if (tabelaProdutos.getRowCount() == 0) {
                     JOptionPane.showMessageDialog(null, "A pesquisa não encontrou nenhum produto.");
@@ -1037,7 +1060,7 @@ public class PecaUI extends javax.swing.JFrame {
         ArrayList<Especificacao> listaEspecificacoes = new ArrayList();
         ArrayList<String> listaNomesVariantes = new ArrayList();
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = null;
@@ -1055,7 +1078,7 @@ public class PecaUI extends javax.swing.JFrame {
         }
         
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = null;

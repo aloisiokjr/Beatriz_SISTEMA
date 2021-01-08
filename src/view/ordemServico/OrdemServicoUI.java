@@ -31,6 +31,7 @@ import javax.swing.table.DefaultTableModel;
 import model.Arquivo;
 import model.OrdemServico;
 import model.SituacaoOS;
+import util.CaminhoDB;
 import util.SQL_URL;
 import util.ToHashHex;
 
@@ -109,14 +110,14 @@ public class OrdemServicoUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "", "Numero da OS", "Nome do Cliente", "Placa do Veículo", "Nome do Motorista", "CPF do Motorista", "Data de Entrada", "Previsão de Entrega"
+                "", "Situação", "Numero da OS", "Nome do Cliente", "Placa do Veículo", "Nome do Motorista", "CPF do Motorista", "Data de Entrada", "Previsão de Entrega"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -137,13 +138,14 @@ public class OrdemServicoUI extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabelaOS);
         if (tabelaOS.getColumnModel().getColumnCount() > 0) {
             tabelaOS.getColumnModel().getColumn(0).setPreferredWidth(50);
-            tabelaOS.getColumnModel().getColumn(1).setPreferredWidth(100);
-            tabelaOS.getColumnModel().getColumn(2).setPreferredWidth(200);
-            tabelaOS.getColumnModel().getColumn(3).setPreferredWidth(120);
-            tabelaOS.getColumnModel().getColumn(4).setPreferredWidth(200);
-            tabelaOS.getColumnModel().getColumn(5).setPreferredWidth(120);
+            tabelaOS.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tabelaOS.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tabelaOS.getColumnModel().getColumn(3).setPreferredWidth(200);
+            tabelaOS.getColumnModel().getColumn(4).setPreferredWidth(120);
+            tabelaOS.getColumnModel().getColumn(5).setPreferredWidth(200);
             tabelaOS.getColumnModel().getColumn(6).setPreferredWidth(120);
             tabelaOS.getColumnModel().getColumn(7).setPreferredWidth(120);
+            tabelaOS.getColumnModel().getColumn(8).setPreferredWidth(120);
         }
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logoR.png"))); // NOI18N
@@ -589,7 +591,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
         ArrayList<Arquivo> listaArquivos;
         ArrayList<SituacaoOS> listaSituacao;
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT * FROM OrdemServico WHERE NumOS = ?";
@@ -623,7 +625,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
         ArrayList<Arquivo> listaArquivos = new ArrayList();
         String Path, Descricao;
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT * FROM Arquivo_OS WHERE CodigoOS = ?";
@@ -653,7 +655,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
         ArrayList<Arquivo> listaArquivos;
         
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT * FROM SituacaoOS WHERE NumeroOS = ?";
@@ -668,7 +670,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
                     Status = rs.getString("Status");
                     DataPrevisao = rs.getString("DataEntrega");
                     
-                    listaArquivos = buscaArquivosS(Codigo+"");
+                    listaArquivos = buscaArquivosS(Codigo+"",numOS);
                     SituacaoOS sitOS = new SituacaoOS(Data,numOS,Codigo,Descricao,Status,DataPrevisao,listaArquivos);
                     listaSituacao.add(sitOS);
                 }
@@ -680,17 +682,18 @@ public class OrdemServicoUI extends javax.swing.JFrame {
         return listaSituacao;
     }
     
-    private ArrayList<Arquivo> buscaArquivosS(String codS){
+    private ArrayList<Arquivo> buscaArquivosS(String codS, String numOS){
         ArrayList<Arquivo> listaArquivos = new ArrayList();
         
-        String CodigoOS, Path, Descricao, Data;
+        String Path, Descricao, Data;
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
-                String sql = "SELECT * FROM Arquivo_Situacao WHERE CodigoS = ?";
+                String sql = "SELECT * FROM Arquivo_Situacao WHERE CodigoS = ? AND NumOS = ?";
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1, codS);
+                pst.setString(2, numOS);
                 ResultSet rs = pst.executeQuery();
 
                 while(rs.next()){
@@ -713,7 +716,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
     public void oSBuscaTodos(){
         limpaTabelaOS();
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT * FROM OrdemServico ORDER BY Encerrada, NumOS";
@@ -742,7 +745,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
         if (radio_NumOS.isSelected() ||  radio_PlacaVeiculo.isSelected() || radio_NomeMotorista.isSelected() || radio_CPF.isSelected()){
             limpaTabelaOS();
             try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = null;
@@ -771,7 +774,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
                                 status = "ABERTO";
                             }
                             DefaultTableModel modeloAux = (DefaultTableModel) tabelaOS.getModel();
-                            modeloAux.addRow(new Object[]{i, status, rs.getString("NumOS"), nomeCliente, rs.getString("VeiculoPlaca"), rs.getString("NomeMotorista"), rs.getString("CPFMotorista"), rs.getString("Data")});
+                            modeloAux.addRow(new Object[]{i, status, rs.getString("NumOS"), nomeCliente, rs.getString("VeiculoPlaca"), rs.getString("NomeMotorista"), rs.getString("CPFMotorista"), rs.getString("Data"), rs.getString("DataEntrega")});
                             i++;
                         }
                     }
@@ -791,7 +794,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
                 oSBuscaTodos();
             } else {
                 try {
-                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    Class.forName("com.mysql.cj.jdbc.Driver");
                     String url = SQL_URL.getUrl();
                     try (Connection con = DriverManager.getConnection(url)) {
                         String sql = "SELECT DocCliente FROM Cliente WHERE Nome LIKE '%"+palavraBusca+"%' OR RazaoSocial LIKE '%"+palavraBusca+"%' OR NomeFantasia LIKE '%"+palavraBusca+"%'";
@@ -808,7 +811,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
                 }
 
                 try {
-                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    Class.forName("com.mysql.cj.jdbc.Driver");
                     String url = SQL_URL.getUrl();
                     try (Connection con = DriverManager.getConnection(url)) {
                         String sql = "SELECT DocCliente FROM Cliente_NomeVariante WHERE NomeVariante LIKE '%"+palavraBusca+"%'";
@@ -836,7 +839,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
                 oSBuscaTodos();
             } else {
                 try {
-                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    Class.forName("com.mysql.cj.jdbc.Driver");
                     String url = SQL_URL.getUrl();
                     try (Connection con = DriverManager.getConnection(url)) {
                         String sql = "SELECT PlacaVeiculo FROM Veiculo_Caracteristica WHERE Caracteristica LIKE '%"+palavraBusca+"%'";
@@ -859,7 +862,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
     
     private int buscaOsPorCliente(String aux, int i){
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT * FROM OrdemServico WHERE DocCliente = ?";
@@ -875,7 +878,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
                         status = "ABERTO";
                     }
                     DefaultTableModel modeloAux = (DefaultTableModel) tabelaOS.getModel();
-                    modeloAux.addRow(new Object[]{i, status, rs.getString("NumOS"), nomeCliente, rs.getString("VeiculoPlaca"), rs.getString("NomeMotorista"), rs.getString("CPFMotorista"), rs.getString("Data")});
+                    modeloAux.addRow(new Object[]{i, status, rs.getString("NumOS"), nomeCliente, rs.getString("VeiculoPlaca"), rs.getString("NomeMotorista"), rs.getString("CPFMotorista"), rs.getString("Data"), rs.getString("DataEntrega")});
                     i++;
                 }  
             }
@@ -888,7 +891,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
     
     private int buscaOsPorVeiculo(String aux, int i){
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT * FROM OrdemServico WHERE VeiculoPlaca = ?";
@@ -904,7 +907,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
                         status = "ABERTO";
                     }
                     DefaultTableModel modeloAux = (DefaultTableModel) tabelaOS.getModel();
-                    modeloAux.addRow(new Object[]{i, status, rs.getString("NumOS"), nomeCliente, rs.getString("VeiculoPlaca"), rs.getString("NomeMotorista"), rs.getString("CPFMotorista"), rs.getString("Data")});
+                    modeloAux.addRow(new Object[]{i, status, rs.getString("NumOS"), nomeCliente, rs.getString("VeiculoPlaca"), rs.getString("NomeMotorista"), rs.getString("CPFMotorista"), rs.getString("Data"), rs.getString("DataEntrega")});
                     i++;
                 }  
             }
@@ -929,7 +932,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
         String retorno = "";
         
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT NomeFantasia FROM Cliente WHERE DocCliente = ?";
@@ -949,7 +952,7 @@ public class OrdemServicoUI extends javax.swing.JFrame {
     }
     
     private void oSExcluir() throws UnsupportedEncodingException, NoSuchAlgorithmException{
-        String numOS = ((String)tabelaOS.getValueAt(tabelaOS.getSelectedRow(), 1));
+        String numOS = ((String)tabelaOS.getValueAt(tabelaOS.getSelectedRow(), 2));
         String message = "Deseja realmente excluir a OS '" + numOS + "'?";
         String title = "Confirmação de Exclusao";
         int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
@@ -958,12 +961,12 @@ public class OrdemServicoUI extends javax.swing.JFrame {
             String aux = ToHashHex.toHexSHA256(senhaM);
             boolean controle = false;
             try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
-                    String sql = "SELECT SenhaM FROM PassC WHERE SenhaM = ?";
+                    String sql = "SELECT senhaMaster FROM masterp WHERE senhaMaster = ?";
                     PreparedStatement pst = con.prepareStatement(sql);
-                    pst.setString(1, numOS);
+                    pst.setString(1, aux);
                     ResultSet rs = pst.executeQuery();
                     if (rs.next()){
                         controle = true;
@@ -975,6 +978,8 @@ public class OrdemServicoUI extends javax.swing.JFrame {
             
             if (controle){
                 excluiOSTrue(numOS);
+            } else {
+                JOptionPane.showMessageDialog(null, "Senha incorreta.");
             }
         }
         if (reply == JOptionPane.NO_OPTION) {
@@ -984,80 +989,117 @@ public class OrdemServicoUI extends javax.swing.JFrame {
     
     private void excluiOSTrue(String numOS){
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "DELETE FROM OrdemServico WHERE NumOS = ?";
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1, numOS);
-                ResultSet rs = pst.executeQuery();
-                if (rs.next()){
+                pst.execute();
+                con.close();
                 
-                }
+                osExcluiArquivos(numOS);
+                osExcluiSituacoes(numOS);
             }
-        } catch (HeadlessException | ClassNotFoundException e) {
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null, e);
-        } catch (SQLException e){
-            osExcluiArquivos(numOS);
-            osExcluiSituacoes(numOS);
         }
     }
     
     private void osExcluiArquivos(String numOS){
+        deletaArquivoOSLocal(numOS);
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "DELETE FROM Arquivo_OS WHERE CodigoOS = ?";
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1, numOS);
-                ResultSet rs = pst.executeQuery();
+                pst.execute();
+                con.close();
 
             }
-        } catch (HeadlessException | ClassNotFoundException e) {
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null, e);
-        } catch (SQLException e) {
-            
+        }
+    }
+    
+    private void deletaArquivoOSLocal(String numOS){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "SELECT Path FROM Arquivo_OS WHERE CodigoOS = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, numOS);
+                ResultSet rs = pst.executeQuery();
+                while (rs.next()){
+                    String pathArquivo = rs.getString("Path");
+                    File arquivoAux = new File(pathArquivo);
+                    if (arquivoAux.delete()){
+                    }
+                }
+                con.close();
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
         }
     }
     
     private void osExcluiSituacoes(String numOS){
+        deletaArquivosSLocal(numOS);
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
-                String sql = "DELETE FROM Arquivo_Situacao WHERE CodigoS IN (SELECT Codigo FROM SituacaoOS WHERE NumeroOS = ?)";
+                String sql = "DELETE FROM arquivo_situacao WHERE NumOS = ?";
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1, numOS);
-                ResultSet rs = pst.executeQuery();
-                if (rs.next()){
-                    
-                }
-
+                pst.execute();
+                con.close();
+                
+                JOptionPane.showMessageDialog(null, "A OS'"+numOS+"' foi excluída com sucesso.");
+                oSBuscaTodos();
             }
-        } catch (HeadlessException | ClassNotFoundException e) {
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null, e);
-        } catch (SQLException e) {
-            
         }
         
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "DELETE FROM SituacaoOS WHERE NumeroOS = ?";
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1, numOS);
-                ResultSet rs = pst.executeQuery();
-                if (rs.next()){
-                    
-                }
+                pst.execute();
+                con.close();
             }
-        } catch (HeadlessException | ClassNotFoundException e) {
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null, e);
-        } catch (SQLException e) {
-            
         }
+    }
+    
+    private void deletaArquivosSLocal(String numOS){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = SQL_URL.getUrl();
+            try (Connection con = DriverManager.getConnection(url)) {
+                String sql = "SELECT Path FROM Arquivo_Situacao WHERE NumOS = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, numOS);
+                ResultSet rs = pst.executeQuery();
+                while (rs.next()){
+                    String pathArquivo = rs.getString("Path");
+                    File arquivoAux = new File(pathArquivo);
+                    if (arquivoAux.delete()){
+                    }
+                }
+                con.close();
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }        
     }
     
     private void geraTxt()throws IOException{

@@ -887,7 +887,7 @@ public class EditarFornecedor extends javax.swing.JFrame {
                 getListaRequisitos().get(3).setIsOk(false);
             } else {
                 if (!campoAux.getText().contains(" ")) {
-                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    Class.forName("com.mysql.cj.jdbc.Driver");
                     String url = SQL_URL.getUrl();
                     try ( Connection con = DriverManager.getConnection(url)) {
                         String sql = "SELECT CPF_CNPJ FROM Fornecedor WHERE CPF_CNPJ = ?";
@@ -924,7 +924,7 @@ public class EditarFornecedor extends javax.swing.JFrame {
                 getListaRequisitos().get(3).setIsOk(false);
             } else {
                 if (!campoAux.getText().contains(" ")) {
-                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    Class.forName("com.mysql.cj.jdbc.Driver");
                     String url = SQL_URL.getUrl();
                     try ( Connection con = DriverManager.getConnection(url)) {
                         String sql = "SELECT CPF_CNPJ FROM Fornecedor WHERE CPF_CNPJ = ?";
@@ -998,7 +998,7 @@ public class EditarFornecedor extends javax.swing.JFrame {
             Observacao = campoObservacaoFornecedor.getText();
 
             try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try ( Connection con = DriverManager.getConnection(url)) {
                     String sql = "UPDATE Fornecedor SET Razao_Social = ?,Nome_Fantasia = ?,Tipo = ?,CPF_CNPJ = ?,Telefone = ?,Celular = ?,Email = ?,Responsavel = ?,CEP = ?,Logradouro = ?,Numero = ?,Complemento = ?,Bairro = ?,Cidade = ?,UF = ?,Observacao = ? WHERE CPF_CNPJ = ?";
@@ -1021,16 +1021,13 @@ public class EditarFornecedor extends javax.swing.JFrame {
                     pst.setString(16, Observacao);
                     pst.setString(17, getFornecedorAux().getCPF_CNPJ());
 
-                    ResultSet rs = pst.executeQuery();
+                    pst.executeUpdate();
+                    con.close();
 
-                    if (rs.next()) {
-
-                    }
+                    JOptionPane.showMessageDialog(null, "Fornecedor '" + Nome_Fantasia + "' editado com sucesso.");
+                    fornecedorController.fechaEdicaoFornecedor();
                 }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Fornecedor '" + Nome_Fantasia + "' editado com sucesso.");
-                fornecedorController.fechaEdicaoFornecedor();
-            } catch (HeadlessException | ClassNotFoundException e) {
+            } catch (SQLException | HeadlessException | ClassNotFoundException e) {
                 JOptionPane.showMessageDialog(null, e);
             }
         }

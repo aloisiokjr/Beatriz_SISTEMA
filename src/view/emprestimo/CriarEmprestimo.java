@@ -381,7 +381,7 @@ public class CriarEmprestimo extends javax.swing.JFrame {
         listaRequisitos.add(new Requisito("Data de Empréstimo", false)); //4
         
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT MAX(Codigo) AS Codigo FROM Emprestimo";
@@ -423,7 +423,7 @@ public class CriarEmprestimo extends javax.swing.JFrame {
             dataDevolucao = campoData.getText();
             
             try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = "INSERT INTO Emprestimo (Item, Funcionario, Quantidade, Setor, Codigo, DiaDeEmprestimo, Devolvido) VALUES (?,?,?,?,?,?,?)";
@@ -436,16 +436,15 @@ public class CriarEmprestimo extends javax.swing.JFrame {
                     pst.setString(6, dataDevolucao);
                     pst.setString(7, "N");
 
-                    ResultSet rs = pst.executeQuery();
+                    pst.execute();
+                    con.close();
                     
-                    if(rs.next()){
-                        // FAZ NADA
-                    }
+                    JOptionPane.showMessageDialog(null, "Empréstimo do Item '" + item + "' registrado com sucesso.");
+                    //JOptionPane.showMessageDialog(null,e);
+                    emprestimoController.fechaCriacaoEmprestimo();
                 }
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Empréstimo do Item '" + item + "' registrado com sucesso.");
-                //JOptionPane.showMessageDialog(null,e);
-                emprestimoController.fechaCriacaoEmprestimo();
+                
             } catch (HeadlessException | ClassNotFoundException e) {
                 JOptionPane.showMessageDialog(null, e);
             }

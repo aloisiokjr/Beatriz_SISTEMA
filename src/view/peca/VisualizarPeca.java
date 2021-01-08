@@ -7,7 +7,6 @@ package view.peca;
 
 import controller.PecasController;
 import java.awt.event.KeyEvent;
-import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Iterator;
 import javax.swing.ImageIcon;
@@ -70,6 +69,8 @@ public class VisualizarPeca extends javax.swing.JFrame {
         campoPrecoVenda = new javax.swing.JFormattedTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        campoLocalEstoque = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
@@ -152,6 +153,12 @@ public class VisualizarPeca extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabel10.setText("INFORMAÇÕES GERAIS");
 
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel18.setText("Local no Estoque");
+
+        campoLocalEstoque.setEditable(false);
+        campoLocalEstoque.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -197,7 +204,11 @@ public class VisualizarPeca extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoAnoPeca)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(867, 867, 867))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoLocalEstoque)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(703, 703, 703))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addGap(879, 879, 879))))
@@ -245,7 +256,11 @@ public class VisualizarPeca extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addComponent(jLabel7)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(campoModeloPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(campoModeloPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(campoLocalEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -600,6 +615,7 @@ public class VisualizarPeca extends javax.swing.JFrame {
         campoMarcaPeca.setText(getPecaAux().getMarca());
         campoModeloPeca.setText(getPecaAux().getModelo());
         campoAnoPeca.setText(getPecaAux().getAno());
+        campoLocalEstoque.setText(getPecaAux().getLocalEstoque());
         
         Iterator<Especificacao> iteradorEspec = getPecaAux().getListaEspecificacoes().iterator();
         Especificacao especAux;
@@ -654,6 +670,7 @@ public class VisualizarPeca extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField campoAnoPeca;
     private javax.swing.JTextField campoCodigoPeca;
     private javax.swing.JTextField campoDescricaoPeca;
+    private javax.swing.JTextField campoLocalEstoque;
     private javax.swing.JTextField campoMarcaPeca;
     private javax.swing.JTextField campoModeloPeca;
     private javax.swing.JFormattedTextField campoPorcentagemLucro;
@@ -664,6 +681,7 @@ public class VisualizarPeca extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

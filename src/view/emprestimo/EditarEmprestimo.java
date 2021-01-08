@@ -419,7 +419,7 @@ public class EditarEmprestimo extends javax.swing.JFrame {
             dataEmprestimo = campoData.getText();
             
             try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = "UPDATE Emprestimo SET Item = ?, Funcionario = ?, Quantidade = ?, Setor = ?, DiaDeEmprestimo = ? WHERE Codigo = ?";
@@ -431,18 +431,14 @@ public class EditarEmprestimo extends javax.swing.JFrame {
                     pst.setString(5, dataEmprestimo);
                     pst.setString(6, codigo);
 
-                    ResultSet rs = pst.executeQuery();
+                    pst.executeUpdate();
+                    con.close();
                     
-                    if(rs.next()){
-                        // FAZ NADA
-                    }
+                    JOptionPane.showMessageDialog(null, "Empréstimo do Item '" + item + "' editado com sucesso.");
+                    emprestimoController.fechaEdicaoEmprestimo();
                 }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Empréstimo do Item '" + item + "' editado com sucesso.");
-                //JOptionPane.showMessageDialog(null,e);
-                emprestimoController.fechaEdicaoEmprestimo();
-            } catch (HeadlessException | ClassNotFoundException e) {
-                JOptionPane.showMessageDialog(null, e);
+            } catch (SQLException | HeadlessException | ClassNotFoundException e) {
+                JOptionPane.showMessageDialog(null,e);
             }
         }
     }

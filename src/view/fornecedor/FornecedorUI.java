@@ -19,7 +19,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -563,7 +562,7 @@ public class FornecedorUI extends javax.swing.JFrame {
         Fornecedor fornecedorAux2;
         String  Razao_Social, Nome_Fantasia, Tipo,  CPF_CNPJ, Telefone, Celular, Email, Responsavel, CEP, Logradouro, Numero, Complemento, Bairro, Cidade, UF, Observacao;
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT * FROM Fornecedor WHERE CPF_CNPJ = ?";
@@ -607,25 +606,22 @@ public class FornecedorUI extends javax.swing.JFrame {
         int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
             try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = "DELETE FROM Fornecedor WHERE CPJ_CNPJ = ?";
                     PreparedStatement pst = con.prepareStatement(sql);
                     colunaSelecionada = 3;
                     pst.setString(1, (String) tabelaFornecedores.getValueAt(linhaSelecionada, colunaSelecionada));
-                    ResultSet rs = pst.executeQuery();
+                    pst.execute();
+                    con.close();
                     
-                    if(rs.next()){
-                        
-                    }
+                    colunaSelecionada = 2;
+                    JOptionPane.showMessageDialog(null, "O fornecedor '" + (String) tabelaFornecedores.getValueAt(linhaSelecionada, colunaSelecionada) + "' foi excluído.");
+                    fornecedorBuscaTodos();
                 }
-            } catch (HeadlessException | ClassNotFoundException e) {
+            } catch (HeadlessException | ClassNotFoundException | SQLException e) {
                 JOptionPane.showMessageDialog(null, e);
-            } catch (SQLException e) {
-                colunaSelecionada = 2;
-                JOptionPane.showMessageDialog(null, "O fornecedor '" + (String) tabelaFornecedores.getValueAt(linhaSelecionada, colunaSelecionada) + "' foi excluído.");
-                fornecedorBuscaTodos();
             }
         }
         if (reply == JOptionPane.NO_OPTION) {
@@ -639,7 +635,7 @@ public class FornecedorUI extends javax.swing.JFrame {
         Fornecedor fornecedorAux2;
         String  Razao_Social, Nome_Fantasia, Tipo,  CPF_CNPJ, Telefone, Celular, Email, Responsavel, CEP, Logradouro, Numero, Complemento, Bairro, Cidade, UF, Observacao;
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT * FROM Fornecedor WHERE CPF_CNPJ = ?";
@@ -680,7 +676,7 @@ public class FornecedorUI extends javax.swing.JFrame {
         if (radio_CPFCNPJ.isSelected() || radio_Razao.isSelected() || radio_NomeFantasia.isSelected() || radio_Responsavel.isSelected()){
             limpaTabelaFornecedores();
             try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = SQL_URL.getUrl();
                 try (Connection con = DriverManager.getConnection(url)) {
                     String sql = null;
@@ -723,7 +719,7 @@ public class FornecedorUI extends javax.swing.JFrame {
     public void fornecedorBuscaTodos(){
         limpaTabelaFornecedores();
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = SQL_URL.getUrl();
             try (Connection con = DriverManager.getConnection(url)) {
                 String sql = "SELECT Razao_Social, Nome_Fantasia, CPF_CNPJ, Responsavel FROM Fornecedor";
